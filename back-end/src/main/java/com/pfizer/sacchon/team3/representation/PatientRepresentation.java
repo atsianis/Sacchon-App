@@ -1,6 +1,6 @@
 package com.pfizer.sacchon.team3.representation;
 
-import com.pfizer.sacchon.team3.model.Patients;
+import com.pfizer.sacchon.team3.model.Patient;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,22 +22,22 @@ public class PatientRepresentation {
 
 
     public PatientRepresentation(
-            Patients patients) {
-        if (patients != null) {
-            firstName = patients.getFirstName();
-            lastName = patients.getLastName();
-            email = patients.getEmail();
-            password = patients.getPassword();
-            dob = patients.getDob();
-            canBeExamined = patients.isCanBeExamined();
-            isDeleted = patients.isDeleted();
-            lastActive = patients.getLastActive();
-            uri = "http://localhost:9000/v1/patient/" + patients.getId();
+            Patient patient) {
+        if (patient != null) {
+            firstName = patient.getFirstName();
+            lastName = patient.getLastName();
+            email = patient.getEmail();
+            password = patient.getPassword();
+            dob = patient.getDob();
+            canBeExamined = patient.isCanBeExamined();
+            isDeleted = patient.isDeleted();
+            lastActive = patient.getLastActive();
+            uri = "http://localhost:9000/v1/patient/" + patient.getId();
         }
     }
 
-    public Patients createPatient() {
-        Patients p = new Patients();
+    public Patient createPatient() {
+        Patient p = new Patient();
         p.setFirstName(firstName);
         p.setLastName(lastName);
         p.setEmail(email);

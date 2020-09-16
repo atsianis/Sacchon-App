@@ -2,7 +2,7 @@ package com.pfizer.sacchon.team3.resource;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
-import com.pfizer.sacchon.team3.model.Patients;
+import com.pfizer.sacchon.team3.model.Patient;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
@@ -49,10 +49,10 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
 
         // Initialize the persistence layer.
         PatientRepository patientRepository = new PatientRepository(JpaUtil.getEntityManager());
-        Patients p;
+        Patient p;
         try {
 
-            Optional<Patients> oproduct = patientRepository.findById(id);
+            Optional<Patient> oproduct = patientRepository.findById(id);
             setExisting(oproduct.isPresent());
             if (!isExisting()) {
                 LOGGER.config("patient id does not exist:" + id);
@@ -114,10 +114,10 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
 
         try {
             // Convert CompanyRepresentation to Company
-            Patients patientsIn = patientRepresentation.createPatient();
-            patientsIn.setId(id);
+            Patient patientIn = patientRepresentation.createPatient();
+            patientIn.setId(id);
 
-            Optional<Patients> patientOut = patientRepository.findById(id);
+            Optional<Patient> patientOut = patientRepository.findById(id);
             setExisting(patientOut.isPresent());
 
             // If product exists, we update it.
@@ -125,7 +125,7 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
                 LOGGER.finer("Update product.");
 
                 // Update product in DB and retrieve the new one.
-                patientOut = patientRepository.update(patientsIn);
+                patientOut = patientRepository.update(patientIn);
 
 
                 // Check if retrieved product is not null : if it is null it
@@ -165,22 +165,22 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
 
         try {
             // Convert CompanyRepresentation to Company
-            Patients patientsIn = new Patients();
-            patientsIn.setFirstName(patientRepresentation.getFirstName());
+            Patient patientIn = new Patient();
+            patientIn.setFirstName(patientRepresentation.getFirstName());
 
 
-            Optional<Patients> patientOut = patientRepository.save(patientsIn);
-            Patients patients = null;
+            Optional<Patient> patientOut = patientRepository.save(patientIn);
+            Patient patient = null;
             if (patientOut.isPresent())
-                patients = patientOut.get();
+                patient = patientOut.get();
             else
                 throw new BadEntityException(" Product has not been created");
 
             PatientRepresentation result = new PatientRepresentation();
-            result.setFirstName(patients.getFirstName());
-            result.setUri("http://localhost:9000/v1/patient/"+ patients.getId());
+            result.setFirstName(patient.getFirstName());
+            result.setUri("http://localhost:9000/v1/patient/"+ patient.getId());
 
-            getResponse().setLocationRef("http://localhost:9000/v1/patient/"+ patients.getId());
+            getResponse().setLocationRef("http://localhost:9000/v1/patient/"+ patient.getId());
             getResponse().setStatus(Status.SUCCESS_CREATED);
 
             LOGGER.finer("Patient successfully added.");

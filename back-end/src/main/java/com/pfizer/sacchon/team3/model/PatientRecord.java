@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 @Entity
-public class PatientRecords {
+public class PatientRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -16,9 +16,9 @@ public class PatientRecords {
     private Date timeCreated;
     @ManyToOne
     @JoinColumn(name ="patients_id")
-    private Patients patients;
+    private Patient patient;
     @ManyToOne
     @JoinColumn(name ="consultations_id")
-    private Consultations consultations;
+    private Consultation consultation;
 
 }

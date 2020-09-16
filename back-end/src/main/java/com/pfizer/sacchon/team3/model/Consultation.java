@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Consultations {
+public class Consultation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +18,10 @@ public class Consultations {
     private String comment;
     private Date seenByPatient;
     @OneToMany(mappedBy = "consultations")
-    private List<PatientRecords> patientRecords = new ArrayList<>();
+    private List<PatientRecord> patientRecords = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "doctors_id")
-    private Doctors doctors;
+    private Doctor doctor;
 
 
 }

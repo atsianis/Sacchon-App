@@ -1,6 +1,6 @@
 package com.pfizer.sacchon.team3.repository;
 
-import com.pfizer.sacchon.team3.model.Patients;
+import com.pfizer.sacchon.team3.model.Patient;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -13,28 +13,28 @@ public class PatientRepository {
         this.entityManager = entityManager;
     }
 
-    public Optional<Patients> findById(Long id) {
-        Patients patients = entityManager.find(Patients.class, id);
-        return patients != null ? Optional.of(patients) : Optional.empty();
+    public Optional<Patient> findById(Long id) {
+        Patient patient = entityManager.find(Patient.class, id);
+        return patient != null ? Optional.of(patient) : Optional.empty();
     }
 
-    public List<Patients> findAllPatients() {
+    public List<Patient> findAllPatients() {
         return entityManager.createQuery("from Patient").getResultList();
     }
 
-    public Optional<Patients> findByLastName(String lastName) {
-        Patients patients = entityManager.createQuery("SELECT b FROM Patient b WHERE b.lastName = :lastName", Patients.class)
+    public Optional<Patient> findByLastName(String lastName) {
+        Patient patient = entityManager.createQuery("SELECT b FROM Patient b WHERE b.lastName = :lastName", Patient.class)
                 .setParameter("lastName", lastName)
                 .getSingleResult();
-        return patients != null ? Optional.of(patients) : Optional.empty();
+        return patient != null ? Optional.of(patient) : Optional.empty();
     }
 
-    public Optional<Patients> save(Patients patients){
+    public Optional<Patient> save(Patient patient){
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist (patients);
+            entityManager.persist (patient);
             entityManager.getTransaction().commit();
-            return Optional.of(patients);
+            return Optional.of(patient);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,13 +42,13 @@ public class PatientRepository {
     }
 
 
-    public Optional<Patients> update(Patients patients) {
-        Patients in = entityManager.find(Patients.class, patients.getId());
-        in.setFirstName(patients.getFirstName());
-        in.setLastName(patients.getLastName());
-        in.setPassword(patients.getPassword());
-        in.setEmail(patients.getEmail());
-        in.setDob(patients.getDob());
+    public Optional<Patient> update(Patient patient) {
+        Patient in = entityManager.find(Patient.class, patient.getId());
+        in.setFirstName(patient.getFirstName());
+        in.setLastName(patient.getLastName());
+        in.setPassword(patient.getPassword());
+        in.setEmail(patient.getEmail());
+        in.setDob(patient.getDob());
         try {
             entityManager.getTransaction().begin();
             entityManager.persist (in);
@@ -61,9 +61,9 @@ public class PatientRepository {
     }
 
     public boolean remove(Long id){
-        Optional<Patients> patient = findById(id);
+        Optional<Patient> patient = findById(id);
         if (patient.isPresent()){
-            Patients p = patient.get();
+            Patient p = patient.get();
             try{
                 entityManager.getTransaction().begin();
                 entityManager.remove(p);
