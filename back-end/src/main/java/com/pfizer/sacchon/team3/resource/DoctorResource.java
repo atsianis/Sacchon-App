@@ -10,13 +10,13 @@ import org.restlet.resource.Put;
 
 public interface DoctorResource {
     @Get("json")
-    public com.pfizer.sacchon.team3.representation.DoctorRepresentation getDoctor() throws NotFoundException;
+    public DoctorRepresentation getDoctor() throws NotFoundException;
 
     @Delete
     public void remove() throws NotFoundException;
 
     @Put("json")
-    public com.pfizer.sacchon.team3.representation.DoctorRepresentation store(com.pfizer.sacchon.team3.representation.DoctorRepresentation productReprIn)
+    public DoctorRepresentation store(DoctorRepresentation productReprIn)
             throws NotFoundException, BadEntityException;
 
     @Post("json")

@@ -43,7 +43,7 @@ public class DoctorRepository {
 
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist (doctor);
+            entityManager.persist(doctor);
             entityManager.getTransaction().commit();
             return Optional.of(doctor);
         } catch (Exception e) {

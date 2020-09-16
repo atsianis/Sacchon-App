@@ -19,12 +19,22 @@ import java.util.logging.Logger;
 public class DoctorResourceImpl  extends ServerResource implements DoctorResource{
 
     public static final Logger LOGGER = Engine.getLogger(DoctorResourceImpl.class);
-
+    private DoctorRepository doctorRepository;
     private long id;
+
+//    private long id;
+//    private DoctorRepository doctorRepository;
+//
+//    @Override
+//    protected void doInit() {
+//        LOGGER.info("Initialising doctor resource starts");
+//        doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
 
     @Override
     protected void doInit() {
        LOGGER.info("Initialising doctor resource starts");
+        doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
+
         id = Long.parseLong(getAttribute("id"));
         LOGGER.info("Initialising doctor resource ends");
     }
@@ -55,7 +65,7 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
                 LOGGER.finer("User allowed to retrieve a doctor.");
                 //System.out.println(  userId);
                 DoctorRepresentation result =
-                        new DoctorRepresentation(doctor);
+                        new DoctorRepresentation();
 
                 result.setFirstName(doctor.getFirstName());
                 result.setLastActive(doctor.getLastActive());
