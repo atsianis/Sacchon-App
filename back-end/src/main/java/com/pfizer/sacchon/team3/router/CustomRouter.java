@@ -17,19 +17,19 @@ public class CustomRouter {
 
         Router router = new Router(application.getContext());
 
-        router.attach("/reporter/patients", PatientListResourceImp.class);
+        router.attach("/patients", PatientListResourceImp.class);
 
-        router.attach("/reporter/patient/{id}", PatientResourceImpl.class);
+        router.attach("/patient/{id}", PatientResourceImpl.class);
 
-        router.attach("/reporter/doctors", DoctorListResourceImpl.class);
+        router.attach("/doctors", DoctorListResourceImpl.class);
 
-        router.attach("/reporter/consultations", ConsultationListResourceImpl.class);
+        router.attach("/consultations", ConsultationListResourceImpl.class);
 
-        router.attach("/reporter/patients/inactive/{days}", PatientListResourceImp.class);
+//        router.attach("/patients/inactive/{days}", PatientListResourceImp.class);
+//
+//        router.attach("/doctors/inactive/{days}", PingServerResource.class);
 
-        router.attach("/reporter/doctors/inactive/{days}", PingServerResource.class);
-
-        router.attach("/reporter/create/doctor", DoctorResourceImpl.class);
+        router.attach("/create/doctor", DoctorResourceImpl.class);
 
         router.attach("/doctor/{id}", DoctorResourceImpl.class);
 
