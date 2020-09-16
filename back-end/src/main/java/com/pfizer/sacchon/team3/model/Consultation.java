@@ -9,7 +9,6 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name="Consultations")
 public class Consultation {
 
     @Id
@@ -18,7 +17,7 @@ public class Consultation {
     private Date timeCreated;
     private String comment;
     private Date seenByPatient;
-    @OneToMany(mappedBy = "consultations")
+    @OneToMany(mappedBy = "consultation")
     private List<PatientRecord> patientRecords = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "doctors_id")

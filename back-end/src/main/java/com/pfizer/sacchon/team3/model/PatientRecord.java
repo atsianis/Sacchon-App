@@ -7,7 +7,6 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="PatientRecords")
 public class PatientRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,10 +15,10 @@ public class PatientRecord {
     private float calories;
     private Date timeCreated;
     @ManyToOne
-    @JoinColumn(name ="patients_id")
+    @JoinColumn(name ="patient_id")
     private Patient patient;
     @ManyToOne
-    @JoinColumn(name ="consultations_id")
+    @JoinColumn(name ="consultation_id")
     private Consultation consultation;
 
 }
