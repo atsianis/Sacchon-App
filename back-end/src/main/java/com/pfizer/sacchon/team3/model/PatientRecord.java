@@ -1,8 +1,11 @@
 package com.pfizer.sacchon.team3.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
-
+@Data
+@Entity
 public class PatientRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -22,17 +22,9 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
     private DoctorRepository doctorRepository;
     private long id;
 
-//    private long id;
-//    private DoctorRepository doctorRepository;
-//
-//    @Override
-//    protected void doInit() {
-//        LOGGER.info("Initialising doctor resource starts");
-//        doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
-
     @Override
     protected void doInit() {
-       LOGGER.info("Initialising doctor resource starts");
+        LOGGER.info("Initialising doctor resource starts");
         doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
 
         id = Long.parseLong(getAttribute("id"));
