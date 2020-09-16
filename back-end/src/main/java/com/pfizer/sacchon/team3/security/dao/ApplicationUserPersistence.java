@@ -16,7 +16,7 @@ public class ApplicationUserPersistence   {
         return applicationUserPersistence;
     }
 
-     public ApplicationUser findById(String username) throws SQLException {
+     public ApplicationUser findById(String email) throws SQLException {
         Context.getCurrentLogger().finer(
                 "Method findById() of ApplicationUserPersistence called.");
 
@@ -24,13 +24,13 @@ public class ApplicationUserPersistence   {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from UserTable where username=?");
-            preparedStatement.setString(1, username);
+                    .prepareStatement("select * from UserTable where email=?");
+            preparedStatement.setString(1, email);
             ResultSet rs = preparedStatement.executeQuery();
 
             if (rs.next()) {
                 ApplicationUser user = new ApplicationUser();
-                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
                 user.setRole(Role.getRoleValue(rs.getString("role")));
                 return user;

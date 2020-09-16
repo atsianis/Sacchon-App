@@ -1,5 +1,6 @@
 package com.pfizer.sacchon.team3.router;
 
+import com.pfizer.sacchon.team3.resource.PingServerResource;
 import org.restlet.Application;
 import org.restlet.routing.Router;
 
@@ -21,4 +22,9 @@ public class CustomRouter {
         return router;
     }
 
+    public Router publicResources() {
+        Router router = new Router();
+        router.attach("/ping", PingServerResource.class);
+        return router;
+    }
 }

@@ -1,9 +1,13 @@
 package com.pfizer.sacchon.team3.representation;
 
 import com.pfizer.sacchon.team3.model.Patient;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+@Data
+@NoArgsConstructor
 public class PatientRepresentation {
     private String firstName;
     private String lastName;
