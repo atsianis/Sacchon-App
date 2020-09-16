@@ -15,9 +15,6 @@ public interface PatientResource {
     @Get("json")
     public PatientRepresentation getPatient() throws NotFoundException;
 
-    @Get("json")
-    public List<PatientRepresentation> getPatients() throws NotFoundException;
-
     @Delete
     public void remove() throws NotFoundException;
 

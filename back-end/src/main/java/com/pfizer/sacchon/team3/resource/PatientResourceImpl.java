@@ -2,7 +2,7 @@ package com.pfizer.sacchon.team3.resource;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
-import com.pfizer.sacchon.team3.model.Patient;
+import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
@@ -14,8 +14,6 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,10 +49,10 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
 
         // Initialize the persistence layer.
         PatientRepository patientRepository = new PatientRepository(JpaUtil.getEntityManager());
-        Patient p;
+        Patients p;
         try {
 
-            Optional<Patient> oproduct = patientRepository.findById(id);
+            Optional<Patients> oproduct = patientRepository.findById(id);
             setExisting(oproduct.isPresent());
             if (!isExisting()) {
                 LOGGER.config("patient id does not exist:" + id);
@@ -71,26 +69,6 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
             throw new ResourceException(ex);
         }
 
-    }
-
-    @Override
-    public List<PatientRepresentation> getPatients() throws NotFoundException {
-
-        LOGGER.finer("Select all patients.");
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-
-        try {
-
-            List<Patient> patients = patientRepository.findAllPatients();
-            List<PatientRepresentation> result = new ArrayList<>();
-            /*for(Patient p :patients)
-                result.add(new PatientRepresentation(p));*/
-            patients.forEach(patient -> result.add(new PatientRepresentation(patient)));
-            return result;
-        } catch (Exception e) {
-            throw new NotFoundException("patients not found");
-        }
     }
 
     @Override
@@ -136,10 +114,10 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
 
         try {
             // Convert CompanyRepresentation to Company
-            Patient patientIn = patientRepresentation.createPatient();
-            patientIn.setId(id);
+            Patients patientsIn = patientRepresentation.createPatient();
+            patientsIn.setId(id);
 
-            Optional<Patient> patientOut = patientRepository.findById(id);
+            Optional<Patients> patientOut = patientRepository.findById(id);
             setExisting(patientOut.isPresent());
 
             // If product exists, we update it.
@@ -147,7 +125,7 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
                 LOGGER.finer("Update product.");
 
                 // Update product in DB and retrieve the new one.
-                patientOut = patientRepository.update(patientIn);
+                patientOut = patientRepository.update(patientsIn);
 
 
                 // Check if retrieved product is not null : if it is null it
@@ -187,22 +165,22 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
 
         try {
             // Convert CompanyRepresentation to Company
-            Patient patientIn = new Patient();
-            patientIn.setFirstName(patientRepresentation.getFirstName());
+            Patients patientsIn = new Patients();
+            patientsIn.setFirstName(patientRepresentation.getFirstName());
 
 
-            Optional<Patient> patientOut = patientRepository.save(patientIn);
-            Patient patient= null;
+            Optional<Patients> patientOut = patientRepository.save(patientsIn);
+            Patients patients = null;
             if (patientOut.isPresent())
-                patient = patientOut.get();
+                patients = patientOut.get();
             else
                 throw new BadEntityException(" Product has not been created");
 
             PatientRepresentation result = new PatientRepresentation();
-            result.setFirstName(patient.getFirstName());
-            result.setUri("http://localhost:9000/v1/patient/"+patient.getId());
+            result.setFirstName(patients.getFirstName());
+            result.setUri("http://localhost:9000/v1/patient/"+ patients.getId());
 
-            getResponse().setLocationRef("http://localhost:9000/v1/patient/"+patient.getId());
+            getResponse().setLocationRef("http://localhost:9000/v1/patient/"+ patients.getId());
             getResponse().setStatus(Status.SUCCESS_CREATED);
 
             LOGGER.finer("Patient successfully added.");

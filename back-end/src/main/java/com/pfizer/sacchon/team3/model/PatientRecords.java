@@ -1,9 +1,13 @@
 package com.pfizer.sacchon.team3.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
-public class PatientRecord {
+@Data
+@Entity
+public class PatientRecords {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -11,10 +15,10 @@ public class PatientRecord {
     private float calories;
     private Date timeCreated;
     @ManyToOne
-    @JoinColumn(name ="patient_id")
-    private Patient patient;
+    @JoinColumn(name ="patients_id")
+    private Patients patients;
     @ManyToOne
-    @JoinColumn(name ="consultation_id")
-    private Consultation consultation;
+    @JoinColumn(name ="consultations_id")
+    private Consultations consultations;
 
 }

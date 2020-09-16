@@ -60,9 +60,6 @@ public class Main extends Application {
         apiGuard.setNext(apiRouter);
 
         publicRouter.attachDefault(apiGuard);
-
-        // return publicRouter;
-
         CorsFilter corsFilter = new CorsFilter(this);
         return corsFilter.createCorsFilter(publicRouter);
     }
