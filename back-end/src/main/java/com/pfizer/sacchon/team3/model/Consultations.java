@@ -1,11 +1,15 @@
 package com.pfizer.sacchon.team3.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Consultation {
+@Data
+@Entity
+public class Consultations {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,11 +17,11 @@ public class Consultation {
     private Date timeCreated;
     private String comment;
     private Date seenByPatient;
-    @OneToMany(mappedBy = "consultation")
-    private List<PatientRecord> patientRecords = new ArrayList<>();
+    @OneToMany(mappedBy = "consultations")
+    private List<PatientRecords> patientRecords = new ArrayList<>();
     @ManyToOne
-    @JoinColumn(name = "doctor_id")
-    private Doctor doctor;
+    @JoinColumn(name = "doctors_id")
+    private Doctors doctors;
 
 
 }
