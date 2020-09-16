@@ -10,9 +10,7 @@ A Diabetes Management
 
 Web Application
 
-## Software Requirements Specification
-
-## Document
+## Software Requirements Specification Document
 
 ## September 2020
 
