@@ -21,13 +21,14 @@ public class Main extends Application {
     public static void main(String[] args) throws Exception{
         LOGGER.info("Contacts application starting...");
 
+
         Component c = new Component();
         c.getServers().add(Protocol.HTTP, 9000);
         c.getDefaultHost().attach("/v1", new Main());
         c.start();
 
         LOGGER.info("Sample Web API started");
-        LOGGER.info("URL: http://localhost:9000/v1");
+        LOGGER.info("URL: http://localhost:9000/v1/doctor");
 
     }
     public Main() {
