@@ -25,15 +25,15 @@ public class DoctorRepository {
     }
 
     public Optional<Doctor> findByName(String name) {
-        Doctor doctor = entityManager.createQuery("SELECT b FROM Doctor b WHERE b.name = :name", Doctor.class)
-                .setParameter("name", name)
+        Doctor doctor = entityManager.createQuery("SELECT b FROM Doctor b WHERE b.firstname = :firstName", Doctor.class)
+                .setParameter("firstName", name)
                 .getSingleResult();
         return doctor != null ? Optional.of(doctor) : Optional.empty();
     }
 
     public Optional<Doctor> findByNameNamedQuery(String name) {
-        Doctor doctor = entityManager.createNamedQuery("Product.findByName", Doctor.class)
-                .setParameter("name", name)
+        Doctor doctor = entityManager.createNamedQuery("Doctor.findByName", Doctor.class)
+                .setParameter("firstname", name)
                 .getSingleResult();
         return doctor != null ? Optional.of(doctor) : Optional.empty();
     }

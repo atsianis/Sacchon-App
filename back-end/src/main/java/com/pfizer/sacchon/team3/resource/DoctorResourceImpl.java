@@ -31,7 +31,7 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
 
     @Override
     public DoctorRepresentation getDoctor() throws NotFoundException {
-        LOGGER.info("Retrieve a product");
+        LOGGER.info("Retrieve a doctor");
 
         // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
@@ -49,7 +49,7 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
             setExisting(odoctor.isPresent());
             if (!isExisting()) {
                 LOGGER.config("doctor id does not exist:" + id);
-                throw new NotFoundException("No product with  : " + id);
+                throw new NotFoundException("No doctor with  : " + id);
             } else {
                 doctor = odoctor.get();
                 LOGGER.finer("User allowed to retrieve a doctor.");
@@ -57,6 +57,12 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
                 DoctorRepresentation result =
                         new DoctorRepresentation(doctor);
 
+                result.setFirstName(doctor.getFirstName());
+                result.setLastActive(doctor.getLastActive());
+                result.setEmail(doctor.getEmail());
+                result.setPassword(doctor.getPassword());
+                result.setLastName(doctor.getLastName());
+                result.setUri("http://localhost:9000/v1/doctor/"+id);
 
                 LOGGER.finer("Doctor successfully retrieved");
 

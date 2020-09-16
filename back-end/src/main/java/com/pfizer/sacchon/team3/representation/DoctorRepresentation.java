@@ -1,10 +1,13 @@
 package com.pfizer.sacchon.team3.representation;
 
 import com.pfizer.sacchon.team3.model.Doctor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.print.Doc;
 import java.util.Date;
-
+@Data
+@NoArgsConstructor
 public class DoctorRepresentation {
     private String firstName;
     private String lastName;
