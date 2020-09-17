@@ -1,5 +1,7 @@
 package com.pfizer.sacchon.team3.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,9 +20,11 @@ public class Consultation {
     private String comment;
     private Date seenByPatient;
     @OneToMany(mappedBy = "consultation")
+    @JsonManagedReference
     private List<PatientRecord> patientRecords = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "doctors_id")
+    @JsonBackReference
     private Doctor doctor;
 
 

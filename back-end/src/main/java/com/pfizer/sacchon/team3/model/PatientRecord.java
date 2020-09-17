@@ -1,5 +1,6 @@
 package com.pfizer.sacchon.team3.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,9 +17,11 @@ public class PatientRecord {
     private Date timeCreated;
     @ManyToOne
     @JoinColumn(name ="patient_id")
+    @JsonBackReference
     private Patient patient;
     @ManyToOne
     @JoinColumn(name ="consultation_id")
+    @JsonBackReference
     private Consultation consultation;
 
 }

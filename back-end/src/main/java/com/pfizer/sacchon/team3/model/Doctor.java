@@ -1,5 +1,6 @@
 package com.pfizer.sacchon.team3.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,8 +20,10 @@ public class Doctor {
     private String email;
     private String password;
     private Date lastActive;
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
+    @JsonManagedReference
     private List<Patient> patients = new ArrayList<>();
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
+    @JsonManagedReference
     private List<Consultation> consultations = new ArrayList<>();
 }
