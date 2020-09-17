@@ -29,7 +29,7 @@ public class ConsultationRepresentation {
             seenByPatient = consultation.getSeenByPatient();
             patientRecords = consultation.getPatientRecords();
             doctor = consultation.getDoctor();
-            uri = "http://localhost:9000/v1/patient/" + consultation.getId();
+            uri = "http://localhost:9000/v1/consultation/" + consultation.getId();
         }
     }
 
