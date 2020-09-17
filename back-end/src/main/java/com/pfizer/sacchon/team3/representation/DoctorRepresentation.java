@@ -4,6 +4,7 @@ import com.pfizer.sacchon.team3.model.Doctor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.*;
 import java.util.Date;
 
 @Data
@@ -23,6 +24,15 @@ public class DoctorRepresentation {
             lastName = doctor.getLastName();
             email = doctor.getEmail();
             password = doctor.getPassword();
+//            System.out.println(doctor.getLastActive());
+//            long epoch = doctor.getLastActive().getTime();
+//            System.out.println("epoch: "+epoch);
+//            Instant instant = Instant.ofEpochSecond(epoch);
+//            System.out.println("instant: "+instant);
+//            ZonedDateTime zdt = ZonedDateTime.ofInstant(instant, ZoneOffset.UTC);
+//            System.out.println("zdt: "+ zdt);
+//            System.out.println(zdt.toInstant());
+//            lastActive = Date.from(zdt.toInstant());
             lastActive = doctor.getLastActive();
             uri = "http://localhost:9000/v1/doctor/" + doctor.getId();
         }
@@ -36,7 +46,7 @@ public class DoctorRepresentation {
         doctor.setLastActive(lastActive);
         doctor.setLastName(lastName);
         doctor.setEmail(email);
-        doctor.setPassword(password);
+        //doctor.setPassword(password);
         return doctor;
     }
 }
