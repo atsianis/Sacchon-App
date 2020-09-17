@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ContentComponent } from './content/content.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { ChiefDoctorModule } from './chief-doctor/chief-doctor.module';
 
 @NgModule({
 	declarations: [
@@ -20,7 +21,8 @@ import { SignupComponent } from './signup/signup.component';
 	],
 	imports: [
 		BrowserModule,
-		AppRoutingModule
+		AppRoutingModule,
+		ChiefDoctorModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
