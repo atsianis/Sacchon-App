@@ -1,17 +1,21 @@
 package com.pfizer.sacchon.team3.resource;
 
+import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Doctor;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
+import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
+import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DoctorResourceImpl
@@ -41,10 +45,10 @@ public class DoctorResourceImpl
         ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
         LOGGER.info("Passed Authorization");
         // Initialize the persistence layer.
-        DoctorRepository productRepository = new DoctorRepository(JpaUtil.getEntityManager());
+        DoctorRepository doctorRepositoryRepository = new DoctorRepository(JpaUtil.getEntityManager());
         Doctor doctor;
         try {
-            Optional<Doctor> doctorFromDB = productRepository.findById(id);
+            Optional<Doctor> doctorFromDB = doctorRepository.findById(id);
 
             setExisting(doctorFromDB.isPresent());
             if (!isExisting()) {
@@ -66,4 +70,53 @@ public class DoctorResourceImpl
     public void remove() throws NotFoundException {
 
     }
+
+    @Override
+    public DoctorRepresentation store(DoctorRepresentation doctorRepresentationIn) throws NotFoundException, BadEntityException {
+        LOGGER.finer("Add a new doctor.");
+        System.out.println("inside store");
+        // Check authorization
+        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+        LOGGER.finer("User allowed to add a product.");
+
+        // Check entity
+
+        ResourceValidator.notNull(doctorRepresentationIn);
+        ResourceValidator.validate(doctorRepresentationIn);
+        LOGGER.finer("Product checked");
+        System.out.println("inside store 2");
+        try {
+
+            // Convert DoctorRepresentation to Doctor
+            Doctor doctorIn = new Doctor();
+            doctorIn.setFirstName(doctorRepresentationIn.getFirstName());
+            doctorIn.setLastName(doctorRepresentationIn.getLastName());
+            doctorIn.setEmail(doctorRepresentationIn.getEmail());
+            doctorIn.setPassword(doctorRepresentationIn.getPassword());
+
+
+            Optional<Doctor> doctorOut = doctorRepository.save(doctorIn);
+            Doctor doctor= null;
+            if (doctorOut.isPresent())
+                doctor = doctorOut.get();
+            else
+                throw new BadEntityException(" Doctor has not been created");
+
+            DoctorRepresentation result = new DoctorRepresentation(doctor);
+
+            getResponse().setLocationRef(
+                    "http://localhost:9000/v1/product/"+doctor.getId());
+            getResponse().setStatus(Status.SUCCESS_CREATED);
+
+            LOGGER.finer("Doctor successfully added.");
+
+            return result;
+        } catch (Exception ex) {
+            LOGGER.log(Level.WARNING, "Error when adding a doctor", ex);
+
+            throw new ResourceException(ex);
+        }
+    }
+
+
 }
