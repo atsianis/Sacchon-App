@@ -9,6 +9,7 @@ import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
+import org.hibernate.Hibernate;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.Get;
@@ -54,6 +55,9 @@ public class DoctorListResourceImpl
         try{
 
             List<Doctor> doctors = doctorRepository.findAll();
+            for (Doctor d: doctors) {
+                Hibernate.initialize(d.getConsultations());
+            }
             List<DoctorRepresentation> result = new ArrayList<>();
 
             doctors.forEach(doc -> result.add (new DoctorRepresentation(doc)));

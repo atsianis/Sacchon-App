@@ -9,6 +9,7 @@ import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
+import org.hibernate.Hibernate;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
@@ -45,7 +46,7 @@ public class DoctorResourceImpl
         ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
         LOGGER.info("Passed Authorization");
         // Initialize the persistence layer.
-        DoctorRepository doctorRepositoryRepository = new DoctorRepository(JpaUtil.getEntityManager());
+        DoctorRepository doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
         Doctor doctor;
         try {
             Optional<Doctor> doctorFromDB = doctorRepository.findById(id);
@@ -56,6 +57,7 @@ public class DoctorResourceImpl
                 throw new NotFoundException("No doctor with  : " + id);
             } else {
                 doctor = doctorFromDB.get();
+                Hibernate.initialize(doctor.getConsultations());
                 LOGGER.finer("User allowed to retrieve a doctor.");
                 DoctorRepresentation result = new DoctorRepresentation(doctor);
                 LOGGER.finer("Doctor successfully retrieved");
