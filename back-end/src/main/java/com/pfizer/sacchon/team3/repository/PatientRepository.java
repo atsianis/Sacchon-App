@@ -19,14 +19,21 @@ public class PatientRepository {
     }
 
     public List<Patients> findAllPatients() {
-        return entityManager.createQuery("from Patient").getResultList();
+        return entityManager.createQuery("from Patients").getResultList();
     }
 
     public Optional<Patients> findByLastName(String lastName) {
-        Patients patients = entityManager.createQuery("SELECT b FROM Patient b WHERE b.lastName = :lastName", Patients.class)
+        Patients patients = entityManager.createQuery("SELECT b FROM Patients b WHERE b.lastName = :lastName", Patients.class)
                 .setParameter("lastName", lastName)
                 .getSingleResult();
         return patients != null ? Optional.of(patients) : Optional.empty();
+    }
+
+    public List<Patients> findAllAvailablePatients(boolean canBeExamined) {
+        List<Patients> patients = entityManager.createQuery("SELECT b FROM Patients b WHERE b.canBeExamined = true", Patients.class)
+                .setParameter("canBeExamined", canBeExamined)
+                .getResultList();
+        return patients;
     }
 
     public Optional<Patients> save(Patients patients){
@@ -73,5 +80,19 @@ public class PatientRepository {
             }
         }
         return true;
+    }
+
+    public Optional<Patients> softDelete(Patients patients) {
+        Patients in = entityManager.find(Patients.class, patients.getId());
+        in.setDeleted(true);
+            try {
+                entityManager.getTransaction().begin();
+                entityManager.persist (in);
+                entityManager.getTransaction().commit();
+                return Optional.of(in);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return Optional.empty();
     }
 }
