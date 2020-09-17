@@ -1,11 +1,16 @@
 package com.pfizer.sacchon.team3.repository;
 
 import com.pfizer.sacchon.team3.model.Doctor;
+import com.pfizer.sacchon.team3.model.Patient;
+import com.pfizer.sacchon.team3.model.PatientRecord;
 
 import javax.persistence.EntityManager;
 import javax.print.Doc;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class DoctorRepository {
 
@@ -14,16 +19,20 @@ public class DoctorRepository {
     public DoctorRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
+    private PatientRepository patientRepository ;
 
+    // find Doctor by Name
     public Optional<Doctor> findById(Long id) {
         Doctor doctor = entityManager.find(Doctor.class, id);
         return doctor != null ? Optional.of(doctor) : Optional.empty();
     }
 
+    // find all Doctors
     public List<Doctor> findAll() {
         return entityManager.createQuery("from Doctor").getResultList();
     }
 
+    // find Doctor by FirstName 1st way
     public Optional<Doctor> findByName(String name) {
         Doctor doctor = entityManager.createQuery("SELECT b FROM Doctor b WHERE b.firstname = :firstName", Doctor.class)
                 .setParameter("firstName", name)
@@ -31,6 +40,7 @@ public class DoctorRepository {
         return doctor != null ? Optional.of(doctor) : Optional.empty();
     }
 
+    // find Doctor by FirstName 2nd way
     public Optional<Doctor> findByNameNamedQuery(String name) {
         Doctor doctor = entityManager.createNamedQuery("Doctor.findByName", Doctor.class)
                 .setParameter("firstname", name)
@@ -38,7 +48,7 @@ public class DoctorRepository {
         return doctor != null ? Optional.of(doctor) : Optional.empty();
     }
 
-
+    // save a doctor
     public Optional<Doctor> save(Doctor doctor){
 
         try {
@@ -52,7 +62,7 @@ public class DoctorRepository {
         return Optional.empty();
     }
 
-
+    // update a doctor
     public Optional<Doctor> update(Doctor doctor) {
 
         Doctor in = entityManager.find(Doctor.class, doctor.getId());
@@ -73,6 +83,7 @@ public class DoctorRepository {
         return Optional.empty();
     }
 
+    // remove a doctor
     public boolean remove(Long id){
         Optional<Doctor> odoctor = findById(id);
         if (odoctor.isPresent()){
@@ -86,6 +97,37 @@ public class DoctorRepository {
             }
         }
         return true;
+    }
+
+    public List<Patient> myPatients(Doctor doctor){
+        List<Patient> myPatients = new ArrayList<>();
+        List<Patient> allPatients = patientRepository.findAllPatients();
+
+        myPatients = allPatients.stream()
+                                .filter(patient -> patient.getDoctor() == doctor)
+                                .collect(Collectors.toList());
+
+        return myPatients;
+    }
+
+    public List<Patient> availablePatients(){
+        List<Patient> avPatients = new ArrayList<>();
+        Calendar cal = Calendar.getInstance();
+        List<Patient> patients = patientRepository.findAllPatients();
+
+        cal.add(Calendar.DAY_OF_MONTH, 30);
+        //String newDate = sdf.format(cal.getTime());
+
+        List<PatientRecord> patientRecords = patients
+                                            .stream()
+                                            .flatMap(patient -> patient.getPatientRecords().stream())
+                                            .filter(patient -> patient.getTimeCreated() == patient.getTimeCreated())
+                                            .collect(Collectors.toList());
+        for(PatientRecord pacRec: patientRecords)
+            avPatients.add(pacRec.getPatient());
+
+
+        return avPatients;
     }
 
 }
