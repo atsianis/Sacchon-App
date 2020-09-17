@@ -1,7 +1,6 @@
 package com.pfizer.sacchon.team3.repository;
 
 import com.pfizer.sacchon.team3.model.Consultation;
-import com.pfizer.sacchon.team3.model.Doctor;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -19,7 +18,7 @@ public class ConsultationRepository {
         return consultation != null ? Optional.of(consultation) : Optional.empty();
     }
 
-    public List<Doctor> findAll() {
+    public List<Consultation> findAll() {
         return entityManager.createQuery("from Consultation").getResultList();
     }
 
