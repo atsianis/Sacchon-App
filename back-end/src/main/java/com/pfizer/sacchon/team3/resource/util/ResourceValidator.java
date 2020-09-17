@@ -1,6 +1,7 @@
 package com.pfizer.sacchon.team3.resource.util;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
+import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 
 public class ResourceValidator {
@@ -29,6 +30,15 @@ public class ResourceValidator {
         if ( patientRepresentation.getLastName() == null || patientRepresentation.getFirstName() == null) {
             throw new BadEntityException(
                     "patient's name cannot be null");
+        }
+    }
+
+    public static void validate(DoctorRepresentation doctorRepresentation)
+            throws BadEntityException {
+        if ( doctorRepresentation.getLastName() == null || doctorRepresentation.getFirstName() == null
+                || doctorRepresentation.getEmail() == null || doctorRepresentation.getPassword() == null ) {
+            throw new BadEntityException(
+                    "doctor creation demands name and credentials");
         }
     }
 }
