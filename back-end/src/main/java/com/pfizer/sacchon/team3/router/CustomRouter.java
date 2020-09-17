@@ -25,6 +25,8 @@ public class CustomRouter {
 
         router.attach("/consultations", ConsultationListResourceImpl.class);
 
+        router.attach("/consultation/{id}", ConsultationResourceImpl.class);
+
 //        router.attach("/patients/inactive/{days}", PatientListResourceImp.class);
 //
 //        router.attach("/doctors/inactive/{days}", PingServerResource.class);
@@ -32,10 +34,6 @@ public class CustomRouter {
         router.attach("/create/doctor", DoctorResourceImpl.class);
 
         router.attach("/doctor/{id}", DoctorResourceImpl.class);
-
-        router.attach("/doctor/{id}/consultations", DoctorResourceImpl.class);
-
-        
 
         return router;
     }
