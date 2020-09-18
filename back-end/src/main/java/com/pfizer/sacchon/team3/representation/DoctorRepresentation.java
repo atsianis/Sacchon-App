@@ -28,31 +28,19 @@ public class DoctorRepresentation {
             firstName = doctor.getFirstName();
             lastName = doctor.getLastName();
             email = doctor.getEmail();
-            //password = doctor.getPassword();
-//            System.out.println(doctor.getLastActive());
-//            long epoch = doctor.getLastActive().getTime();
-//            System.out.println("epoch: "+epoch);
-//            Instant instant = Instant.ofEpochSecond(epoch);
-//            System.out.println("instant: "+instant);
-//            ZonedDateTime zdt = ZonedDateTime.ofInstant(instant, ZoneOffset.UTC);
-//            System.out.println("zdt: "+ zdt);
-//            System.out.println(zdt.toInstant());
-//            lastActive = Date.from(zdt.toInstant());
+            password = doctor.getPassword();
             lastActive = doctor.getLastActive();
-            consultations = doctor.getConsultations();
             uri = "http://localhost:9000/v1/doctor/" + doctor.getId();
         }
-
-
     }
 
-    public Doctors createDoctor() {
-        Doctors doctor =  new Doctors();
+    public Doctor createDoctor() {
+        Doctor doctor = new Doctor();
         doctor.setFirstName(firstName);
-        doctor.setLastActive(lastActive);
         doctor.setLastName(lastName);
         doctor.setEmail(email);
         doctor.setPassword(password);
+        doctor.setLastActive(lastActive);
         return doctor;
     }
 }

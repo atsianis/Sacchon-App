@@ -20,6 +20,16 @@ public class ResourceValidator {
     }
 
     /**
+     * Checks that the given company is valid.
+     *
+     * @param doctorRepresentation
+     * @throws BadEntityException
+     */
+    public static void validate(DoctorRepresentation doctorRepresentation)
+            throws BadEntityException {
+        if (doctorRepresentation.getFirstName()==null) {
+            throw new BadEntityException(
+                    "doctor name cannot be null");
      * Checks that the given patient is valid.
      *
      * @param patientRepresentation

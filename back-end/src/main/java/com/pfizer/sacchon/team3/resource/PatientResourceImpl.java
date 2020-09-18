@@ -10,6 +10,7 @@ import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
 import org.hibernate.Hibernate;
+import lombok.Data;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
@@ -19,6 +20,7 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Data
 public class PatientResourceImpl extends ServerResource implements com.pfizer.sacchon.team3.resource.PatientResource {
 
     public static final Logger LOGGER = Engine.getLogger(PatientResourceImpl.class);
@@ -52,7 +54,6 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
         PatientRepository patientRepository = new PatientRepository(JpaUtil.getEntityManager());
         Patients p;
         try {
-
             Optional<Patients> oproduct = patientRepository.findById(id);
             setExisting(oproduct.isPresent());
             if (!isExisting()) {
@@ -83,10 +84,10 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
 
         try {
 
-            // Delete company in DB: return true if deleted
+            // Delete patient in DB: return true if deleted
             Boolean isDeleted = patientRepository.remove(id);
 
-            // If product has not been deleted: if not it means that the id must
+            // If patient has not been deleted: if not it means that the id must
             // be wrong
             if (!isDeleted) {
                 LOGGER.config("Patient id does not exist");
@@ -115,22 +116,22 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
         LOGGER.finer("Patient checked");
 
         try {
-            // Convert CompanyRepresentation to Company
-            Patients patientIn = patientRepresentation.createPatient();
-            patientIn.setId(id);
+            // Convert PatientRepr to Patient
+            Patients patientsIn = patientRepresentation.createPatient();
+            patientsIn.setId(id);
 
             Optional<Patients> patientOut = patientRepository.findById(id);
             setExisting(patientOut.isPresent());
 
-            // If product exists, we update it.
+            // If patient exists, we update it.
             if (isExisting()) {
-                LOGGER.finer("Update product.");
+                LOGGER.finer("Update patient.");
 
-                // Update product in DB and retrieve the new one.
-                patientOut = patientRepository.update(patientIn);
+                // Update patient in DB and retrieve the new one.
+                patientOut = patientRepository.update(patientsIn);
 
 
-                // Check if retrieved product is not null : if it is null it
+                // Check if retrieved patient is not null : if it is null it
                 // means that the id is wrong.
                 if (!patientOut.isPresent()) {
                     LOGGER.finer("Patient does not exist.");
@@ -153,43 +154,47 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
     }
 
     @Override
-    public PatientRepresentation add (PatientRepresentation patientRepresentation)
-            throws BadEntityException {
+    public PatientRepresentation softDelete(PatientRepresentation patientRepresentation) throws NotFoundException, BadEntityException {
+        LOGGER.finer("Update a patient.");
 
-        LOGGER.finer("Add a new patient.");
-        // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        LOGGER.finer("User allowed to add a patient.");
-        // Check entity
+        LOGGER.finer("User allowed to soft Delete a patient.");
+
+        // Check given entity
         ResourceValidator.notNull(patientRepresentation);
         ResourceValidator.validate(patientRepresentation);
         LOGGER.finer("Patient checked");
 
         try {
-            // Convert CompanyRepresentation to Company
-            Patients patientIn = new Patients();
-            patientIn.setFirstName(patientRepresentation.getFirstName());
+            // Convert PatientRepr to Patient
+            Patients patientsIn = patientRepresentation.createPatient();
+            patientsIn.setId(id);
 
+            Optional<Patients> patientOut = patientRepository.findById(id);
+            setExisting(patientOut.isPresent());
 
-            Optional<Patients> patientOut = patientRepository.save(patientIn);
-            Patients patient = null;
-            if (patientOut.isPresent())
-                patient = patientOut.get();
-            else
-                throw new BadEntityException(" Product has not been created");
+            // If patient exists, we update it.
+            if (isExisting()) {
+                LOGGER.finer("Soft delete Patient.");
+                patientOut = patientRepository.softDelete(patientsIn);
 
-            PatientRepresentation result = new PatientRepresentation();
-            result.setFirstName(patient.getFirstName());
-            result.setUri("http://localhost:9000/v1/patient/"+ patient.getId());
+                // Check if retrieved patient is not null : if it is null it
+                // means that the id is wrong.
+                if (!patientOut.isPresent()) {
+                    LOGGER.finer("Patient does not exist.");
+                    throw new NotFoundException("Patient with the following id does not exist: " + id);
+                }
+            } else {
+                LOGGER.finer("Patient does not exist.");
+                throw new NotFoundException("Patient with the following id does not exist: " + id);
+            }
 
-            getResponse().setLocationRef("http://localhost:9000/v1/patient/"+ patient.getId());
-            getResponse().setStatus(Status.SUCCESS_CREATED);
+            LOGGER.finer("Patient successfully updated.");
+            return new PatientRepresentation(patientOut.get());
 
-            LOGGER.finer("Patient successfully added.");
-            return result;
         } catch (Exception ex) {
-            LOGGER.log(Level.WARNING, "Error when adding a patient", ex);
             throw new ResourceException(ex);
         }
     }
+
 }

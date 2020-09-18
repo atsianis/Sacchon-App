@@ -2,28 +2,27 @@ package com.pfizer.sacchon.team3.resource;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
+import com.pfizer.sacchon.team3.model.PatientRecords;
+import com.pfizer.sacchon.team3.model.Patients;
+import com.pfizer.sacchon.team3.repository.PatientRecordRepository;
+import com.pfizer.sacchon.team3.representation.PatientRecordRepresentation;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
-import org.restlet.resource.Post;
 import org.restlet.resource.Put;
 
 import java.util.List;
 
-public interface PatientResource {
+public interface PatientRecordResource {
 
     @Get("json")
-    public PatientRepresentation getPatient() throws NotFoundException;
+    public PatientRecordRepresentation getRecord() throws NotFoundException, BadEntityException;
 
     @Delete
     public void remove() throws NotFoundException;
 
     @Put("json")
-    public PatientRepresentation store(PatientRepresentation patientRepresentation)
+    public PatientRecordRepresentation store(PatientRecordRepresentation patientRecordRepresentation, Patients patient)
             throws NotFoundException, BadEntityException;
-
-    @Put("json")
-    public PatientRepresentation softDelete(PatientRepresentation patientRepresentation)
-        throws NotFoundException, BadEntityException;
 
 }
