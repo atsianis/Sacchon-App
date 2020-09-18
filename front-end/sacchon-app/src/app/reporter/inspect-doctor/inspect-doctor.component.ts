@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'sacchon-app-inspect-doctor',
-  templateUrl: './inspect-doctor.component.html',
-  styleUrls: ['./inspect-doctor.component.scss']
+	selector: 'sacchon-app-inspect-doctor',
+	templateUrl: './inspect-doctor.component.html',
+	styleUrls: ['./inspect-doctor.component.scss']
 })
 export class InspectDoctorComponent implements OnInit {
 
-  constructor() { }
+	constructor() { }
+	dtOptions: DataTables.Settings = {};
 
-  ngOnInit(): void {
-  }
-
+	ngOnInit(): void {
+		this.dtOptions = {
+			pagingType: 'full_numbers'
+		};
+	}
 }
