@@ -5,7 +5,6 @@ import com.pfizer.sacchon.team3.model.Patient;
 import com.pfizer.sacchon.team3.model.PatientRecord;
 
 import javax.persistence.EntityManager;
-import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -99,17 +98,20 @@ public class DoctorRepository {
         return true;
     }
 
+    // Get Doctor's Patients
     public List<Patient> myPatients(Doctor doctor){
+        Doctor in = entityManager.find(Doctor.class, doctor.getId());
         List<Patient> myPatients = new ArrayList<>();
         List<Patient> allPatients = patientRepository.findAllPatients();
 
         myPatients = allPatients.stream()
-                                .filter(patient -> patient.getDoctor() == doctor)
+                                .filter(patient -> patient.getDoctor() == in)
                                 .collect(Collectors.toList());
 
         return myPatients;
     }
 
+    // Get available Patients
     public List<Patient> availablePatients(){
         List<Patient> avPatients = new ArrayList<>();
         Calendar cal = Calendar.getInstance();
@@ -123,11 +125,19 @@ public class DoctorRepository {
                                             .flatMap(patient -> patient.getPatientRecords().stream())
                                             .filter(patient -> patient.getTimeCreated() == patient.getTimeCreated())
                                             .collect(Collectors.toList());
+
         for(PatientRecord pacRec: patientRecords)
             avPatients.add(pacRec.getPatient());
 
-
         return avPatients;
+    }
+
+    public List<PatientRecord> patientRecords(Patient patient) {
+        List<PatientRecord> patientRecord = new ArrayList<>();
+        Patient in = entityManager.find(Patient.class, patient.getId());
+        patientRecord.addAll(in.getPatientRecords());
+
+        return patientRecord;
     }
 
 }
