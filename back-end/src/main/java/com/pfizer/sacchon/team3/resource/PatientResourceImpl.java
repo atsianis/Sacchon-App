@@ -9,6 +9,7 @@ import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
+import lombok.Data;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
@@ -18,6 +19,7 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Data
 public class PatientResourceImpl extends ServerResource implements com.pfizer.sacchon.team3.resource.PatientResource {
 
     public static final Logger LOGGER = Engine.getLogger(PatientResourceImpl.class);
@@ -195,56 +197,5 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
             throw new ResourceException(ex);
         }
     }
-
-    @Override
-    public PatientRepresentation storeData(PatientRepresentation patientRepresentation) throws NotFoundException, BadEntityException {
-        LOGGER.finer("Update Patient's Record.");
-
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        LOGGER.finer("User allowed to update a patient.");
-
-        // Check given entity
-        ResourceValidator.notNull(patientRepresentation);
-        ResourceValidator.validate(patientRepresentation);
-        LOGGER.finer("Patient checked");
-
-        try {
-            // Convert PatientRepr to Patient
-            Patients patientsIn = patientRepresentation.createPatient();
-            patientsIn.setId(id);
-
-            Optional<Patients> patientOut = patientRepository.findById(id);
-            setExisting(patientOut.isPresent());
-
-            // If patient exists, we update it.
-            if (isExisting()) {
-                LOGGER.finer("Update product.");
-
-                // Update patient in DB and retrieve the new one.
-                patientOut = patientRepository.update(patientsIn);
-
-
-                // Check if retrieved patient is not null : if it is null it
-                // means that the id is wrong.
-                if (!patientOut.isPresent()) {
-                    LOGGER.finer("Patient does not exist.");
-                    throw new NotFoundException(
-                            "Patient with the following id does not exist: "
-                                    + id);
-                }
-            } else {
-                LOGGER.finer("Patient does not exist.");
-                throw new NotFoundException(
-                        "Patient with the following id does not exist: " + id);
-            }
-
-            LOGGER.finer("Patient successfully updated.");
-            return new PatientRepresentation(patientOut.get());
-
-        } catch (Exception ex) {
-            throw new ResourceException(ex);
-        }
-    }
-
 
 }
