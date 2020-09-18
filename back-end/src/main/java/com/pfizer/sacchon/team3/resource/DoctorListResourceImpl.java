@@ -61,8 +61,4 @@ public class DoctorListResourceImpl
             throw new NotFoundException("doctors not found");
         }
     }
-
-
-
-
 }

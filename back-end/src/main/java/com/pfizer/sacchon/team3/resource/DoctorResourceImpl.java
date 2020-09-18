@@ -106,8 +106,7 @@ public class DoctorResourceImpl
 
             DoctorRepresentation result = new DoctorRepresentation(doctor);
 
-            getResponse().setLocationRef(
-                    "http://localhost:9000/v1/product/"+doctor.getId());
+            getResponse().setLocationRef("http://localhost:9000/v1/product/"+doctor.getId());
             getResponse().setStatus(Status.SUCCESS_CREATED);
 
             LOGGER.finer("Doctor successfully added.");
@@ -119,6 +118,4 @@ public class DoctorResourceImpl
             throw new ResourceException(ex);
         }
     }
-
-
 }

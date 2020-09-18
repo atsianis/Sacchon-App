@@ -19,7 +19,4 @@ public interface DoctorResource {
     @Post("json")
     public DoctorRepresentation store(DoctorRepresentation productReprIn)
             throws NotFoundException, BadEntityException;
-
-
-
 }
