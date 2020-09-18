@@ -19,5 +19,4 @@ public class PatientRecord {
     @ManyToOne
     @JoinColumn(name ="consultation_id")
     private Consultation consultation;
-
 }
