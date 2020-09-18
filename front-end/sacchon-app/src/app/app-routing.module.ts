@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ContentComponent } from './content/content.component';
-import { DatatableComponent } from './datatable/datatable.component';
 import { LoginComponent } from './login/login.component';
 import { AddDoctorComponent } from './reporter/add-doctor/add-doctor.component';
 import { InspectDoctorComponent } from './reporter/inspect-doctor/inspect-doctor.component';

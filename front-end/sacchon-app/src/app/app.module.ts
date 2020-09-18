@@ -11,7 +11,6 @@ import { FooterComponent } from './footer/footer.component';
 import { ContentComponent } from './content/content.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { DatatableComponent } from './datatable/datatable.component';
 import { ReporterModule } from './reporter/reporter.module';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { ReporterModule } from './reporter/reporter.module';
 		ContentComponent,
 		LoginComponent,
 		SignupComponent,
-		DatatableComponent
 	],
 	imports: [
 		BrowserModule,
