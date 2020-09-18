@@ -22,6 +22,23 @@ public class CustomRouter {
 
         Router router = new Router(application.getContext());
 
+        router.attach("/patients", PatientListResourceImpl.class);
+
+        router.attach("/patient/{id}", PatientResourceImpl.class);
+
+        router.attach("/doctors", DoctorListResourceImpl.class);
+
+        router.attach("/consultations", ConsultationListResourceImpl.class);
+
+        router.attach("/consultation/{id}", ConsultationResourceImpl.class);
+
+//        router.attach("/patients/inactive/{days}", PatientListResourceImp.class);
+//
+//        router.attach("/doctors/inactive/{days}", PingServerResource.class);
+
+        router.attach("/create/doctor", DoctorResourceImpl.class);
+
+        router.attach("/doctor/{id}", DoctorResourceImpl.class);
         // settings
         router.attach("/doctor/{id}/settings",  DoctorResourceImpl.class);
 

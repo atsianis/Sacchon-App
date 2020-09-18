@@ -1,23 +1,29 @@
 package com.pfizer.sacchon.team3.representation;
 
-import com.pfizer.sacchon.team3.model.Doctor;
+import com.pfizer.sacchon.team3.model.Consultations;
+import com.pfizer.sacchon.team3.model.Doctors;
+import com.pfizer.sacchon.team3.model.Patients;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.print.Doc;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 public class DoctorRepresentation {
+
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private Date lastActive;
+    private List<Patients> patients = new ArrayList<>();
+    private List<Consultations> consultations = new ArrayList<>();
     private String uri;
 
-    public DoctorRepresentation(
-            Doctor doctor) {
+    public DoctorRepresentation(Doctors doctor) {
         if (doctor != null) {
             firstName = doctor.getFirstName();
             lastName = doctor.getLastName();

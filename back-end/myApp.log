@@ -1,0 +1,347 @@
+2020-09-16 20:36:38,205 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-16 20:36:38,424 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-16 20:36:38,956 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-16 20:36:40,022 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-16 20:36:40,213 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon]
+2020-09-16 20:36:40,215 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-16 20:36:40,216 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-16 20:36:40,221 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-16 20:36:40,677 WARN [main] o.h.e.j.e.i.JdbcEnvironmentInitiator [JdbcEnvironmentInitiator.java:132] HHH000342: Could not obtain connection to query metadata : null
+2020-09-16 20:36:40,704 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-16 20:36:40,754 WARN [main] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 18456, SQLState: S0001
+2020-09-16 20:36:40,755 ERROR [main] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Login failed for user 'sa'. ClientConnectionId:b9cafd6c-4041-459f-a758-3d225ff9a766
+2020-09-16 20:44:49,315 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-16 20:44:49,512 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-16 20:44:49,975 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-16 20:44:51,367 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-16 20:44:51,568 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon]
+2020-09-16 20:44:51,569 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-16 20:44:51,569 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-16 20:44:51,578 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-16 20:44:52,092 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-16 20:47:49,102 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-16 20:47:49,291 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-16 20:47:49,843 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-16 20:47:51,010 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-16 20:47:51,183 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon]
+2020-09-16 20:47:51,185 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-16 20:47:51,187 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-16 20:47:51,193 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-16 20:47:51,674 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-16 20:48:16,732 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-16 20:48:16,892 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-16 20:48:17,444 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-16 20:48:18,735 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-16 20:48:18,915 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon]
+2020-09-16 20:48:18,916 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-16 20:48:18,916 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-16 20:48:18,921 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-16 20:48:19,537 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-16 20:49:31,221 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-16 20:49:31,370 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-16 20:49:31,948 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-16 20:49:33,062 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-16 20:49:33,229 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon]
+2020-09-16 20:49:33,230 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-16 20:49:33,231 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-16 20:49:33,235 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-16 20:49:33,729 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-16 20:49:35,410 INFO [main] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@57efc6fd] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-16 20:49:35,427 WARN [main] o.h.t.s.i.ExceptionHandlerLoggedImpl [ExceptionHandlerLoggedImpl.java:27] GenerationTarget encountered exception accepting command : Error executing DDL "alter table Consultation drop constraint FKrkjqn83oi00jgfs2xngbxfh78" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table Consultation drop constraint FKrkjqn83oi00jgfs2xngbxfh78" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:144)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:72)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:309)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:462)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:938)
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:56)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:79)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:54)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManagerFactory(JpaUtil.java:14)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManager(JpaUtil.java:21)
+	at com.pfizer.sacchon.team3.Main.main(Main.java:27)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot find the object "Consultation" because it does not exist or you do not have permissions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:254)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1608)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:859)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:759)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7240)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2869)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:243)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:218)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:739)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 18 common frames omitted
+2020-09-16 20:49:35,429 WARN [main] o.h.t.s.i.ExceptionHandlerLoggedImpl [ExceptionHandlerLoggedImpl.java:27] GenerationTarget encountered exception accepting command : Error executing DDL "alter table Patient drop constraint FKfcyn3oy4e6g9693iceprt8tb7" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table Patient drop constraint FKfcyn3oy4e6g9693iceprt8tb7" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:144)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:72)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:309)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:462)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:938)
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:56)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:79)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:54)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManagerFactory(JpaUtil.java:14)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManager(JpaUtil.java:21)
+	at com.pfizer.sacchon.team3.Main.main(Main.java:27)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot find the object "Patient" because it does not exist or you do not have permissions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:254)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1608)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:859)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:759)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7240)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2869)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:243)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:218)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:739)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 18 common frames omitted
+2020-09-16 20:49:35,430 WARN [main] o.h.t.s.i.ExceptionHandlerLoggedImpl [ExceptionHandlerLoggedImpl.java:27] GenerationTarget encountered exception accepting command : Error executing DDL "alter table PatientRecord drop constraint FKhrl0w6en5jyy9whbovw8c7qc5" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table PatientRecord drop constraint FKhrl0w6en5jyy9whbovw8c7qc5" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:144)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:72)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:309)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:462)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:938)
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:56)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:79)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:54)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManagerFactory(JpaUtil.java:14)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManager(JpaUtil.java:21)
+	at com.pfizer.sacchon.team3.Main.main(Main.java:27)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot find the object "PatientRecord" because it does not exist or you do not have permissions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:254)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1608)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:859)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:759)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7240)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2869)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:243)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:218)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:739)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 18 common frames omitted
+2020-09-16 20:49:35,432 WARN [main] o.h.t.s.i.ExceptionHandlerLoggedImpl [ExceptionHandlerLoggedImpl.java:27] GenerationTarget encountered exception accepting command : Error executing DDL "alter table PatientRecord drop constraint FKsr6ous36bhr0xa2ny8twquwjb" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table PatientRecord drop constraint FKsr6ous36bhr0xa2ny8twquwjb" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:144)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:72)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:309)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:462)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:938)
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:56)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:79)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:54)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManagerFactory(JpaUtil.java:14)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManager(JpaUtil.java:21)
+	at com.pfizer.sacchon.team3.Main.main(Main.java:27)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot find the object "PatientRecord" because it does not exist or you do not have permissions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:254)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1608)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:859)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:759)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7240)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2869)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:243)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:218)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:739)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 18 common frames omitted
+2020-09-16 20:49:35,433 WARN [main] o.h.t.s.i.ExceptionHandlerLoggedImpl [ExceptionHandlerLoggedImpl.java:27] GenerationTarget encountered exception accepting command : Error executing DDL "drop table Chief" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "drop table Chief" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:144)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:72)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:309)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:462)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:938)
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:56)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:79)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:54)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManagerFactory(JpaUtil.java:14)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManager(JpaUtil.java:21)
+	at com.pfizer.sacchon.team3.Main.main(Main.java:27)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the table 'Chief', because it does not exist or you do not have permission.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:254)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1608)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:859)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:759)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7240)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2869)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:243)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:218)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:739)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 17 common frames omitted
+2020-09-16 20:49:35,437 WARN [main] o.h.t.s.i.ExceptionHandlerLoggedImpl [ExceptionHandlerLoggedImpl.java:27] GenerationTarget encountered exception accepting command : Error executing DDL "drop table Consultation" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "drop table Consultation" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:144)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:72)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:309)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:462)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:938)
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:56)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:79)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:54)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManagerFactory(JpaUtil.java:14)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManager(JpaUtil.java:21)
+	at com.pfizer.sacchon.team3.Main.main(Main.java:27)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the table 'Consultation', because it does not exist or you do not have permission.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:254)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1608)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:859)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:759)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7240)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2869)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:243)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:218)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:739)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 17 common frames omitted
+2020-09-16 20:49:35,439 WARN [main] o.h.t.s.i.ExceptionHandlerLoggedImpl [ExceptionHandlerLoggedImpl.java:27] GenerationTarget encountered exception accepting command : Error executing DDL "drop table Doctor" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "drop table Doctor" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:144)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:72)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:309)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:462)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:938)
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:56)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:79)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:54)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManagerFactory(JpaUtil.java:14)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManager(JpaUtil.java:21)
+	at com.pfizer.sacchon.team3.Main.main(Main.java:27)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the table 'Doctor', because it does not exist or you do not have permission.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:254)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1608)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:859)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:759)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7240)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2869)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:243)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:218)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:739)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 17 common frames omitted
+2020-09-16 20:49:35,442 WARN [main] o.h.t.s.i.ExceptionHandlerLoggedImpl [ExceptionHandlerLoggedImpl.java:27] GenerationTarget encountered exception accepting command : Error executing DDL "drop table Patient" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "drop table Patient" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:144)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:72)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:309)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:462)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:938)
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:56)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:79)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:54)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManagerFactory(JpaUtil.java:14)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManager(JpaUtil.java:21)
+	at com.pfizer.sacchon.team3.Main.main(Main.java:27)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the table 'Patient', because it does not exist or you do not have permission.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:254)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1608)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:859)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:759)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7240)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2869)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:243)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:218)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:739)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 17 common frames omitted
+2020-09-16 20:49:35,444 WARN [main] o.h.t.s.i.ExceptionHandlerLoggedImpl [ExceptionHandlerLoggedImpl.java:27] GenerationTarget encountered exception accepting command : Error executing DDL "drop table PatientRecord" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "drop table PatientRecord" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:144)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:72)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:309)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:462)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:938)
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:56)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:79)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:54)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManagerFactory(JpaUtil.java:14)
+	at com.pfizer.sacchon.team3.repository.util.JpaUtil.getEntityManager(JpaUtil.java:21)
+	at com.pfizer.sacchon.team3.Main.main(Main.java:27)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the table 'PatientRecord', because it does not exist or you do not have permission.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:254)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1608)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:859)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:759)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7240)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2869)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:243)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:218)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:739)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 17 common frames omitted
+2020-09-16 20:49:35,453 INFO [main] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@51fc862e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-16 20:49:35,526 INFO [main] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-16 20:49:35,765 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @6455ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-16 20:49:35,838 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-16 20:49:35,903 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@44592c39{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-16 20:49:35,904 INFO [main] o.e.j.s.Server [Server.java:411] Started @6594ms

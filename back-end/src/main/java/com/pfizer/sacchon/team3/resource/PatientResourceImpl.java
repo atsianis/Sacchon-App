@@ -9,6 +9,7 @@ import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
+import org.hibernate.Hibernate;
 import lombok.Data;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
@@ -46,7 +47,7 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
         LOGGER.info("Retrieve a patient");
 
         // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
 
 
         // Initialize the persistence layer.
@@ -60,6 +61,7 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
                 throw new NotFoundException("No patient with  : " + id);
             } else {
                 p = oproduct.get();
+                Hibernate.initialize(p.getPatientRecords());
                 LOGGER.finer("User allowed to retrieve a product.");
                 PatientRepresentation result = new PatientRepresentation(p);
                 LOGGER.finer("Patient successfully retrieved");
@@ -180,14 +182,11 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
                 // means that the id is wrong.
                 if (!patientOut.isPresent()) {
                     LOGGER.finer("Patient does not exist.");
-                    throw new NotFoundException(
-                            "Patient with the following id does not exist: "
-                                    + id);
+                    throw new NotFoundException("Patient with the following id does not exist: " + id);
                 }
             } else {
                 LOGGER.finer("Patient does not exist.");
-                throw new NotFoundException(
-                        "Patient with the following id does not exist: " + id);
+                throw new NotFoundException("Patient with the following id does not exist: " + id);
             }
 
             LOGGER.finer("Patient successfully updated.");

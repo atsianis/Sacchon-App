@@ -1,5 +1,7 @@
 package com.pfizer.sacchon.team3.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,11 +19,13 @@ public class Consultations {
     private Date timeCreated;
     private String comment;
     private Date seenByPatient;
-    @OneToMany(mappedBy = "consultations")
+    @OneToMany(mappedBy = "consultation")
+    @JsonManagedReference
     private List<PatientRecords> patientRecords = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "doctors_id")
-    private Doctors doctors;
+    @JsonBackReference
+    private Doctors doctor;
 
 
 }

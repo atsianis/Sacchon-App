@@ -14,8 +14,8 @@ public class PatientRepository {
     }
 
     public Optional<Patients> findById(Long id) {
-        Patients patients = entityManager.find(Patients.class, id);
-        return patients != null ? Optional.of(patients) : Optional.empty();
+        Patients patient = entityManager.find(Patients.class, id);
+        return patient != null ? Optional.of(patient) : Optional.empty();
     }
 
     public List<Patients> findAllPatients() {
@@ -26,7 +26,7 @@ public class PatientRepository {
         Patients patients = entityManager.createQuery("SELECT b FROM Patients b WHERE b.lastName = :lastName", Patients.class)
                 .setParameter("lastName", lastName)
                 .getSingleResult();
-        return patients != null ? Optional.of(patients) : Optional.empty();
+        return patient != null ? Optional.of(patient) : Optional.empty();
     }
 
     public List<Patients> findAllAvailablePatients(boolean canBeExamined) {
@@ -39,9 +39,9 @@ public class PatientRepository {
     public Optional<Patients> save(Patients patients){
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist (patients);
+            entityManager.persist (patient);
             entityManager.getTransaction().commit();
-            return Optional.of(patients);
+            return Optional.of(patient);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,13 +49,13 @@ public class PatientRepository {
     }
 
 
-    public Optional<Patients> update(Patients patients) {
-        Patients in = entityManager.find(Patients.class, patients.getId());
-        in.setFirstName(patients.getFirstName());
-        in.setLastName(patients.getLastName());
-        in.setPassword(patients.getPassword());
-        in.setEmail(patients.getEmail());
-        in.setDob(patients.getDob());
+    public Optional<Patients> update(Patients patient) {
+        Patients in = entityManager.find(Patients.class, patient.getId());
+        in.setFirstName(patient.getFirstName());
+        in.setLastName(patient.getLastName());
+        in.setPassword(patient.getPassword());
+        in.setEmail(patient.getEmail());
+        in.setDob(patient.getDob());
         try {
             entityManager.getTransaction().begin();
             entityManager.persist (in);

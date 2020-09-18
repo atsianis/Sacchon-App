@@ -1,10 +1,14 @@
 package com.pfizer.sacchon.team3.representation;
 
+import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.model.Patients;
+import com.pfizer.sacchon.team3.model.PatientRecords;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,22 +21,26 @@ public class PatientRepresentation {
     private boolean canBeExamined;
     private boolean isDeleted;
     private Date lastActive;
+    private Doctors doctor;
     private enum  gender{MALE,FEMALE};
+    private List<PatientRecords> patientRecords = new ArrayList<>();
     private String uri;
 
 
     public PatientRepresentation(
-            Patients patients) {
-        if (patients != null) {
-            firstName = patients.getFirstName();
-            lastName = patients.getLastName();
-            email = patients.getEmail();
-            password = patients.getPassword();
-            dob = patients.getDob();
-            canBeExamined = patients.isCanBeExamined();
-            isDeleted = patients.isDeleted();
-            lastActive = patients.getLastActive();
-            uri = "http://localhost:9000/v1/patient/" + patients.getId();
+            Patients patient) {
+        if (patient != null) {
+            firstName = patient.getFirstName();
+            lastName = patient.getLastName();
+            email = patient.getEmail();
+            password = patient.getPassword();
+            dob = patient.getDob();
+            canBeExamined = patient.isCanBeExamined();
+            isDeleted = patient.isDeleted();
+            lastActive = patient.getLastActive();
+            doctor = patient.getDoctor();
+            patientRecords = patient.getPatientRecords();
+            uri = "http://localhost:9000/v1/patient/" + patient.getId();
         }
     }
 

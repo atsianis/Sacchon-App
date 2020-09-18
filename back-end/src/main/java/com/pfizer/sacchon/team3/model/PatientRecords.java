@@ -1,5 +1,6 @@
 package com.pfizer.sacchon.team3.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,10 +16,12 @@ public class PatientRecords {
     private float calories;
     private Date timeCreated;
     @ManyToOne
-    @JoinColumn(name ="patients_id")
-    private Patients patients;
+    @JoinColumn(name ="patient_id")
+    @JsonBackReference
+    private Patients patient;
     @ManyToOne
-    @JoinColumn(name ="consultations_id")
-    private Consultations consultations;
+    @JoinColumn(name ="consultation_id")
+    @JsonBackReference
+    private Consultations consultation;
 
 }

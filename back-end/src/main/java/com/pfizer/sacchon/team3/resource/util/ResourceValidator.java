@@ -42,4 +42,13 @@ public class ResourceValidator {
                     "patient's name cannot be null");
         }
     }
+
+    public static void validate(DoctorRepresentation doctorRepresentation)
+            throws BadEntityException {
+        if ( doctorRepresentation.getLastName() == null || doctorRepresentation.getFirstName() == null
+                || doctorRepresentation.getEmail() == null || doctorRepresentation.getPassword() == null ) {
+            throw new BadEntityException(
+                    "doctor creation demands name and credentials");
+        }
+    }
 }
