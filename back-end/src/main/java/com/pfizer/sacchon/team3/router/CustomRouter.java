@@ -1,6 +1,6 @@
 package com.pfizer.sacchon.team3.router;
 
-import com.pfizer.sacchon.team3.resource.PingServerResource;
+import com.pfizer.sacchon.team3.resource.*;
 import org.restlet.Application;
 import org.restlet.routing.Router;
 
@@ -18,6 +18,14 @@ public class CustomRouter {
         Router router = new Router(application.getContext());
 
         // εδω θα μπουνε τα endpoints
+
+        router.attach("/patients", PatientListImpl.class);
+        router.attach("/availablePatients", PatientListImpl.class);
+        router.attach("/patient/{id}", PatientResourceImpl.class);
+        router.attach("/patient/{id}/settings", PatientResourceImpl.class);
+        router.attach("/patients/{id}/storeData", PatientRecordsListImpl.class);
+        router.attach("/patients/{id}/storeData/allData", PatientRecordsListImpl.class);
+        router.attach("/patient/{id}/storeData/patientRecord/{id}", PatientRecordResourceImpl.class);
 
         return router;
     }
