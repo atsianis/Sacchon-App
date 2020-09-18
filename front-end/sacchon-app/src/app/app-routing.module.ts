@@ -5,6 +5,7 @@ import { ChiefDoctorComponent } from './chief-doctor/chief-doctor.component';
 import { InspectDoctorComponent } from './chief-doctor/inspect-doctor/inspect-doctor.component';
 import { InspectPatientComponent } from './chief-doctor/inspect-patient/inspect-patient.component';
 import { ContentComponent } from './content/content.component';
+import { DatatableComponent } from './datatable/datatable.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 
