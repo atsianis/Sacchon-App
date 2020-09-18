@@ -1,6 +1,6 @@
 package com.pfizer.sacchon.team3.repository;
 
-import com.pfizer.sacchon.team3.model.Patient;
+import com.pfizer.sacchon.team3.model.Patients;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -13,24 +13,30 @@ public class PatientRepository {
         this.entityManager = entityManager;
     }
 
-    public Optional<Patient> findById(Long id) {
-        Patient patients = entityManager.find(Patient.class, id);
+    public Optional<Patients> findById(Long id) {
+        Patients patients = entityManager.find(Patients.class, id);
         return patients != null ? Optional.of(patients) : Optional.empty();
     }
 
-    public List<Patient> findAllPatients() {
-        return entityManager.createQuery("from Patient").getResultList();
+    public List<Patients> findAllPatients() {
+        return entityManager.createQuery("from Patients").getResultList();
     }
 
-
-    public Optional<Patient> findByLastName(String lastName) {
-        Patient patients = entityManager.createQuery("SELECT b FROM Patient b WHERE b.lastName = :lastName", Patient.class)
+    public Optional<Patients> findByLastName(String lastName) {
+        Patients patients = entityManager.createQuery("SELECT b FROM Patients b WHERE b.lastName = :lastName", Patients.class)
                 .setParameter("lastName", lastName)
                 .getSingleResult();
         return patients != null ? Optional.of(patients) : Optional.empty();
     }
 
-    public Optional<Patient> save(Patient patients){
+    public List<Patients> findAllAvailablePatients(boolean canBeExamined) {
+        List<Patients> patients = entityManager.createQuery("SELECT b FROM Patients b WHERE b.canBeExamined = true", Patients.class)
+                .setParameter("canBeExamined", canBeExamined)
+                .getResultList();
+        return patients;
+    }
+
+    public Optional<Patients> save(Patients patients){
         try {
             entityManager.getTransaction().begin();
             entityManager.persist (patients);
@@ -43,8 +49,8 @@ public class PatientRepository {
     }
 
 
-    public Optional<Patient> update(Patient patients) {
-        Patient in = entityManager.find(Patient.class, patients.getId());
+    public Optional<Patients> update(Patients patients) {
+        Patients in = entityManager.find(Patients.class, patients.getId());
         in.setFirstName(patients.getFirstName());
         in.setLastName(patients.getLastName());
         in.setPassword(patients.getPassword());
@@ -62,9 +68,9 @@ public class PatientRepository {
     }
 
     public boolean remove(Long id){
-        Optional<Patient> patient = findById(id);
+        Optional<Patients> patient = findById(id);
         if (patient.isPresent()){
-            Patient p = patient.get();
+            Patients p = patient.get();
             try{
                 entityManager.getTransaction().begin();
                 entityManager.remove(p);
@@ -74,5 +80,19 @@ public class PatientRepository {
             }
         }
         return true;
+    }
+
+    public Optional<Patients> softDelete(Patients patients) {
+        Patients in = entityManager.find(Patients.class, patients.getId());
+        in.setDeleted(true);
+            try {
+                entityManager.getTransaction().begin();
+                entityManager.persist (in);
+                entityManager.getTransaction().commit();
+                return Optional.of(in);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return Optional.empty();
     }
 }

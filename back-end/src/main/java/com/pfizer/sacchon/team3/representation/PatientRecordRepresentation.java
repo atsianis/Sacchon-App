@@ -1,8 +1,8 @@
 package com.pfizer.sacchon.team3.representation;
 
-import com.pfizer.sacchon.team3.model.Consultation;
-import com.pfizer.sacchon.team3.model.Patient;
-import com.pfizer.sacchon.team3.model.PatientRecord;
+import com.pfizer.sacchon.team3.model.Consultations;
+import com.pfizer.sacchon.team3.model.Patients;
+import com.pfizer.sacchon.team3.model.PatientRecords;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,12 +14,22 @@ public class PatientRecordRepresentation {
     private float sacchon;
     private float calories;
     private Date timeCreated;
-    private Patient patient;
-    private Consultation consultation;
-    /**
-     * The URL of this resource.
-     */
     private String uri;
 
-    public PatientRecordRepresentation(PatientRecord patRec){}
+    public PatientRecordRepresentation(PatientRecords patientRecords){
+        if(patientRecords!=null)
+        {
+            sacchon = patientRecords.getSacchon();
+            calories = patientRecords.getCalories();
+            timeCreated = patientRecords.getTimeCreated();
+        }
+    }
+
+    public PatientRecords createPatientRecords(){
+        PatientRecords patientRecords = new PatientRecords();
+        patientRecords.setSacchon(this.sacchon);
+        patientRecords.setCalories(this.calories);
+        patientRecords.setTimeCreated(this.timeCreated);
+        return patientRecords;
+    }
 }

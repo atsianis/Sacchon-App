@@ -16,11 +16,7 @@ public class ApplicationUserPersistence   {
         return applicationUserPersistence;
     }
 
-
-
-
-
-    public ApplicationUser findById(String email) throws SQLException {
+     public ApplicationUser findById(String email) throws SQLException {
         Context.getCurrentLogger().finer(
                 "Method findById() of ApplicationUserPersistence called.");
 

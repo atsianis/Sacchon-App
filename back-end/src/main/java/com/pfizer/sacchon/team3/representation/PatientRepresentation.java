@@ -1,6 +1,6 @@
 package com.pfizer.sacchon.team3.representation;
 
-import com.pfizer.sacchon.team3.model.Patient;
+import com.pfizer.sacchon.team3.model.Patients;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,7 +22,7 @@ public class PatientRepresentation {
 
 
     public PatientRepresentation(
-            Patient patients) {
+            Patients patients) {
         if (patients != null) {
             firstName = patients.getFirstName();
             lastName = patients.getLastName();
@@ -36,8 +36,8 @@ public class PatientRepresentation {
         }
     }
 
-    public Patient createPatient() {
-        Patient p = new Patient();
+    public Patients createPatient() {
+        Patients p = new Patients();
         p.setFirstName(firstName);
         p.setLastName(lastName);
         p.setEmail(email);

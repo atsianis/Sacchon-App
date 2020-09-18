@@ -1,5 +1,6 @@
 package com.pfizer.sacchon.team3;
 
+import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.router.CustomRouter;
 import com.pfizer.sacchon.team3.security.Shield;
 import com.pfizer.sacchon.team3.security.cors.CorsFilter;
@@ -12,6 +13,8 @@ import org.restlet.routing.Router;
 import org.restlet.security.ChallengeAuthenticator;
 import org.restlet.security.Role;
 
+import javax.persistence.EntityManager;
+import java.util.jar.JarEntry;
 import java.util.logging.Logger;
 
 public class Main extends Application {
@@ -21,6 +24,8 @@ public class Main extends Application {
     public static void main(String[] args) throws Exception{
         LOGGER.info("Contacts application starting...");
 
+        EntityManager em = JpaUtil.getEntityManager();
+        em.close();
 
         Component c = new Component();
         c.getServers().add(Protocol.HTTP, 9000);
@@ -55,9 +60,6 @@ public class Main extends Application {
         apiGuard.setNext(apiRouter);
 
         publicRouter.attachDefault(apiGuard);
-
-        // return publicRouter;
-
         CorsFilter corsFilter = new CorsFilter(this);
         return corsFilter.createCorsFilter(publicRouter);
     }

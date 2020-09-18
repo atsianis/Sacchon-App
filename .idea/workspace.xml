@@ -19,31 +19,30 @@
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
-    <select>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:initProject" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </select>
+    <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037ca25c-cd0d-4b27-b4f7-08f66999b0f8" name="Default Changelist" comment="" />
+    <list default="true" id="b78a4211-dd89-4f92-86be-ed598d1bba19" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/.idea/vcs.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="initProject" />
-      </map>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/back-end/pom.xml" root0="SKIP_HIGHLIGHTING" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -52,25 +51,46 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectId" id="1hcxDgsgcKq191mPmSfVIHQX1jc" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="1haq8941BEm7VnHrU8LBHGD4OAV" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/back-end" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\MaiK-G13\IdeaProjects\pfizer-se-team3\back-end\src\main" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.pfizer.sacchon.team3.repository.util" />
+      <recent name="com.pfizer.sacchon.team3.resource.util" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\MaiK-G13\IdeaProjects\pfizer-se-team3\back-end\src\main" />
+      <recent name="C:\Users\MaiK-G13\IdeaProjects\pfizer-se-team3\back-end\src\main\java\com\pfizer\sacchon\team3\resource" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="037ca25c-cd0d-4b27-b4f7-08f66999b0f8" name="Default Changelist" comment="" />
-      <created>1600324064391</created>
+      <changelist id="b78a4211-dd89-4f92-86be-ed598d1bba19" name="Default Changelist" comment="" />
+      <created>1600259388766</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1600324064391</updated>
+      <updated>1600259388766</updated>
     </task>
+    <task id="LOCAL-00001" summary="add repository/representation of patient">
+      <created>1600259941701</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1600259941701</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -78,37 +98,33 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="initProject" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add repository/representation of patient" />
+    <option name="LAST_COMMIT_MESSAGE" value="add repository/representation of patient" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="1780" y="177" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600344623782">
-      <screen x="1366" y="0" width="1920" height="1040" />
+    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser" timestamp="1600264373412">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1780" y="177" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1600344623782" />
-    <state x="2106" y="277" key="FileChooserDialogImpl" timestamp="1600344206596">
-      <screen x="1366" y="0" width="1920" height="1040" />
+    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1600264373412" />
+    <state x="429" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1600261728032">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="2106" y="277" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1600344206596" />
-    <state x="2087" y="235" key="git4idea.branch.GitSmartOperationDialog" timestamp="1600344522980">
-      <screen x="1366" y="0" width="1920" height="1040" />
+    <state x="429" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600261728032" />
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1600331730822">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="2087" y="235" key="git4idea.branch.GitSmartOperationDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1600344522980" />
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600331730822" />
+    <state x="552" y="239" key="Vcs.Push.Dialog.v2" timestamp="1600259945361">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="239" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600259945361" />
   </component>
 </project>

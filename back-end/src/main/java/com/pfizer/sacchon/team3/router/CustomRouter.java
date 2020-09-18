@@ -5,6 +5,7 @@ import com.pfizer.sacchon.team3.resource.DoctorRes.AvailablePatientsResourceImpl
 import com.pfizer.sacchon.team3.resource.DoctorRes.DoctorResourceImpl;
 import com.pfizer.sacchon.team3.resource.DoctorRes.MyPatientsResourceImpl;
 import com.pfizer.sacchon.team3.resource.PingServerResource;
+import com.pfizer.sacchon.team3.resource.*;
 import org.restlet.Application;
 import org.restlet.routing.Router;
 
@@ -34,6 +35,14 @@ public class CustomRouter {
         router.attach("patient/{id}/consults",  AvailablePatientsResourceImpl.class);
 
         // PUT DELETE Consultations
+        router.attach("/ping", PingServerResource.class);
+        router.attach("/patients", PatientListImpl.class);
+        router.attach("/availablePatients", PatientListImpl.class);
+        router.attach("/patient/{id}", PatientResourceImpl.class);
+        router.attach("/patient/{id}/settings", PatientResourceImpl.class);
+        router.attach("/patients/{id}/storeData", PatientRecordsListImpl.class);
+        router.attach("/patients/{id}/storeData/allData", PatientRecordsListImpl.class);
+        router.attach("/patient/{id}/storeData/patientRecord/{id}", PatientRecordResourceImpl.class);
 
         return router;
     }
@@ -43,5 +52,4 @@ public class CustomRouter {
         router.attach("/ping", PingServerResource.class);
         return router;
     }
-
 }
