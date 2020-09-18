@@ -11,8 +11,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ContentComponent } from './content/content.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { ChiefDoctorModule } from './chief-doctor/chief-doctor.module';
 import { DatatableComponent } from './datatable/datatable.component';
+import { ReporterModule } from './reporter/reporter.module';
 
 @NgModule({
 	declarations: [
@@ -27,7 +27,7 @@ import { DatatableComponent } from './datatable/datatable.component';
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
-		ChiefDoctorModule,
+		ReporterModule,
 		DataTablesModule
 	],
 	providers: [],
