@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @Entity
-public class PatientRecord {
+public class PatientRecords {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -18,10 +18,10 @@ public class PatientRecord {
     @ManyToOne
     @JoinColumn(name ="patient_id")
     @JsonBackReference
-    private Patient patient;
+    private Patients patient;
     @ManyToOne
     @JoinColumn(name ="consultation_id")
     @JsonBackReference
-    private Consultation consultation;
+    private Consultations consultation;
 
 }

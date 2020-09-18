@@ -1,6 +1,6 @@
 package com.pfizer.sacchon.team3.repository;
 
-import com.pfizer.sacchon.team3.model.Doctor;
+import com.pfizer.sacchon.team3.model.Doctors;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -13,17 +13,17 @@ public class DoctorRepository {
         this.entityManager = entityManager;
     }
 
-    public Optional<Doctor> findById(Long id) {
-        Doctor doctor = entityManager.find(Doctor.class, id);
+    public Optional<Doctors> findById(Long id) {
+        Doctors doctor = entityManager.find(Doctors.class, id);
         return doctor != null ? Optional.of(doctor) : Optional.empty();
     }
 
-    public List<Doctor> findAll() {
-        return entityManager.createQuery("from Doctor").getResultList();
+    public List<Doctors> findAll() {
+        return entityManager.createQuery("from Doctors").getResultList();
     }
 
 
-    public Optional<Doctor> save(Doctor doctor){
+    public Optional<Doctors> save(Doctors doctor){
 
         try {
             entityManager.getTransaction().begin();
@@ -36,9 +36,9 @@ public class DoctorRepository {
         return Optional.empty();
     }
 
-    public Optional<Doctor> update(Doctor doctor) {
+    public Optional<Doctors> update(Doctors doctor) {
 
-        Doctor inDBDoc = entityManager.find(Doctor.class, doctor.getId());
+        Doctors inDBDoc = entityManager.find(Doctors.class, doctor.getId());
         inDBDoc.setFirstName(doctor.getFirstName());
         inDBDoc.setLastName(doctor.getLastName());
         inDBDoc.setEmail(doctor.getEmail());

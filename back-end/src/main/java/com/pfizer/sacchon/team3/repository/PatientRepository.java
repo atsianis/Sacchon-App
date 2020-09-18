@@ -1,6 +1,6 @@
 package com.pfizer.sacchon.team3.repository;
 
-import com.pfizer.sacchon.team3.model.Patient;
+import com.pfizer.sacchon.team3.model.Patients;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -13,23 +13,23 @@ public class PatientRepository {
         this.entityManager = entityManager;
     }
 
-    public Optional<Patient> findById(Long id) {
-        Patient patient = entityManager.find(Patient.class, id);
+    public Optional<Patients> findById(Long id) {
+        Patients patient = entityManager.find(Patients.class, id);
         return patient != null ? Optional.of(patient) : Optional.empty();
     }
 
-    public List<Patient> findAllPatients() {
-        return entityManager.createQuery("from Patient").getResultList();
+    public List<Patients> findAllPatients() {
+        return entityManager.createQuery("from Patients").getResultList();
     }
 
-    public Optional<Patient> findByLastName(String lastName) {
-        Patient patient = entityManager.createQuery("SELECT b FROM Patient b WHERE b.lastName = :lastName", Patient.class)
+    public Optional<Patients> findByLastName(String lastName) {
+        Patients patient = entityManager.createQuery("SELECT b FROM Patients b WHERE b.lastName = :lastName", Patients.class)
                 .setParameter("lastName", lastName)
                 .getSingleResult();
         return patient != null ? Optional.of(patient) : Optional.empty();
     }
 
-    public Optional<Patient> save(Patient patient){
+    public Optional<Patients> save(Patients patient){
         try {
             entityManager.getTransaction().begin();
             entityManager.persist (patient);
@@ -42,8 +42,8 @@ public class PatientRepository {
     }
 
 
-    public Optional<Patient> update(Patient patient) {
-        Patient in = entityManager.find(Patient.class, patient.getId());
+    public Optional<Patients> update(Patients patient) {
+        Patients in = entityManager.find(Patients.class, patient.getId());
         in.setFirstName(patient.getFirstName());
         in.setLastName(patient.getLastName());
         in.setPassword(patient.getPassword());
@@ -61,9 +61,9 @@ public class PatientRepository {
     }
 
     public boolean remove(Long id){
-        Optional<Patient> patient = findById(id);
+        Optional<Patients> patient = findById(id);
         if (patient.isPresent()){
-            Patient p = patient.get();
+            Patients p = patient.get();
             try{
                 entityManager.getTransaction().begin();
                 entityManager.remove(p);

@@ -1,13 +1,10 @@
 package com.pfizer.sacchon.team3.resource;
 
 import com.pfizer.sacchon.team3.exception.NotFoundException;
-import com.pfizer.sacchon.team3.model.Consultation;
-import com.pfizer.sacchon.team3.model.Doctor;
+import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.repository.ConsultationRepository;
-import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
-import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
 import org.hibernate.Hibernate;
@@ -47,9 +44,9 @@ public class ConsultationResourceImpl
         LOGGER.info("Passed Authorization");
         // Initialize the persistence layer.
         ConsultationRepository consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
-        Consultation consultation;
+        Consultations consultation;
         try {
-            Optional<Consultation> consFromDB = consultationRepository.findById(id);
+            Optional<Consultations> consFromDB = consultationRepository.findById(id);
 
             setExisting(consFromDB.isPresent());
             if (!isExisting()) {

@@ -1,12 +1,11 @@
 package com.pfizer.sacchon.team3.representation;
 
-import com.pfizer.sacchon.team3.model.Consultation;
-import com.pfizer.sacchon.team3.model.Doctor;
-import com.pfizer.sacchon.team3.model.Patient;
+import com.pfizer.sacchon.team3.model.Consultations;
+import com.pfizer.sacchon.team3.model.Doctors;
+import com.pfizer.sacchon.team3.model.Patients;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,11 +19,11 @@ public class DoctorRepresentation {
     private String email;
     private String password;
     private Date lastActive;
-    private List<Patient> patients = new ArrayList<>();
-    private List<Consultation> consultations = new ArrayList<>();
+    private List<Patients> patients = new ArrayList<>();
+    private List<Consultations> consultations = new ArrayList<>();
     private String uri;
 
-    public DoctorRepresentation(Doctor doctor) {
+    public DoctorRepresentation(Doctors doctor) {
         if (doctor != null) {
             firstName = doctor.getFirstName();
             lastName = doctor.getLastName();
@@ -47,8 +46,8 @@ public class DoctorRepresentation {
 
     }
 
-    public Doctor createDoctor() {
-        Doctor doctor =  new Doctor();
+    public Doctors createDoctor() {
+        Doctors doctor =  new Doctors();
         doctor.setFirstName(firstName);
         doctor.setLastActive(lastActive);
         doctor.setLastName(lastName);

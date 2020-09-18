@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Doctor {
+public class Doctors {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
@@ -22,8 +22,8 @@ public class Doctor {
     private Date lastActive;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
     @JsonManagedReference
-    private List<Patient> patients = new ArrayList<>();
+    private List<Patients> patients = new ArrayList<>();
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
     @JsonManagedReference
-    private List<Consultation> consultations = new ArrayList<>();
+    private List<Consultations> consultations = new ArrayList<>();
 }

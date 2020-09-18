@@ -1,9 +1,8 @@
 package com.pfizer.sacchon.team3.representation;
 
-import com.pfizer.sacchon.team3.model.Consultation;
-import com.pfizer.sacchon.team3.model.Doctor;
-import com.pfizer.sacchon.team3.model.Patient;
-import com.pfizer.sacchon.team3.model.PatientRecord;
+import com.pfizer.sacchon.team3.model.Consultations;
+import com.pfizer.sacchon.team3.model.Doctors;
+import com.pfizer.sacchon.team3.model.PatientRecords;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,11 +17,11 @@ public class ConsultationRepresentation {
     private Date timeCreated;
     private String comment;
     private Date seenByPatient;
-    private List<PatientRecord> patientRecords = new ArrayList<>();
-    private Doctor doctor;
+    private List<PatientRecords> patientRecords = new ArrayList<>();
+    private Doctors doctor;
     private String uri;
 
-    public ConsultationRepresentation(Consultation consultation) {
+    public ConsultationRepresentation(Consultations consultation) {
         if (consultation != null) {
             timeCreated = consultation.getTimeCreated();
             comment = consultation.getComment();
@@ -33,8 +32,8 @@ public class ConsultationRepresentation {
         }
     }
 
-    public Consultation createConsultation() {
-        Consultation c = new Consultation();
+    public Consultations createConsultation() {
+        Consultations c = new Consultations();
         c.setComment(comment);
         c.setTimeCreated(timeCreated);
         c.setDoctor(doctor);

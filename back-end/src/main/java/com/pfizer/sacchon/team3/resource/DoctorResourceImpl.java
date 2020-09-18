@@ -2,7 +2,7 @@ package com.pfizer.sacchon.team3.resource;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
-import com.pfizer.sacchon.team3.model.Doctor;
+import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
@@ -47,9 +47,9 @@ public class DoctorResourceImpl
         LOGGER.info("Passed Authorization");
         // Initialize the persistence layer.
         DoctorRepository doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
-        Doctor doctor;
+        Doctors doctor;
         try {
-            Optional<Doctor> doctorFromDB = doctorRepository.findById(id);
+            Optional<Doctors> doctorFromDB = doctorRepository.findById(id);
 
             setExisting(doctorFromDB.isPresent());
             if (!isExisting()) {
@@ -90,15 +90,15 @@ public class DoctorResourceImpl
         try {
 
             // Convert DoctorRepresentation to Doctor
-            Doctor doctorIn = new Doctor();
+            Doctors doctorIn = new Doctors();
             doctorIn.setFirstName(doctorRepresentationIn.getFirstName());
             doctorIn.setLastName(doctorRepresentationIn.getLastName());
             doctorIn.setEmail(doctorRepresentationIn.getEmail());
             doctorIn.setPassword(doctorRepresentationIn.getPassword());
 
 
-            Optional<Doctor> doctorOut = doctorRepository.save(doctorIn);
-            Doctor doctor= null;
+            Optional<Doctors> doctorOut = doctorRepository.save(doctorIn);
+            Doctors doctor= null;
             if (doctorOut.isPresent())
                 doctor = doctorOut.get();
             else

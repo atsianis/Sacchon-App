@@ -1,8 +1,8 @@
 package com.pfizer.sacchon.team3.representation;
 
-import com.pfizer.sacchon.team3.model.Doctor;
-import com.pfizer.sacchon.team3.model.Patient;
-import com.pfizer.sacchon.team3.model.PatientRecord;
+import com.pfizer.sacchon.team3.model.Doctors;
+import com.pfizer.sacchon.team3.model.Patients;
+import com.pfizer.sacchon.team3.model.PatientRecords;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,14 +21,14 @@ public class PatientRepresentation {
     private boolean canBeExamined;
     private boolean isDeleted;
     private Date lastActive;
-    private Doctor doctor;
+    private Doctors doctor;
     private enum  gender{MALE,FEMALE};
-    private List<PatientRecord> patientRecords = new ArrayList<>();
+    private List<PatientRecords> patientRecords = new ArrayList<>();
     private String uri;
 
 
     public PatientRepresentation(
-            Patient patient) {
+            Patients patient) {
         if (patient != null) {
             firstName = patient.getFirstName();
             lastName = patient.getLastName();
@@ -44,8 +44,8 @@ public class PatientRepresentation {
         }
     }
 
-    public Patient createPatient() {
-        Patient p = new Patient();
+    public Patients createPatient() {
+        Patients p = new Patients();
         p.setFirstName(firstName);
         p.setLastName(lastName);
         p.setEmail(email);

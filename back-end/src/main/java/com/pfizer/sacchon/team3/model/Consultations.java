@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Consultation {
+public class Consultations {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +21,11 @@ public class Consultation {
     private Date seenByPatient;
     @OneToMany(mappedBy = "consultation")
     @JsonManagedReference
-    private List<PatientRecord> patientRecords = new ArrayList<>();
+    private List<PatientRecords> patientRecords = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "doctors_id")
     @JsonBackReference
-    private Doctor doctor;
+    private Doctors doctor;
 
 
 }

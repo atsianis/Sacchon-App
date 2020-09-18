@@ -2,7 +2,7 @@ package com.pfizer.sacchon.team3.resource;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
-import com.pfizer.sacchon.team3.model.Patient;
+import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
@@ -50,10 +50,10 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
 
         // Initialize the persistence layer.
         PatientRepository patientRepository = new PatientRepository(JpaUtil.getEntityManager());
-        Patient p;
+        Patients p;
         try {
 
-            Optional<Patient> oproduct = patientRepository.findById(id);
+            Optional<Patients> oproduct = patientRepository.findById(id);
             setExisting(oproduct.isPresent());
             if (!isExisting()) {
                 LOGGER.config("patient id does not exist:" + id);
@@ -116,10 +116,10 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
 
         try {
             // Convert CompanyRepresentation to Company
-            Patient patientIn = patientRepresentation.createPatient();
+            Patients patientIn = patientRepresentation.createPatient();
             patientIn.setId(id);
 
-            Optional<Patient> patientOut = patientRepository.findById(id);
+            Optional<Patients> patientOut = patientRepository.findById(id);
             setExisting(patientOut.isPresent());
 
             // If product exists, we update it.
@@ -167,12 +167,12 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
 
         try {
             // Convert CompanyRepresentation to Company
-            Patient patientIn = new Patient();
+            Patients patientIn = new Patients();
             patientIn.setFirstName(patientRepresentation.getFirstName());
 
 
-            Optional<Patient> patientOut = patientRepository.save(patientIn);
-            Patient patient = null;
+            Optional<Patients> patientOut = patientRepository.save(patientIn);
+            Patients patient = null;
             if (patientOut.isPresent())
                 patient = patientOut.get();
             else

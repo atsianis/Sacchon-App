@@ -1,13 +1,10 @@
 package com.pfizer.sacchon.team3.resource;
 
 import com.pfizer.sacchon.team3.exception.NotFoundException;
-import com.pfizer.sacchon.team3.model.Consultation;
-import com.pfizer.sacchon.team3.model.Doctor;
+import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.repository.ConsultationRepository;
-import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
-import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
 import org.hibernate.Hibernate;
@@ -50,8 +47,8 @@ public class ConsultationListResourceImpl
         System.out.println("After role check");
         try{
 
-            List<Consultation> consultations = consultationRepository.findAll();
-            for (Consultation cons: consultations) {
+            List<Consultations> consultations = consultationRepository.findAll();
+            for (Consultations cons: consultations) {
                 Hibernate.initialize(cons.getPatientRecords());
             }
             List<ConsultationRepresentation> result = new ArrayList<>();
