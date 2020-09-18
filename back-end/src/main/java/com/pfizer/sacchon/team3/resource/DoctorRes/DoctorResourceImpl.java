@@ -1,13 +1,11 @@
-package com.pfizer.sacchon.team3.resource;
+package com.pfizer.sacchon.team3.resource.DoctorRes;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Doctor;
-import com.pfizer.sacchon.team3.model.Patient;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
-import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
@@ -15,9 +13,6 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
-import javax.print.Doc;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +37,7 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
         LOGGER.info("Initialising doctor resource ends");
     }
 
+    // GET doctor
     @Override
     public DoctorRepresentation getDoctor() throws NotFoundException {
         LOGGER.info("Retrieve a doctor");
@@ -73,6 +69,7 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
         }
     }
 
+    // DELETE Doctor
     @Override
     public void remove() throws NotFoundException {
         LOGGER.finer("Removal of doctor");
@@ -97,6 +94,7 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
         }
     }
 
+    // UPDATE Doctor
     @Override
     public DoctorRepresentation store(DoctorRepresentation doctorReprIn) throws NotFoundException, BadEntityException {
         LOGGER.finer("Update a doctor.");
@@ -141,43 +139,4 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
         return null;
     }
 
-    @Override
-    public List<PatientRepresentation> myPatients(DoctorRepresentation doctorRepresentation) throws NotFoundException{
-        LOGGER.finer("Select my patients.");
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-        try{
-            Doctor doc = doctorRepresentation.createDoctor();
-            List<Patient> patients = doctorRepository.myPatients(doc);
-            List<PatientRepresentation> result = new ArrayList<>();
-            patients.forEach(patient -> result.add(new PatientRepresentation(patient)));
-
-
-            return result;
-        }
-        catch(Exception e)
-        {
-            throw new NotFoundException("products not found");
-        }
-    }
-
-    @Override
-    public List<PatientRepresentation> availablePatients() throws NotFoundException{
-        LOGGER.finer("Select all available patients.");
-
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-
-        try{
-
-            List<Patient> patients = doctorRepository.availablePatients();
-            List<PatientRepresentation> result = new ArrayList<>();
-            patients.forEach(patient -> result.add(new PatientRepresentation(patient)));
-            return result;
-        }
-        catch(Exception e)
-        {
-            throw new NotFoundException("available patients not found");
-        }
-    }
 }
