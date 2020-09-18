@@ -9,6 +9,7 @@ import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
+import org.hibernate.Hibernate;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
@@ -44,7 +45,7 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
         LOGGER.info("Retrieve a patient");
 
         // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
 
 
         // Initialize the persistence layer.
@@ -59,6 +60,7 @@ public class PatientResourceImpl extends ServerResource implements com.pfizer.sa
                 throw new NotFoundException("No patient with  : " + id);
             } else {
                 p = oproduct.get();
+                Hibernate.initialize(p.getPatientRecords());
                 LOGGER.finer("User allowed to retrieve a product.");
                 PatientRepresentation result = new PatientRepresentation(p);
                 LOGGER.finer("Patient successfully retrieved");

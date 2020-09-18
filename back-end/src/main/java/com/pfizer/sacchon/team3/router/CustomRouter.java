@@ -17,7 +17,7 @@ public class CustomRouter {
 
         Router router = new Router(application.getContext());
 
-        router.attach("/patients", PatientListResourceImp.class);
+        router.attach("/patients", PatientListResourceImpl.class);
 
         router.attach("/patient/{id}", PatientResourceImpl.class);
 
