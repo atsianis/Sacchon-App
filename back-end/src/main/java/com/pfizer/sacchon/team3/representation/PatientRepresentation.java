@@ -1,10 +1,14 @@
 package com.pfizer.sacchon.team3.representation;
 
+import com.pfizer.sacchon.team3.model.Doctor;
 import com.pfizer.sacchon.team3.model.Patient;
+import com.pfizer.sacchon.team3.model.PatientRecord;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +21,9 @@ public class PatientRepresentation {
     private boolean canBeExamined;
     private boolean isDeleted;
     private Date lastActive;
+    private Doctor doctor;
     private enum  gender{MALE,FEMALE};
+    private List<PatientRecord> patientRecords = new ArrayList<>();
     private String uri;
 
 
@@ -32,6 +38,8 @@ public class PatientRepresentation {
             canBeExamined = patient.isCanBeExamined();
             isDeleted = patient.isDeleted();
             lastActive = patient.getLastActive();
+            doctor = patient.getDoctor();
+            patientRecords = patient.getPatientRecords();
             uri = "http://localhost:9000/v1/patient/" + patient.getId();
         }
     }
