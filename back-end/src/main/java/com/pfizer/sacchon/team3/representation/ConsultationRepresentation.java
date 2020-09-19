@@ -13,12 +13,11 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class ConsultationRepresentation {
-
     private Date timeCreated;
     private String comment;
     private Date seenByPatient;
-    private List<PatientRecords> patientRecords = new ArrayList<>();
     private Doctors doctor;
+    private List<PatientRecords> patientRecords = new ArrayList<>();
     private String uri;
 
     public ConsultationRepresentation(Consultations consultation) {
@@ -26,8 +25,8 @@ public class ConsultationRepresentation {
             timeCreated = consultation.getTimeCreated();
             comment = consultation.getComment();
             seenByPatient = consultation.getSeenByPatient();
-            patientRecords = consultation.getPatientRecords();
             doctor = consultation.getDoctor();
+            patientRecords = consultation.getPatientRecords();
             uri = "http://localhost:9000/v1/consultation/" + consultation.getId();
         }
     }

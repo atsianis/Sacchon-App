@@ -14,18 +14,16 @@ import org.restlet.security.ChallengeAuthenticator;
 import org.restlet.security.Role;
 
 import javax.persistence.EntityManager;
-import java.util.jar.JarEntry;
 import java.util.logging.Logger;
 
 public class Main extends Application {
-
     public static final Logger LOGGER = Engine.getLogger(Main.class);
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         LOGGER.info("Contacts application starting...");
 
-//        EntityManager em = JpaUtil.getEntityManager();
-//        em.close();
+        EntityManager em = JpaUtil.getEntityManager();
+        em.close();
 
         Component c = new Component();
         c.getServers().add(Protocol.HTTP, 9000);
@@ -34,8 +32,8 @@ public class Main extends Application {
 
         LOGGER.info("Sample Web API started");
         LOGGER.info("URL: http://localhost:9000/v1/doctor");
-
     }
+
     public Main() {
 
         setName("WebAPITutorial");
@@ -44,11 +42,10 @@ public class Main extends Application {
         getRoles().add(new Role(this, Shield.ROLE_ADMIN));
         getRoles().add(new Role(this, Shield.ROLE_DOCTOR));
         getRoles().add(new Role(this, Shield.ROLE_PATIENT));
-
     }
+
     @Override
     public Restlet createInboundRoot() {
-
         CustomRouter customRouter = new CustomRouter(this);
         Shield shield = new Shield(this);
 
@@ -61,7 +58,7 @@ public class Main extends Application {
 
         publicRouter.attachDefault(apiGuard);
         CorsFilter corsFilter = new CorsFilter(this);
+
         return corsFilter.createCorsFilter(publicRouter);
     }
-
 }

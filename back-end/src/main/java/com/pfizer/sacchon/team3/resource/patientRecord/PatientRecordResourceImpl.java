@@ -1,14 +1,14 @@
-package com.pfizer.sacchon.team3.resource;
+package com.pfizer.sacchon.team3.resource.patientRecord;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.PatientRecords;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRecordRepository;
-import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRecordRepresentation;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
+import com.pfizer.sacchon.team3.resource.patient.PatientResourceImpl;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
@@ -16,16 +16,14 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PatientRecordResourceImpl extends ServerResource implements PatientRecordResource {
-
     public static final Logger LOGGER = Engine.getLogger(PatientResourceImpl.class);
     private long id;
-    private PatientRecordRepository patientRecordRepository ;
+    private PatientRecordRepository patientRecordRepository;
 
     @Override
     protected void doInit() {
@@ -33,10 +31,8 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
         try {
             patientRecordRepository = new PatientRecordRepository(JpaUtil.getEntityManager());
             id = Long.parseLong(getAttribute("id"));
-        }
-        catch(Exception e)
-        {
-            id =-1;
+        } catch (Exception e) {
+            id = -1;
         }
         LOGGER.info("Initialising patient resource ends");
     }
@@ -44,24 +40,23 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
     @Override
     public PatientRecordRepresentation getRecord() throws NotFoundException {
         LOGGER.info("Retrieve a Record");
-
         // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-
         // Initialize the persistence layer.
         PatientRecordRepository patientRecordRepository = new PatientRecordRepository(JpaUtil.getEntityManager());
-        PatientRecords p;
+        PatientRecords patientRecords;
         try {
-            Optional<PatientRecords> opatientRec = patientRecordRepository.findById(id);
-            setExisting(opatientRec.isPresent());
+            Optional<PatientRecords> opPatientRec = patientRecordRepository.findById(id);
+            setExisting(opPatientRec.isPresent());
             if (!isExisting()) {
                 LOGGER.config("record id does not exist:" + id);
                 throw new NotFoundException("No record with  : " + id);
             } else {
-                p = opatientRec.get();
+                patientRecords = opPatientRec.get();
                 LOGGER.finer("User allowed to retrieve a record.");
-                PatientRecordRepresentation result = new PatientRecordRepresentation(p);
+                PatientRecordRepresentation result = new PatientRecordRepresentation(patientRecords);
                 LOGGER.finer("Record successfully retrieved");
+
                 return result;
             }
         } catch (Exception ex) {
@@ -71,27 +66,19 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
 
     @Override
     public void remove() throws NotFoundException {
-
         LOGGER.finer("Removal of record");
-
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         LOGGER.finer("User allowed to remove a record.");
-
         try {
-
             // Delete record in DB: return true if deleted
             Boolean isDeleted = patientRecordRepository.remove(id);
-
             // If record has not been deleted: if not it means that the id must
             // be wrong
             if (!isDeleted) {
                 LOGGER.config("Record id does not exist");
-                throw new NotFoundException(
-                        "Record with the following identifier does not exist:"
-                                + id);
+                throw new NotFoundException("Record with the following identifier does not exist:" + id);
             }
             LOGGER.finer("Record successfully removed.");
-
         } catch (Exception ex) {
             LOGGER.log(Level.WARNING, "Error when removing a record", ex);
             throw new ResourceException(ex);
@@ -104,7 +91,6 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
 
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         LOGGER.finer("User allowed to update a record.");
-
         // Check given entity
         // Convert to PatientRepr so a validation can procceed
         PatientRepresentation pr = new PatientRepresentation();
@@ -112,9 +98,8 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
         pr.setFirstName(patient.getFirstName());
 
         ResourceValidator.notNull(patientRecordRepresentation);
-        ResourceValidator.validate(pr);
+        ResourceValidator.validatePatient(pr);
         LOGGER.finer("Patient checked");
-
         try {
             // Convert PatientRecordRepr to PatientRecord
             PatientRecords patientRecordsIn = patientRecordRepresentation.createPatientRecords();
@@ -130,13 +115,14 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
                 // means that the id is wrong.
                 if (!patientRecordsOut.isPresent()) {
                     LOGGER.finer("Record does not exist.");
-                    throw new NotFoundException("Record with the following id does not exist: "+ id);
+                    throw new NotFoundException("Record with the following id does not exist: " + id);
                 }
             } else {
                 LOGGER.finer("Record does not exist.");
-                throw new NotFoundException("Record with the following id does not exist: "+ id);
+                throw new NotFoundException("Record with the following id does not exist: " + id);
             }
             LOGGER.finer("Record successfully updated.");
+
             return new PatientRecordRepresentation(patientRecordsOut.get());
         } catch (Exception ex) {
             throw new ResourceException(ex);

@@ -15,11 +15,11 @@ public class ConsultationRepository {
 
     public Optional<Consultations> findById(Long id) {
         Consultations consultation = entityManager.find(Consultations.class, id);
+
         return consultation != null ? Optional.of(consultation) : Optional.empty();
     }
 
     public List<Consultations> findAll() {
         return entityManager.createQuery("from Consultations").getResultList();
     }
-
 }

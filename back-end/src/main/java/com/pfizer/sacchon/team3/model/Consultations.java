@@ -12,7 +12,6 @@ import java.util.List;
 @Data
 @Entity
 public class Consultations {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -26,6 +25,4 @@ public class Consultations {
     @JoinColumn(name = "doctors_id")
     @JsonBackReference
     private Doctors doctor;
-
-
 }

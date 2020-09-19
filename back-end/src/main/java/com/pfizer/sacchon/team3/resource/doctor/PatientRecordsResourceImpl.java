@@ -1,8 +1,8 @@
-package com.pfizer.sacchon.team3.resource.DoctorRes;
+package com.pfizer.sacchon.team3.resource.doctor;
 
 import com.pfizer.sacchon.team3.exception.NotFoundException;
-import com.pfizer.sacchon.team3.model.Patient;
-import com.pfizer.sacchon.team3.model.PatientRecord;
+import com.pfizer.sacchon.team3.model.PatientRecords;
+import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
@@ -27,28 +27,26 @@ public class PatientRecordsResourceImpl extends ServerResource implements Patien
     protected void doInit() {
         LOGGER.info("Patients records resource starts");
         try {
-            doctorRepository = new DoctorRepository (JpaUtil.getEntityManager());
-            patientRepository = new PatientRepository (JpaUtil.getEntityManager());
+            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
+            patientRepository = new PatientRepository(JpaUtil.getEntityManager());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch(Exception e)
-        {}
         LOGGER.info("Patients records resource ends");
     }
 
-    public List<PatientRecordRepresentation> getPatientRecords(PatientRepresentation patientRepresentation) throws NotFoundException{
+    public List<PatientRecordRepresentation> getPatientRecords(PatientRepresentation patientRepresentation) throws NotFoundException {
         LOGGER.finer("Select patient's records.");
         // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-        try{
-            Patient pat = patientRepresentation.createPatient();
-            List<PatientRecord> patientRecs = doctorRepository.patientRecords(pat);
+        try {
+            Patients pat = patientRepresentation.createPatient();
+            List<PatientRecords> patientRecs = doctorRepository.patientRecords(pat);
             List<PatientRecordRepresentation> result = new ArrayList<>();
             patientRecs.forEach(patientRec -> result.add(new PatientRecordRepresentation(patientRec)));
 
             return result;
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             throw new NotFoundException("Patient Records not found");
         }
     }

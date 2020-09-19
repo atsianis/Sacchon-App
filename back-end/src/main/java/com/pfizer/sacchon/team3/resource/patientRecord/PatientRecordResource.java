@@ -1,4 +1,4 @@
-package com.pfizer.sacchon.team3.resource;
+package com.pfizer.sacchon.team3.resource.patientRecord;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
@@ -24,5 +24,4 @@ public interface PatientRecordResource {
     @Put("json")
     public PatientRecordRepresentation store(PatientRecordRepresentation patientRecordRepresentation, Patients patient)
             throws NotFoundException, BadEntityException;
-
 }

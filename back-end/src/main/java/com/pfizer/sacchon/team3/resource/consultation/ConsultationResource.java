@@ -1,4 +1,4 @@
-package com.pfizer.sacchon.team3.resource;
+package com.pfizer.sacchon.team3.resource.consultation;
 
 import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
