@@ -1,11 +1,16 @@
 package com.pfizer.sacchon.team3.router;
 
-import com.pfizer.sacchon.team3.resource.DoctorRes.AvailablePatients;
-import com.pfizer.sacchon.team3.resource.DoctorRes.AvailablePatientsResourceImpl;
-import com.pfizer.sacchon.team3.resource.DoctorRes.DoctorResourceImpl;
-import com.pfizer.sacchon.team3.resource.DoctorRes.MyPatientsResourceImpl;
+import com.pfizer.sacchon.team3.resource.chief.AllPatientsListImpl;
+import com.pfizer.sacchon.team3.resource.chief.AllDoctorsListImpl;
+import com.pfizer.sacchon.team3.resource.consultation.ConsultationListResourceImpl;
+import com.pfizer.sacchon.team3.resource.consultation.ConsultationResourceImpl;
+import com.pfizer.sacchon.team3.resource.doctor.AvailablePatientsResourceImpl;
+import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
+import com.pfizer.sacchon.team3.resource.doctor.MyPatientsResourceImpl;
 import com.pfizer.sacchon.team3.resource.PingServerResource;
-import com.pfizer.sacchon.team3.resource.*;
+import com.pfizer.sacchon.team3.resource.patient.PatientRecordsListImpl;
+import com.pfizer.sacchon.team3.resource.patient.PatientResourceImpl;
+import com.pfizer.sacchon.team3.resource.patientRecord.PatientRecordResourceImpl;
 import org.restlet.Application;
 import org.restlet.routing.Router;
 
@@ -22,11 +27,11 @@ public class CustomRouter {
 
         Router router = new Router(application.getContext());
 
-        router.attach("/patients", PatientListResourceImpl.class);
+        //router.attach("/patients", PatientListResourceImpl.class);
 
         router.attach("/patient/{id}", PatientResourceImpl.class);
 
-        router.attach("/doctors", DoctorListResourceImpl.class);
+        router.attach("/doctors", AllDoctorsListImpl.class);
 
         router.attach("/consultations", ConsultationListResourceImpl.class);
 
@@ -53,8 +58,8 @@ public class CustomRouter {
 
         // PUT DELETE Consultations
         router.attach("/ping", PingServerResource.class);
-        router.attach("/patients", PatientListImpl.class);
-        router.attach("/availablePatients", PatientListImpl.class);
+        router.attach("/patients", AllPatientsListImpl.class);
+        router.attach("/availablePatients", AllPatientsListImpl.class);
         router.attach("/patient/{id}", PatientResourceImpl.class);
         router.attach("/patient/{id}/settings", PatientResourceImpl.class);
         router.attach("/patients/{id}/storeData", PatientRecordsListImpl.class);

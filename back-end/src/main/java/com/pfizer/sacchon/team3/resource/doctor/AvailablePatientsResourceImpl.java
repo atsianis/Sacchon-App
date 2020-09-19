@@ -1,7 +1,7 @@
-package com.pfizer.sacchon.team3.resource.DoctorRes;
+package com.pfizer.sacchon.team3.resource.doctor;
 
 import com.pfizer.sacchon.team3.exception.NotFoundException;
-import com.pfizer.sacchon.team3.model.Patient;
+import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
@@ -39,7 +39,7 @@ public class AvailablePatientsResourceImpl extends ServerResource implements Ava
 
         try{
 
-            List<Patient> patients = doctorRepository.availablePatients();
+            List<Patients> patients = doctorRepository.availablePatients();
             List<PatientRepresentation> result = new ArrayList<>();
             patients.forEach(patient -> result.add(new PatientRepresentation(patient)));
             return result;

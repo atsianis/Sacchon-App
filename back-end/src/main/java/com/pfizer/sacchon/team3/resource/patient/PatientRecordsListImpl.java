@@ -1,14 +1,14 @@
-package com.pfizer.sacchon.team3.resource;
+package com.pfizer.sacchon.team3.resource.patient;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.PatientRecords;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRecordRepository;
-import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRecordRepresentation;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
+import com.pfizer.sacchon.team3.resource.patientRecord.PatientRecordResourceImpl;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
@@ -76,7 +76,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
         pr.setFirstName(patient.getFirstName());
 
         ResourceValidator.notNull(patientRecordRepresentation);
-        ResourceValidator.validate(pr);
+        ResourceValidator.validatePatient(pr);
         LOGGER.finer("Patient checked");
 
         try {
@@ -85,7 +85,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
             patientRecordsIn.setSacchon(patientRecordRepresentation.getSacchon());
             patientRecordsIn.setCalories(patientRecordRepresentation.getCalories());
             patientRecordsIn.setTimeCreated(patientRecordRepresentation.getTimeCreated());
-            patientRecordsIn.setPatients(patient);
+            //patientRecordsIn.setPatients(patient);
 
             Optional<PatientRecords> patientRecordsOut = patientRecordRepository.save(patientRecordsIn);
             PatientRecords patientRecords = null;

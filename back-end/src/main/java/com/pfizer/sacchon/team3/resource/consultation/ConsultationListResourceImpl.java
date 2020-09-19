@@ -1,10 +1,11 @@
-package com.pfizer.sacchon.team3.resource;
+package com.pfizer.sacchon.team3.resource.consultation;
 
 import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.repository.ConsultationRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
+import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
 import org.hibernate.Hibernate;
@@ -15,26 +16,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class ConsultationListResourceImpl
-        extends ServerResource implements ConsultationListResource {
-
+public class ConsultationListResourceImpl extends ServerResource implements ConsultationListResource {
     public static final Logger LOGGER = Engine.getLogger(DoctorResourceImpl.class);
-
     private ConsultationRepository consultationRepository;
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising consultations resource starts");
         try {
-            System.out.println("Cons Init");
-            consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager()) ;
-
+            consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch(Exception e)
-        {
-
-        }
-
         LOGGER.info("Initialising consultations resource ends");
     }
 
@@ -45,21 +38,16 @@ public class ConsultationListResourceImpl
         // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
         System.out.println("After role check");
-        try{
-
+        try {
             List<Consultations> consultations = consultationRepository.findAll();
-            for (Consultations cons: consultations) {
+            for (Consultations cons : consultations)
                 Hibernate.initialize(cons.getPatientRecords());
-            }
             List<ConsultationRepresentation> result = new ArrayList<>();
+            consultations.forEach(cons -> result.add(new ConsultationRepresentation(cons)));
 
-            consultations.forEach(cons -> result.add (new ConsultationRepresentation(cons)));
             return result;
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             throw new NotFoundException("consultations not found");
         }
     }
-
 }
