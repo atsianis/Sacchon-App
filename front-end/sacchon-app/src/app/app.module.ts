@@ -3,15 +3,16 @@ import { NgModule } from '@angular/core';
 
 import { DataTablesModule } from 'angular-datatables';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './content/header/header.component';
+import { FooterComponent } from './content/footer/footer.component';
 import { ContentComponent } from './content/content.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+
 import { ReporterModule } from './reporter/reporter.module';
+
 // medidatarepo imports
 import { PatientEditProfileComponent } from './medi-data-repo/edit-profile/edit-profile.component';
 import { AddPatientRecordComponent } from './medi-data-repo/add-patient-record/add-patient-record.component';
