@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Data
 @Entity
 public class Chiefs {
-
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;

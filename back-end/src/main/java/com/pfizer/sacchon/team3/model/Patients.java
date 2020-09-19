@@ -12,7 +12,6 @@ import java.util.List;
 @Data
 @Entity
 public class Patients {
-
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
@@ -25,7 +24,7 @@ public class Patients {
     private boolean canBeExamined;
     private boolean isDeleted;
     private Date lastActive;
-    private enum  gender{MALE,FEMALE};
+    private String gender;
     @ManyToOne
     @JoinColumn(name= "doctor_id")
     @JsonBackReference
