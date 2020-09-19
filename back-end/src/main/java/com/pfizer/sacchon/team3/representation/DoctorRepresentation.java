@@ -34,8 +34,8 @@ public class DoctorRepresentation {
         }
     }
 
-    public Doctor createDoctor() {
-        Doctor doctor = new Doctor();
+    public Doctors createDoctor() {
+        Doctors doctor = new Doctors();
         doctor.setFirstName(firstName);
         doctor.setLastName(lastName);
         doctor.setEmail(email);

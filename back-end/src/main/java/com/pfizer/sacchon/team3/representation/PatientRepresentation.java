@@ -22,13 +22,12 @@ public class PatientRepresentation {
     private boolean isDeleted;
     private Date lastActive;
     private Doctors doctor;
-    private enum  gender{MALE,FEMALE};
+    private String gender;
     private List<PatientRecords> patientRecords = new ArrayList<>();
     private String uri;
 
 
-    public PatientRepresentation(
-            Patients patient) {
+    public PatientRepresentation(Patients patient) {
         if (patient != null) {
             firstName = patient.getFirstName();
             lastName = patient.getLastName();
