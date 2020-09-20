@@ -57,7 +57,7 @@ const routes: Routes = [
 	// DoctorAdvice routes
 	{ path: 'doctoradvice', component: DoctorAdviceComponent },
 	{ path: 'doctoradvice/profile', component: ProfileComponent },
-	{ path: 'doctoradvice/editprofile', component: EditProfileComponent },
+	{ path: 'doctoradvice/profile/edit', component: EditProfileComponent },
 	{ path: 'doctoradvice/patients', component: PatientComponent },
 	{ path: 'doctoradvice/patient/:id', component: PatientListComponent },
 	{ path: 'doctoradvice/consult', component: ConsultComponent },
