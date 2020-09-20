@@ -51,6 +51,7 @@ public class PatientRepository {
         patientIn.setPassword(p.getPassword());
         patientIn.setEmail(p.getEmail());
         patientIn.setDob(p.getDob());
+
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(patientIn);

@@ -16,7 +16,4 @@ public interface PatientResource {
 
     @Put("json")
     public PatientRepresentation store(PatientRepresentation patientRepresentation) throws NotFoundException, BadEntityException;
-
-    @Put("json")
-    public PatientRepresentation softDelete(PatientRepresentation patientRepresentation) throws NotFoundException, BadEntityException;
 }

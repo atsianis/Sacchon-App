@@ -58,7 +58,6 @@ public class DoctorRepository {
         doctorIn.setLastName(doctor.getLastName());
         doctorIn.setEmail(doctor.getEmail());
         doctorIn.setPassword(doctor.getPassword());
-        doctorIn.setLastActive(doctor.getLastActive());
 
         try {
             entityManager.getTransaction().begin();
@@ -128,5 +127,20 @@ public class DoctorRepository {
         patientRecord.addAll(patientsIn.getPatientRecords());
 
         return patientRecord;
+    }
+
+    public Optional<Doctors> softDelete(Doctors d) {
+        Doctors doctorsIn = entityManager.find(Doctors.class, d.getId());
+        doctorsIn.setDeleted(true);
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(doctorsIn);
+            entityManager.getTransaction().commit();
+            return Optional.of(doctorsIn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return Optional.empty();
     }
 }

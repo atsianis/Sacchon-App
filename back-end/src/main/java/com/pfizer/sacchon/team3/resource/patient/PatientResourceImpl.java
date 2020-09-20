@@ -122,42 +122,4 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
             throw new ResourceException(ex);
         }
     }
-
-    @Override
-    public PatientRepresentation softDelete(PatientRepresentation patientRepresentation) throws NotFoundException, BadEntityException {
-        LOGGER.finer("Soft Delete a patient.");
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        LOGGER.finer("User allowed to soft Delete a patient.");
-        // Check given entity
-        ResourceValidator.notNull(patientRepresentation);
-        ResourceValidator.validatePatient(patientRepresentation);
-        LOGGER.finer("Patient checked");
-
-        try {
-            // Convert PatientRepr to Patient
-            Patients patientsIn = patientRepresentation.createPatient();
-            patientsIn.setId(id);
-            Optional<Patients> patientOut = patientRepository.findById(id);
-            setExisting(patientOut.isPresent());
-            // If patient exists, we update it.
-            if (isExisting()) {
-                LOGGER.finer("Soft delete Patient.");
-                patientOut = patientRepository.softDelete(patientsIn);
-                // Check if retrieved patient is not null : if it is null it
-                // means that the id is wrong.
-                if (!patientOut.isPresent()) {
-                    LOGGER.finer("Patient does not exist.");
-                    throw new NotFoundException("Patient with the following id does not exist: " + id);
-                }
-            } else {
-                LOGGER.finer("Patient does not exist.");
-                throw new NotFoundException("Patient with the following id does not exist: " + id);
-            }
-            LOGGER.finer("Patient successfully updated.");
-
-            return new PatientRepresentation(patientOut.get());
-        } catch (Exception ex) {
-            throw new ResourceException(ex);
-        }
-    }
 }
