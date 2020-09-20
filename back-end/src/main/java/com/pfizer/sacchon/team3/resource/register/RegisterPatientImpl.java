@@ -52,6 +52,7 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
             patientsIn.setEmail(patientRepresentation.getEmail());
             patientsIn.setPassword(patientRepresentation.getPassword());
             patientsIn.setDob(patientRepresentation.getDob());
+            patientsIn.setGender(patientRepresentation.getGender());
 
             Optional<Patients> patientOut = patientRepository.save(patientsIn);
             Patients patients = null;
