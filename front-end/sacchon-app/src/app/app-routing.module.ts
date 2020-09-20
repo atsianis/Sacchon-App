@@ -9,6 +9,7 @@ import { ContentComponent } from './content/content.component';
 // Medidatarepo imports
 import { MediDataRepoComponent } from './medi-data-repo/medi-data-repo.component';
 import { PatientProfileComponent } from './medi-data-repo/profile/profile.component';
+import { PatientEditProfileComponent } from './medi-data-repo/edit-profile/edit-profile.component';
 import { AddPatientRecordComponent } from './medi-data-repo/add-patient-record/add-patient-record.component';
 import { EditPatientRecordComponent } from './medi-data-repo/edit-patient-record/edit-patient-record.component';
 import { PatientRecordComponent } from './medi-data-repo/patient-record/patient-record.component';
@@ -48,7 +49,7 @@ const routes: Routes = [
 	// Medidatarepo routes
 	{ path: 'medidatarepo', component: MediDataRepoComponent },
 	{ path: 'medidatarepo/profile', component: PatientProfileComponent },
-	{ path: 'medidatarepo/profile/edit', component: InspectPatientComponent },
+	{ path: 'medidatarepo/profile/edit', component: PatientEditProfileComponent },
 	{ path: 'medidatarepo/record', component: PatientRecordComponent },
 	{ path: 'medidatarepo/record/add', component: AddPatientRecordComponent },
 	{ path: 'medidatarepo/record/edit', component: EditPatientRecordComponent },
