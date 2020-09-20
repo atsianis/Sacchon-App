@@ -54,14 +54,14 @@ const routes: Routes = [
 	{ path: 'medidatarepo/record/edit', component: EditPatientRecordComponent },
 
 	// DoctorAdvice routes
-	{ path: 'doctor', component: DoctorAdviceComponent },
-	{ path: 'doctor/profile', component: ProfileComponent },
-	{ path: 'doctor/editprofile', component: EditProfileComponent },
-	{ path: 'doctor/patients', component: PatientComponent },
-	{ path: 'doctor/patient/:id', component: PatientListComponent },
-	{ path: 'doctor/consult', component: ConsultComponent },
-	{ path: 'doctor/consult/:id', component: ConsultListComponent },
-	{ path: 'doctor/consult/:id/edit', component: ConsultEditComponent },
+	{ path: 'doctoradvice', component: DoctorAdviceComponent },
+	{ path: 'doctoradvice/profile', component: ProfileComponent },
+	{ path: 'doctoradvice/editprofile', component: EditProfileComponent },
+	{ path: 'doctoradvice/patients', component: PatientComponent },
+	{ path: 'doctoradvice/patient/:id', component: PatientListComponent },
+	{ path: 'doctoradvice/consult', component: ConsultComponent },
+	{ path: 'doctoradvice/consult/:id', component: ConsultListComponent },
+	{ path: 'doctoradvice/consult/:id/edit', component: ConsultEditComponent },
 ];
 
 @NgModule({
