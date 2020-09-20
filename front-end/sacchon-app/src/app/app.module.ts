@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { DataTablesModule } from 'angular-datatables';
+import { ChartsModule } from 'ng2-charts';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -52,7 +54,8 @@ import { ConsultListComponent } from './doctor-advice/consult/consult-list/consu
 		BrowserModule,
 		AppRoutingModule,
 		ReporterModule,
-		DataTablesModule
+		DataTablesModule,
+		ChartsModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
