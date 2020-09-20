@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Doctors } from 'src/app/interfaces/doctors';
 import { Patients } from 'src/app/interfaces/patients';
 import { ReporterService } from '../reporter.service';
@@ -18,7 +18,9 @@ export class InspectPatientComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.dtOptions = {
-			pagingType: 'full_numbers'
+			pagingType: 'full_numbers',
+			pageLength: 5,
+			order: [1, 'desc']
 		};
 		this.getDoctor();
 		this.getPatient();
@@ -26,14 +28,14 @@ export class InspectPatientComponent implements OnInit {
 
 	getDoctor(): void {
 		this.reporterService.getDoctors().subscribe(doctor => {
-			this.doctors = doctor;
+			this.doctors = doctor.results;
 			console.log(this.doctors);
 		});
 	}
 
 	getPatient(): void {
 		this.reporterService.getPatients().subscribe(patient => {
-			this.patients = patient;
+			this.patients = patient.results;
 			console.log(this.patients);
 		});
 	}
