@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ChartsModule } from 'ng2-charts';
 import { DataTablesModule } from 'angular-datatables';
@@ -22,7 +23,8 @@ import { InspectPatientListComponent } from './inspect-patient/inspect-patient-l
 	imports: [
 		CommonModule,
 		DataTablesModule,
-		ChartsModule
+		ChartsModule,
+		HttpClientModule
 	]
 })
 export class ReporterModule { }
