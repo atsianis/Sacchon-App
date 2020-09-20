@@ -11,7 +11,7 @@ import org.restlet.resource.ServerResource;
 import java.util.logging.Logger;
 
 public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor {
-    public static final Logger LOGGER = Engine.getLogger(DoctorResourceImpl.class);
+    public static final Logger LOGGER = Engine.getLogger(RegisterDoctorImpl.class);
     private DoctorRepository doctorRepository;
 
     @Override

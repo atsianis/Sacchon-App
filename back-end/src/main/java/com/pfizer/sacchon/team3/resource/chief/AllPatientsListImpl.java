@@ -46,23 +46,4 @@ public class AllPatientsListImpl extends ServerResource implements AllPatientsLi
             throw new NotFoundException("patients not found");
         }
     }
-
-    @Override
-    public List<PatientRepresentation> getAllAvailablePatients() throws NotFoundException {
-        LOGGER.finer("Select available patients.");
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        try {
-            List<Patients> patients = patientRepository.findAllPatients();
-            List<PatientRepresentation> result = new ArrayList<>();
-            for (Patients patient : patients) {
-                if (patient.isCanBeExamined())
-                    result.add(new PatientRepresentation(patient));
-            }
-
-            return result;
-        } catch (Exception e) {
-            throw new NotFoundException("patients not found");
-        }
-    }
 }

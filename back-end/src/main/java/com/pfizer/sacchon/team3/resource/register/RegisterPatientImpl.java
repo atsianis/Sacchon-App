@@ -19,8 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RegisterPatientImpl extends ServerResource implements RegisterPatient {
-
-    public static final Logger LOGGER = Engine.getLogger(PatientResourceImpl.class);
+    public static final Logger LOGGER = Engine.getLogger(RegisterPatientImpl.class);
     private PatientRepository patientRepository;
 
     @Override

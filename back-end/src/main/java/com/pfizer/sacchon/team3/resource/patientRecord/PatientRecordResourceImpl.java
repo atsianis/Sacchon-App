@@ -21,7 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PatientRecordResourceImpl extends ServerResource implements PatientRecordResource {
-    public static final Logger LOGGER = Engine.getLogger(PatientResourceImpl.class);
+    public static final Logger LOGGER = Engine.getLogger(PatientRecordResourceImpl.class);
     private long id;
     private PatientRecordRepository patientRecordRepository;
 

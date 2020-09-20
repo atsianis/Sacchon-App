@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 public class MyPatientsResourceImpl extends ServerResource implements Mypatients {
 
-    public static final Logger LOGGER = Engine.getLogger(DoctorResourceImpl.class);
+    public static final Logger LOGGER = Engine.getLogger(MyPatientsResourceImpl.class);
     private DoctorRepository doctorRepository;
 
     @Override

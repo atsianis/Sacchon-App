@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 public class PatientRecordsResourceImpl extends ServerResource implements PatientRecordsImpl {
 
-    public static final Logger LOGGER = Engine.getLogger(DoctorResourceImpl.class);
+    public static final Logger LOGGER = Engine.getLogger(PatientRecordsResourceImpl.class);
     private DoctorRepository doctorRepository;
     private PatientRepository patientRepository;
 
