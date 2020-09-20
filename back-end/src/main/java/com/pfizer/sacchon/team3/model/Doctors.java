@@ -20,6 +20,7 @@ public class Doctors {
     private String email;
     private String password;
     private Date lastActive;
+    private boolean isDeleted;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
     @JsonManagedReference
     private List<Patients> patients = new ArrayList<>();

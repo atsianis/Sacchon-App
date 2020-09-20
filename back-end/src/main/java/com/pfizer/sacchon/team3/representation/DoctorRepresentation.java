@@ -19,6 +19,7 @@ public class DoctorRepresentation {
     private String email;
     private String password;
     private Date lastActive;
+    private boolean isDeleted;
     private List<Patients> patients = new ArrayList<>();
     private List<Consultations> consultations = new ArrayList<>();
     private String uri;
@@ -30,6 +31,7 @@ public class DoctorRepresentation {
             email = doctor.getEmail();
             password = doctor.getPassword();
             lastActive = doctor.getLastActive();
+            isDeleted = doctor.isDeleted();
             uri = "http://localhost:9000/v1/doctor/" + doctor.getId();
         }
     }
@@ -41,6 +43,7 @@ public class DoctorRepresentation {
         doctor.setEmail(email);
         doctor.setPassword(password);
         doctor.setLastActive(lastActive);
+        doctor.setDeleted(isDeleted);
         return doctor;
     }
 }
