@@ -1,31 +1,37 @@
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-4">
-			<div class="card">
-				<img class="card-img-top" src="" alt="Card image cap">
+		<div class="col-3">
+			<div class="card h-100">
 				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-						card's content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
+					<h5 class="card-title text-center">User profile
+						<br>
+						<br>
+						<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn.onlinewebfonts.com%2Fsvg%2Fimg_299586.png&f=1&nofb=1"
+							alt="" width="100" height="100">
+					</h5>
+					<br>
+					<br>
+					<div class="row">
+						<div class="col-6"><strong>Name:</strong></div>
+						<div class="col-6">asd</div>
+						<div class="col-6"><strong>Surname:</strong></div>
+						<div class="col-6">asd</div>
+						<div class="col-6"><strong>Email:</strong></div>
+						<div class="col-6">asd@asd.asd</div>
+						<div class="col-6"><strong>Gender</strong></div>
+						<div class="col-6">Male</div>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-8">
+		<div class="col-9">
 			<div class="card">
-				<img class="card-img-top" src="" alt="Card image cap">
 				<div class="card-body">
-					<canvas baseChart
-					[datasets]="lineChartData"
-					[labels]="lineChartLabels"
-					[options]="lineChartOptions"
-					[colors]="lineChartColors"
-					[legend]="lineChartLegend"
-					[chartType]="lineChartType"
-					[plugins]="lineChartPlugins"
-					(chartHover)="chartHovered($event)"
-					(chartClick)="chartClicked($event)">
-				</canvas>
+					<canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+						[colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+						[plugins]="lineChartPlugins" (chartHover)="chartHovered($event)"
+						(chartClick)="chartClicked($event)">
+					</canvas>
 				</div>
 			</div>
 		</div>
