@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Doctors } from 'src/app/interfaces/doctors';
 import { Patients } from 'src/app/interfaces/patients';
 import { ReporterService } from '../reporter.service';
 
@@ -10,8 +9,7 @@ import { ReporterService } from '../reporter.service';
 })
 export class InspectPatientComponent implements OnInit {
 
-	doctors: Doctors[];
-	patients: Patients[];
+	patients: [];
 
 	constructor(private reporterService: ReporterService) { }
 	dtOptions: DataTables.Settings = {};
@@ -22,18 +20,10 @@ export class InspectPatientComponent implements OnInit {
 			pageLength: 5,
 			order: [1, 'desc']
 		};
-		this.getDoctor();
-		this.getPatient();
+		this.getPatients();
 	}
 
-	getDoctor(): void {
-		this.reporterService.getDoctors().subscribe(doctor => {
-			this.doctors = doctor.results;
-			console.log(this.doctors);
-		});
-	}
-
-	getPatient(): void {
+	getPatients(): void {
 		this.reporterService.getPatients().subscribe(patient => {
 			this.patients = patient.results;
 			console.log(this.patients);
