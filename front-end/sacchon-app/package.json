@@ -27,6 +27,7 @@
     "datatables.net-dt": "^1.10.21",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
+    "ng2-charts": "^2.4.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
