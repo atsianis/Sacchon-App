@@ -12,10 +12,10 @@ export class ReporterService {
 	constructor(private http: HttpClient) { }
 
 	getDoctors(): Observable<Doctors[]> {
-		return this.http.get<Doctors[]>('https://swapi.dev/api/people');
+		return this.http.get<Doctors[]>('https://jsonplaceholder.typicode.com/users');
 	}
 
 	getPatients(): Observable<Patients[]> {
-		return this.http.get<Patients[]>('https://swapi.dev/api/people');
+		return this.http.get<Patients[]>('https://jsonplaceholder.typicode.com/users');
 	}
 }
