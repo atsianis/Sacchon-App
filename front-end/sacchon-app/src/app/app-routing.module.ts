@@ -39,12 +39,12 @@ const routes: Routes = [
 	{ path: 'signup', component: SignupComponent },
 
 	// Reporter routes
-	{ path: 'reporter', component: ReporterComponent },
-	{ path: 'reporter/doctors', component: InspectDoctorComponent },
-	{ path: 'reporter/doctor/:id', component: InspectDoctorListComponent },
-	{ path: 'reporter/patients', component: InspectPatientComponent },
-	{ path: 'reporter/patient/:id', component: InspectPatientListComponent },
-	{ path: 'reporter/createdoctor', component: CreateDoctorComponent },
+	// { path: 'reporter', component: ReporterComponent },
+	// { path: 'reporter/doctors', component: InspectDoctorComponent },
+	// { path: 'reporter/doctor/:id', component: InspectDoctorListComponent },
+	// { path: 'reporter/patients', component: InspectPatientComponent },
+	// { path: 'reporter/patient/:id', component: InspectPatientListComponent },
+	// { path: 'reporter/createdoctor', component: CreateDoctorComponent },
 
 	// Medidatarepo routes
 	{ path: 'medidatarepo', component: MediDataRepoComponent },
