@@ -14,16 +14,31 @@ export class InspectPatientComponent implements OnInit {
 	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();
+	message = '';
 
 	constructor(private http: HttpClient) { }
+
+	getPatient(patient: any): void {
+		window.location.href = `/reporter/patient/${patient[0]}`;
+	}
 
 	ngOnInit(): void {
 		this.patients = [];
 		this.getPatients();
 		this.dtOptions = {
-			order: [1, 'desc'],
+			order: [0, 'asc'],
 			pagingType: 'full_numbers',
 			pageLength: 5,
+			rowCallback: (row: Node, patientArray: any[] | Object, index: number) => {
+				const self = this;
+				// Unbind first in order to avoid any duplicate handler
+				// (see https://github.com/l-lin/angular-datatables/issues/87)
+				$('td', row).unbind('click');
+				$('td', row).bind('click', () => {
+					self.getPatient(patientArray);
+				});
+				return row;
+			}
 		};
 	}
 
