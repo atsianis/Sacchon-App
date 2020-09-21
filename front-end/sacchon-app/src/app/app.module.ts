@@ -29,6 +29,7 @@ import { ConsultComponent } from './doctor-advice/consult/consult.component';
 import { PatientRecordComponent } from './medi-data-repo/patient-record/patient-record.component';
 import { ConsultEditComponent } from './doctor-advice/consult-edit/consult-edit.component';
 import { ConsultListComponent } from './doctor-advice/consult/consult-list/consult-list.component';
+import { MediDataRepoComponent } from './medi-data-repo/medi-data-repo.component';
 
 @NgModule({
 	declarations: [
@@ -49,6 +50,7 @@ import { ConsultListComponent } from './doctor-advice/consult/consult-list/consu
 		PatientRecordComponent,
 		ConsultEditComponent,
 		ConsultListComponent,
+		MediDataRepoComponent,
 	],
 	imports: [
 		BrowserModule,
