@@ -14,7 +14,6 @@ export class InspectPatientComponent implements OnInit {
 	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();
-	message = '';
 
 	constructor(private http: HttpClient) { }
 
@@ -29,6 +28,7 @@ export class InspectPatientComponent implements OnInit {
 			order: [0, 'asc'],
 			pagingType: 'full_numbers',
 			pageLength: 5,
+			// WIP: to delete(View child)
 			rowCallback: (row: Node, patientArray: any[] | Object, index: number) => {
 				const self = this;
 				// Unbind first in order to avoid any duplicate handler
