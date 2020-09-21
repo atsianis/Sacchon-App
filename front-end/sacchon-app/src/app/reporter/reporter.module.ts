@@ -11,6 +11,8 @@ import { InspectPatientComponent } from './inspect-patient/inspect-patient.compo
 
 import { InspectDoctorListComponent } from './inspect-doctor/inspect-doctor-list/inspect-doctor-list.component';
 import { InspectPatientListComponent } from './inspect-patient/inspect-patient-list/inspect-patient-list.component';
+import { RouterModule } from '@angular/router';
+import { ReporterComponent } from './reporter.component';
 
 @NgModule({
 	declarations: [
@@ -24,7 +26,18 @@ import { InspectPatientListComponent } from './inspect-patient/inspect-patient-l
 		CommonModule,
 		DataTablesModule,
 		ChartsModule,
-		HttpClientModule
+		HttpClientModule,
+		RouterModule.forChild([
+			{ path: 'reporter', component: ReporterComponent },
+			{ path: 'reporter/doctors', component: InspectDoctorComponent },
+			{ path: 'reporter/doctor/:id', component: InspectDoctorListComponent },
+			{ path: 'reporter/patients', component: InspectPatientComponent },
+			{ path: 'reporter/patient/:id', component: InspectPatientListComponent },
+			{ path: 'reporter/createdoctor', component: CreateDoctorComponent },
+		])
+	],
+	exports: [
+		RouterModule
 	]
 })
 export class ReporterModule { }
