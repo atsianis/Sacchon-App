@@ -37,32 +37,6 @@ const routes: Routes = [
 	{ path: '', component: ContentComponent },
 	{ path: 'login', component: LoginComponent },
 	{ path: 'signup', component: SignupComponent },
-
-	// Reporter routes
-	// { path: 'reporter', component: ReporterComponent },
-	// { path: 'reporter/doctors', component: InspectDoctorComponent },
-	// { path: 'reporter/doctor/:id', component: InspectDoctorListComponent },
-	// { path: 'reporter/patients', component: InspectPatientComponent },
-	// { path: 'reporter/patient/:id', component: InspectPatientListComponent },
-	// { path: 'reporter/createdoctor', component: CreateDoctorComponent },
-
-	// Medidatarepo routes
-	{ path: 'medidatarepo', component: MediDataRepoComponent },
-	{ path: 'medidatarepo/profile', component: PatientProfileComponent },
-	{ path: 'medidatarepo/profile/edit', component: PatientEditProfileComponent },
-	{ path: 'medidatarepo/record', component: PatientRecordComponent },
-	{ path: 'medidatarepo/record/add', component: AddPatientRecordComponent },
-	{ path: 'medidatarepo/record/edit', component: EditPatientRecordComponent },
-
-	// DoctorAdvice routes
-	{ path: 'doctoradvice', component: DoctorAdviceComponent },
-	{ path: 'doctoradvice/profile', component: ProfileComponent },
-	{ path: 'doctoradvice/profile/edit', component: EditProfileComponent },
-	{ path: 'doctoradvice/patients', component: PatientComponent },
-	{ path: 'doctoradvice/patient/:id', component: PatientListComponent },
-	{ path: 'doctoradvice/consult', component: ConsultComponent },
-	{ path: 'doctoradvice/consult/:id', component: ConsultListComponent },
-	{ path: 'doctoradvice/consult/:id/edit', component: ConsultEditComponent },
 ];
 
 @NgModule({
