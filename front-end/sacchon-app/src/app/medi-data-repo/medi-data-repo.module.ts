@@ -14,7 +14,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
-	declarations: [],
+	declarations: [
+		MediDataRepoComponent,
+		PatientProfileComponent,
+		PatientEditProfileComponent,
+		PatientRecordComponent,
+		AddPatientRecordComponent,
+		EditPatientRecordComponent,
+	],
 	imports: [
 		CommonModule,
 		DataTablesModule,

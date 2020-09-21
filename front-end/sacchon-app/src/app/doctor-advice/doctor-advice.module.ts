@@ -16,7 +16,16 @@ import { ConsultEditComponent } from './consult-edit/consult-edit.component';
 
 
 @NgModule({
-	declarations: [],
+	declarations: [
+		DoctorAdviceComponent,
+		ProfileComponent,
+		EditProfileComponent,
+		PatientComponent,
+		PatientListComponent,
+		ConsultComponent,
+		ConsultListComponent,
+		ConsultEditComponent,
+	],
 	imports: [
 		CommonModule,
 		DataTablesModule,
