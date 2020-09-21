@@ -1,26 +1,26 @@
-<table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered" style="width:100%">
+<table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" class="table table-striped table-bordered" style="width:100%">
 	<thead>
 		<tr>
-			<th>Name</th>
-			<th>Height</th>
-			<th>Mass</th>
-			<th>Hair_color</th>
-			<th>Skin_color</th>
-			<th>Eye_color</th>
-			<th>Birth_year</th>
-			<th>Gender</th>
+			<th>id</th>
+			<th>name</th>
+			<th>username</th>
+			<th>email</th>
+			<th>address</th>
+			<th>phone</th>
+			<th>website</th>
+			<th>company</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr *ngFor="let patient of patients">
+			<td>{{ patient.id }}</td>
 			<td>{{ patient.name }}</td>
-			<td>{{ patient.height }}</td>
-			<td>{{ patient.mass }}</td>
-			<td>{{ patient.hair_color }}</td>
-			<td>{{ patient.skin_color }}</td>
-			<td>{{ patient.eye_color }}</td>
-			<td>{{ patient.birth_year }}</td>
-			<td>{{ patient.gender }}</td>
+			<td>{{ patient.username }}</td>
+			<td>{{ patient.email }}</td>
+			<td>{{ patient.address | json }}</td>
+			<td>{{ patient.phone }}</td>
+			<td>{{ patient.website }}</td>
+			<td>{{ patient.company | json }}</td>
 		</tr>
 	</tbody>
 </table>

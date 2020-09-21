@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Patients } from 'src/app/interfaces/patients';
-import { ReporterService } from '../reporter.service';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
 	selector: 'sacchon-app-inspect-patient',
@@ -9,24 +10,29 @@ import { ReporterService } from '../reporter.service';
 })
 export class InspectPatientComponent implements OnInit {
 
-	patients: [];
-
-	constructor(private reporterService: ReporterService) { }
+	patients: any;
+	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
+	dtTrigger: Subject<any> = new Subject();
+
+	constructor(private http: HttpClient) { }
 
 	ngOnInit(): void {
+		this.patients = [];
+		this.getPatients();
 		this.dtOptions = {
+			order: [1, 'desc'],
 			pagingType: 'full_numbers',
 			pageLength: 5,
-			order: [1, 'desc']
 		};
-		this.getPatients();
 	}
 
 	getPatients(): void {
-		this.reporterService.getPatients().subscribe(patient => {
-			this.patients = patient.results;
-			console.log(this.patients);
+		this.http.get('https://jsonplaceholder.typicode.com/users').subscribe(patients => {
+			this.patients = patients;
+			this.dtTrigger.next();
+		}, (err) => {
+			console.log('-----> err', err);
 		});
 	}
 }
