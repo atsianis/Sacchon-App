@@ -6,7 +6,7 @@ import org.restlet.resource.Get;
 
 import java.util.List;
 
-public interface AvailablePatients {
+public interface AvailablePatientsFromTo {
     @Get("json")
     public List<PatientRepresentation> availablePatients() throws NotFoundException;
 }
