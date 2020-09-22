@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'sacchon-app-add-doctor',
-  templateUrl: './add-doctor.component.html',
-  styleUrls: ['./add-doctor.component.scss']
+	selector: 'sacchon-app-add-doctor',
+	templateUrl: './add-doctor.component.html',
+	styleUrls: ['./add-doctor.component.scss']
 })
-export class AddDoctorComponent implements OnInit {
+export class CreateDoctorComponent implements OnInit {
 
-  constructor() { }
+	constructor() { }
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
 
 }

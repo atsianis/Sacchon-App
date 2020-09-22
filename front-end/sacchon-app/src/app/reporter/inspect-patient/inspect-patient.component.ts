@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
 	selector: 'sacchon-app-inspect-patient',
@@ -7,13 +10,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InspectPatientComponent implements OnInit {
 
-	constructor() { }
+	patients: any;
+	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
+	dtTrigger: Subject<any> = new Subject();
+
+	constructor(private http: HttpClient) { }
 
 	ngOnInit(): void {
+		this.patients = [];
+		this.getPatients();
 		this.dtOptions = {
-			pagingType: 'full_numbers'
+			order: [0, 'asc'],
+			pagingType: 'full_numbers',
+			pageLength: 5,
 		};
 	}
 
+	getPatients(): void {
+		this.http.get('https://jsonplaceholder.typicode.com/users').subscribe(patients => {
+			this.patients = patients;
+			this.dtTrigger.next();
+		}, (err) => {
+			console.log('-----> err', err);
+		});
+	}
 }
