@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 
@@ -9,7 +11,8 @@ import { Color, Label } from 'ng2-charts';
 })
 export class InspectPatientListComponent implements OnInit {
 
-	constructor() { }
+	constructor(private route: ActivatedRoute, private http: HttpClient) { }
+	patient: any;
 
 	// Array of different segments in chart
 	lineChartData: ChartDataSets[] = [
@@ -55,7 +58,15 @@ export class InspectPatientListComponent implements OnInit {
 		console.log(event, active);
 	}
 
-	ngOnInit(): void {
+	getPatientById(id: number): void {
+		this.http.get(`https://jsonplaceholder.typicode.com/users/${id}`).subscribe(patient => {
+			this.patient = patient;
+		}, (err) => {
+			console.log('-----> err', err);
+		});
 	}
 
+	ngOnInit(): void {
+		this.getPatientById(this.route.params.value.id);
+	}
 }
