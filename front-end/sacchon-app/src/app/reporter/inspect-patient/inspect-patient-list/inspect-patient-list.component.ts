@@ -58,15 +58,17 @@ export class InspectPatientListComponent implements OnInit {
 		console.log(event, active);
 	}
 
-	getPatientById(id: number): void {
-		this.http.get(`https://jsonplaceholder.typicode.com/users/${id}`).subscribe(patient => {
-			this.patient = patient;
-		}, (err) => {
-			console.log('-----> err', err);
+	getPatientById(): void {
+		this.route.params.subscribe(params => {
+			this.http.get(`https://jsonplaceholder.typicode.com/users/${params.id}`).subscribe(patient => {
+				this.patient = patient;
+			}, (err) => {
+				console.log('-----> err', err);
+			});
 		});
 	}
 
 	ngOnInit(): void {
-		this.getPatientById(this.route.params.value.id);
+		this.getPatientById();
 	}
 }
