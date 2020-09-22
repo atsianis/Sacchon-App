@@ -30,6 +30,16 @@ public class PatientRepository {
         return patients;
     }
 
+    public Optional<Patients> findByEmailAndPass(String email, String password) {
+        Patients patient = entityManager
+                .createQuery("from Patients patient WHERE patient.email = email " + "and patient.password = password", Patients.class)
+                .setParameter("email", email)
+                .setParameter("password", password)
+                .getSingleResult();
+
+        return patient != null ? Optional.of(patient) : Optional.empty();
+    }
+
     public Optional<Patients> save(Patients patients) {
         try {
             entityManager.getTransaction().begin();
