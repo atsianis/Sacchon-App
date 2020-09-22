@@ -33,7 +33,7 @@ public class AllPatientsListImpl extends ServerResource implements AllPatientsLi
     public List<PatientRepresentation> getAllPatients() throws NotFoundException {
         LOGGER.finer("Select all patients.");
         // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
         try {
             List<Patients> patients = patientRepository.findAllPatients();
             List<PatientRepresentation> result = new ArrayList<>();
