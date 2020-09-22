@@ -60,7 +60,6 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
 
     @Override
     public PatientRecordRepresentation storeData(PatientRecordRepresentation patientRecordRepresentation, Patients patient) throws NotFoundException, BadEntityException {
-       // den kserw an doulevei etsi me ton Patient , mporei na thelei ResourceImpl h Repository
         LOGGER.finer("Add a new record.");
         // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
@@ -81,7 +80,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
             patientRecordsIn.setSacchon(patientRecordRepresentation.getSacchon());
             patientRecordsIn.setCalories(patientRecordRepresentation.getCalories());
             patientRecordsIn.setTimeCreated(patientRecordRepresentation.getTimeCreated());
-            //patientRecordsIn.setPatients(patient);
+            patientRecordsIn.setPatient(patient);
 
             Optional<PatientRecords> patientRecordsOut = patientRecordRepository.save(patientRecordsIn);
             PatientRecords patientRecords = null;
