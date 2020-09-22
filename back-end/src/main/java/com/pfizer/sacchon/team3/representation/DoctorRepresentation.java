@@ -31,6 +31,8 @@ public class DoctorRepresentation {
             email = doctor.getEmail();
             password = doctor.getPassword();
             lastActive = doctor.getLastActive();
+            patients = doctor.getPatients();
+            consultations = doctor.getConsultations();
             isDeleted = doctor.isDeleted();
             uri = "http://localhost:9000/v1/doctor/" + doctor.getId();
         }
