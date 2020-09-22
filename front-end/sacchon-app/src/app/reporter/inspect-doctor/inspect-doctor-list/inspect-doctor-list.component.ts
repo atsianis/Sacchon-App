@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'sacchon-app-inspect-doctor-list',
@@ -6,14 +8,26 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./inspect-doctor-list.component.scss']
 })
 export class InspectDoctorListComponent implements OnInit {
-	dtOptions: DataTables.Settings = {};
 
-	constructor() { }
+	constructor(private route: ActivatedRoute, private http: HttpClient) { }
+	dtOptions: DataTables.Settings = {};
+	doctor: any;
 
 	ngOnInit(): void {
 		this.dtOptions = {
 			pagingType: 'full_numbers'
 		};
+		this.getDoctorById();
+	}
+
+	getDoctorById(): void {
+		this.route.params.subscribe(params => {
+			this.http.get(`https://jsonplaceholder.typicode.com/users/${params.id}`).subscribe(doctor => {
+				this.doctor = doctor;
+			}, (err) => {
+				console.log('-----> err', err);
+			});
+		});
 	}
 
 }
