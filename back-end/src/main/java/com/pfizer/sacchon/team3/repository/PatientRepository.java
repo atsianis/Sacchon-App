@@ -36,6 +36,7 @@ public class PatientRepository {
                 .setParameter("email", email)
                 .setParameter("password", password)
                 .getSingleResult();
+
         return patient != null ? Optional.of(patient) : Optional.empty();
     }
 

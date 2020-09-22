@@ -17,6 +17,7 @@ public class ChiefRepository {
                 .setParameter("email", email)
                 .setParameter("password", password)
                 .getSingleResult();
+
         return chief != null ? Optional.of(chief) : Optional.empty();
     }
 }
