@@ -1,4 +1,4 @@
-package com.pfizer.sacchon.team3.resource.register;
+package com.pfizer.sacchon.team3.resource.userAuth.register;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
