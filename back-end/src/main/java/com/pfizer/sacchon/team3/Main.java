@@ -31,7 +31,7 @@ public class Main extends Application {
         c.start();
 
         LOGGER.info("Sample Web API started");
-        LOGGER.info("URL: http://localhost:9000/v1/doctor");
+        LOGGER.info("URL: http://localhost:9000/v1");
     }
 
     public Main() {

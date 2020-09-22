@@ -24,10 +24,9 @@ public class PatientRepository {
     }
 
     public List<Patients> findAllAvailablePatients() {
-        List<Patients> patients = entityManager
-                .createQuery("SELECT b FROM Patients b WHERE b.canBeExamined = true", Patients.class)
+        List<Patients> patients = entityManager.createQuery("from Patients patient WHERE patient.canBeExamined = true  " +
+                "and patient.doctor_id = null")
                 .getResultList();
-
         return patients;
     }
 
@@ -51,6 +50,7 @@ public class PatientRepository {
         patientIn.setPassword(p.getPassword());
         patientIn.setEmail(p.getEmail());
         patientIn.setDob(p.getDob());
+
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(patientIn);

@@ -8,7 +8,6 @@ import com.pfizer.sacchon.team3.repository.PatientRecordRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRecordRepresentation;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
-import com.pfizer.sacchon.team3.resource.patientRecord.PatientRecordResourceImpl;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
@@ -24,22 +23,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PatientRecordsListImpl extends ServerResource implements PatientRecordsList {
-
-
-    public static final Logger LOGGER = Engine.getLogger(PatientRecordResourceImpl.class);
+    public static final Logger LOGGER = Engine.getLogger(PatientRecordsListImpl.class);
     private PatientRecordRepository patientRecordRepository;
-
 
     @Override
     protected void doInit() {
-        LOGGER.info("Initialising product record resource L starts");
+        LOGGER.info("Initialising patient record resource L starts");
         try {
             patientRecordRepository = new PatientRecordRepository(JpaUtil.getEntityManager());
         }
         catch(Exception e) {
             e.printStackTrace();
         }
-        LOGGER.info("Initialising product record resource L ends");
+        LOGGER.info("Initialising patient record resource L ends");
     }
 
     @Override
@@ -47,13 +43,13 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
         LOGGER.finer("Select all records.");
         // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-
         try{
             List<PatientRecords> patientRecords = patientRecordRepository.findAllPatientRecords();
             List<PatientRecordRepresentation> result = new ArrayList<>();
 
             for(PatientRecords p : patientRecords)
                 result.add(new PatientRecordRepresentation(p));
+
             return result;
         }
         catch(Exception e)
@@ -64,7 +60,6 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
 
     @Override
     public PatientRecordRepresentation storeData(PatientRecordRepresentation patientRecordRepresentation, Patients patient) throws NotFoundException, BadEntityException {
-       // den kserw an doulevei etsi me ton Patient , mporei na thelei ResourceImpl h Repository
         LOGGER.finer("Add a new record.");
         // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
@@ -85,7 +80,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
             patientRecordsIn.setSacchon(patientRecordRepresentation.getSacchon());
             patientRecordsIn.setCalories(patientRecordRepresentation.getCalories());
             patientRecordsIn.setTimeCreated(patientRecordRepresentation.getTimeCreated());
-            //patientRecordsIn.setPatients(patient);
+            patientRecordsIn.setPatient(patient);
 
             Optional<PatientRecords> patientRecordsOut = patientRecordRepository.save(patientRecordsIn);
             PatientRecords patientRecords = null;

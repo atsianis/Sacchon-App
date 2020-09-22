@@ -21,7 +21,6 @@ public class PatientRepresentation {
     private boolean canBeExamined;
     private boolean isDeleted;
     private Date lastActive;
-    private Doctors doctor;
     private String gender;
     private List<PatientRecords> patientRecords = new ArrayList<>();
     private String uri;
@@ -37,7 +36,7 @@ public class PatientRepresentation {
             canBeExamined = patient.isCanBeExamined();
             isDeleted = patient.isDeleted();
             lastActive = patient.getLastActive();
-            doctor = patient.getDoctor();
+            gender = patient.getGender();
             patientRecords = patient.getPatientRecords();
             uri = "http://localhost:9000/v1/patient/" + patient.getId();
         }
@@ -53,6 +52,7 @@ public class PatientRepresentation {
         p.setCanBeExamined(canBeExamined);
         p.setDeleted(isDeleted);
         p.setLastActive(lastActive);
+        p.setGender(gender);
         return p;
     }
 }

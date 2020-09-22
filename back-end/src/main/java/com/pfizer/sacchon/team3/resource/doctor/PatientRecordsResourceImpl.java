@@ -13,21 +13,24 @@ import com.pfizer.sacchon.team3.security.Shield;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class PatientRecordsResourceImpl extends ServerResource implements PatientRecordsImpl {
 
-    public static final Logger LOGGER = Engine.getLogger(DoctorResourceImpl.class);
+    public static final Logger LOGGER = Engine.getLogger(PatientRecordsResourceImpl.class);
     private DoctorRepository doctorRepository;
     private PatientRepository patientRepository;
+    private long id;
 
     @Override
     protected void doInit() {
         LOGGER.info("Patients records resource starts");
         try {
-            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
+            id = Long.parseLong(getAttribute("id"));
+            // doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
             patientRepository = new PatientRepository(JpaUtil.getEntityManager());
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,11 +43,9 @@ public class PatientRecordsResourceImpl extends ServerResource implements Patien
         // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
         try {
-            Patients pat = patientRepresentation.createPatient();
-            List<PatientRecords> patientRecs = doctorRepository.patientRecords(pat);
+            List<PatientRecords> patientRecs = doctorRepository.patientRecords(id);
             List<PatientRecordRepresentation> result = new ArrayList<>();
             patientRecs.forEach(patientRec -> result.add(new PatientRecordRepresentation(patientRec)));
-
             return result;
         } catch (Exception e) {
             throw new NotFoundException("Patient Records not found");

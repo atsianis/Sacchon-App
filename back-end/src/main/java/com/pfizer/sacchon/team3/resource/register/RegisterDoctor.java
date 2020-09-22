@@ -6,5 +6,5 @@ import org.restlet.resource.Post;
 
 public interface RegisterDoctor {
     @Post("json")
-    public DoctorRepresentation add(DoctorRepresentation companyReprIn) throws BadEntityException;
+    public DoctorRepresentation add(DoctorRepresentation doctorRepresentation) throws BadEntityException;
 }
