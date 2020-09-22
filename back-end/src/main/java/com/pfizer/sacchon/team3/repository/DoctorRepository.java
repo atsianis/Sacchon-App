@@ -31,7 +31,7 @@ public class DoctorRepository {
 
     // find all Doctors
     public List<Doctors> findAll() {
-        return entityManager.createQuery("from Doctor").getResultList();
+        return entityManager.createQuery("from Doctors").getResultList();
     }
 
 
