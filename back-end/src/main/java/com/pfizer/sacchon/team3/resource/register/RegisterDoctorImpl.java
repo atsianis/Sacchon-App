@@ -39,7 +39,7 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
     public DoctorRepresentation add(DoctorRepresentation doctorRepresentation) throws BadEntityException {
         LOGGER.finer("Add a new doctor.");
         // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
         LOGGER.finer("User allowed to add a doctor.");
         // Check entity
         ResourceValidator.notNull(doctorRepresentation);
