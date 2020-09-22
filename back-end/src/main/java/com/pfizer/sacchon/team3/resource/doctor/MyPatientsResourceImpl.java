@@ -34,7 +34,6 @@ public class MyPatientsResourceImpl extends ServerResource implements Mypatients
     protected void doInit() {
         LOGGER.info("Doctor's patients resource starts");
         try {
-            em = JpaUtil.getEntityManager();
             doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
             id = Long.parseLong(getAttribute("id"));
         } catch (Exception ex) {

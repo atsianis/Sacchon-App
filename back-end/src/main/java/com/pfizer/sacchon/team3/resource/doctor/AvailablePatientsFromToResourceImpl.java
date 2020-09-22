@@ -21,7 +21,6 @@ public class AvailablePatientsFromToResourceImpl extends ServerResource implemen
 
     public static final Logger LOGGER = Engine.getLogger(AvailablePatientsFromToResourceImpl.class);
     private DoctorRepository doctorRepository;
-    private EntityManager em;
     private Date startDate;
     private Date endDate;
 
@@ -29,7 +28,6 @@ public class AvailablePatientsFromToResourceImpl extends ServerResource implemen
     protected void doInit() {
         LOGGER.info("Available patients resource starts");
         try {
-            em = JpaUtil.getEntityManager();
             doctorRepository = new DoctorRepository (JpaUtil.getEntityManager()) ;
             try {
                 String startDateString = getQueryValue("from");

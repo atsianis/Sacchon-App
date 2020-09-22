@@ -23,16 +23,14 @@ public class PatientRecordsResourceImpl extends ServerResource implements Patien
     public static final Logger LOGGER = Engine.getLogger(PatientRecordsResourceImpl.class);
     private DoctorRepository doctorRepository;
     private PatientRepository patientRepository;
-    private EntityManager em;
     private long id;
 
     @Override
     protected void doInit() {
         LOGGER.info("Patients records resource starts");
         try {
-            em = JpaUtil.getEntityManager();
             id = Long.parseLong(getAttribute("id"));
-            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
+            // doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
             patientRepository = new PatientRepository(JpaUtil.getEntityManager());
         } catch (Exception e) {
             e.printStackTrace();
