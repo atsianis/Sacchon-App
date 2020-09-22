@@ -12,7 +12,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let doctor of doctors" [routerLink]="['/reporter/doctor/' + doctor.id]">
+		<tr *ngFor="let doctor of doctors" [routerLink]="['/reporter/doctor/', doctor.id]">
 			<td>{{ doctor.id }}</td>
 			<td>{{ doctor.name }}</td>
 			<td>{{ doctor.username }}</td>

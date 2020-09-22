@@ -13,7 +13,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let patient of patients" [routerLink]="['/reporter/patient/' + patient.id]">
+		<tr *ngFor="let patient of patients" [routerLink]="['/reporter/patient/', patient.id]">
 			<td>{{ patient.id }}</td>
 			<td>{{ patient.name }}</td>
 			<td>{{ patient.username }}</td>
