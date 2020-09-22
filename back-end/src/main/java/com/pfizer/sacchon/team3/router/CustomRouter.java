@@ -4,7 +4,7 @@ import com.pfizer.sacchon.team3.resource.chief.AllPatientsListImpl;
 import com.pfizer.sacchon.team3.resource.chief.AllDoctorsListImpl;
 import com.pfizer.sacchon.team3.resource.consultation.ConsultationListResourceImpl;
 import com.pfizer.sacchon.team3.resource.consultation.ConsultationResourceImpl;
-import com.pfizer.sacchon.team3.resource.doctor.AvailablePatientsResourceImpl;
+import com.pfizer.sacchon.team3.resource.doctor.AvailablePatientsFromToResourceImpl;
 import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
 import com.pfizer.sacchon.team3.resource.doctor.MyPatientsResourceImpl;
 import com.pfizer.sacchon.team3.resource.PingServerResource;
@@ -51,10 +51,10 @@ public class CustomRouter {
         router.attach("/doctor/{id}/mypatients",  MyPatientsResourceImpl.class);
 
         // Available patients
-        router.attach("/doctor/available",  AvailablePatientsResourceImpl.class);
+        router.attach("/doctor/available",  AvailablePatientsFromToResourceImpl.class);
 
         // Get Patients Consults
-        router.attach("patient/{id}/consults",  AvailablePatientsResourceImpl.class);
+        router.attach("patient/{id}/consults",  AvailablePatientsFromToResourceImpl.class);
 
         // PUT DELETE Consultations
         router.attach("/ping", PingServerResource.class);

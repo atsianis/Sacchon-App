@@ -6,10 +6,7 @@ import com.pfizer.sacchon.team3.model.PatientRecords;
 import com.pfizer.sacchon.team3.model.Patients;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DoctorRepository {
@@ -90,43 +87,29 @@ public class DoctorRepository {
     }
 
     // Get Doctor's Patients
-    public List<Patients> myPatients(Doctors d) {
-        Doctors doctor = entityManager.find(Doctors.class, d.getId());
-        List<Patients> allPatients = patientRepository.findAllPatients();
-        List<Patients> myPatients = allPatients
-                .stream()
-                .filter(patient -> patient.getDoctor() == doctor)
-                .collect(Collectors.toList());
-
+    public List<Patients> myPatients(Long id) {
+        List<Patients> myPatients = entityManager.createQuery("from Patients p WHERE p.doctor_id = id")
+                .setParameter("id", id)
+                .getResultList();
         return myPatients;
     }
 
     // Get available Patients
-    public List<Patients> availablePatients() {
-        List<Patients> availablePatients = new ArrayList<>();
-        List<Patients> allPatients = patientRepository.findAllPatients();
-
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_MONTH, 30);
-
-        List<PatientRecords> patientRecords = allPatients
-                .stream()
-                .flatMap(patient -> patient.getPatientRecords().stream())
-                .filter(patient -> patient.getTimeCreated() == patient.getTimeCreated())
-                .collect(Collectors.toList());
-
-        for (PatientRecords pr : patientRecords)
-            availablePatients.add(pr.getPatient());
-
-        return availablePatients;
+    public List<Patients> availablePatientsFromTo(Date from, Date to) {
+        List<Patients> availblePatients = entityManager.createQuery("from Patients patient WHERE patient.canBeExamined = true  " +
+                "and patient.doctor_id = null" +
+                "and patient.creationDate >= :fromDate and patient.creationDate <= :toDate")
+                .setParameter("fromDate", from)
+                .setParameter("toDate", to)
+                .getResultList();
+        return availblePatients;
     }
 
-    public List<PatientRecords> patientRecords(Patients p) {
-        List<PatientRecords> patientRecord = new ArrayList<>();
-        Patients patientsIn = entityManager.find(Patients.class, p.getId());
-        patientRecord.addAll(patientsIn.getPatientRecords());
-
-        return patientRecord;
+    public List<PatientRecords> patientRecords(Long id) {
+        List<PatientRecords> patientsRecords = entityManager.createQuery("from PatientRecords patientRec WHERE patientRec.patient_id = id")
+                .setParameter("id", id)
+                .getResultList();
+        return patientsRecords;
     }
 
     public Optional<Doctors> softDelete(Doctors d) {
