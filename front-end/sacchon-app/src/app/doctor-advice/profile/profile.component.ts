@@ -29,17 +29,6 @@ export class ProfileComponent implements OnInit {
 			order: [0, 'asc'],
 			pagingType: 'full_numbers',
 			pageLength: 5,
-			// WIP: to delete(View child)
-			rowCallback: (row: Node, patientArray: any[] | Object, index: number) => {
-				const self = this;
-				// Unbind first in order to avoid any duplicate handler
-				// (see https://github.com/l-lin/angular-datatables/issues/87)
-				$('td', row).unbind('click');
-				$('td', row).bind('click', () => {
-					self.getPatient(patientArray);
-				});
-				return row;
-			}
 		};
 	}
 	getPatients(): void {

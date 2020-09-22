@@ -3,13 +3,14 @@
 		<div class="col-3">
 			<div class="card h-100">
 				<div class="card-body">
-					<h5 class="card-title text-center">User profile
+					<h5 class="card-title text-center">Doctor profile
 						<br>
 						<br>
 						<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn.onlinewebfonts.com%2Fsvg%2Fimg_299586.png&f=1&nofb=1"
 							alt="" width="100" height="100">
 					</h5>
 					<div class="row align-items-start py-5">
+						<!-- WIP: Get data from local storage -->
 						<div class="col-6"><strong>Name:</strong></div>
 						<div class="col-6">asd</div>
 						<div class="col-6"><strong>Surname:</strong></div>
@@ -18,6 +19,9 @@
 						<div class="col-6">asd@asd.asd</div>
 						<div class="col-6"><strong>Gender</strong></div>
 						<div class="col-6">Male</div>
+					</div>
+					<div class="row align-items-start py-5">
+						<a [routerLink]="['/doctoradvice/profile/edit']" class="btn btn-block btn-primary my-2 mx-2">Edit Profile</a>
 					</div>
 				</div>
 			</div>
@@ -40,7 +44,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr *ngFor="let patient of patients">
+							<tr *ngFor="let patient of patients" [routerLink]="['/doctoradvice/patient/', patient.id]">
 								<td>{{ patient.id }}</td>
 								<td>{{ patient.name }}</td>
 								<td>{{ patient.username }}</td>
