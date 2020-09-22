@@ -17,10 +17,6 @@ export class InspectDoctorComponent implements OnInit {
 
 	constructor(private http: HttpClient) { }
 
-	getDoctor(doctor: any): void {
-		window.location.href = `/reporter/doctor/${doctor[0]}`;
-	}
-
 	ngOnInit(): void {
 		this.doctors = [];
 		this.getDoctors();
@@ -28,16 +24,6 @@ export class InspectDoctorComponent implements OnInit {
 			pagingType: 'full_numbers',
 			pageLength: 5,
 			order: [0, 'asc'],
-			rowCallback: (row: Node, doctorArray: any[] | Object, index: number) => {
-				const self = this;
-				// Unbind first in order to avoid any duplicate handler
-				// (see https://github.com/l-lin/angular-datatables/issues/87)
-				$('td', row).unbind('click');
-				$('td', row).bind('click', () => {
-					self.getDoctor(doctorArray);
-				});
-				return row;
-			}
 		};
 	}
 
