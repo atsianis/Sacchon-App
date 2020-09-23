@@ -88,7 +88,7 @@ public class DoctorRepository {
 
     // Get Doctor's Patients
     public List<Patients> myPatients(Long id) {
-        List<Patients> myPatients = entityManager.createQuery("from Patients p WHERE p.doctor_id = id")
+        List<Patients> myPatients = entityManager.createQuery("from Patients WHERE doctor_id = :id",Patients.class)
                 .setParameter("id", id)
                 .getResultList();
         return myPatients;
@@ -98,7 +98,7 @@ public class DoctorRepository {
     public List<Patients> availablePatientsFromTo(Date from, Date to) {
         List<Patients> availblePatients = entityManager.createQuery("from Patients patient WHERE patient.canBeExamined = true  " +
                 "and patient.doctor_id = null" +
-                "and patient.creationDate >= :fromDate and patient.creationDate <= :toDate")
+                "and patient.creationDate >= :fromDate and patient.creationDate <= :toDate",Patients.class)
                 .setParameter("fromDate", from)
                 .setParameter("toDate", to)
                 .getResultList();
@@ -106,7 +106,7 @@ public class DoctorRepository {
     }
 
     public List<PatientRecords> patientRecords(Long id) {
-        List<PatientRecords> patientsRecords = entityManager.createQuery("from PatientRecords patientRec WHERE patientRec.patient_id = id")
+        List<PatientRecords> patientsRecords = entityManager.createQuery("from PatientRecords patientRec WHERE patientRec.patient_id = :id", PatientRecords.class)
                 .setParameter("id", id)
                 .getResultList();
         return patientsRecords;
