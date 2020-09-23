@@ -4,10 +4,12 @@ import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
+import com.pfizer.sacchon.team3.representation.CreatedDoctorRepresentation;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
+import org.hibernate.Hibernate;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
@@ -33,37 +35,41 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
     }
 
     @Override
-    public DoctorRepresentation add(DoctorRepresentation doctorRepresentation) throws BadEntityException {
+    public DoctorRepresentation add(CreatedDoctorRepresentation createdDoctorRepresentation) throws BadEntityException {
         LOGGER.finer("Add a new doctor.");
         // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
         LOGGER.finer("User allowed to add a doctor.");
         // Check entity
-        ResourceValidator.notNull(doctorRepresentation);
-        ResourceValidator.validateDoctor(doctorRepresentation);
+        ResourceValidator.notNull(createdDoctorRepresentation);
+        ResourceValidator.validateDoctor(createdDoctorRepresentation);
         LOGGER.finer("doctor checked");
 
         try {
             // Convert DoctorRepr to doctor
             Doctors doctorsIn = new Doctors();
-            doctorsIn.setFirstName(doctorRepresentation.getFirstName());
-            doctorsIn.setLastName(doctorRepresentation.getLastName());
-            doctorsIn.setEmail(doctorRepresentation.getEmail());
-            doctorsIn.setPassword(doctorRepresentation.getPassword());
+            doctorsIn.setFirstName(createdDoctorRepresentation.getFirstName());
+            doctorsIn.setLastName(createdDoctorRepresentation.getLastName());
+            doctorsIn.setEmail(createdDoctorRepresentation.getEmail());
+            doctorsIn.setPassword(createdDoctorRepresentation.getPassword());
+            doctorsIn.setDeleted(false);
 
             Optional<Doctors> doctorOut = doctorRepository.save(doctorsIn);
             Doctors doctors = null;
             if (doctorOut.isPresent())
                 doctors = doctorOut.get();
             else
-                throw new BadEntityException(" doctor has not been created");
+                throw new BadEntityException("doctor has not been created");
 
             DoctorRepresentation result = new DoctorRepresentation();
             result.setFirstName(doctors.getFirstName());
             result.setLastName(doctors.getLastName());
             result.setEmail(doctors.getEmail());
             result.setPassword(doctors.getPassword());
+            result.setDeleted(doctors.isDeleted());
             result.setUri("http://localhost:9000/v1/doctor/" + doctors.getId());
+            Hibernate.initialize(result.getConsultations());
+            Hibernate.initialize(result.getPatients());
 
             getResponse().setLocationRef("http://localhost:9000/v1/doctor/" + doctors.getId());
             getResponse().setStatus(Status.SUCCESS_CREATED);
