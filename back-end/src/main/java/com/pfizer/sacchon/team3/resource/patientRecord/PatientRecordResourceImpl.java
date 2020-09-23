@@ -86,7 +86,7 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
     }
 
     @Override
-    public PatientRecordRepresentation store(PatientRecordRepresentation patientRecordRepresentation, Patients patient) throws NotFoundException, BadEntityException {
+    public PatientRecordRepresentation updateRecord(PatientRecordRepresentation patientRecordRepresentation, Patients patient) throws NotFoundException, BadEntityException {
         LOGGER.finer("Update a record.");
 
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);

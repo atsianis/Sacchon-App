@@ -63,8 +63,7 @@ public class CustomRouter {
         // PUT DELETE Consultations
         router.attach("/ping", PingServerResource.class);
         router.attach("/patients", AllPatientsListImpl.class);
-        router.attach("/availablePatients", AllPatientsListImpl.class);
-        router.attach("/patient/{id}", PatientResourceImpl.class);
+        //router.attach("/availablePatients", AllPatientsListImpl.class);
         router.attach("/patient/{id}/settings", PatientResourceImpl.class);
         router.attach("/patients/{id}/storeData", PatientRecordsListImpl.class);
         router.attach("/patients/{id}/storeData/allData", PatientRecordsListImpl.class);
