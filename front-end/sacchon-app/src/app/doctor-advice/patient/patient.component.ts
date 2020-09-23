@@ -8,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class PatientComponent implements OnInit {
 
 	constructor() { }
+	dtOptions: DataTables.Settings = {};
 
 	ngOnInit(): void {
+		this.dtOptions = {
+			pagingType: 'full_numbers'
+		};
 	}
 
 }

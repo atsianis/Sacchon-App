@@ -1,25 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddDoctorComponent } from './add-doctor.component';
+import { CreateDoctorComponent } from './add-doctor.component';
 
-describe('AddDoctorComponent', () => {
-  let component: AddDoctorComponent;
-  let fixture: ComponentFixture<AddDoctorComponent>;
+describe('CreateDoctorComponent', () => {
+	let component: CreateDoctorComponent;
+	let fixture: ComponentFixture<CreateDoctorComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ AddDoctorComponent ]
-    })
-    .compileComponents();
-  });
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			declarations: [CreateDoctorComponent]
+		})
+			.compileComponents();
+	});
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AddDoctorComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+	beforeEach(() => {
+		fixture = TestBed.createComponent(CreateDoctorComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

@@ -1,14 +1,11 @@
-package com.pfizer.sacchon.team3.resource.register;
+package com.pfizer.sacchon.team3.resource.userAuth.register;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.model.Doctors;
-import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.CreatedDoctorRepresentation;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
-import com.pfizer.sacchon.team3.representation.PatientRepresentation;
-import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;

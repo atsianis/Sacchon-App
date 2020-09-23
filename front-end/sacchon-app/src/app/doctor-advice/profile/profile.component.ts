@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
 	selector: 'sacchon-app-profile',
@@ -7,9 +11,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-	constructor() { }
+	constructor(private http: HttpClient) { }
 
-	ngOnInit(): void {
+	patients: any;
+	dtElement: DataTableDirective;
+	dtOptions: DataTables.Settings = {};
+	dtTrigger: Subject<any> = new Subject();
+
+	getPatient(patient: any): void {
+		window.location.href = `/reporter/patient/${patient[0]}`;
 	}
 
+	ngOnInit(): void {
+		this.patients = [];
+		this.getPatients();
+		this.dtOptions = {
+			order: [0, 'asc'],
+			pagingType: 'full_numbers',
+			pageLength: 5,
+		};
+	}
+	getPatients(): void {
+		this.http.get('https://jsonplaceholder.typicode.com/users').subscribe(patients => {
+			this.patients = patients;
+			this.dtTrigger.next();
+		}, (err) => {
+			console.log('-----> err', err);
+		});
+	}
 }

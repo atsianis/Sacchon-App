@@ -1,1 +1,41 @@
-<p>patient-list works!</p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-3">
+			<div class="card h-100">
+				<div class="card-body">
+					<h5 class="card-title text-center">Patient profile
+						<br>
+						<br>
+						<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn.onlinewebfonts.com%2Fsvg%2Fimg_299586.png&f=1&nofb=1"
+							alt="" width="100" height="100">
+					</h5>
+					<div class="row align-items-start py-5">
+						<div class="col-6"><strong>Name:</strong></div>
+						<div class="col-6">{{ patient.name }}</div>
+						<div class="col-6"><strong>Phone:</strong></div>
+						<div class="col-6">{{ patient.phone }}</div>
+						<div class="col-6"><strong>Email:</strong></div>
+						<div class="col-6">{{ patient.email }}</div>
+						<div class="col-6"><strong>Website</strong></div>
+						<div class="col-6">{{ patient.website }}</div>
+					</div>
+					<div class="row align-items-center">
+						<a [routerLink]="['/doctoradvice/consult/', patient.id]" class="btn btn-block btn-primary my-2 mx-2">Create Consult</a>
+						<a [routerLink]="['/doctoradvice/consult/', patient.id, 'edit']" class="btn btn-block btn-primary my-2 mx-2">Update Consult</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-9">
+			<div class="card">
+				<div class="card-body">
+					<canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+						[colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+						[plugins]="lineChartPlugins" (chartHover)="chartHovered($event)"
+						(chartClick)="chartClicked($event)">
+					</canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
