@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'sacchon-app-medi-data-repo-login',
@@ -6,10 +7,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./medi-data-repo-login.component.scss']
 })
 export class MediDataRepoLoginComponent implements OnInit {
-
-  constructor() { }
+  patientLoginForm;
+  constructor(private formBuilder: FormBuilder) {
+	  this.patientLoginForm= this.formBuilder.group({
+		  email: '',
+		  password: ''
+	  })
+   }
 
   ngOnInit(): void {
   }
-
+  submitLogin(data): any {
+	  sessionStorage.setItem('email', data.email)
+	  sessionStorage.setItem('password', data.password)
+	  if (1) {
+		  console.log('EEEEEEEEEEEEEEEEEEEEEEEEEEEE', data)
+		  window.location.href = 'http://localhost:4200/medidatarepo/profile';
+	  } else {
+		  alert('Invalid username or password')
+		  this.patientLoginForm= this.formBuilder.group({
+			email: '',
+			password: ''
+		})
+	  }
+  }
 }
