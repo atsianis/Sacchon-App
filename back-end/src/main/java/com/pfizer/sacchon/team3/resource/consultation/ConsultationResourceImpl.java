@@ -8,7 +8,6 @@ import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
 import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
 import com.pfizer.sacchon.team3.security.Shield;
-import org.hibernate.Hibernate;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -50,7 +49,6 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
                 throw new NotFoundException("No consultation with  : " + id);
             } else {
                 consultation = opConsultation.get();
-                Hibernate.initialize(consultation.getPatientRecords());
                 LOGGER.finer("User allowed to retrieve a consultation.");
                 ConsultationRepresentation result = new ConsultationRepresentation(consultation);
                 LOGGER.finer("Consultation successfully retrieved");

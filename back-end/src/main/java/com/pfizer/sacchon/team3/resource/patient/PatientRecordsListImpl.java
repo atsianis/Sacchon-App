@@ -78,6 +78,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
             PatientRepresentation pr = new PatientRepresentation();
             pr.setLastName(patient.getLastName());
             pr.setFirstName(patient.getFirstName());
+
             ResourceValidator.notNull(patientRecordRepresentation);
             ResourceValidator.validatePatient(pr);
             LOGGER.finer("Patient checked");
@@ -97,6 +98,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
                 else
                     throw new BadEntityException("Record has not been created");
 
+                //Convert PatientRecord to PatientRecordRepr
                 PatientRecordRepresentation result = new PatientRecordRepresentation();
                 result.setSacchon(patientRecords.getSacchon());
                 result.setCalories(patientRecords.getCalories());

@@ -29,7 +29,10 @@ public class Patients {
     @JoinColumn(name= "doctor_id")
     @JsonBackReference
     private Doctors doctor;
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
     @JsonManagedReference
     private List<PatientRecords> patientRecords = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
+    @JsonManagedReference
+    private List<Consultations> consultations = new ArrayList<>();
 }

@@ -52,6 +52,7 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
             } else {
                 patient = opProduct.get();
                 Hibernate.initialize(patient.getPatientRecords());
+                Hibernate.initialize(patient.getConsultations());
                 LOGGER.finer("User allowed to retrieve a product.");
                 PatientRepresentation result = new PatientRepresentation(patient);
                 LOGGER.finer("Patient successfully retrieved");

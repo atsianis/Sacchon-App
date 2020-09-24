@@ -34,14 +34,10 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     @Override
     public List<ConsultationRepresentation> getConsultations() throws NotFoundException {
         LOGGER.finer("Select all consultations.");
-        System.out.println("Before role check");
         // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
-        System.out.println("After role check");
         try {
             List<Consultations> consultations = consultationRepository.findAll();
-            for (Consultations cons : consultations)
-                Hibernate.initialize(cons.getPatientRecords());
             List<ConsultationRepresentation> result = new ArrayList<>();
             consultations.forEach(cons -> result.add(new ConsultationRepresentation(cons)));
 

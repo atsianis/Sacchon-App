@@ -19,9 +19,4 @@ public class PatientRecords {
     @JoinColumn(name ="patient_id")
     @JsonBackReference
     private Patients patient;
-    @ManyToOne
-    @JoinColumn(name ="consultation_id")
-    @JsonBackReference
-    private Consultations consultation;
-
 }

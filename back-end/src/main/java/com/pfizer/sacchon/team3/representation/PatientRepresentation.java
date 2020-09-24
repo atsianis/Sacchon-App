@@ -1,5 +1,6 @@
 package com.pfizer.sacchon.team3.representation;
 
+import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.model.PatientRecords;
@@ -23,6 +24,7 @@ public class PatientRepresentation {
     private Date lastActive;
     private String gender;
     private List<PatientRecords> patientRecords = new ArrayList<>();
+    private List<Consultations> consultations = new ArrayList<>();
     private String uri;
 
 
@@ -38,6 +40,7 @@ public class PatientRepresentation {
             lastActive = patient.getLastActive();
             gender = patient.getGender();
             patientRecords = patient.getPatientRecords();
+            consultations = patient.getConsultations();
             uri = "http://localhost:9000/v1/patient/" + patient.getId();
         }
     }
@@ -53,6 +56,8 @@ public class PatientRepresentation {
         p.setDeleted(isDeleted);
         p.setLastActive(lastActive);
         p.setGender(gender);
+        p.setPatientRecords(patientRecords);
+        p.setConsultations(consultations);
         return p;
     }
 }
