@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
 	selector: 'sacchon-app-profile',
@@ -32,7 +31,12 @@ export class ProfileComponent implements OnInit {
 		};
 	}
 	getPatients(): void {
-		this.http.get('https://jsonplaceholder.typicode.com/users').subscribe(patients => {
+		const httpOptions = {
+			headers: new HttpHeaders({
+			  'Authorization': 'Basic ' + btoa('asd@asd.asd:asdasdasd')
+			})
+		};
+		this.http.get('http://localhost:9000/v1/patients',  httpOptions ).subscribe(patients => {
 			this.patients = patients;
 			this.dtTrigger.next();
 		}, (err) => {
