@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'sacchon-app-reporter-login',
@@ -7,9 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReporterLoginComponent implements OnInit {
 
-  constructor() { }
+  reporterLoginForm;
+  constructor(private formBuilder: FormBuilder) {
+	  this.reporterLoginForm= this.formBuilder.group({
+		  email: '',
+		  password: ''
+	  })
+   }
 
   ngOnInit(): void {
   }
 
+  submitLogin(data): any {
+	  sessionStorage.setItem('email', data.email)
+	  sessionStorage.setItem('password', data.password)
+	  if (1) {
+		  console.log('EEEEEEEEEEEEEEEEEEEEEEEEEEEE', data)
+		  window.location.href = 'http://localhost:4200/reporter';
+	  } else {
+		  alert('Invalid username or password')
+		  this.reporterLoginForm= this.formBuilder.group({
+			email: '',
+			password: ''
+		})
+	  }
+  }
 }
