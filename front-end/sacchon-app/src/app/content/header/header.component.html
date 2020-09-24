@@ -2,6 +2,19 @@
 	<div class="mr-auto">
 		<a class="navbar-brand text-white" href="#">Navbar</a>
 	</div>
-	<button [routerLink]="['/login']" class="btn mx-2 my-2 my-sm-0 text-white" type="submit">Log In</button>
-	<button [routerLink]="['/signup']" class="btn btn-outline-light btn-rounded my-2 my-sm-0 sign-up-button" type="submit">Sign Up</button>
+	<div *ngIf="isLoggedIn(); else isNotLoggedIn" class="ml-auto">
+		<div class="text-white">
+			<div class="d-inline-flex align-items-center px-2">
+				Welcome {{ user }}
+			</div>
+			<button class="btn btn-outline btn-outline-light" (click)="signOut()">
+				Sign out
+				<i class="fa fa-sign-out" aria-hidden="true"></i>
+			</button>
+		</div>
+	</div>
+	<ng-template #isNotLoggedIn>
+		<button [routerLink]="['/login']" class="btn mx-2 my-2 my-sm-0 text-white" type="submit">Log In</button>
+		<button [routerLink]="['/signup']" class="btn btn-outline-light btn-rounded my-2 my-sm-0 sign-up-button" type="submit">Sign Up</button>
+	</ng-template>
 </nav>
