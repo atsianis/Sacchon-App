@@ -10,14 +10,14 @@
 							alt="" width="100" height="100">
 					</h5>
 					<div class="row align-items-start py-5">
-						<div class="col-6"><strong>Name:</strong></div>
-						<div class="col-6">{{ patient.name }}</div>
-						<div class="col-6"><strong>Phone:</strong></div>
-						<div class="col-6">{{ patient.phone }}</div>
+						<div class="col-6"><strong>First Name:</strong></div>
+						<div class="col-6">{{ patient.firstName }}</div>
+						<div class="col-6"><strong>Last Name:</strong></div>
+						<div class="col-6">{{ patient.lastName }}</div>
 						<div class="col-6"><strong>Email:</strong></div>
 						<div class="col-6">{{ patient.email }}</div>
-						<div class="col-6"><strong>Website</strong></div>
-						<div class="col-6">{{ patient.website }}</div>
+						<div class="col-6"><strong>Birth Date</strong></div>
+						<div class="col-6">{{ patient.dob }}</div>
 					</div>
 					<div class="row align-items-center">
 						<a [routerLink]="['/doctoradvice/consult/', patient.id]" class="btn btn-block btn-primary my-2 mx-2">Create Consult</a>

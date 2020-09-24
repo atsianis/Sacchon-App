@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChartDataSets, ChartOptions } from 'chart.js';
@@ -58,8 +58,13 @@ export class PatientListComponent implements OnInit {
 	}
 
 	getPatientById(): void {
+		const httpOptions = {
+			headers: new HttpHeaders({
+			  'Authorization': 'Basic ' + btoa('asd@asd.asd:asdasdasd')
+			})
+		};
 		this.route.params.subscribe(params => {
-			this.http.get(`https://jsonplaceholder.typicode.com/users/${params.id}`).subscribe(patient => {
+			this.http.get(`http://localhost:9000/v1/patient/${params.id}`, httpOptions).subscribe(patient => {
 				this.patient = patient;
 			}, (err) => {
 				console.log('-----> err', err);
