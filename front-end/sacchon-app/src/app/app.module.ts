@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 import { ChartsModule } from 'ng2-charts';
 
@@ -40,6 +40,7 @@ import { ReporterLoginComponent } from './auth/login/reporter-login/reporter-log
 		ReporterModule,
 		MediDataRepoModule,
 		DoctorAdviceModule,
+		ReactiveFormsModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent]
