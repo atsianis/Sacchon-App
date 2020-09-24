@@ -13,8 +13,8 @@ import com.pfizer.sacchon.team3.resource.patient.PatientConsultationsResourceImp
 import com.pfizer.sacchon.team3.resource.patient.PatientRecordsListImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientResourceImpl;
 import com.pfizer.sacchon.team3.resource.patientRecord.PatientRecordResourceImpl;
-import com.pfizer.sacchon.team3.resource.register.RegisterDoctor;
-import com.pfizer.sacchon.team3.resource.register.RegisterDoctorImpl;
+import com.pfizer.sacchon.team3.resource.userAuth.register.RegisterPatientImpl;
+import com.pfizer.sacchon.team3.resource.userAuth.register.RegisterDoctorImpl;
 import org.restlet.Application;
 import org.restlet.routing.Router;
 
