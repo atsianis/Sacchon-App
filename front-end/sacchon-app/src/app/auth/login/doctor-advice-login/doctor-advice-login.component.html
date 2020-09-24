@@ -6,10 +6,13 @@
 					<h5 class="card-title text-center py-2">Sign in as Doctor</h5>
 					<form class="py-3" [formGroup]="doctorLoginForm">
 						<div class="form-group">
-							<input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-							<input formControlName="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+							<input formControlName="email" type="email" class="form-control" id="exampleInputEmail1"
+								aria-describedby="emailHelp" placeholder="Enter email">
+							<input formControlName="password" type="password" class="form-control"
+								id="exampleInputPassword1" placeholder="Password">
 						</div>
-						<button class="btn btn-primary btn-block" (click)="submitLogin(doctorLoginForm.value)">Submit</button>
+						<button class="btn btn-primary btn-block"
+							(click)="submitLogin(doctorLoginForm.value)">Submit</button>
 					</form>
 				</div>
 			</div>

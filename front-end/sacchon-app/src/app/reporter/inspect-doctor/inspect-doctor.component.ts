@@ -29,7 +29,7 @@ export class InspectDoctorComponent implements OnInit {
 	getDoctors(): void {
 		const httpOptions = {
 			headers: new HttpHeaders({
-			  'Authorization': 'Basic ' + btoa('asd@asd.asd:asdasdasd')
+				'Authorization': 'Basic ' + btoa('asd@asd.asd:asdasdasd')
 			})
 		};
 		this.http.get('http://localhost:9000/v1/doctors', httpOptions).subscribe(doctors => {
