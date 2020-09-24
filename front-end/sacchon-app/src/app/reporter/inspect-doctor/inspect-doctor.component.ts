@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
@@ -14,7 +14,6 @@ export class InspectDoctorComponent implements OnInit {
 	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();
-
 	constructor(private http: HttpClient) { }
 
 	ngOnInit(): void {
@@ -28,7 +27,12 @@ export class InspectDoctorComponent implements OnInit {
 	}
 
 	getDoctors(): void {
-		this.http.get('https://jsonplaceholder.typicode.com/users').subscribe(doctors => {
+		const httpOptions = {
+			headers: new HttpHeaders({
+			  'Authorization': 'Basic ' + btoa('asd@asd.asd:asdasdasd')
+			})
+		};
+		this.http.get('http://localhost:9000/v1/doctors', httpOptions).subscribe(doctors => {
 			this.doctors = doctors;
 			this.dtTrigger.next();
 		}, (err) => {
