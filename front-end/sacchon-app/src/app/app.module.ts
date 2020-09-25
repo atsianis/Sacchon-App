@@ -19,6 +19,8 @@ import { DoctorAdviceModule } from './doctor-advice/doctor-advice.module';
 import { MediDataRepoLoginComponent } from './auth/login/medi-data-repo-login/medi-data-repo-login.component';
 import { DoctorAdviceLoginComponent } from './auth/login/doctor-advice-login/doctor-advice-login.component';
 import { ReporterLoginComponent } from './auth/login/reporter-login/reporter-login.component';
+import { PatientSignUpComponent } from './auth/signup/patient-sign-up/patient-sign-up.component';
+import { DoctorSignUpComponent } from './auth/signup/doctor-sign-up/doctor-sign-up.component';
 
 @NgModule({
 	declarations: [
@@ -31,6 +33,8 @@ import { ReporterLoginComponent } from './auth/login/reporter-login/reporter-log
 		MediDataRepoLoginComponent,
 		DoctorAdviceLoginComponent,
 		ReporterLoginComponent,
+		PatientSignUpComponent,
+		DoctorSignUpComponent,
 	],
 	imports: [
 		BrowserModule,
