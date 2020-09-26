@@ -82,13 +82,11 @@ public class CustomRouter {
         // Available patients (doctor_id = null && canBeExamined  = false)
         router.attach("/doctors/available-patients",  AllAvailablePatientListResourceImpl.class);
 
-        router.attach("/doctors/available-patients",)
-
         // Get Patients Consults
         router.attach("/patient/{id}/consultations", PatientConsultationsResourceImpl.class);
 
         // Update Consultation
-        router.attach("patient/{id}/consultation/{id}", UpdateConsultationResource.class);
+        router.attach("/doctor/{did}/consultation/{cid}", UpdateConsultationResource.class);
 
         // PUT DELETE Consultations
 
