@@ -27,7 +27,6 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
     private ConsultationRepository consultationRepository;
     private ConsultationRepresentation consultationRepresentation;
 
-
     @Override
     protected void doInit() {
         LOGGER.info("Initialising patient resource starts");
@@ -66,8 +65,7 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
             consultation.setPatient(patientsIn);
             consultation.setTimeCreated(new Date());
             // Add consult in db
-            Optional<Consultations> consultationsOut = consultationRepository.save(consultation);
-
+            consultationRepository.save(consultation);
 
             Optional<Patients> patientOut = patientRepository.save(patientsIn);
             Patients patients = null;
@@ -82,7 +80,7 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
             result.setEmail(patients.getEmail());
             result.setPassword(patients.getPassword());
             result.setDob(patients.getDob());
-            result.setUri("http://localhost:9000/v1/patient/" + patients.getId());
+            result.setId(patients.getId());
 
             getResponse().setLocationRef("http://localhost:9000/v1/patient/" + patients.getId());
             getResponse().setStatus(Status.SUCCESS_CREATED);

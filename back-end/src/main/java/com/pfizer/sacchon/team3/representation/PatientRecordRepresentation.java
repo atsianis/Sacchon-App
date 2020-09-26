@@ -12,13 +12,14 @@ public class PatientRecordRepresentation {
     private float glycose;
     private float carbs;
     private Date timeCreated;
-    private String uri;
+    private long id;
 
     public PatientRecordRepresentation(PatientRecords patientRecords) {
         if (patientRecords != null) {
             glycose = patientRecords.getGlycose();
             carbs = patientRecords.getCarbs();
             timeCreated = patientRecords.getTimeCreated();
+            id = patientRecords.getId();
         }
     }
 
@@ -27,6 +28,8 @@ public class PatientRecordRepresentation {
         patientRecords.setGlycose(this.glycose);
         patientRecords.setCarbs(this.carbs);
         patientRecords.setTimeCreated(this.timeCreated);
+        patientRecords.setId(this.id);
+
         return patientRecords;
     }
 }

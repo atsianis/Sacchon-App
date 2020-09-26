@@ -68,7 +68,7 @@ export class PatientListComponent implements OnInit {
 		this.route.params.subscribe(params => {
 			this.http.get(`http://localhost:9000/v1/patient/${params.id}`, httpOptions).subscribe(patient => {
 				this.patient = patient;
-				patient.patientRecords.forEach(record => {
+				this.patient.patientRecords.forEach(record => {
 					this.patientGlycose.push(record.sacchon)
 					this.patientCalories.push(record.calories)
 					this.patientRecordTimestamp.push(moment.utc(record.timecreated).format("MM/DD/YYYY"))

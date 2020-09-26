@@ -28,7 +28,7 @@ public class ConsultationRepository {
 
     public List<Consultations> findPatientsConsultations(long id){
         List<Consultations> consultations = entityManager
-                .createQuery("SELECT from Consultations c WHERE c.patients_id = :patient_id ", Consultations.class)
+                .createQuery("from Consultations WHERE patient_id = :patient_id ", Consultations.class)
                 .setParameter("patient_id" , id)
                 .getResultList();
 
@@ -62,10 +62,9 @@ public class ConsultationRepository {
             e.printStackTrace();
         }
 
-        Query query = entityManager.createQuery("UPDATE Patients p SET p.canBeExamined = false "
+        entityManager.createQuery("UPDATE Patients p SET p.canBeExamined = false "
                 + "WHERE p.id = :patient_id")
                 .setParameter("patient_id", c.getPatient().getId());
-
 
         return Optional.empty();
     }

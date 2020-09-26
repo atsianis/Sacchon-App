@@ -75,7 +75,6 @@ public class UpdateConsultationResource extends ServerResource implements Update
                 LOGGER.finer("Update consultation.");
                 // Update Record in DB and retrieve the new one.
 
-
                 consultationOut = consultationRepository.setComment(consultationsIn);
 
                 // Create new Consultation with initialized patient_id and Date
@@ -83,8 +82,7 @@ public class UpdateConsultationResource extends ServerResource implements Update
                 consultation.setPatient(consultReprIn.getPatient());
                 consultation.setTimeCreated(new Date());
                 // Add consult in db
-                Optional<Consultations> consultationsOut = consultationRepository.save(consultation);
-
+                consultationRepository.save(consultation);
 
                 // Check if retrieved patient is not null : if it is null it
                 // means that the id is wrong.
@@ -94,15 +92,13 @@ public class UpdateConsultationResource extends ServerResource implements Update
                 }
             } else {
                 LOGGER.finer("Resource does not exist.");
-                throw new NotFoundException(
-                        "Company with the following id does not exist: " + id);
+                throw new NotFoundException("Company with the following id does not exist: " + id);
             }
 
             LOGGER.finer("Company successfully updated.");
+
             return new ConsultationRepresentation(consultationOut.get());
-
         } catch (Exception ex) {
-
             throw new ResourceException(ex);
         }
     }
