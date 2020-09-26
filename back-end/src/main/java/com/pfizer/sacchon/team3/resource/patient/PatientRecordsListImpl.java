@@ -91,25 +91,33 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
                 patientRecordsIn.setTimeCreated(patientRecordRepresentation.getTimeCreated());
                 patientRecordsIn.setPatient(patient);
 
-                Optional<PatientRecords> patientRecordsOut = patientRecordRepository.save(patientRecordsIn);
-                PatientRecords patientRecords = null;
-                if(patientRecordsOut.isPresent())
-                    patientRecords = patientRecordsOut.get();
-                else
-                    throw new BadEntityException("Record has not been created");
+                // Check if patient can add PatientRecord
+                boolean checkDate = patientRepository.check(patientRecordsIn);
 
-                //Convert PatientRecord to PatientRecordRepr
-                PatientRecordRepresentation result = new PatientRecordRepresentation();
-                result.setSacchon(patientRecords.getSacchon());
-                result.setCalories(patientRecords.getCalories());
-                result.setTimeCreated(patientRecords.getTimeCreated());
-                result.setUri("/patient/"+patient.getId()+"/storeData/patientRecord/"+patientRecords.getId());
+                if(!checkDate) {
+                    Optional<PatientRecords> patientRecordsOut = patientRecordRepository.save(patientRecordsIn);
+                    PatientRecords patientRecords = null;
+                    if(patientRecordsOut.isPresent())
+                        patientRecords = patientRecordsOut.get();
+                    else
+                        throw new BadEntityException("Record has not been created");
 
-                getResponse().setLocationRef("http://localhost:9000/v1/patient/"+patient.getId()+"/storeData/patientRecord/"+patientRecords.getId());
-                getResponse().setStatus(Status.SUCCESS_CREATED);
+                    //Convert PatientRecord to PatientRecordRepr
+                    PatientRecordRepresentation result = new PatientRecordRepresentation();
+                    result.setSacchon(patientRecords.getSacchon());
+                    result.setCalories(patientRecords.getCalories());
+                    result.setTimeCreated(patientRecords.getTimeCreated());
+                    result.setUri("/patient/"+patient.getId()+"/storeData/patientRecord/"+patientRecords.getId());
 
-                LOGGER.finer("Record successfully added.");
-                return result;
+                    getResponse().setLocationRef("http://localhost:9000/v1/patient/"+patient.getId()+"/storeData/patientRecord/"+patientRecords.getId());
+                    getResponse().setStatus(Status.SUCCESS_CREATED);
+
+                    LOGGER.finer("Record successfully added.");
+                    return result;
+                } else {
+                    return null;
+                }
+
             } catch (Exception ex) {
                 LOGGER.log(Level.WARNING, "Error when adding a Record", ex);
                 throw new ResourceException(ex);

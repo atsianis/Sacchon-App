@@ -4,8 +4,10 @@ import com.pfizer.sacchon.team3.resource.chief.AllPatientsListImpl;
 import com.pfizer.sacchon.team3.resource.chief.AllDoctorsListImpl;
 import com.pfizer.sacchon.team3.resource.consultation.ConsultationListResourceImpl;
 import com.pfizer.sacchon.team3.resource.consultation.ConsultationResourceImpl;
+import com.pfizer.sacchon.team3.resource.consultation.UpdateConsultation;
+import com.pfizer.sacchon.team3.resource.consultation.UpdateConsultationResource;
 import com.pfizer.sacchon.team3.resource.doctor.AllAvailablePatientListResourceImpl;
-import com.pfizer.sacchon.team3.resource.doctor.AvailablePatientsFromToResourceImpl;
+import com.pfizer.sacchon.team3.resource.doctor.AllConsultablePatientListResourceImpl;
 import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
 import com.pfizer.sacchon.team3.resource.doctor.MyPatientsResourceImpl;
 import com.pfizer.sacchon.team3.resource.PingServerResource;
@@ -74,11 +76,19 @@ public class CustomRouter {
         // Doctor's patients
         router.attach("/doctor/{id}/mypatients",  MyPatientsResourceImpl.class);
 
-        // Available patients
-        router.attach("/doctors/available",  AllAvailablePatientListResourceImpl.class);
+        // Consultable patients (doctor_id = null && canBeExamined  = true)
+        router.attach("/doctors/consultable-patients",  AllConsultablePatientListResourceImpl.class);
+
+        // Available patients (doctor_id = null && canBeExamined  = false)
+        router.attach("/doctors/available-patients",  AllAvailablePatientListResourceImpl.class);
+
+        router.attach("/doctors/available-patients",)
 
         // Get Patients Consults
         router.attach("/patient/{id}/consultations", PatientConsultationsResourceImpl.class);
+
+        // Update Consultation
+        router.attach("patient/{id}/consultation/{id}", UpdateConsultationResource.class);
 
         // PUT DELETE Consultations
 
@@ -87,7 +97,7 @@ public class CustomRouter {
         router.attach("/patient/{id}/settings", PatientResourceImpl.class);
         router.attach("/patients/{id}/storeData", PatientRecordsListImpl.class);
         router.attach("/patients/{id}/storeData/allData", PatientRecordsListImpl.class);
-        router.attach("/patient/{id}/storeData/patientRecord/{id}", PatientRecordResourceImpl.class);
+        router.attach("/patient/{pid}/storeData/patientRecord/{rid}", PatientRecordResourceImpl.class);
 
         return router;
     }

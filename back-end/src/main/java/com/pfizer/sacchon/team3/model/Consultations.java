@@ -16,11 +16,11 @@ public class Consultations {
     private String comment;
     private Date seenByPatient;
     @ManyToOne
-    @JoinColumn(name = "patients_id")
+    @JoinColumn(name = "patient_id")
     @JsonBackReference
     private Patients patient;
     @ManyToOne
-    @JoinColumn(name = "doctors_id")
+    @JoinColumn(name = "doctor_id")
     @JsonBackReference
     private Doctors doctor;
 }

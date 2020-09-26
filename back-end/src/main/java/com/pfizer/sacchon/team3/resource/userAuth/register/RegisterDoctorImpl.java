@@ -4,7 +4,7 @@ import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
-import com.pfizer.sacchon.team3.representation.CreatedDoctorRepresentation;
+import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedDoctorRepresentation;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
@@ -35,23 +35,23 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
     }
 
     @Override
-    public DoctorRepresentation add(CreatedDoctorRepresentation createdDoctorRepresentation) throws BadEntityException {
+    public DoctorRepresentation add(CreatedOrUpdatedDoctorRepresentation createdOrUpdatedDoctorRepresentation) throws BadEntityException {
         LOGGER.finer("Add a new doctor.");
         // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
         LOGGER.finer("User allowed to add a doctor.");
         // Check entity
-        ResourceValidator.notNull(createdDoctorRepresentation);
-        ResourceValidator.validateDoctor(createdDoctorRepresentation);
+        ResourceValidator.notNull(createdOrUpdatedDoctorRepresentation);
+        ResourceValidator.validateDoctor(createdOrUpdatedDoctorRepresentation);
         LOGGER.finer("doctor checked");
 
         try {
             // Convert DoctorRepr to doctor
             Doctors doctorsIn = new Doctors();
-            doctorsIn.setFirstName(createdDoctorRepresentation.getFirstName());
-            doctorsIn.setLastName(createdDoctorRepresentation.getLastName());
-            doctorsIn.setEmail(createdDoctorRepresentation.getEmail());
-            doctorsIn.setPassword(createdDoctorRepresentation.getPassword());
+            doctorsIn.setFirstName(createdOrUpdatedDoctorRepresentation.getFirstName());
+            doctorsIn.setLastName(createdOrUpdatedDoctorRepresentation.getLastName());
+            doctorsIn.setEmail(createdOrUpdatedDoctorRepresentation.getEmail());
+            doctorsIn.setPassword(createdOrUpdatedDoctorRepresentation.getPassword());
             doctorsIn.setDeleted(false);
 
             Optional<Doctors> doctorOut = doctorRepository.save(doctorsIn);
