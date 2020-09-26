@@ -80,7 +80,7 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
             result.setEmail(patients.getEmail());
             result.setPassword(patients.getPassword());
             result.setDob(patients.getDob());
-            result.setUri("http://localhost:9000/v1/patient/" + patients.getId());
+            result.setId(patients.getId());
 
             getResponse().setLocationRef("http://localhost:9000/v1/patient/" + patients.getId());
             getResponse().setStatus(Status.SUCCESS_CREATED);

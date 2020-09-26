@@ -16,7 +16,7 @@ public class ConsultationRepresentation {
     private Patients patient;
     private Date seenByPatient;
     private Doctors doctor;
-    private String uri;
+    private long id;
 
     public ConsultationRepresentation(Consultations consultation) {
         if (consultation != null) {
@@ -24,18 +24,17 @@ public class ConsultationRepresentation {
             comment = consultation.getComment();
             seenByPatient = consultation.getSeenByPatient();
             doctor = consultation.getDoctor();
-            patient = consultation.getPatient();
-            uri = "http://localhost:9000/v1/consultation/" + consultation.getId();
+            id= consultation.getId();
         }
     }
 
     public Consultations createConsultation() {
         Consultations c = new Consultations();
-        c.setComment(comment);
-        c.setTimeCreated(timeCreated);
-        c.setDoctor(doctor);
-        c.setSeenByPatient(seenByPatient);
-        c.setPatient(patient);
+        c.setComment(this.comment);
+        c.setTimeCreated(this.timeCreated);
+        c.setDoctor(this.doctor);
+        c.setSeenByPatient(this.seenByPatient);
+        c.setId(this.id);
         return c;
     }
 

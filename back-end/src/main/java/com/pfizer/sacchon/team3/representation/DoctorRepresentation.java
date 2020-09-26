@@ -22,7 +22,7 @@ public class DoctorRepresentation {
     private boolean isDeleted;
     private List<Patients> patients = new ArrayList<>();
     private List<Consultations> consultations = new ArrayList<>();
-    private String uri;
+    private long id;
 
     public DoctorRepresentation(Doctors doctor) {
         if (doctor != null) {
@@ -34,18 +34,19 @@ public class DoctorRepresentation {
             patients = doctor.getPatients();
             consultations = doctor.getConsultations();
             isDeleted = doctor.isDeleted();
-            uri = "http://localhost:9000/v1/doctor/" + doctor.getId();
+            id = doctor.getId();
         }
     }
 
     public Doctors createDoctor() {
         Doctors doctor = new Doctors();
-        doctor.setFirstName(firstName);
-        doctor.setLastName(lastName);
-        doctor.setEmail(email);
-        doctor.setPassword(password);
-        doctor.setLastActive(lastActive);
-        doctor.setDeleted(isDeleted);
+        doctor.setFirstName(this.firstName);
+        doctor.setLastName(this.lastName);
+        doctor.setEmail(this.email);
+        doctor.setPassword(this.password);
+        doctor.setLastActive(this.lastActive);
+        doctor.setDeleted(this.isDeleted);
+        doctor.setId(this.id);
         return doctor;
     }
 }

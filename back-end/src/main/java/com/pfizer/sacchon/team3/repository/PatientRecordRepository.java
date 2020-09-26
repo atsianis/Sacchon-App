@@ -24,6 +24,7 @@ public class PatientRecordRepository {
     }
 
     public Optional<PatientRecords> save(PatientRecords p) {
+        p.getPatient().getConsultations().set(0, null);
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(p);

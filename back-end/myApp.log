@@ -345,3 +345,11 @@ Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the tabl
 2020-09-16 20:49:35,838 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
 2020-09-16 20:49:35,903 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@44592c39{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
 2020-09-16 20:49:35,904 INFO [main] o.e.j.s.Server [Server.java:411] Started @6594ms
+2020-09-25 11:08:56,042 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @6077ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-25 11:08:56,786 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 13.0.2+8
+2020-09-25 11:09:02,812 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@40986dda{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-25 11:09:02,813 INFO [main] o.e.j.s.Server [Server.java:411] Started @12972ms
+2020-09-25 11:10:36,775 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @1141ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-25 11:10:36,866 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 13.0.2+8
+2020-09-25 11:10:37,288 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@233795b6{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-25 11:10:37,289 INFO [main] o.e.j.s.Server [Server.java:411] Started @1668ms
