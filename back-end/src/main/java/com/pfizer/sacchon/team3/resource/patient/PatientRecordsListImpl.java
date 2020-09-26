@@ -2,6 +2,7 @@ package com.pfizer.sacchon.team3.resource.patient;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
+import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.model.PatientRecords;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRecordRepository;
@@ -18,6 +19,7 @@ import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -107,12 +109,13 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
                     result.setSacchon(patientRecords.getSacchon());
                     result.setCalories(patientRecords.getCalories());
                     result.setTimeCreated(patientRecords.getTimeCreated());
-                    result.setUri("/patient/"+patient.getId()+"/storeData/patientRecord/"+patientRecords.getId());
+                    result.setId(patientRecords.getId());
 
                     getResponse().setLocationRef("http://localhost:9000/v1/patient/"+patient.getId()+"/storeData/patientRecord/"+patientRecords.getId());
                     getResponse().setStatus(Status.SUCCESS_CREATED);
 
                     LOGGER.finer("Record successfully added.");
+
                     return result;
                 } else {
                     return null;

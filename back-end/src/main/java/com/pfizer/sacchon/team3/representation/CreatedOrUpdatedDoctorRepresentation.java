@@ -15,7 +15,7 @@ public class CreatedOrUpdatedDoctorRepresentation {
     private String password;
     private Date lastActive;
     private boolean isDeleted;
-    private String uri;
+    private long id;
 
     public CreatedOrUpdatedDoctorRepresentation(Doctors doctor) {
         if (doctor != null) {
@@ -25,7 +25,7 @@ public class CreatedOrUpdatedDoctorRepresentation {
             password = doctor.getPassword();
             lastActive = doctor.getLastActive();
             isDeleted = doctor.isDeleted();
-            uri = "http://localhost:9000/v1/doctor/" + doctor.getId();
+            id = doctor.getId();
         }
     }
 
@@ -37,6 +37,8 @@ public class CreatedOrUpdatedDoctorRepresentation {
         doctor.setPassword(password);
         doctor.setLastActive(lastActive);
         doctor.setDeleted(isDeleted);
+        doctor.setId(id);
+
         return doctor;
     }
 }
