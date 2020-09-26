@@ -81,11 +81,6 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
             pr.setLastName(patient.getLastName());
             pr.setFirstName(patient.getFirstName());
 
-            Consultations consultations = new Consultations();
-            consultations.setTimeCreated(new Date());
-            if(pr.getPatientRecords().size() == 0)
-                pr.getConsultations().set(0,consultations);
-
             ResourceValidator.notNull(patientRecordRepresentation);
             ResourceValidator.validatePatient(pr);
             LOGGER.finer("Patient checked");

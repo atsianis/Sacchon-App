@@ -24,6 +24,7 @@ public class ConsultationRepresentation {
             comment = consultation.getComment();
             seenByPatient = consultation.getSeenByPatient();
             doctor = consultation.getDoctor();
+            patient = consultation.getPatient();
             id= consultation.getId();
         }
     }
@@ -33,6 +34,7 @@ public class ConsultationRepresentation {
         c.setComment(this.comment);
         c.setTimeCreated(this.timeCreated);
         c.setDoctor(this.doctor);
+        c.setPatient(this.patient);
         c.setSeenByPatient(this.seenByPatient);
         c.setId(this.id);
         return c;
