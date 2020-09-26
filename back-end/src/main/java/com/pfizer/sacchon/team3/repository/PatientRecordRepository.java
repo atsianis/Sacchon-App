@@ -9,6 +9,7 @@ import java.util.Optional;
 public class PatientRecordRepository {
 
     private EntityManager entityManager;
+    private PatientRecordRepository patientRecordRepository;
 
     public PatientRecordRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -25,6 +26,8 @@ public class PatientRecordRepository {
     }
 
     public Optional<PatientRecords> save(PatientRecords p) {
+
+        p.getPatient().getConsultations().set(0, null);
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(p);

@@ -1,9 +1,12 @@
 package com.pfizer.sacchon.team3.resource.userAuth.register;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
+import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.model.Patients;
+import com.pfizer.sacchon.team3.repository.ConsultationRepository;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
+import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
@@ -13,6 +16,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import java.util.Date;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,12 +24,16 @@ import java.util.logging.Logger;
 public class RegisterPatientImpl extends ServerResource implements RegisterPatient {
     public static final Logger LOGGER = Engine.getLogger(RegisterPatientImpl.class);
     private PatientRepository patientRepository;
+    private ConsultationRepository consultationRepository;
+    private ConsultationRepresentation consultationRepresentation;
+
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising patient resource starts");
         try {
             patientRepository = new PatientRepository(JpaUtil.getEntityManager());
+            consultationRepresentation = new ConsultationRepresentation();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -52,6 +60,14 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
             patientsIn.setPassword(patientRepresentation.getPassword());
             patientsIn.setDob(patientRepresentation.getDob());
             patientsIn.setGender(patientRepresentation.getGender());
+
+            // Create First Consultation which is NULL
+            Consultations consultation = consultationRepresentation.createConsultation();
+            consultation.setPatient(patientsIn);
+            consultation.setTimeCreated(new Date());
+            // Add consult in db
+            Optional<Consultations> consultationsOut = consultationRepository.save(consultation);
+
 
             Optional<Patients> patientOut = patientRepository.save(patientsIn);
             Patients patients = null;
