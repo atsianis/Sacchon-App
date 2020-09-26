@@ -4,43 +4,61 @@
 			<div class="col-6">
 				<div class="card bg-light" style="width: 20rem;">
 					<div class="card-body">
-						<h5 class="card-title text-center">Sign up as Patient</h5>
+						<h5 class="card-title text-center">Sign up as Doctor</h5>
 						<form class="py-3" [formGroup]="patientSignUp">
 							<div class="form-group">
 								<input placeholder="Email" required formControlName="email" type="text"
 									class="mt-3 form-control" id="mail"
-									[ngClass]="(patientSignUp.get('email').errors?.required && patientSignUp.get('email').dirty && patientSignUp.get('email').touched)? 'border-danger'  : ''"
+									[ngClass]="(patientSignUp.get('email').errors?.required && patientSignUp.get('email').touched)? 'border-danger'  : ''"
 									>
 								<small
-									*ngIf="patientSignUp.get('email').errors?.required && patientSignUp.get('email').dirty && patientSignUp.get('email').touched"
+									*ngIf="patientSignUp.get('email').errors?.required && patientSignUp.get('email').touched"
 									class="text-danger py-0 my-0">
 									An email address is required
 								</small>
-								<input placeholder="First name" required formControlName="firstName" type="text"
-									class="mt-3 form-control" id="firstName">
 								<small
-									*ngIf="patientSignUp.get('firstName').errors?.required && patientSignUp.get('firstName').dirty && patientSignUp.get('firstName').touched"
+									*ngIf="patientSignUp.get('email').errors?.email && patientSignUp.get('email').touched"
+									class="text-danger py-0 my-0">
+									Must be a valid email address
+								</small>
+								<input placeholder="First name" required formControlName="firstName" type="text"
+									class="mt-3 form-control"
+									[ngClass]="(patientSignUp.get('firstName').errors?.required && patientSignUp.get('firstName').touched)? 'border-danger'  : ''"
+									id="firstName">
+								<small
+									*ngIf="patientSignUp.get('firstName').errors?.required && patientSignUp.get('firstName').touched"
 									class="text-danger py-0 my-0">
 									First name is required
 								</small>
 								<input placeholder="Last name" required formControlName="lastName" type="text"
-									class="mt-3 form-control" id="lastName">
+									class="mt-3 form-control"
+									[ngClass]="(patientSignUp.get('lastName').errors?.required && patientSignUp.get('lastName').touched)? 'border-danger'  : ''"
+									id="lastName">
 								<small
-									*ngIf="patientSignUp.get('lastName').errors?.required && patientSignUp.get('lastName').dirty && patientSignUp.get('lastName').touched"
+									*ngIf="patientSignUp.get('lastName').errors?.required && patientSignUp.get('lastName').touched"
 									class="text-danger py-0 my-0">
 									Last name is required
 								</small>
 								<input placeholder="Password" required formControlName="password" type="password"
-									class="mt-3 form-control" id="password">
+									class="mt-3 form-control"
+									[ngClass]="(patientSignUp.get('password').errors?.required && patientSignUp.get('password').touched)? 'border-danger'  : ''"
+									id="password">
 								<small
-									*ngIf="patientSignUp.get('password').errors?.required && patientSignUp.get('password').dirty && patientSignUp.get('password').touched"
+									*ngIf="patientSignUp.get('password').errors?.required && patientSignUp.get('password').touched"
 									class="text-danger py-0 my-0">
 									A password is required
 								</small>
-								<input placeholder="Confirm Password" required formControlName="passwordconfirm"
-									type="password" class="mt-3 form-control" id="passwordconfirm">
 								<small
-									*ngIf="patientSignUp.get('passwordconfirm').errors?.required && patientSignUp.get('passwordconfirm').dirty && patientSignUp.get('passwordconfirm').touched"
+									*ngIf="patientSignUp.get('password').errors?.minlength && patientSignUp.get('password').touched"
+									class="text-danger py-0 my-0">
+									Password must be at least 8 characters long
+								</small>
+								<input placeholder="Confirm Password" required formControlName="passwordconfirm"
+									type="password" class="mt-3 form-control"
+									[ngClass]="(patientSignUp.get('passwordconfirm').errors?.required && patientSignUp.get('passwordconfirm').touched)? 'border-danger'  : ''"
+									id="passwordconfirm">
+								<small
+									*ngIf="patientSignUp.get('passwordconfirm').errors?.required && patientSignUp.get('passwordconfirm').touched"
 									class="text-danger py-0 my-0">
 									Passwords do not match
 								</small>
