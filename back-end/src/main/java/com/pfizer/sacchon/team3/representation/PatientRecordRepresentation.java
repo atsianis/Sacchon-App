@@ -12,13 +12,14 @@ public class PatientRecordRepresentation {
     private float sacchon;
     private float calories;
     private Date timeCreated;
-    private String uri;
+    private long id;
 
     public PatientRecordRepresentation(PatientRecords patientRecords) {
         if (patientRecords != null) {
             sacchon = patientRecords.getSacchon();
             calories = patientRecords.getCalories();
             timeCreated = patientRecords.getTimeCreated();
+            id = patientRecords.getId();
         }
     }
 
@@ -27,6 +28,8 @@ public class PatientRecordRepresentation {
         patientRecords.setSacchon(this.sacchon);
         patientRecords.setCalories(this.calories);
         patientRecords.setTimeCreated(this.timeCreated);
+        patientRecords.setId(this.id);
+
         return patientRecords;
     }
 }

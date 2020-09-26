@@ -1,8 +1,14 @@
 package com.pfizer.sacchon.team3.repository;
 
+import com.pfizer.sacchon.team3.model.Consultations;
+import com.pfizer.sacchon.team3.model.Doctors;
+import com.pfizer.sacchon.team3.model.PatientRecords;
 import com.pfizer.sacchon.team3.model.Patients;
 
 import javax.persistence.EntityManager;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +29,16 @@ public class PatientRepository {
         return entityManager.createQuery("from Patients").getResultList();
     }
 
-    public List<Patients> findAllAvailablePatients() {
+    public List<Patients> findAllConsultablePatients() {
         List<Patients> patients = entityManager.createQuery("from Patients WHERE canBeExamined = 1 " +
+                "and doctor_id = null")
+                .getResultList();
+
+        return patients;
+    }
+
+    public List<Patients> findAllAvailablePatients() {
+        List<Patients> patients = entityManager.createQuery("from Patients WHERE canBeExamined = 0 " +
                 "and doctor_id = null")
                 .getResultList();
 
@@ -103,5 +117,29 @@ public class PatientRepository {
         }
 
         return Optional.empty();
+    }
+
+    public boolean check(PatientRecords patientRecord) {
+
+        List<Consultations> consultations = entityManager
+                .createQuery("Select c from Consultations as c order by c.createRecord desc", Consultations.class)
+                .getResultList();
+
+        Consultations consultation = consultations.get(0);
+
+        Date dateCreated = consultation.getTimeCreated();
+        Date dateCurr = patientRecord.getTimeCreated();
+
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(dateCreated); // Now use today date.
+        c1.add(Calendar.DATE, 30); // Adding 30 days
+
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(dateCurr); // Now use today date.
+
+        if(c1.compareTo(c2) > 0)
+            return true;
+
+        return false;   // canBeExamined = true notification
     }
 }

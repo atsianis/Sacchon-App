@@ -11,7 +11,7 @@ public class ChiefRepresentation {
     private String lastName;
     private String email;
     private String password;
-    private String uri;
+    private long id;
 
     public ChiefRepresentation(Chiefs chief) {
         if (chief != null) {
@@ -19,7 +19,7 @@ public class ChiefRepresentation {
             lastName = chief.getLastName();
             email = chief.getEmail();
             password = chief.getPassword();
-            uri = "http://localhost:9000/v1/chief/" + chief.getId();
+            id = chief.getId();
         }
     }
 }

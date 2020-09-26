@@ -25,7 +25,7 @@ public class PatientRepresentation {
     private String gender;
     private List<PatientRecords> patientRecords = new ArrayList<>();
     private List<Consultations> consultations = new ArrayList<>();
-    private String uri;
+    private long id;
 
 
     public PatientRepresentation(Patients patient) {
@@ -41,23 +41,25 @@ public class PatientRepresentation {
             gender = patient.getGender();
             patientRecords = patient.getPatientRecords();
             consultations = patient.getConsultations();
-            uri = "http://localhost:9000/v1/patient/" + patient.getId();
+            id = patient.getId();
         }
     }
 
     public Patients createPatient() {
         Patients p = new Patients();
-        p.setFirstName(firstName);
-        p.setLastName(lastName);
-        p.setEmail(email);
-        p.setPassword(password);
-        p.setDob(dob);
-        p.setCanBeExamined(canBeExamined);
-        p.setDeleted(isDeleted);
-        p.setLastActive(lastActive);
-        p.setGender(gender);
-        p.setPatientRecords(patientRecords);
-        p.setConsultations(consultations);
+        p.setFirstName(this.firstName);
+        p.setLastName(this.lastName);
+        p.setEmail(this.email);
+        p.setPassword(this.password);
+        p.setDob(this.dob);
+        p.setCanBeExamined(this.canBeExamined);
+        p.setDeleted(this.isDeleted);
+        p.setLastActive(this.lastActive);
+        p.setGender(this.gender);
+        p.setPatientRecords(this.patientRecords);
+        p.setConsultations(this.consultations);
+        p.setId(this.id);
+
         return p;
     }
 }
