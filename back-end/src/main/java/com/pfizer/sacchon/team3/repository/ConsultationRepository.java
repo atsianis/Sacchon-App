@@ -25,8 +25,8 @@ public class ConsultationRepository {
 
     public List<Consultations> findPatientsConsultations(long id){
         List<Consultations> consultations = entityManager
-                .createQuery("SELECT from Consultations c WHERE c.patient_id = :patients_id ", Consultations.class)
-                .setParameter("patients_id" , id)
+                .createQuery("from Consultations WHERE patient_id = :patient_id ", Consultations.class)
+                .setParameter("patient_id" , id)
                 .getResultList();
 
         return consultations;
