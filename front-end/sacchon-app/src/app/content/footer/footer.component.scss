@@ -1,10 +1,10 @@
 .site-footer {
-	
+
 	padding: 20px 0 20px;
 	font-size: 15px;
 	line-height: 24px;
 	color: white;
-	background: linear-gradient(90deg, rgba(0,32,36,1) 0%, rgba(9,54,121,1) 7%, rgba(0,176,255,1) 100%)
+	background: linear-gradient(90deg, rgb(0, 8, 77) 0%, rgba(9,54,121,1) 7%, rgba(0,176,255,1) 100%)
 }
 
 .site-footer hr {
@@ -46,7 +46,7 @@
 	margin-left: 6px;
 	margin-right: 0;
 	border-radius: 100%;
-	background-color: #5777DE
+	background-color: transparent
 }
 
 .copyright-text {
@@ -124,7 +124,7 @@
 }
 
 .social-icons a.instagram:hover {
-	background: orange;
+	background:linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
 	color: whitesmoke;
   }
 
