@@ -18,9 +18,7 @@ const routes: Routes = [
 	{ path: 'login/medidatarepo', component: MediDataRepoLoginComponent },
 	{ path: 'login/doctoradvice', component: DoctorAdviceLoginComponent },
 	{ path: 'login/reporter', component: ReporterLoginComponent },
-	{ path: 'signup/doctor', component: DoctorSignUpComponent },
-	{ path: 'signup/patient', component: PatientSignUpComponent },
-	{ path: 'signup', component: SignupComponent },
+	{ path: 'signup', component: PatientSignUpComponent },
 ];
 
 @NgModule({
