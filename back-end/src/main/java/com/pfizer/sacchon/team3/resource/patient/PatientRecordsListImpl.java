@@ -115,6 +115,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
                     getResponse().setStatus(Status.SUCCESS_CREATED);
 
                     LOGGER.finer("Record successfully added.");
+
                     return result;
                 } else {
                     return null;

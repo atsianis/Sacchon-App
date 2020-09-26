@@ -25,7 +25,7 @@ public class CreatedOrUpdatedDoctorRepresentation {
             password = doctor.getPassword();
             lastActive = doctor.getLastActive();
             isDeleted = doctor.isDeleted();
-            id= doctor.getId();
+            id = doctor.getId();
         }
     }
 
@@ -38,6 +38,7 @@ public class CreatedOrUpdatedDoctorRepresentation {
         doctor.setLastActive(lastActive);
         doctor.setDeleted(isDeleted);
         doctor.setId(id);
+
         return doctor;
     }
 }

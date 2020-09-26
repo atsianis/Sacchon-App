@@ -59,6 +59,7 @@ public class PatientRepresentation {
         p.setPatientRecords(this.patientRecords);
         p.setConsultations(this.consultations);
         p.setId(this.id);
+
         return p;
     }
 }

@@ -47,6 +47,7 @@ public class DoctorRepresentation {
         doctor.setLastActive(this.lastActive);
         doctor.setDeleted(this.isDeleted);
         doctor.setId(this.id);
+
         return doctor;
     }
 }

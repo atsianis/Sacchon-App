@@ -29,6 +29,7 @@ public class PatientRecordRepresentation {
         patientRecords.setCalories(this.calories);
         patientRecords.setTimeCreated(this.timeCreated);
         patientRecords.setId(this.id);
+
         return patientRecords;
     }
 }
