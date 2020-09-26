@@ -9,38 +9,55 @@
 							<div class="form-group">
 								<input placeholder="Email" required formControlName="email" type="text"
 									class="mt-3 form-control" id="mail"
-									[ngClass]="(doctorSignUp.get('email').errors?.required && doctorSignUp.get('email').dirty && doctorSignUp.get('email').touched)? 'border-danger'  : ''"
-									>
+									[ngClass]="(doctorSignUp.get('email').errors?.required && doctorSignUp.get('email').touched)? 'border-danger'  : ''">
 								<small
-									*ngIf="doctorSignUp.get('email').errors?.required && doctorSignUp.get('email').dirty && doctorSignUp.get('email').touched"
+									*ngIf="doctorSignUp.get('email').errors?.required && doctorSignUp.get('email').touched"
 									class="text-danger py-0 my-0">
 									An email address is required
 								</small>
-								<input placeholder="First name" required formControlName="firstName" type="text"
-									class="mt-3 form-control" id="firstName">
 								<small
-									*ngIf="doctorSignUp.get('firstName').errors?.required && doctorSignUp.get('firstName').dirty && doctorSignUp.get('firstName').touched"
+									*ngIf="doctorSignUp.get('email').errors?.email && doctorSignUp.get('email').touched"
+									class="text-danger py-0 my-0">
+									Must be a valid email address
+								</small>
+								<input placeholder="First name" required formControlName="firstName" type="text"
+									class="mt-3 form-control"
+									[ngClass]="(doctorSignUp.get('firstName').errors?.required && doctorSignUp.get('firstName').touched)? 'border-danger'  : ''"
+									id="firstName">
+								<small
+									*ngIf="doctorSignUp.get('firstName').errors?.required && doctorSignUp.get('firstName').touched"
 									class="text-danger py-0 my-0">
 									First name is required
 								</small>
 								<input placeholder="Last name" required formControlName="lastName" type="text"
-									class="mt-3 form-control" id="lastName">
+									class="mt-3 form-control"
+									[ngClass]="(doctorSignUp.get('lastName').errors?.required && doctorSignUp.get('lastName').touched)? 'border-danger'  : ''"
+									id="lastName">
 								<small
-									*ngIf="doctorSignUp.get('lastName').errors?.required && doctorSignUp.get('lastName').dirty && doctorSignUp.get('lastName').touched"
+									*ngIf="doctorSignUp.get('lastName').errors?.required && doctorSignUp.get('lastName').touched"
 									class="text-danger py-0 my-0">
 									Last name is required
 								</small>
 								<input placeholder="Password" required formControlName="password" type="password"
-									class="mt-3 form-control" id="password">
+									class="mt-3 form-control"
+									[ngClass]="(doctorSignUp.get('password').errors?.required && doctorSignUp.get('password').touched)? 'border-danger'  : ''"
+									id="password">
 								<small
-									*ngIf="doctorSignUp.get('password').errors?.required && doctorSignUp.get('password').dirty && doctorSignUp.get('password').touched"
+									*ngIf="doctorSignUp.get('password').errors?.required && doctorSignUp.get('password').touched"
 									class="text-danger py-0 my-0">
 									A password is required
 								</small>
-								<input placeholder="Confirm Password" required formControlName="passwordconfirm"
-									type="password" class="mt-3 form-control" id="passwordconfirm">
 								<small
-									*ngIf="doctorSignUp.get('passwordconfirm').errors?.required && doctorSignUp.get('passwordconfirm').dirty && doctorSignUp.get('passwordconfirm').touched"
+									*ngIf="doctorSignUp.get('password').errors?.minlength && doctorSignUp.get('password').touched"
+									class="text-danger py-0 my-0">
+									Password must be at least 8 characters long
+								</small>
+								<input placeholder="Confirm Password" required formControlName="passwordconfirm"
+									type="password" class="mt-3 form-control"
+									[ngClass]="(doctorSignUp.get('passwordconfirm').errors?.required && doctorSignUp.get('passwordconfirm').touched)? 'border-danger'  : ''"
+									id="passwordconfirm">
+								<small
+									*ngIf="doctorSignUp.get('passwordconfirm').errors?.required && doctorSignUp.get('passwordconfirm').touched"
 									class="text-danger py-0 my-0">
 									Passwords do not match
 								</small>
