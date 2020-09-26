@@ -131,6 +131,7 @@ public class PatientRepository {
 
         if(c1.compareTo(c2) > 0)
             return true;
+
         return false;   // canBeExamined = true notification
     }
 }

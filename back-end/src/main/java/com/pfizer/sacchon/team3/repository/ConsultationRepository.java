@@ -62,10 +62,9 @@ public class ConsultationRepository {
             e.printStackTrace();
         }
 
-        Query query = entityManager.createQuery("UPDATE Patients p SET p.canBeExamined = false "
+        entityManager.createQuery("UPDATE Patients p SET p.canBeExamined = false "
                 + "WHERE p.id = :patient_id")
                 .setParameter("patient_id", c.getPatient().getId());
-
 
         return Optional.empty();
     }

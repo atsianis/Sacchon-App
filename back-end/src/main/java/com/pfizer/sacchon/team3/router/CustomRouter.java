@@ -63,7 +63,7 @@ public class CustomRouter {
         router.attach("/patient/{id}/consultations", PatientConsultationsResourceImpl.class);
 
         // Update Consultation
-        router.attach("/doctor/{id}/patient/{id}/consultations/{id}", UpdateConsultationResource.class);
+        router.attach("patient/{id}/consultation/{id}", UpdateConsultationResource.class);
 
         // PUT DELETE Consultations
         router.attach("/ping", PingServerResource.class);

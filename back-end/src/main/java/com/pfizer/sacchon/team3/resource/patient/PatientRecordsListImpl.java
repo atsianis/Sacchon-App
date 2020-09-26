@@ -114,11 +114,9 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
 
                     LOGGER.finer("Record successfully added.");
                     return result;
-                }else{
+                } else {
                     return null;
                 }
-
-
 
             } catch (Exception ex) {
                 LOGGER.log(Level.WARNING, "Error when adding a Record", ex);
