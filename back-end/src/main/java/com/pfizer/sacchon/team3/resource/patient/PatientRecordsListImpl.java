@@ -94,9 +94,10 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
                 patientRecordsIn.setPatient(patient);
 
                 // Check if patient can add PatientRecord
-                boolean checkDate = patientRepository.check(patientRecordsIn);
+                boolean lastConsultationLessThanAMonthAgo = patientRepository.checkLastConsultation(patientRecordsIn,patient.getConsultations());
+                boolean recordTimeMoreRecentThanPatientsCreationTime = patientRepository.checkPatientsCreationTime(patientRecordsIn,patient.getTimeCreated());
 
-                if(!checkDate) {
+                if(lastConsultationLessThanAMonthAgo && recordTimeMoreRecentThanPatientsCreationTime) {
                     Optional<PatientRecords> patientRecordsOut = patientRecordRepository.save(patientRecordsIn);
                     PatientRecords patientRecords = null;
                     if(patientRecordsOut.isPresent())
