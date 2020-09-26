@@ -23,8 +23,16 @@ public class PatientRepository {
         return entityManager.createQuery("from Patients").getResultList();
     }
 
-    public List<Patients> findAllAvailablePatients() {
+    public List<Patients> findAllConsultablePatients() {
         List<Patients> patients = entityManager.createQuery("from Patients WHERE canBeExamined = 1 " +
+                "and doctor_id = null")
+                .getResultList();
+
+        return patients;
+    }
+
+    public List<Patients> findAllAvailablePatients() {
+        List<Patients> patients = entityManager.createQuery("from Patients WHERE canBeExamined = 0 " +
                 "and doctor_id = null")
                 .getResultList();
 
