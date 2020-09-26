@@ -86,8 +86,8 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
             try {
                 // Convert PatientRecordRepr to PatientRecord
                 PatientRecords patientRecordsIn = new PatientRecords();
-                patientRecordsIn.setSacchon(patientRecordRepresentation.getSacchon());
-                patientRecordsIn.setCalories(patientRecordRepresentation.getCalories());
+                patientRecordsIn.setGlycose(patientRecordRepresentation.getGlycose());
+                patientRecordsIn.setCarbs(patientRecordRepresentation.getCarbs());
                 patientRecordsIn.setTimeCreated(patientRecordRepresentation.getTimeCreated());
                 patientRecordsIn.setPatient(patient);
 
@@ -104,8 +104,8 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
 
                     //Convert PatientRecord to PatientRecordRepr
                     PatientRecordRepresentation result = new PatientRecordRepresentation();
-                    result.setSacchon(patientRecords.getSacchon());
-                    result.setCalories(patientRecords.getCalories());
+                    result.setGlycose(patientRecords.getGlycose());
+                    result.setCarbs(patientRecords.getCarbs());
                     result.setTimeCreated(patientRecords.getTimeCreated());
                     result.setUri("/patient/"+patient.getId()+"/storeData/patientRecord/"+patientRecords.getId());
 

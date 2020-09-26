@@ -9,23 +9,23 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class PatientRecordRepresentation {
-    private float sacchon;
-    private float calories;
+    private float glycose;
+    private float carbs;
     private Date timeCreated;
     private String uri;
 
     public PatientRecordRepresentation(PatientRecords patientRecords) {
         if (patientRecords != null) {
-            sacchon = patientRecords.getSacchon();
-            calories = patientRecords.getCalories();
+            glycose = patientRecords.getGlycose();
+            carbs = patientRecords.getCarbs();
             timeCreated = patientRecords.getTimeCreated();
         }
     }
 
     public PatientRecords createPatientRecords() {
         PatientRecords patientRecords = new PatientRecords();
-        patientRecords.setSacchon(this.sacchon);
-        patientRecords.setCalories(this.calories);
+        patientRecords.setGlycose(this.glycose);
+        patientRecords.setCarbs(this.carbs);
         patientRecords.setTimeCreated(this.timeCreated);
         return patientRecords;
     }
