@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface Mypatients {
     @Get("json")
-    public List<PatientRepresentation> myPatients(DoctorRepresentation doctorRepresentation) throws NotFoundException;
+    public List<PatientRepresentation> myPatients() throws NotFoundException;
 }
