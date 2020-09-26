@@ -5,6 +5,7 @@ import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
+import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedDoctorRepresentation;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
@@ -89,7 +90,7 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
 
     // UPDATE Doctor
     @Override
-    public DoctorRepresentation store(DoctorRepresentation doctorReprIn) throws NotFoundException, BadEntityException {
+    public DoctorRepresentation updateDoctor(CreatedOrUpdatedDoctorRepresentation doctorReprIn) throws NotFoundException, BadEntityException {
         LOGGER.finer("Update a doctor.");
         ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
         LOGGER.finer("User allowed to update a doctor.");
