@@ -12,8 +12,8 @@ public class PatientRecords {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private float sacchon;
-    private float calories;
+    private float glycose;
+    private float carbs;
     private Date timeCreated;
     @ManyToOne
     @JoinColumn(name ="patient_id")

@@ -43,8 +43,8 @@
 | Patient_records | Variable type    |
 | :-------------: |  :-------------: |
 | id              | Int, primary key |
-| sacchon         | Float            |
-| calories        | Float            |
+| glycose         | Float            |
+| carbs        | Float            |
 | created_at      | Date             |
 | patient_id      | Int              |
 
