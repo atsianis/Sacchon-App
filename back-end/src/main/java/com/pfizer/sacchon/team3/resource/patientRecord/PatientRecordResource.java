@@ -22,6 +22,6 @@ public interface PatientRecordResource {
     public void remove() throws NotFoundException;
 
     @Put("json")
-    public PatientRecordRepresentation updateRecord(PatientRecordRepresentation patientRecordRepresentation, Patients patient)
+    public PatientRecordRepresentation updateRecord(PatientRecordRepresentation patientRecordRepresentation)
             throws NotFoundException, BadEntityException;
 }

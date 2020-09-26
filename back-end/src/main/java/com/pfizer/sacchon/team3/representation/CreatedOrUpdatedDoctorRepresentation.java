@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @NoArgsConstructor
-public class CreatedDoctorRepresentation {
+public class CreatedOrUpdatedDoctorRepresentation {
     private String firstName;
     private String lastName;
     private String email;
@@ -17,7 +17,7 @@ public class CreatedDoctorRepresentation {
     private boolean isDeleted;
     private String uri;
 
-    public CreatedDoctorRepresentation(Doctors doctor) {
+    public CreatedOrUpdatedDoctorRepresentation(Doctors doctor) {
         if (doctor != null) {
             firstName = doctor.getFirstName();
             lastName = doctor.getLastName();
@@ -27,5 +27,16 @@ public class CreatedDoctorRepresentation {
             isDeleted = doctor.isDeleted();
             uri = "http://localhost:9000/v1/doctor/" + doctor.getId();
         }
+    }
+
+    public Doctors createDoctor() {
+        Doctors doctor = new Doctors();
+        doctor.setFirstName(firstName);
+        doctor.setLastName(lastName);
+        doctor.setEmail(email);
+        doctor.setPassword(password);
+        doctor.setLastActive(lastActive);
+        doctor.setDeleted(isDeleted);
+        return doctor;
     }
 }

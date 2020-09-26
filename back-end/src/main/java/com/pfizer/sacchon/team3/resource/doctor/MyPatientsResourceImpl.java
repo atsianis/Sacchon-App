@@ -25,10 +25,10 @@ public class MyPatientsResourceImpl extends ServerResource implements Mypatients
     private EntityManager em;
     private long id;
 
-    @Override
-    protected void doRelease(){
-        em.close();
-    }
+//    @Override
+//    protected void doRelease(){
+//        em.close();
+//    }
 
     @Override
     protected void doInit() {
@@ -43,7 +43,7 @@ public class MyPatientsResourceImpl extends ServerResource implements Mypatients
     }
 
     @Override
-    public List<PatientRepresentation> myPatients(DoctorRepresentation doctorRepresentation) throws NotFoundException {
+    public List<PatientRepresentation> myPatients() throws NotFoundException {
         LOGGER.finer("Select my patients.");
         // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
