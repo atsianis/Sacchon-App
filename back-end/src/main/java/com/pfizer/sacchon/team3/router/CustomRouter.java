@@ -29,7 +29,6 @@ public class CustomRouter {
 
     public CustomRouter(Application application) {
         this.application = application;
-
     }
 
     public Router createApiRouter() {
@@ -46,12 +45,6 @@ public class CustomRouter {
         router.attach("/register/patient", RegisterPatientImpl.class);
         router.attach("/chief/register/doctor", RegisterDoctorImpl.class);
 
-
-
-
-
-
-
         router.attach("/patient/{id}", PatientResourceImpl.class);
 
         router.attach("/doctors", AllDoctorsListImpl.class);
@@ -63,9 +56,6 @@ public class CustomRouter {
 //        router.attach("/patients/inactive/{days}", PatientListResourceImp.class);
 //
 //        router.attach("/doctors/inactive/{days}", PingServerResource.class);
-
-
-
 
         router.attach("/create/doctor", RegisterDoctorImpl.class);
 
@@ -103,6 +93,7 @@ public class CustomRouter {
     public Router publicResources() {
         Router router = new Router();
         router.attach("/ping", PingServerResource.class);
+
         return router;
     }
 }

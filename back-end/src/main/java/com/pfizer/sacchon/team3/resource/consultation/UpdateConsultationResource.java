@@ -95,7 +95,6 @@ public class UpdateConsultationResource extends ServerResource implements Update
                 }else{
                     throw new NotFoundException("consultation is not found");
                 }
-
             } else {
                 LOGGER.finer("Resource does not exist.");
                 throw new NotFoundException("Consultation with the following id does not exist: " + consultation_id);
