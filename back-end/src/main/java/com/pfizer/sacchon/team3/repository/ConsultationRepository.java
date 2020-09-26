@@ -35,7 +35,7 @@ public class ConsultationRepository {
         return consultations;
     }
 
-    // save a doctor
+    // save a consultation
     public Optional<Consultations> save(Consultations consultation) {
         try {
             entityManager.getTransaction().begin();

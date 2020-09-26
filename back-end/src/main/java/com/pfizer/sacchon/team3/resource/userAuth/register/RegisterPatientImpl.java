@@ -7,6 +7,7 @@ import com.pfizer.sacchon.team3.repository.ConsultationRepository;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
+import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedPatientRepresentation;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import com.pfizer.sacchon.team3.security.ResourceUtils;
@@ -32,6 +33,7 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
         LOGGER.info("Initialising patient resource starts");
         try {
             patientRepository = new PatientRepository(JpaUtil.getEntityManager());
+            consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
             consultationRepresentation = new ConsultationRepresentation();
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,15 +42,15 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
     }
 
     @Override
-    public PatientRepresentation add(PatientRepresentation patientRepresentation) throws BadEntityException {
-        LOGGER.finer("Add a new patient.");
+    public PatientRepresentation add(CreatedOrUpdatedPatientRepresentation patientRepresentation) throws BadEntityException {
+        LOGGER.info("Add a new patient.");
         // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        LOGGER.finer("User allowed to add a patient.");
+        LOGGER.info("User allowed to add a patient.");
         // Check entity
         ResourceValidator.notNull(patientRepresentation);
         ResourceValidator.validatePatient(patientRepresentation);
-        LOGGER.finer("Patient checked");
+        LOGGER.info("Patient checked");
 
         try {
             // Convert PatientRepr to Patient
@@ -59,35 +61,46 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
             patientsIn.setPassword(patientRepresentation.getPassword());
             patientsIn.setDob(patientRepresentation.getDob());
             patientsIn.setGender(patientRepresentation.getGender());
+            try {
+                Optional<Patients> patientOut = patientRepository.save(patientsIn);
+                // this savedPatient has ID now
+                Patients savedPatient = patientOut.get();
+                // Create First Consultation which is NULL
+                Consultations consultation = consultationRepresentation.createConsultation();
+                // To make the consultation-patient relationship work, the setted patient must be persisted
+                consultation.setPatient(savedPatient);
+                consultation.setComment(null);
+                consultation.setSeenByPatient(new Date());
+                consultation.setTimeCreated(new Date());
+                // Add consult in db
+                consultationRepository.save(consultation);
 
-            // Create First Consultation which is NULL
-            Consultations consultation = consultationRepresentation.createConsultation();
-            consultation.setPatient(patientsIn);
-            consultation.setTimeCreated(new Date());
-            // Add consult in db
-            consultationRepository.save(consultation);
+                Patients patients = null;
+                if (patientOut.isPresent())
+                    patients = patientOut.get();
+                else
+                    throw new BadEntityException("Patient has not been created");
 
-            Optional<Patients> patientOut = patientRepository.save(patientsIn);
-            Patients patients = null;
-            if (patientOut.isPresent())
-                patients = patientOut.get();
-            else
-                throw new BadEntityException(" Patient has not been created");
+                PatientRepresentation result = new PatientRepresentation();
+                result.setFirstName(patients.getFirstName());
+                result.setLastName(patients.getLastName());
+                result.setEmail(patients.getEmail());
+                result.setPassword(patients.getPassword());
+                result.setDob(patients.getDob());
+                result.setId(patients.getId());
 
-            PatientRepresentation result = new PatientRepresentation();
-            result.setFirstName(patients.getFirstName());
-            result.setLastName(patients.getLastName());
-            result.setEmail(patients.getEmail());
-            result.setPassword(patients.getPassword());
-            result.setDob(patients.getDob());
-            result.setId(patients.getId());
+                getResponse().setLocationRef("http://localhost:9000/v1/patient/" + patients.getId());
+                getResponse().setStatus(Status.SUCCESS_CREATED);
 
-            getResponse().setLocationRef("http://localhost:9000/v1/patient/" + patients.getId());
-            getResponse().setStatus(Status.SUCCESS_CREATED);
+                LOGGER.finer("Patient successfully added.");
 
-            LOGGER.finer("Patient successfully added.");
+                return result;
+            }catch(Exception e){
+                e.printStackTrace();
+                throw new BadEntityException("Patient has incorrect data");
+            }
 
-            return result;
+
         } catch (Exception ex) {
             LOGGER.log(Level.WARNING, "Error when adding a patient", ex);
             throw new ResourceException(ex);
