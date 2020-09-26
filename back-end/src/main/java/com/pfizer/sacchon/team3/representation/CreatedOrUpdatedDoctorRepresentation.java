@@ -27,7 +27,6 @@ public class CreatedOrUpdatedDoctorRepresentation {
             isDeleted = doctor.isDeleted();
             uri = "http://localhost:9000/v1/doctor/" + doctor.getId();
         }
-
     }
 
     public Doctors createDoctor() {
@@ -41,5 +40,3 @@ public class CreatedOrUpdatedDoctorRepresentation {
         return doctor;
     }
 }
-
-

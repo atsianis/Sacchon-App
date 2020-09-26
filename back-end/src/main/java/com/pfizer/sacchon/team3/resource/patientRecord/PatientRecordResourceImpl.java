@@ -94,7 +94,6 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
 
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         LOGGER.finer("User allowed to update a record.");
-
         // Check given entity
         // Convert to PatientRepr so a validation can procceed
 
