@@ -10,8 +10,6 @@ import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
 import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedPatientRepresentation;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
-import com.pfizer.sacchon.team3.security.ResourceUtils;
-import com.pfizer.sacchon.team3.security.Shield;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
@@ -44,9 +42,6 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
     @Override
     public PatientRepresentation add(CreatedOrUpdatedPatientRepresentation patientRepresentation) throws BadEntityException {
         LOGGER.info("Add a new patient.");
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        LOGGER.info("User allowed to add a patient.");
         // Check entity
         ResourceValidator.notNull(patientRepresentation);
         ResourceValidator.validatePatient(patientRepresentation);

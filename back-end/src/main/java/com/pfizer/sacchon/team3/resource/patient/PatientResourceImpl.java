@@ -7,8 +7,6 @@ import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
-import com.pfizer.sacchon.team3.security.ResourceUtils;
-import com.pfizer.sacchon.team3.security.Shield;
 import org.hibernate.Hibernate;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
@@ -38,8 +36,6 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
     @Override
     public PatientRepresentation getPatient() throws NotFoundException {
         LOGGER.info("Retrieve a patient");
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
         // Initialize the persistence layer.
         PatientRepository patientRepository = new PatientRepository(JpaUtil.getEntityManager());
         Patients patient;
@@ -67,8 +63,6 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
     @Override
     public void remove() throws NotFoundException {
         LOGGER.finer("Removal of patient");
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        LOGGER.finer("User allowed to remove a patient.");
         try {
             // Delete patient in DB: return true if deleted
             Boolean isDeleted = patientRepository.remove(id);
@@ -88,8 +82,6 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
     @Override
     public PatientRepresentation store(PatientRepresentation patientRepresentation) throws NotFoundException, BadEntityException {
         LOGGER.finer("Update a patient.");
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        LOGGER.finer("User allowed to update a patient.");
         // Check given entity
         ResourceValidator.notNull(patientRepresentation);
         ResourceValidator.validatePatient(patientRepresentation);

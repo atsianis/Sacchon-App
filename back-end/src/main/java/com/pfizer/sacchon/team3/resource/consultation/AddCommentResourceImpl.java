@@ -10,8 +10,6 @@ import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
 import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
-import com.pfizer.sacchon.team3.security.ResourceUtils;
-import com.pfizer.sacchon.team3.security.Shield;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -21,9 +19,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 public class AddCommentResourceImpl extends ServerResource implements AddCommentResource{
-
     public static final Logger LOGGER = Engine.getLogger(DoctorResourceImpl.class);
-
     private long doctor_id;
     private long consultation_id;
     private ConsultationRepository consultationRepository ;
@@ -50,8 +46,6 @@ public class AddCommentResourceImpl extends ServerResource implements AddComment
         LOGGER.finer("Create a consultation.");
         if (consultReprIn.getComment().isEmpty())
             throw new BadInsertionException("Cant post an empty consultation, doc !");
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-        LOGGER.finer("User allowed to update a consultation.");
         // get Doctor
         Optional<Doctors> odoctor = doctorRepository.findById(doctor_id);
         Doctors doctor;
