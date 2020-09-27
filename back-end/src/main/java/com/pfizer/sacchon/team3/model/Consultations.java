@@ -2,8 +2,6 @@ package com.pfizer.sacchon.team3.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
-import org.jetbrains.annotations.NotNull;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -26,7 +24,7 @@ public class Consultations implements Comparable<Consultations> {
     private Doctors doctor;
 
     @Override
-    public int compareTo(@NotNull Consultations c) {
+    public int compareTo(Consultations c) {
         return timeCreated.compareTo(c.getTimeCreated());
     }
 }

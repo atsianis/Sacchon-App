@@ -135,16 +135,10 @@ public class PatientRepository {
         Calendar c2 = Calendar.getInstance();
         c2.setTime(dateCurr); // Now use today date.
 
-        if(c1.compareTo(c2) > 0)
-            return true;
-
-        return false;   // canBeExamined = true notification
+        return c1.compareTo(c2) > 0 // canBeExamined = true notification
     }
 
     public boolean checkPatientsCreationTime(PatientRecords patientRecord,Date patientsCreationDate){
-        if (patientRecord.getTimeCreated().compareTo(patientsCreationDate)<0){
-            return false;
-        }
-        return true;
+        return patientRecord.getTimeCreated().compareTo(patientsCreationDate) < 0
     }
 }
