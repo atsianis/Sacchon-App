@@ -11,15 +11,12 @@ import { Chiefs } from 'src/app/interfaces/chiefs';
 })
 export class ReporterLoginComponent implements OnInit {
 
-	constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) {	}
+	constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) { }
 
 	reporterLoginForm: any = this.formBuilder.group({
 		email: '',
 		password: ''
 	});
-
-	ngOnInit(): void {
-	}
 
 	httpOptions = {
 		headers: new HttpHeaders({
@@ -28,6 +25,9 @@ export class ReporterLoginComponent implements OnInit {
 		})
 	};
 
+	ngOnInit(): void {
+	}
+
 	submitLogin(): any {
 		this.http.post<Chiefs>('http://localhost:9000/v1/login/chief', {
 			email: this.reporterLoginForm.get('email').value,
@@ -35,11 +35,11 @@ export class ReporterLoginComponent implements OnInit {
 		}, this.httpOptions).subscribe(response => {
 			console.log(response);
 			if (response) {
-				sessionStorage.setItem('email', response?.email );
-				sessionStorage.setItem('password', response?.password );
-				sessionStorage.setItem('firstName', response?.firstName );
-				sessionStorage.setItem('lastName', response?.lastName );
-				sessionStorage.setItem('id', response?.id );
+				sessionStorage.setItem('email', response?.email);
+				sessionStorage.setItem('password', response?.password);
+				sessionStorage.setItem('firstName', response?.firstName);
+				sessionStorage.setItem('lastName', response?.lastName);
+				sessionStorage.setItem('id', response?.id);
 				this.router.navigate(['reporter']);
 			} else {
 				alert('Invalid username or password');
