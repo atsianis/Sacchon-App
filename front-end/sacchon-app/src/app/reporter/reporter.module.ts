@@ -13,13 +13,15 @@ import { InspectPatientListComponent } from './inspect-patient/inspect-patient-l
 import { RouterModule } from '@angular/router';
 import { ReporterComponent } from './reporter.component';
 import { DoctorSignUpComponent } from '../auth/signup/doctor-sign-up/doctor-sign-up.component';
+import { InspectNonActiveComponent } from './inspect-non-active/inspect-non-active.component';
 
 @NgModule({
 	declarations: [
 		InspectDoctorComponent,
 		InspectPatientComponent,
 		InspectDoctorListComponent,
-		InspectPatientListComponent
+		InspectPatientListComponent,
+		InspectNonActiveComponent
 	],
 	imports: [
 		CommonModule,
@@ -32,7 +34,8 @@ import { DoctorSignUpComponent } from '../auth/signup/doctor-sign-up/doctor-sign
 			{ path: 'reporter/doctor/:id', component: InspectDoctorListComponent },
 			{ path: 'reporter/patients', component: InspectPatientComponent },
 			{ path: 'reporter/patient/:id', component: InspectPatientListComponent },
-			{ path: 'reporter/createdoctor', component: DoctorSignUpComponent }
+			{ path: 'reporter/createdoctor', component: DoctorSignUpComponent },
+			{ path: 'reporter/inactives', component: InspectNonActiveComponent }
 		])
 	],
 	exports: [
