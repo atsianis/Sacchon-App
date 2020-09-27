@@ -19,12 +19,6 @@ export class DoctorSignUpComponent implements OnInit {
 		passwordconfirm: new FormControl(null)
 	});
 
-	httpOptions = {
-		headers: new HttpHeaders({
-			'Authorization': 'Basic ' + btoa('asd@asd.asd:asdasdasd'),
-			'Access-Control-Allow-Origin': '*'
-		})
-	};
 
 	ngOnInit(): void { }
 
@@ -35,7 +29,7 @@ export class DoctorSignUpComponent implements OnInit {
 				lastName: this.doctorSignUp.get('lastName').value,
 				email: this.doctorSignUp.get('email').value,
 				password: this.doctorSignUp.get('password').value,
-			}, this.httpOptions).subscribe(response => {
+			}).subscribe(response => {
 				this.toastr.success('You will be redirected to home page soon.', 'Successfully registered', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'

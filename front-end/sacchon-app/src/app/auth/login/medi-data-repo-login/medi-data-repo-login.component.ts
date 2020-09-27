@@ -19,12 +19,6 @@ export class MediDataRepoLoginComponent implements OnInit {
 		password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
 	});
 
-	httpOptions = {
-		headers: new HttpHeaders({
-			'Authorization': 'Basic ' + btoa('asd@asd.asd:asdasdasd'),
-			'Access-Control-Allow-Origin': '*'
-		})
-	};
 
 	ngOnInit(): void {
 	}
@@ -33,7 +27,7 @@ export class MediDataRepoLoginComponent implements OnInit {
 		this.http.post<Patients>('http://localhost:9000/v1/login/patient', {
 			email: this.patientLoginForm.get('email').value,
 			password: this.patientLoginForm.get('password').value
-		}, this.httpOptions).subscribe(response => {
+		}).subscribe(response => {
 			if (response) {
 				this.toastr.success(`Welcome ${response.data.firstName}!`, 'Login successful', {
 					timeOut: 2000,
