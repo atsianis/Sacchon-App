@@ -1,6 +1,7 @@
 package com.pfizer.sacchon.team3.resource.consultation;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
+import com.pfizer.sacchon.team3.exception.BadInsertionException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.model.Doctors;
@@ -55,10 +56,11 @@ public class UpdateConsultationResource extends ServerResource implements Update
         LOGGER.info("Initialising doctor resource ends");
     }
 
-    public ConsultationRepresentation updateConsultation(UpdateConsultationRepresentation consultReprIn) throws NotFoundException, BadEntityException {
+    public ConsultationRepresentation updateConsultation(UpdateConsultationRepresentation consultReprIn) throws NotFoundException, BadEntityException, BadInsertionException {
 
         LOGGER.finer("Update a consultation.");
-
+        if (consultReprIn.getComment().isEmpty())
+            throw new BadInsertionException("Cant post an empty consultation, doc !");
         ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
         LOGGER.finer("User allowed to update a consultation.");
         // get Doctor
@@ -91,6 +93,8 @@ public class UpdateConsultationResource extends ServerResource implements Update
                 Optional<Consultations> oconsult = consultationRepository.setComment(consultation);
                 setExisting(oconsult.isPresent());
                 if(isExisting()){
+                    doctor.setLastActive(new Date());
+                    doctorRepository.update(doctor);
                     return new ConsultationRepresentation(oconsult.get());
                 }else{
                     throw new NotFoundException("consultation is not found");
