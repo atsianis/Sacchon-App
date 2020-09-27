@@ -1,8 +1,10 @@
 package com.pfizer.sacchon.team3.router;
 
+import com.pfizer.sacchon.team3.resource.chief.AllDoctorsDBImpl;
+import com.pfizer.sacchon.team3.resource.chief.AllPatientsDBImpl;
 import com.pfizer.sacchon.team3.resource.chief.AllPatientsListImpl;
 import com.pfizer.sacchon.team3.resource.chief.AllDoctorsListImpl;
-import com.pfizer.sacchon.team3.resource.consultation.ConsultationListResourceImpl;
+import com.pfizer.sacchon.team3.resource.chief.ConsultationListResourceImpl;
 import com.pfizer.sacchon.team3.resource.consultation.ConsultationResourceImpl;
 import com.pfizer.sacchon.team3.resource.consultation.UpdateConsultationResource;
 import com.pfizer.sacchon.team3.resource.doctor.*;
@@ -38,21 +40,21 @@ public class CustomRouter {
         //Register Endpoints
         router.attach("/register/patient", RegisterPatientImpl.class);
         router.attach("/chief/register/doctor", RegisterDoctorImpl.class);
+        //chief Endpoints
+        router.attach("/chief/allpatientsDB", AllPatientsDBImpl.class);
+        router.attach("/chief/alldoctorsDB", AllDoctorsDBImpl.class);
+        router.attach("/chief/allpatients", AllPatientsListImpl.class);
+        router.attach("/chief/alldoctors", AllDoctorsListImpl.class);
+        router.attach("/chief/inactivedoctors", InactiveDoctorsImpl.class);
+        router.attach("/chief/inactivepatients", InactivePatientsImpl.class);
+        router.attach("/chief/allconsultations", ConsultationListResourceImpl.class);
+
+
+
 
         router.attach("/patient/{id}", PatientResourceImpl.class);
-
-        router.attach("/doctors", AllDoctorsListImpl.class);
-
-        router.attach("/consultations", ConsultationListResourceImpl.class);
-
         router.attach("/consultation/{id}", ConsultationResourceImpl.class);
-
 //        router.attach("/patients/inactive/{days}", PatientListResourceImp.class);
-//
-//        router.attach("/doctors/inactive/{days}", PingServerResource.class);
-
-        router.attach("/create/doctor", RegisterDoctorImpl.class);
-
         router.attach("/doctor/{id}", DoctorResourceImpl.class);
         // settings
         router.attach("/doctor/{id}/settings",  DoctorResourceImpl.class);
@@ -75,13 +77,6 @@ public class CustomRouter {
         // Update Consultation
         router.attach("/doctor/{did}/consultation/{cid}", UpdateConsultationResource.class);
 
-        // Get Inactives Doctor
-        router.attach("/reporter/inactivedoctors", InactiveDoctorsImpl.class);
-        router.attach("/reporter/inactivepatients", InactivePatientsImpl.class);
-
-        // PUT DELETE Consultations
-
-        router.attach("/patients", AllPatientsListImpl.class);
         //router.attach("/availablePatients", AllPatientsListImpl.class);
         router.attach("/patient/{id}/settings", PatientResourceImpl.class);
         router.attach("/patients/{id}/storeData", PatientRecordsListImpl.class);
