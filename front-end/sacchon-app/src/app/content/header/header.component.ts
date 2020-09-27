@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'sacchon-app-header',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-	constructor() { }
+	constructor(private router: Router) { }
 
 	user: string = null;
 
@@ -26,7 +27,7 @@ export class HeaderComponent implements OnInit {
 		sessionStorage.removeItem('firstName');
 		sessionStorage.removeItem('lastName');
 		sessionStorage.removeItem('id');
-		location.href = '/';
+		this.router.navigate(['']);
 	}
 
 }

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Chiefs } from 'src/app/interfaces/chiefs';
 
 @Component({
@@ -10,7 +11,7 @@ import { Chiefs } from 'src/app/interfaces/chiefs';
 })
 export class ReporterLoginComponent implements OnInit {
 
-	constructor(private formBuilder: FormBuilder, private http: HttpClient) {	}
+	constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) {	}
 
 	reporterLoginForm: any = this.formBuilder.group({
 		email: '',
@@ -39,7 +40,7 @@ export class ReporterLoginComponent implements OnInit {
 				sessionStorage.setItem('firstName', response?.firstName );
 				sessionStorage.setItem('lastName', response?.lastName );
 				sessionStorage.setItem('id', response?.id );
-				window.location.href = 'http://localhost:4200/reporter';
+				this.router.navigate(['reporter']);
 			} else {
 				alert('Invalid username or password');
 				this.reporterLoginForm = this.formBuilder.group({
