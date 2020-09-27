@@ -80,10 +80,8 @@ public class CustomRouter {
         router.attach("/doctor/{did}/consultation/{cid}", UpdateConsultationResource.class);
 
         // Get Inactives Doctor
-        router.attach("/doctors/inactive", InactiveDoctorsImpl.class);
-        router.attach("/patients/inactive", InactivePatientsImpl.class);
-
-
+        router.attach("/reporter/inactivedoctors", InactiveDoctorsImpl.class);
+        router.attach("/reporter/inactivepatients", InactivePatientsImpl.class);
 
         // PUT DELETE Consultations
 

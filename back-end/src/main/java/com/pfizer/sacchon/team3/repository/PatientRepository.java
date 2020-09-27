@@ -148,11 +148,11 @@ public class PatientRepository {
         Calendar cNow = Calendar.getInstance();
         for(Patients patient: patients) {
             cDeadline.setTime(patient.getLastActive());
-            cDeadline.add(Calendar.DATE, 15);
             cNow.setTime(new Date());
-            if (cNow.compareTo(cDeadline) > 0)
+            if (cNow.compareTo(cDeadline) >= 15)
                 inactivePatients.add(patient);
         }
+
         return inactivePatients;
     }
 }

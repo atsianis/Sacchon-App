@@ -40,7 +40,7 @@ public class InactivePatientsImpl extends ServerResource implements InactivePati
     public List<PatientRepresentation> inactivePatients() throws NotFoundException{
         LOGGER.finer("Select inactive patients.");
         // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
         try {
             List<Patients> patients = patientRepository.findInactivePatients();
             List<PatientRepresentation> result = new ArrayList<>();
@@ -48,6 +48,7 @@ public class InactivePatientsImpl extends ServerResource implements InactivePati
                 Hibernate.initialize(patient);
                 result.add(new PatientRepresentation(patient));
             }
+
             return result;
         } catch (Exception e) {
             throw new NotFoundException("patients not found");

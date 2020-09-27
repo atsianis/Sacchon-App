@@ -146,11 +146,11 @@ public class DoctorRepository {
         Calendar cNow = Calendar.getInstance();
         for(Doctors doctor: doctors) {
             cDeadline.setTime(doctor.getLastActive());
-            cDeadline.add(Calendar.DATE, 10);
             cNow.setTime(new Date());
-            if (cNow.compareTo(cDeadline) > 0)
+            if (cNow.compareTo(cDeadline) >= 15)
                 inactiveDoctors.add(doctor);
         }
+
         return inactiveDoctors;
     }
 }
