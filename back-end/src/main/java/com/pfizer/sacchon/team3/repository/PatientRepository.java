@@ -4,11 +4,7 @@ import com.pfizer.sacchon.team3.exception.WrongCredentials;
 import com.pfizer.sacchon.team3.model.*;
 
 import javax.persistence.EntityManager;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class PatientRepository {
     private EntityManager entityManager;
@@ -143,5 +139,20 @@ public class PatientRepository {
 
     public boolean checkPatientsCreationTime(PatientRecords patientRecord,Date patientsCreationDate){
         return patientRecord.getTimeCreated().compareTo(patientsCreationDate) < 0;
+    }
+
+    public List<Patients> findInactivePatients() {
+        List<Patients> patients = entityManager.createQuery("from Patients").getResultList();
+        List<Patients> inactivePatients = new ArrayList<>();
+        Calendar cInactive = Calendar.getInstance();
+        Calendar cDoctor = Calendar.getInstance();
+        for(Patients patient: patients) {
+            cInactive.setTime(patient.getLastActive());
+            cInactive.add(Calendar.DATE, 10);
+            cDoctor.setTime(patient.getLastActive());
+            if (cDoctor.compareTo(cInactive) > 0)
+                inactivePatients.add(patient);
+        }
+        return inactivePatients;
     }
 }
