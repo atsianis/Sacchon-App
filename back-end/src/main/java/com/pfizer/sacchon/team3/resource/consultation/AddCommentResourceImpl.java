@@ -15,7 +15,6 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
-import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -29,12 +28,6 @@ public class AddCommentResourceImpl extends ServerResource implements AddComment
     private ConsultationRepository consultationRepository ;
     private DoctorRepository doctorRepository ;
     private ConsultationRepresentation consultationRepresentation;
-    private EntityManager em;
-
-//    @Override
-//    protected void doRelease(){
-//        em.close();
-//    }
 
     @Override
     protected void doInit() {
@@ -51,7 +44,6 @@ public class AddCommentResourceImpl extends ServerResource implements AddComment
         }
         LOGGER.info("Initialising doctor resource ends");
     }
-
 
     public ConsultationRepresentation addCommentConsultation(ConsultationRepresentation consultReprIn) throws NotFoundException, BadEntityException{
         LOGGER.finer("Update a consultation.");
@@ -88,7 +80,6 @@ public class AddCommentResourceImpl extends ServerResource implements AddComment
                 Optional<Consultations> oconsult = consultationRepository.addNewComment(consultation);
                 setExisting(oconsult.isPresent());
 
-
                 // Create new Consultation with initialized patient_id and Date
                 Consultations consult = consultationRepresentation.createConsultation();
                 consult.setPatient(consultReprIn.getPatient());
@@ -114,5 +105,4 @@ public class AddCommentResourceImpl extends ServerResource implements AddComment
     private boolean isMyConsult(Doctors d, Consultations c){
         return d.getId()==c.getDoctor().getId();
     }
-
 }
