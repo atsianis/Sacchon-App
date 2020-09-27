@@ -72,6 +72,7 @@ public class PatientRepository {
         patientIn.setFirstName(p.getFirstName());
         patientIn.setLastName(p.getLastName());
         patientIn.setPassword(p.getPassword());
+        patientIn.setLastActive(p.getLastActive());
         patientIn.setEmail(p.getEmail());
         patientIn.setDob(p.getDob());
 
@@ -106,6 +107,7 @@ public class PatientRepository {
     public Optional<Patients> softDelete(Patients p) {
         Patients patientIn = entityManager.find(Patients.class, p.getId());
         patientIn.setDeleted(true);
+        patientIn.setDoctor(null);
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(patientIn);
@@ -135,10 +137,10 @@ public class PatientRepository {
         Calendar c2 = Calendar.getInstance();
         c2.setTime(dateCurr); // Now use today date.
 
-        return c1.compareTo(c2) > 0 // canBeExamined = true notification
+        return c1.compareTo(c2) > 0; // canBeExamined = true notification
     }
 
     public boolean checkPatientsCreationTime(PatientRecords patientRecord,Date patientsCreationDate){
-        return patientRecord.getTimeCreated().compareTo(patientsCreationDate) < 0
+        return patientRecord.getTimeCreated().compareTo(patientsCreationDate) > 0;
     }
 }
