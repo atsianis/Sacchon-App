@@ -7,13 +7,10 @@ import com.pfizer.sacchon.team3.repository.ConsultationRepository;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
-import com.pfizer.sacchon.team3.security.ResourceUtils;
-import com.pfizer.sacchon.team3.security.Shield;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +21,6 @@ public class PatientConsultationsResourceImpl extends ServerResource implements 
     public static final Logger LOGGER = Engine.getLogger(PatientConsultationsResourceImpl.class);
     private ConsultationRepository consultationRepository;
     private PatientRepository patientRepository;
-    private EntityManager em;
     private long id;
 
     @Override
@@ -43,7 +39,6 @@ public class PatientConsultationsResourceImpl extends ServerResource implements 
     @Override
     public List<ConsultationRepresentation> getPatientsConsultations() throws NotFoundException {
         LOGGER.info("Retrieve patient's consultations");
-        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
         try {
             Optional<Patients> opPatient = patientRepository.findById(id);
             setExisting(opPatient.isPresent());

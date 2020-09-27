@@ -1,17 +1,11 @@
 package com.pfizer.sacchon.team3.resource.patient;
 
 import com.pfizer.sacchon.team3.exception.NotFoundException;
-import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.model.Patients;
-import com.pfizer.sacchon.team3.repository.DoctorRepository;
-import com.pfizer.sacchon.team3.repository.PatientRecordRepository;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
-import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.resource.doctor.InactiveDoctorsImpl;
-import com.pfizer.sacchon.team3.security.ResourceUtils;
-import com.pfizer.sacchon.team3.security.Shield;
 import org.hibernate.Hibernate;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
@@ -39,8 +33,6 @@ public class InactivePatientsImpl extends ServerResource implements InactivePati
 
     public List<PatientRepresentation> inactivePatients() throws NotFoundException{
         LOGGER.finer("Select inactive patients.");
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
         try {
             List<Patients> patients = patientRepository.findInactivePatients();
             List<PatientRepresentation> result = new ArrayList<>();

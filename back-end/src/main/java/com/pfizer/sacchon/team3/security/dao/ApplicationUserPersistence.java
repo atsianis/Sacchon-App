@@ -1,6 +1,5 @@
 package com.pfizer.sacchon.team3.security.dao;
 
-import com.pfizer.sacchon.team3.security.Role;
 import org.restlet.Context;
 
 import java.sql.*;
@@ -15,30 +14,6 @@ public class ApplicationUserPersistence   {
 
     public static synchronized ApplicationUserPersistence getApplicationUserPersistence() {
         return applicationUserPersistence;
-    }
-
-     public ApplicationUser findById(String email) throws SQLException {
-        Context.getCurrentLogger().finer("Method findById() of ApplicationUserPersistence called.");
-
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from UserTable where email=?");
-            preparedStatement.setString(1, email);
-            ResultSet rs = preparedStatement.executeQuery();
-
-            if (rs.next()) {
-                ApplicationUser user = new ApplicationUser();
-                user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
-                user.setRole(Role.getRoleValue(rs.getString("role")));
-                return user;
-            }
-            return null;
-        } finally {
-            releaseConnection(connection);
-            Context.getCurrentLogger().finer("Method findById() of CompanyPersistence finished.");
-        }
     }
 
     protected Connection getConnection() throws SQLException {
