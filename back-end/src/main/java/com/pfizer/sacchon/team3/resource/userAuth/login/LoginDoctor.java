@@ -1,10 +1,12 @@
 package com.pfizer.sacchon.team3.resource.userAuth.login;
 
 import com.pfizer.sacchon.team3.exception.NotFoundException;
+import com.pfizer.sacchon.team3.exception.WrongCredentials;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
-import org.restlet.resource.Get;
+import com.pfizer.sacchon.team3.representation.LoginRepresentation;
+import org.restlet.resource.Post;
 
 public interface LoginDoctor {
-    @Get("json")
-    public DoctorRepresentation loginDoctor() throws NotFoundException;
+    @Post("json")
+    public DoctorRepresentation loginDoctor(LoginRepresentation loginRepresentation) throws NotFoundException, WrongCredentials;
 }
