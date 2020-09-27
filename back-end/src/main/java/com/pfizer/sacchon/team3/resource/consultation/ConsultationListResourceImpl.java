@@ -6,9 +6,6 @@ import com.pfizer.sacchon.team3.repository.ConsultationRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
 import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
-import com.pfizer.sacchon.team3.security.ResourceUtils;
-import com.pfizer.sacchon.team3.security.Shield;
-import org.hibernate.Hibernate;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
@@ -34,8 +31,6 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     @Override
     public List<ConsultationRepresentation> getConsultations() throws NotFoundException {
         LOGGER.finer("Select all consultations.");
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
         try {
             List<Consultations> consultations = consultationRepository.findAll();
             List<ConsultationRepresentation> result = new ArrayList<>();

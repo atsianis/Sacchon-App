@@ -13,20 +13,21 @@ import java.util.List;
 @Entity
 public class Patients {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String firstName;
     private String lastName;
-    @Column(unique=true)
+    @Column(unique = true)
     private String email;
     private String password;
     private Date dob;
     private boolean canBeExamined;
     private boolean isDeleted;
+    private Date timeCreated;
     private Date lastActive;
     private String gender;
     @ManyToOne
-    @JoinColumn(name= "doctor_id")
+    @JoinColumn(name = "doctor_id")
     @JsonBackReference
     private Doctors doctor;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")

@@ -4,13 +4,9 @@ import com.pfizer.sacchon.team3.resource.chief.AllPatientsListImpl;
 import com.pfizer.sacchon.team3.resource.chief.AllDoctorsListImpl;
 import com.pfizer.sacchon.team3.resource.consultation.ConsultationListResourceImpl;
 import com.pfizer.sacchon.team3.resource.consultation.ConsultationResourceImpl;
-import com.pfizer.sacchon.team3.resource.consultation.UpdateConsultation;
 import com.pfizer.sacchon.team3.resource.consultation.UpdateConsultationResource;
-import com.pfizer.sacchon.team3.resource.doctor.AllAvailablePatientListResourceImpl;
-import com.pfizer.sacchon.team3.resource.doctor.AllConsultablePatientListResourceImpl;
-import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
-import com.pfizer.sacchon.team3.resource.doctor.MyPatientsResourceImpl;
-import com.pfizer.sacchon.team3.resource.PingServerResource;
+import com.pfizer.sacchon.team3.resource.doctor.*;
+import com.pfizer.sacchon.team3.resource.patient.InactivePatientsImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientConsultationsResourceImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientRecordsListImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientResourceImpl;
@@ -35,8 +31,6 @@ public class CustomRouter {
 
         Router router = new Router(application.getContext());
 
-        //test Endpoint
-        router.attach("/ping", PingServerResource.class);
         //Endpoints for login
         router.attach("/login/chief", LoginChiefImpl.class);
         router.attach("/login/doctor", LoginDoctorImpl.class);
@@ -72,11 +66,18 @@ public class CustomRouter {
         // Available patients (doctor_id = null && canBeExamined  = false)
         router.attach("/doctors/available-patients",  AllAvailablePatientListResourceImpl.class);
 
+        // Doctor selects patient
+        router.attach("/doctor/{did}/select/{pid}", DoctorSelectionResourceImpl.class);
+
         // Get Patients Consults
         router.attach("/patient/{id}/consultations", PatientConsultationsResourceImpl.class);
 
         // Update Consultation
         router.attach("/doctor/{did}/consultation/{cid}", UpdateConsultationResource.class);
+
+        // Get Inactives Doctor
+        router.attach("/reporter/inactivedoctors", InactiveDoctorsImpl.class);
+        router.attach("/reporter/inactivepatients", InactivePatientsImpl.class);
 
         // PUT DELETE Consultations
 
@@ -86,13 +87,6 @@ public class CustomRouter {
         router.attach("/patients/{id}/storeData", PatientRecordsListImpl.class);
         router.attach("/patients/{id}/storeData/allData", PatientRecordsListImpl.class);
         router.attach("/patient/{pid}/storeData/patientRecord/{rid}", PatientRecordResourceImpl.class);
-
-        return router;
-    }
-
-    public Router publicResources() {
-        Router router = new Router();
-        router.attach("/ping", PingServerResource.class);
 
         return router;
     }

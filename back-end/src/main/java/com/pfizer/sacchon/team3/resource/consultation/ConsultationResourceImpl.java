@@ -6,8 +6,6 @@ import com.pfizer.sacchon.team3.repository.ConsultationRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
 import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
-import com.pfizer.sacchon.team3.security.ResourceUtils;
-import com.pfizer.sacchon.team3.security.Shield;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -35,9 +33,6 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
     @Override
     public ConsultationRepresentation getConsultation() throws NotFoundException {
         LOGGER.info("Retrieve a consultation");
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
-        LOGGER.info("Passed Authorization");
         // Initialize the persistence layer.
         ConsultationRepository consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
         Consultations consultation;

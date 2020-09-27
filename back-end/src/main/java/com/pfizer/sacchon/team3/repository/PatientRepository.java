@@ -1,16 +1,10 @@
 package com.pfizer.sacchon.team3.repository;
 
-import com.pfizer.sacchon.team3.model.Consultations;
-import com.pfizer.sacchon.team3.model.Doctors;
-import com.pfizer.sacchon.team3.model.PatientRecords;
-import com.pfizer.sacchon.team3.model.Patients;
+import com.pfizer.sacchon.team3.exception.WrongCredentials;
+import com.pfizer.sacchon.team3.model.*;
 
 import javax.persistence.EntityManager;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class PatientRepository {
     private EntityManager entityManager;
@@ -45,14 +39,18 @@ public class PatientRepository {
         return patients;
     }
 
-    public Optional<Patients> findByEmailAndPass(String email, String password) {
-        Patients patient = entityManager
-                .createQuery("from Patients patient WHERE patient.email = email " + "and patient.password = password", Patients.class)
-                .setParameter("email", email)
-                .setParameter("password", password)
-                .getSingleResult();
+    public Optional<Patients> findByEmailAndPass(String email, String password) throws WrongCredentials {
+        try{
+            Patients patient = entityManager
+                    .createQuery("from Patients WHERE email = :email " + "and password = :password", Patients.class)
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .getSingleResult();
 
-        return patient != null ? Optional.of(patient) : Optional.empty();
+            return patient != null ? Optional.of(patient) : Optional.empty();
+        }catch (Exception e){
+            throw new WrongCredentials("wrong Credentials");
+        }
     }
 
     public Optional<Patients> save(Patients patients) {
@@ -73,6 +71,7 @@ public class PatientRepository {
         patientIn.setFirstName(p.getFirstName());
         patientIn.setLastName(p.getLastName());
         patientIn.setPassword(p.getPassword());
+        patientIn.setLastActive(p.getLastActive());
         patientIn.setEmail(p.getEmail());
         patientIn.setDob(p.getDob());
 
@@ -107,6 +106,7 @@ public class PatientRepository {
     public Optional<Patients> softDelete(Patients p) {
         Patients patientIn = entityManager.find(Patients.class, p.getId());
         patientIn.setDeleted(true);
+        patientIn.setDoctor(null);
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(patientIn);
@@ -119,11 +119,10 @@ public class PatientRepository {
         return Optional.empty();
     }
 
-    public boolean check(PatientRecords patientRecord) {
-
-        List<Consultations> consultations = entityManager
-                .createQuery("Select c from Consultations as c order by c.createRecord desc", Consultations.class)
-                .getResultList();
+    public boolean checkLastConsultation(PatientRecords patientRecord,List<Consultations> consultations) {
+        //sorts the consultation list in reverse order
+        //element at index 0 is the most recent
+        Collections.reverse(consultations);
 
         Consultations consultation = consultations.get(0);
 
@@ -137,9 +136,25 @@ public class PatientRepository {
         Calendar c2 = Calendar.getInstance();
         c2.setTime(dateCurr); // Now use today date.
 
-        if(c1.compareTo(c2) > 0)
-            return true;
+        return c1.compareTo(c2) > 0; // canBeExamined = true notification
+    }
 
-        return false;   // canBeExamined = true notification
+    public boolean checkPatientsCreationTime(PatientRecords patientRecord,Date patientsCreationDate){
+        return patientRecord.getTimeCreated().compareTo(patientsCreationDate) > 0;
+    }
+
+    public List<Patients> findInactivePatients() {
+        List<Patients> patients = entityManager.createQuery("from Patients").getResultList();
+        List<Patients> inactivePatients = new ArrayList<>();
+        Calendar cDeadline = Calendar.getInstance();
+        Calendar cNow = Calendar.getInstance();
+        for(Patients patient: patients) {
+            cDeadline.setTime(patient.getLastActive());
+            cNow.setTime(new Date());
+            if (cNow.compareTo(cDeadline) >= 15)
+                inactivePatients.add(patient);
+        }
+
+        return inactivePatients;
     }
 }

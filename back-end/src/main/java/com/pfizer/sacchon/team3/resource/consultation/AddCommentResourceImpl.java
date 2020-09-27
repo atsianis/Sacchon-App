@@ -9,7 +9,6 @@ import com.pfizer.sacchon.team3.repository.ConsultationRepository;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
-import com.pfizer.sacchon.team3.representation.UpdateConsultationRepresentation;
 import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
@@ -19,18 +18,20 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-public class UpdateConsultationResource extends ServerResource implements UpdateConsultation {
+public class AddCommentResourceImpl extends ServerResource implements AddCommentResource{
     public static final Logger LOGGER = Engine.getLogger(DoctorResourceImpl.class);
     private long doctor_id;
     private long consultation_id;
     private ConsultationRepository consultationRepository ;
     private DoctorRepository doctorRepository ;
+    private ConsultationRepresentation consultationRepresentation;
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising doctor resource starts");
         try {
             consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
+            consultationRepresentation = new ConsultationRepresentation();
             doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
             doctor_id = Long.parseLong(getAttribute("did"));
             consultation_id = Long.parseLong(getAttribute("cid"));
@@ -41,8 +42,8 @@ public class UpdateConsultationResource extends ServerResource implements Update
         LOGGER.info("Initialising doctor resource ends");
     }
 
-    public ConsultationRepresentation updateConsultation(UpdateConsultationRepresentation consultReprIn) throws NotFoundException, BadEntityException, BadInsertionException {
-        LOGGER.finer("Update a consultation.");
+    public ConsultationRepresentation addCommentConsultation(ConsultationRepresentation consultReprIn) throws NotFoundException, BadEntityException, BadInsertionException {
+        LOGGER.finer("Create a consultation.");
         if (consultReprIn.getComment().isEmpty())
             throw new BadInsertionException("Cant post an empty consultation, doc !");
         // get Doctor
@@ -72,8 +73,17 @@ public class UpdateConsultationResource extends ServerResource implements Update
                 LOGGER.finer("Update consultation.");
                 // Update Record in DB and retrieve the new one.
 
-                Optional<Consultations> oconsult = consultationRepository.setComment(consultation);
+                Optional<Consultations> oconsult = consultationRepository.addNewComment(consultation);
                 setExisting(oconsult.isPresent());
+
+                // Create new Consultation with initialized patient_id and Date
+                Consultations consult = consultationRepresentation.createConsultation();
+                consult.setPatient(consultReprIn.getPatient());
+                consult.setTimeCreated(new Date());
+                consult.setDoctor(consultReprIn.getDoctor());
+                // Add consult in db
+                consultationRepository.save(consult);
+
                 if(isExisting()){
                     doctor.setLastActive(new Date());
                     doctorRepository.update(doctor);

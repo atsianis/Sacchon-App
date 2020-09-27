@@ -7,8 +7,6 @@ import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedDoctorRepresentation;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
-import com.pfizer.sacchon.team3.security.ResourceUtils;
-import com.pfizer.sacchon.team3.security.Shield;
 import org.hibernate.Hibernate;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
@@ -37,9 +35,6 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
     @Override
     public DoctorRepresentation add(CreatedOrUpdatedDoctorRepresentation createdOrUpdatedDoctorRepresentation) throws BadEntityException {
         LOGGER.finer("Add a new doctor.");
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
-        LOGGER.finer("User allowed to add a doctor.");
         // Check entity
         ResourceValidator.notNull(createdOrUpdatedDoctorRepresentation);
         ResourceValidator.validateDoctor(createdOrUpdatedDoctorRepresentation);

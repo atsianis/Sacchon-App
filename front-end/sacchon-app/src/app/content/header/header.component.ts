@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'sacchon-app-header',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-	constructor() { }
+	constructor(private router: Router) { }
 
 	user: string = null;
 
@@ -16,14 +17,16 @@ export class HeaderComponent implements OnInit {
 	}
 
 	isLoggedIn(): boolean {
-		this.user = sessionStorage.getItem('email');
-		return this.user !== null;
+		return sessionStorage.getItem('firstName') !== null;
 	}
 
 	signOut(): any {
 		sessionStorage.removeItem('email');
 		sessionStorage.removeItem('password');
-		location.reload();
+		sessionStorage.removeItem('firstName');
+		sessionStorage.removeItem('lastName');
+		sessionStorage.removeItem('id');
+		this.router.navigate(['']);
 	}
 
 }

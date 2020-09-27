@@ -3,15 +3,10 @@ package com.pfizer.sacchon.team3.resource.softDeletes;
 import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Doctors;
-import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
-import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
-import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
-import com.pfizer.sacchon.team3.security.ResourceUtils;
-import com.pfizer.sacchon.team3.security.Shield;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -39,8 +34,6 @@ public class SDDoctorImpl extends ServerResource implements SoftDeleteDoctor {
     @Override
     public DoctorRepresentation softDelete(DoctorRepresentation doctorRepresentation) throws NotFoundException, BadEntityException {
         LOGGER.finer("Soft Delete a doctor.");
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-        LOGGER.finer("User allowed to soft Delete a doctor.");
         // Check given entity
         ResourceValidator.notNull(doctorRepresentation);
         ResourceValidator.validateDoctor(doctorRepresentation);

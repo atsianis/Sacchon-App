@@ -1,12 +1,13 @@
 package com.pfizer.sacchon.team3.resource.userAuth.login;
 
 import com.pfizer.sacchon.team3.exception.NotFoundException;
-import com.pfizer.sacchon.team3.model.Chiefs;
-import com.pfizer.sacchon.team3.repository.ChiefRepository;
+import com.pfizer.sacchon.team3.exception.WrongCredentials;
 import com.pfizer.sacchon.team3.representation.ChiefRepresentation;
-import org.restlet.resource.Get;
+import com.pfizer.sacchon.team3.representation.LoginRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
+import org.restlet.resource.Post;
 
 public interface LoginChief {
-    @Get("json")
-    ChiefRepresentation loginChief() throws NotFoundException;
+    @Post("json")
+    ResponseRepresentation<ChiefRepresentation> loginChief(LoginRepresentation loginRepresentation) throws NotFoundException, WrongCredentials;
 }

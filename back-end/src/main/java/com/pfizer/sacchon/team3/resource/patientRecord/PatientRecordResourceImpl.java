@@ -3,15 +3,10 @@ package com.pfizer.sacchon.team3.resource.patientRecord;
 import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.PatientRecords;
-import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRecordRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRecordRepresentation;
-import com.pfizer.sacchon.team3.representation.PatientRepresentation;
-import com.pfizer.sacchon.team3.resource.patient.PatientResourceImpl;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
-import com.pfizer.sacchon.team3.security.ResourceUtils;
-import com.pfizer.sacchon.team3.security.Shield;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -43,8 +38,6 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
     @Override
     public PatientRecordRepresentation getRecord() throws NotFoundException {
         LOGGER.info("Retrieve a Record");
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         // Initialize the persistence layer.
         PatientRecordRepository patientRecordRepository = new PatientRecordRepository(JpaUtil.getEntityManager());
         PatientRecords patientRecords;
@@ -70,8 +63,6 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
     @Override
     public void remove() throws NotFoundException {
         LOGGER.finer("Removal of record");
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        LOGGER.finer("User allowed to remove a record.");
         try {
             // Delete record in DB: return true if deleted
             Boolean isDeleted = patientRecordRepository.remove(record_id);
@@ -91,12 +82,7 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
     @Override
     public PatientRecordRepresentation updateRecord(PatientRecordRepresentation patientRecordRepresentation) throws NotFoundException, BadEntityException {
         LOGGER.finer("Update a record.");
-
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        LOGGER.finer("User allowed to update a record.");
         // Check given entity
-        // Convert to PatientRepr so a validation can procceed
-
         ResourceValidator.notNull(patientRecordRepresentation);
         LOGGER.finer("Patient checked");
         try {
