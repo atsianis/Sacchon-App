@@ -1,7 +1,7 @@
-<div class="container-fluid">
-	<div class="row justify-content-center align-items-stretch">
-		<div class="col-3">
-			<div class="h-100 card">
+<div class="container">
+	<div class="row justify-content-center py-3 align-items-stretch">
+		<div class="col-6">
+			<div class="card h-100">
 				<div class="card-header chief-doctor-doctors-card">
 					Inspect Doctors
 				</div>
@@ -16,8 +16,25 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-3">
-			<div class="h-100 card">
+		<div class="col-6">
+			<div class="card h-100">
+				<div class="card-header chief-doctor-patients-card">
+					Inspect Patients
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">Special title treatment</h5>
+					<p class="card-text">Help by watching the list of the patients, find if they
+						need a consultation and monitor if they are active or what their personal monitor
+						data are.
+					</p>
+					<a href="reporter/patients" class="btn btn-primary btn-block">See the list</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row justify-content-center py-3 align-items-stretch">
+		<div class="col-6">
+			<div class="card h-100">
 				<div class="card-header chief-doctor-add-doctors-card">
 					Add new doctor to the system
 				</div>
@@ -31,18 +48,19 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-3">
-			<div class="h-100 card">
-				<div class="card-header chief-doctor-patients-card">
-					Inspect Patients
+		<div class="col-6">
+			<div class="card h-100">
+				<div class="card-header chief-doctor-inspect-inactives-card">
+					Non active users
 				</div>
-				<div class="card-body">
+				<div class="card-body d-flex flex-column">
 					<h5 class="card-title">Special title treatment</h5>
-					<p class="card-text">Help by watching the list of the patients, find if they
-						need a consultation and monitor if they are active or what their personal monitor
-						data are.
+					<p class="card-text">
+						Even though we have a list for all doctors and patients we provide a list with the non active
+						ones
+						just to separate them in order to be easier to be found.
 					</p>
-					<a href="reporter/patients" class="btn btn-primary btn-block">See the list</a>
+					<a href="reporter/inactives" class="btn btn-primary btn-block mt-auto">See the list</a>
 				</div>
 			</div>
 		</div>
