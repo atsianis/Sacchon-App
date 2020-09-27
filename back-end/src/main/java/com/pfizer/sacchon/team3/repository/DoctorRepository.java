@@ -4,6 +4,7 @@ import com.pfizer.sacchon.team3.exception.WrongCredentials;
 import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.model.PatientRecords;
 import com.pfizer.sacchon.team3.model.Patients;
+import com.pfizer.sacchon.team3.resource.doctor.InactiveDoctors;
 
 import javax.persistence.EntityManager;
 import java.util.*;
@@ -136,5 +137,20 @@ public class DoctorRepository {
         }
 
         return Optional.empty();
+    }
+
+    public List<Doctors> findInactiveDoctors() {
+        List<Doctors> doctors = entityManager.createQuery("from Doctors").getResultList();
+        List<Doctors> inactiveDoctors = new ArrayList<>();
+        Calendar cInactive = Calendar.getInstance();
+        Calendar cDoctor = Calendar.getInstance();
+        for(Doctors doctor: doctors) {
+            cInactive.setTime(doctor.getLastActive());
+            cInactive.add(Calendar.DATE, 10);
+            cDoctor.setTime(doctor.getLastActive());
+            if (cDoctor.compareTo(cInactive) > 0)
+                inactiveDoctors.add(doctor);
+        }
+        return inactiveDoctors;
     }
 }
