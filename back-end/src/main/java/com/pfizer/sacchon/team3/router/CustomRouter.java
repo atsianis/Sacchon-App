@@ -8,6 +8,7 @@ import com.pfizer.sacchon.team3.resource.consultation.UpdateConsultation;
 import com.pfizer.sacchon.team3.resource.consultation.UpdateConsultationResource;
 import com.pfizer.sacchon.team3.resource.doctor.*;
 import com.pfizer.sacchon.team3.resource.PingServerResource;
+import com.pfizer.sacchon.team3.resource.patient.InactivePatientsImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientConsultationsResourceImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientRecordsListImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientResourceImpl;
@@ -77,6 +78,10 @@ public class CustomRouter {
 
         // Update Consultation
         router.attach("/doctor/{did}/consultation/{cid}", UpdateConsultationResource.class);
+
+        // Get Inactives Doctor
+        router.attach("/reporter/inactivedoctors", InactiveDoctorsImpl.class);
+        router.attach("/reporter/inactivepatients", InactivePatientsImpl.class);
 
         // PUT DELETE Consultations
 

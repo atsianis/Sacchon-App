@@ -4,11 +4,7 @@ import com.pfizer.sacchon.team3.exception.WrongCredentials;
 import com.pfizer.sacchon.team3.model.*;
 
 import javax.persistence.EntityManager;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class PatientRepository {
     private EntityManager entityManager;
@@ -46,7 +42,7 @@ public class PatientRepository {
     public Optional<Patients> findByEmailAndPass(String email, String password) throws WrongCredentials {
         try{
             Patients patient = entityManager
-                    .createQuery("from Patients patient WHERE patient.email = :email " + "and patient.password = :password", Patients.class)
+                    .createQuery("from Patients WHERE email = :email " + "and password = :password", Patients.class)
                     .setParameter("email", email)
                     .setParameter("password", password)
                     .getSingleResult();
@@ -138,10 +134,25 @@ public class PatientRepository {
         Calendar c2 = Calendar.getInstance();
         c2.setTime(dateCurr); // Now use today date.
 
-        return c1.compareTo(c2) > 0 ;// canBeExamined = true notification
+        return c1.compareTo(c2) > 0;// canBeExamined = true notification
     }
 
     public boolean checkPatientsCreationTime(PatientRecords patientRecord,Date patientsCreationDate){
         return patientRecord.getTimeCreated().compareTo(patientsCreationDate) < 0;
+    }
+
+    public List<Patients> findInactivePatients() {
+        List<Patients> patients = entityManager.createQuery("from Patients").getResultList();
+        List<Patients> inactivePatients = new ArrayList<>();
+        Calendar cDeadline = Calendar.getInstance();
+        Calendar cNow = Calendar.getInstance();
+        for(Patients patient: patients) {
+            cDeadline.setTime(patient.getLastActive());
+            cNow.setTime(new Date());
+            if (cNow.compareTo(cDeadline) >= 15)
+                inactivePatients.add(patient);
+        }
+
+        return inactivePatients;
     }
 }
