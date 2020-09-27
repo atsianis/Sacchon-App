@@ -1,10 +1,11 @@
 export interface Patients {
 	id: string;
-	name: string;
-	username: string;
-	email: string;
-	address: string;
-	phone: string;
-	website: string;
-	company: string;
+	firstName: string;
+	lastName: string,
+	email: string,
+	password: string,
+	dob: string,
+	canBeExamined: string,
+	lastActive: string,
+	gender: string,
 }

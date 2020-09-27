@@ -8,11 +8,16 @@
 						<div class="form-group">
 							<input formControlName="email" type="email" class="form-control" id="exampleInputEmail1"
 								aria-describedby="emailHelp" placeholder="Enter email">
+							<small *ngIf="patientLoginForm.get('email').errors?.required && patientLoginForm.get('email').touched" class="text-danger py-0 my-0">
+								Please provide an email address.
+							</small>
 							<input formControlName="password" type="password" class="form-control"
 								id="exampleInputPassword1" placeholder="Password">
+							<small *ngIf="patientLoginForm.get('password').errors?.required && patientLoginForm.get('password').touched" class="text-danger py-0 my-0">
+								Please provide a password.
+							</small>
 						</div>
-						<button class="btn btn-primary btn-block"
-							(click)="submitLogin(patientLoginForm.value)">Submit</button>
+						<button class="btn btn-primary btn-block" (click)="submitLogin()">Submit</button>
 					</form>
 				</div>
 			</div>
