@@ -144,13 +144,13 @@ public class PatientRepository {
     public List<Patients> findInactivePatients() {
         List<Patients> patients = entityManager.createQuery("from Patients").getResultList();
         List<Patients> inactivePatients = new ArrayList<>();
-        Calendar cInactive = Calendar.getInstance();
-        Calendar cDoctor = Calendar.getInstance();
+        Calendar cDeadline = Calendar.getInstance();
+        Calendar cNow = Calendar.getInstance();
         for(Patients patient: patients) {
-            cInactive.setTime(patient.getLastActive());
-            cInactive.add(Calendar.DATE, 10);
-            cDoctor.setTime(patient.getLastActive());
-            if (cDoctor.compareTo(cInactive) > 0)
+            cDeadline.setTime(patient.getLastActive());
+            cDeadline.add(Calendar.DATE, 15);
+            cNow.setTime(new Date());
+            if (cNow.compareTo(cDeadline) > 0)
                 inactivePatients.add(patient);
         }
         return inactivePatients;
