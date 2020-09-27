@@ -4,9 +4,10 @@ import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.exception.WrongCredentials;
 import com.pfizer.sacchon.team3.representation.ChiefRepresentation;
 import com.pfizer.sacchon.team3.representation.LoginRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.resource.Post;
 
 public interface LoginChief {
     @Post("json")
-    ChiefRepresentation loginChief(LoginRepresentation loginRepresentation) throws NotFoundException, WrongCredentials;
+    ResponseRepresentation<ChiefRepresentation> loginChief(LoginRepresentation loginRepresentation) throws NotFoundException, WrongCredentials;
 }
