@@ -1,6 +1,7 @@
 package com.pfizer.sacchon.team3.resource.patient;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
+import com.pfizer.sacchon.team3.exception.BadInsertionException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.representation.PatientRecordRepresentation;
@@ -16,5 +17,5 @@ public interface PatientRecordsList {
 
     @Post("json")
     public PatientRecordRepresentation storeData(PatientRecordRepresentation patientRecordRepresentation)
-        throws NotFoundException, BadEntityException;
+            throws NotFoundException, BadEntityException, BadInsertionException;
 }

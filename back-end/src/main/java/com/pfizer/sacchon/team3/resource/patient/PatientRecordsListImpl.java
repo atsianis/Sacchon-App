@@ -1,6 +1,7 @@
 package com.pfizer.sacchon.team3.resource.patient;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
+import com.pfizer.sacchon.team3.exception.BadInsertionException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.model.PatientRecords;
@@ -66,10 +67,12 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     }
 
     @Override
-    public PatientRecordRepresentation storeData(PatientRecordRepresentation patientRecordRepresentation) throws NotFoundException, BadEntityException {
+    public PatientRecordRepresentation storeData(PatientRecordRepresentation patientRecordRepresentation) throws NotFoundException, BadEntityException, BadInsertionException {
         LOGGER.finer("Add a new record.");
         // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        if (patientRecordRepresentation.getCarbs()==0 || patientRecordRepresentation.getGlycose()==0)
+            throw new BadInsertionException("Can't insert empty or zero");
         LOGGER.finer("User allowed to add a record.");
         // get patient
         Optional<Patients> opatient = patientRepository.findById(id);
@@ -100,8 +103,12 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
                 if(lastConsultationLessThanAMonthAgo && recordTimeMoreRecentThanPatientsCreationTime) {
                     Optional<PatientRecords> patientRecordsOut = patientRecordRepository.save(patientRecordsIn);
                     PatientRecords patientRecords = null;
-                    if(patientRecordsOut.isPresent())
+                    if(patientRecordsOut.isPresent()) {
                         patientRecords = patientRecordsOut.get();
+                        // change patients last activity field
+                        patient.setLastActive(new Date());
+                        patientRepository.update(patient);
+                    }
                     else
                         throw new BadEntityException("Record has not been created");
 
@@ -119,7 +126,8 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
 
                     return result;
                 } else {
-                    return null;
+                    throw new BadInsertionException("Either your insertion date is older than your sign up date" +
+                            "or there is a pending consultation");
                 }
 
             } catch (Exception ex) {

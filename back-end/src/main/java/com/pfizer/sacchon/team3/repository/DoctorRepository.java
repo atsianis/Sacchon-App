@@ -66,6 +66,7 @@ public class DoctorRepository {
         doctorIn.setFirstName(doctor.getFirstName());
         doctorIn.setLastName(doctor.getLastName());
         doctorIn.setEmail(doctor.getEmail());
+        doctorIn.setLastActive(doctor.getLastActive());
         doctorIn.setPassword(doctor.getPassword());
 
         try {
@@ -127,6 +128,10 @@ public class DoctorRepository {
     public Optional<Doctors> softDelete(Doctors d) {
         Doctors doctorsIn = entityManager.find(Doctors.class, d.getId());
         doctorsIn.setDeleted(true);
+        for(Patients patient : doctorsIn.getPatients()){
+            patient.setDoctor(null);
+            patientRepository.update(patient);
+        }
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(doctorsIn);
