@@ -12,7 +12,6 @@ import { HeaderComponent } from './content/header/header.component';
 import { FooterComponent } from './content/footer/footer.component';
 import { ContentComponent } from './content/content.component';
 import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
 
 import { ReporterModule } from './reporter/reporter.module';
 import { MediDataRepoModule } from './medi-data-repo/medi-data-repo.module';
@@ -30,7 +29,6 @@ import { DoctorSignUpComponent } from './auth/signup/doctor-sign-up/doctor-sign-
 		FooterComponent,
 		ContentComponent,
 		LoginComponent,
-		SignupComponent,
 		MediDataRepoLoginComponent,
 		DoctorAdviceLoginComponent,
 		ReporterLoginComponent,

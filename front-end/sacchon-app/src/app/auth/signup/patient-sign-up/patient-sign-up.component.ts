@@ -21,12 +21,6 @@ export class PatientSignUpComponent implements OnInit {
 		gender: new FormControl(null, [Validators.required]),
 	});
 
-	httpOptions = {
-		headers: new HttpHeaders({
-			'Authorization': 'Basic ' + btoa('asd@asd.asd:asdasdasd'),
-			'Access-Control-Allow-Origin': '*'
-		})
-	};
 
 	ngOnInit(): void { }
 
@@ -39,7 +33,7 @@ export class PatientSignUpComponent implements OnInit {
 				password: this.patientSignUp.get('password').value,
 				dob: "1994-01-10", //WIP: add datepicker
 				gender: "male" //WIP: add gender selector
-			}, this.httpOptions).subscribe(response => {
+			}).subscribe(response => {
 				this.toastr.success('You will be redirected to home page soon.', 'Successfully registered', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
