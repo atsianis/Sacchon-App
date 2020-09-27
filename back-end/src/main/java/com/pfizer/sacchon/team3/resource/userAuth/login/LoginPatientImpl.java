@@ -17,16 +17,16 @@ import java.util.logging.Logger;
 public class LoginPatientImpl extends ServerResource implements LoginPatient {
     public static final Logger LOGGER = Engine.getLogger(LoginPatientImpl.class);
     private PatientRepository patientRepository;
-    private String email;
-    private String password;
+    //private String email;
+    //private String password;
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising patient resource starts");
         try {
             patientRepository = new PatientRepository(JpaUtil.getEntityManager());
-            email = getAttribute("email");
-            password = getAttribute("password");
+            //email = getAttribute("email");
+            //password = getAttribute("password");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -34,10 +34,10 @@ public class LoginPatientImpl extends ServerResource implements LoginPatient {
     }
 
     @Override
-    public PatientRepresentation loginPatient() throws NotFoundException {
+    public PatientRepresentation loginPatient(String email, String password) throws NotFoundException {
         LOGGER.info("Login Patient");
         // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         // Initialize the persistence layer
         Patients patient;
         try {

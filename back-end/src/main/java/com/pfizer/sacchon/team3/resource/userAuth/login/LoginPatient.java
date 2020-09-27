@@ -6,5 +6,5 @@ import org.restlet.resource.Get;
 
 public interface LoginPatient {
     @Get("json")
-    public PatientRepresentation loginPatient () throws NotFoundException;
+    public PatientRepresentation loginPatient (String email, String password) throws NotFoundException;
 }

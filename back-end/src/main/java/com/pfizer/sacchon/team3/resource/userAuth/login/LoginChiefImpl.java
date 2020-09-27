@@ -20,7 +20,7 @@ public class LoginChiefImpl extends ServerResource implements LoginChief {
     public static final Logger LOGGER = Engine.getLogger(LoginChiefImpl.class);
     private ChiefRepository chiefRepository;
     //private String email;
-    //private String password;
+    private String password;
     //private LoginRepresentation loginRepresentation;
 
     @Override
@@ -29,7 +29,7 @@ public class LoginChiefImpl extends ServerResource implements LoginChief {
         try {
             chiefRepository = new ChiefRepository(JpaUtil.getEntityManager());
             //email = getAttribute("email");
-            //password = getAttribute("password");
+            password = getAttribute("password");
             //loginRepresentation.setEmail(getAttribute("email"));
             //loginRepresentation.setPassword(getAttribute("password"));
 
@@ -40,18 +40,18 @@ public class LoginChiefImpl extends ServerResource implements LoginChief {
     }
 
     @Override
-    public ChiefRepresentation loginChief(LoginRepresentation loginRepresentation) throws NotFoundException {
+    public ChiefRepresentation loginChief(String email) throws NotFoundException {
         LOGGER.info("Login chief");
         // Check authorization
-        ResourceUtils.checkRole(this, loginRepresentation.getRole().getRoleName());
+        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
         // Initialize the persistence layer
         Chiefs chief;
         try {
-            Optional<Chiefs> opChief = chiefRepository.findByEmailAndPass(loginRepresentation.getEmail(), loginRepresentation.getPassword());
+            Optional<Chiefs> opChief = chiefRepository.findByEmail(email);
             setExisting(opChief.isPresent());
             if (!isExisting()) {
-                LOGGER.config("email does not exist:" + loginRepresentation.getEmail());
-                throw new NotFoundException("No chief with that email : " + loginRepresentation.getEmail());
+                LOGGER.config("email does not exist:" + email);
+                throw new NotFoundException("No chief with that email : " + email);
             } else {
                 chief = opChief.get();
                 ChiefRepresentation result = new ChiefRepresentation(chief);

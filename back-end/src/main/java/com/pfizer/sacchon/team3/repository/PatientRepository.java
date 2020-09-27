@@ -1,9 +1,6 @@
 package com.pfizer.sacchon.team3.repository;
 
-import com.pfizer.sacchon.team3.model.Consultations;
-import com.pfizer.sacchon.team3.model.Doctors;
-import com.pfizer.sacchon.team3.model.PatientRecords;
-import com.pfizer.sacchon.team3.model.Patients;
+import com.pfizer.sacchon.team3.model.*;
 
 import javax.persistence.EntityManager;
 import java.text.SimpleDateFormat;
@@ -47,7 +44,7 @@ public class PatientRepository {
 
     public Optional<Patients> findByEmailAndPass(String email, String password) {
         Patients patient = entityManager
-                .createQuery("from Patients patient WHERE patient.email = email " + "and patient.password = password", Patients.class)
+                .createQuery("from Patients patient WHERE patient.email = :email " + "and patient.password = :password", Patients.class)
                 .setParameter("email", email)
                 .setParameter("password", password)
                 .getSingleResult();

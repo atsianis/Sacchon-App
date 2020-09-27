@@ -11,5 +11,5 @@ import org.restlet.resource.Put;
 
 public interface LoginChief {
     @Get("json")
-    ChiefRepresentation loginChief(LoginRepresentation loginRepresentation) throws NotFoundException;
+    ChiefRepresentation loginChief(String email) throws NotFoundException;
 }
