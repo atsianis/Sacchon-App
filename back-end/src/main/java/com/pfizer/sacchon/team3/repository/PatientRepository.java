@@ -138,10 +138,10 @@ public class PatientRepository {
         Calendar c2 = Calendar.getInstance();
         c2.setTime(dateCurr); // Now use today date.
 
-        return c1.compareTo(c2) > 0 // canBeExamined = true notification
+        return c1.compareTo(c2) > 0; // canBeExamined = true notification
     }
 
     public boolean checkPatientsCreationTime(PatientRecords patientRecord,Date patientsCreationDate){
-        return patientRecord.getTimeCreated().compareTo(patientsCreationDate) < 0
+        return patientRecord.getTimeCreated().compareTo(patientsCreationDate) < 0;
     }
 }
