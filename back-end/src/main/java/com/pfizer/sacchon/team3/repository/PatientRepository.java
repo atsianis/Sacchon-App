@@ -1,13 +1,12 @@
 package com.pfizer.sacchon.team3.repository;
 
 import com.pfizer.sacchon.team3.model.Consultations;
-import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.model.PatientRecords;
 import com.pfizer.sacchon.team3.model.Patients;
 
 import javax.persistence.EntityManager;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -119,11 +118,10 @@ public class PatientRepository {
         return Optional.empty();
     }
 
-    public boolean check(PatientRecords patientRecord) {
-
-        List<Consultations> consultations = entityManager
-                .createQuery("Select c from Consultations as c order by c.createRecord desc", Consultations.class)
-                .getResultList();
+    public boolean checkLastConsultation(PatientRecords patientRecord,List<Consultations> consultations) {
+        //sorts the consultation list in reverse order
+        //element at index 0 is the most recent
+        Collections.reverse(consultations);
 
         Consultations consultation = consultations.get(0);
 
@@ -137,9 +135,10 @@ public class PatientRepository {
         Calendar c2 = Calendar.getInstance();
         c2.setTime(dateCurr); // Now use today date.
 
-        if(c1.compareTo(c2) > 0)
-            return true;
+        return c1.compareTo(c2) > 0 // canBeExamined = true notification
+    }
 
-        return false;   // canBeExamined = true notification
+    public boolean checkPatientsCreationTime(PatientRecords patientRecord,Date patientsCreationDate){
+        return patientRecord.getTimeCreated().compareTo(patientsCreationDate) < 0
     }
 }
