@@ -34,21 +34,23 @@ export class ReporterLoginComponent implements OnInit {
 			email: this.reporterLoginForm.get('email').value,
 			password: this.reporterLoginForm.get('password').value
 		}, this.httpOptions).subscribe(response => {
-			if (response) {
+			if (response.status == 200) {
 				this.toastr.success(`Welcome ${response.firstName}!`, 'Login successful', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
 				}).onHidden.toPromise().then(_ => {
-					console.log(response);
-					sessionStorage.setItem('email', response.email);
-					sessionStorage.setItem('password', response.password);
-					sessionStorage.setItem('firstName', response.firstName);
-					sessionStorage.setItem('lastName', response.lastName);
-					sessionStorage.setItem('id', response.id);
+					sessionStorage.setItem('email', response.data.email);
+					sessionStorage.setItem('password', response.data.password);
+					sessionStorage.setItem('firstName', response.data.firstName);
+					sessionStorage.setItem('lastName', response.data.lastName);
+					sessionStorage.setItem('id', response.data.id);
 					this.router.navigate(['reporter']);
 				})
 			} else {
-				this.toastr.error('Invalid credentials', 'Login Unsuccessful')
+				this.toastr.error('Invalid credentials', 'Login Unsuccessful', {
+					timeOut: 2000,
+					positionClass: 'toast-top-center'
+				})
 			}
 		})
 	}

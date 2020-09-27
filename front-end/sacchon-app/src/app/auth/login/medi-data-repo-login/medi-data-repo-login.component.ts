@@ -39,16 +39,16 @@ export class MediDataRepoLoginComponent implements OnInit {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
 				}).onHidden.toPromise().then(_ => {
-					console.log(response);
-					sessionStorage.setItem('email', response.email);
-					sessionStorage.setItem('password', response.password);
-					sessionStorage.setItem('firstName', response.firstName);
-					sessionStorage.setItem('lastName', response.lastName);
-					sessionStorage.setItem('id', response.id);
-					sessionStorage.setItem('dob', response.dob);
-					sessionStorage.setItem('canBeExamined', response.canBeExamined);
-					sessionStorage.setItem('lastActive', response.lastActive);
-					sessionStorage.setItem('gender', response.gender);
+					console.log(response.status == 200);
+					sessionStorage.setItem('email', response.data.email);
+					sessionStorage.setItem('password', response.data.password);
+					sessionStorage.setItem('firstName', response.data.firstName);
+					sessionStorage.setItem('lastName', response.data.lastName);
+					sessionStorage.setItem('id', response.data.id);
+					sessionStorage.setItem('dob', response.data.dob);
+					sessionStorage.setItem('canBeExamined', response.data.canBeExamined);
+					sessionStorage.setItem('lastActive', response.data.lastActive);
+					sessionStorage.setItem('gender', response.data.gender);
 					this.router.navigate(['medidatarepo/profile']);
 				})
 			} else {
