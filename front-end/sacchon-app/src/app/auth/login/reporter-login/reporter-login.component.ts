@@ -35,7 +35,7 @@ export class ReporterLoginComponent implements OnInit {
 			password: this.reporterLoginForm.get('password').value
 		}, this.httpOptions).subscribe(response => {
 			if (response.status == 200) {
-				this.toastr.success(`Welcome ${response.firstName}!`, 'Login successful', {
+				this.toastr.success(`Welcome ${response.data.firstName}!`, 'Login successful', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
 				}).onHidden.toPromise().then(_ => {

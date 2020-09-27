@@ -35,7 +35,7 @@ export class MediDataRepoLoginComponent implements OnInit {
 			password: this.patientLoginForm.get('password').value
 		}, this.httpOptions).subscribe(response => {
 			if (response) {
-				this.toastr.success(`Welcome ${response.firstName}!`, 'Login successful', {
+				this.toastr.success(`Welcome ${response.data.firstName}!`, 'Login successful', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
 				}).onHidden.toPromise().then(_ => {
