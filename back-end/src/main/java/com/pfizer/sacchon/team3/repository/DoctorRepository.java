@@ -1,8 +1,10 @@
 package com.pfizer.sacchon.team3.repository;
 
+import com.pfizer.sacchon.team3.exception.WrongCredentials;
 import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.model.PatientRecords;
 import com.pfizer.sacchon.team3.model.Patients;
+import com.pfizer.sacchon.team3.resource.doctor.InactiveDoctors;
 
 import javax.persistence.EntityManager;
 import java.util.*;
@@ -29,13 +31,17 @@ public class DoctorRepository {
         return entityManager.createQuery("from Doctors").getResultList();
     }
 
-    public Optional<Doctors> findByEmailAndPass(String email, String password) {
-        Doctors doctor = entityManager.createQuery("from Doctors doctors WHERE doctor.email = email " + "and doctor.password = password", Doctors.class)
-                .setParameter("email", email)
-                .setParameter("password", password)
-                .getSingleResult();
+    public Optional<Doctors> findByEmailAndPass(String email, String password) throws WrongCredentials {
+        try{
+            Doctors doctor = entityManager.createQuery("from Doctors  WHERE email = :email " + "and password = :password", Doctors.class)
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .getSingleResult();
 
-        return doctor != null ? Optional.of(doctor) : Optional.empty();
+            return doctor != null ? Optional.of(doctor) : Optional.empty();
+        }catch (Exception e){
+            throw new WrongCredentials("wrong credentials");
+        }
     }
 
     // save a doctor
@@ -136,5 +142,20 @@ public class DoctorRepository {
         }
 
         return Optional.empty();
+    }
+
+    public List<Doctors> findInactiveDoctors() {
+        List<Doctors> doctors = entityManager.createQuery("from Doctors").getResultList();
+        List<Doctors> inactiveDoctors = new ArrayList<>();
+        Calendar cDeadline = Calendar.getInstance();
+        Calendar cNow = Calendar.getInstance();
+        for(Doctors doctor: doctors) {
+            cDeadline.setTime(doctor.getLastActive());
+            cNow.setTime(new Date());
+            if (cNow.compareTo(cDeadline) >= 15)
+                inactiveDoctors.add(doctor);
+        }
+
+        return inactiveDoctors;
     }
 }
