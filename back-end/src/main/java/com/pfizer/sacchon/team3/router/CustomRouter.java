@@ -4,10 +4,8 @@ import com.pfizer.sacchon.team3.resource.chief.AllPatientsListImpl;
 import com.pfizer.sacchon.team3.resource.chief.AllDoctorsListImpl;
 import com.pfizer.sacchon.team3.resource.consultation.ConsultationListResourceImpl;
 import com.pfizer.sacchon.team3.resource.consultation.ConsultationResourceImpl;
-import com.pfizer.sacchon.team3.resource.consultation.UpdateConsultation;
 import com.pfizer.sacchon.team3.resource.consultation.UpdateConsultationResource;
 import com.pfizer.sacchon.team3.resource.doctor.*;
-import com.pfizer.sacchon.team3.resource.PingServerResource;
 import com.pfizer.sacchon.team3.resource.patient.InactivePatientsImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientConsultationsResourceImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientRecordsListImpl;
@@ -33,8 +31,6 @@ public class CustomRouter {
 
         Router router = new Router(application.getContext());
 
-        //test Endpoint
-        router.attach("/ping", PingServerResource.class);
         //Endpoints for login
         router.attach("/login/chief", LoginChiefImpl.class);
         router.attach("/login/doctor", LoginDoctorImpl.class);
@@ -91,13 +87,6 @@ public class CustomRouter {
         router.attach("/patients/{id}/storeData", PatientRecordsListImpl.class);
         router.attach("/patients/{id}/storeData/allData", PatientRecordsListImpl.class);
         router.attach("/patient/{pid}/storeData/patientRecord/{rid}", PatientRecordResourceImpl.class);
-
-        return router;
-    }
-
-    public Router publicResources() {
-        Router router = new Router();
-        router.attach("/ping", PingServerResource.class);
 
         return router;
     }

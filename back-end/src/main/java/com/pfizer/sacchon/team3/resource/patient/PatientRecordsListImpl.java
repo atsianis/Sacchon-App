@@ -3,7 +3,6 @@ package com.pfizer.sacchon.team3.resource.patient;
 import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.exception.BadInsertionException;
 import com.pfizer.sacchon.team3.exception.NotFoundException;
-import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.model.PatientRecords;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRecordRepository;
@@ -12,8 +11,6 @@ import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRecordRepresentation;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
-import com.pfizer.sacchon.team3.security.ResourceUtils;
-import com.pfizer.sacchon.team3.security.Shield;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
@@ -49,8 +46,6 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     @Override
     public List<PatientRecordRepresentation> getAllPatientRecords() throws NotFoundException {
         LOGGER.finer("Select all records.");
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         try{
             List<PatientRecords> patientRecords = patientRecordRepository.findAllPatientRecords();
             List<PatientRecordRepresentation> result = new ArrayList<>();
@@ -69,11 +64,8 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     @Override
     public PatientRecordRepresentation storeData(PatientRecordRepresentation patientRecordRepresentation) throws NotFoundException, BadEntityException, BadInsertionException {
         LOGGER.finer("Add a new record.");
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         if (patientRecordRepresentation.getCarbs()==0 || patientRecordRepresentation.getGlycose()==0)
             throw new BadInsertionException("Can't insert empty or zero");
-        LOGGER.finer("User allowed to add a record.");
         // get patient
         Optional<Patients> opatient = patientRepository.findById(id);
         if (opatient.isPresent()){

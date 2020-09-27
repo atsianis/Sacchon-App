@@ -5,13 +5,10 @@ import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
-import com.pfizer.sacchon.team3.security.ResourceUtils;
-import com.pfizer.sacchon.team3.security.Shield;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -56,13 +53,11 @@ public class AvailablePatientsFromToResourceImpl extends ServerResource implemen
     @Override
     public List<PatientRepresentation> availablePatients() throws NotFoundException {
         LOGGER.finer("Select all available patients.");
-
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
         try{
             List<Patients> patients = doctorRepository.availablePatientsFromTo(startDate, endDate);
             List<PatientRepresentation> result = new ArrayList<>();
             patients.forEach(patient -> result.add(new PatientRepresentation(patient)));
+
             return result;
         }
         catch(Exception e)

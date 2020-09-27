@@ -8,8 +8,6 @@ import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedDoctorRepresentation;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
-import com.pfizer.sacchon.team3.security.ResourceUtils;
-import com.pfizer.sacchon.team3.security.Shield;
 import org.hibernate.Hibernate;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
@@ -40,10 +38,6 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
     @Override
     public DoctorRepresentation getDoctor() throws NotFoundException {
         LOGGER.info("Retrieve a doctor");
-
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-
         // Initialize the persistence layer.
         DoctorRepository doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
         Doctors doctor;
@@ -72,9 +66,6 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
     @Override
     public void remove() throws NotFoundException {
         LOGGER.finer("Removal of doctor");
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-        LOGGER.finer("User allowed to remove a doctor.");
-
         try {
             Boolean isDeleted = doctorRepository.remove(id);
             if (!isDeleted) {
@@ -92,13 +83,10 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
     @Override
     public DoctorRepresentation updateDoctor(CreatedOrUpdatedDoctorRepresentation doctorReprIn) throws NotFoundException, BadEntityException {
         LOGGER.finer("Update a doctor.");
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-        LOGGER.finer("User allowed to update a doctor.");
         // Check given entity
         ResourceValidator.notNull(doctorReprIn);
         ResourceValidator.validateDoctor(doctorReprIn);
         LOGGER.finer("Doctor checked");
-
         try {
             // Convert DoctorRepresentation to Doctor
             Doctors doctorIn = doctorReprIn.createDoctor();

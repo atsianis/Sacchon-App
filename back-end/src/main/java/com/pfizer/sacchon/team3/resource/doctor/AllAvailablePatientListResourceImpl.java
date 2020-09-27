@@ -5,8 +5,6 @@ import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
-import com.pfizer.sacchon.team3.security.ResourceUtils;
-import com.pfizer.sacchon.team3.security.Shield;
 import org.hibernate.Hibernate;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
@@ -33,8 +31,6 @@ public class AllAvailablePatientListResourceImpl extends ServerResource implemen
     @Override
     public List<PatientRepresentation> getAllAvailablePatients() throws NotFoundException {
         LOGGER.finer("Select available patients.");
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
         try {
             List<Patients> patients = patientRepository.findAllAvailablePatients();
             List<PatientRepresentation> result = new ArrayList<>();
@@ -42,6 +38,7 @@ public class AllAvailablePatientListResourceImpl extends ServerResource implemen
                 Hibernate.initialize(patient.getPatientRecords());
                 result.add(new PatientRepresentation(patient));
             }
+
             return result;
         } catch (Exception e) {
             throw new NotFoundException("patients not found");

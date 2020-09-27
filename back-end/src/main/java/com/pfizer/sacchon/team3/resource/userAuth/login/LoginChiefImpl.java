@@ -7,8 +7,6 @@ import com.pfizer.sacchon.team3.repository.ChiefRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ChiefRepresentation;
 import com.pfizer.sacchon.team3.representation.LoginRepresentation;
-import com.pfizer.sacchon.team3.security.ResourceUtils;
-import com.pfizer.sacchon.team3.security.Shield;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -34,8 +32,6 @@ public class LoginChiefImpl extends ServerResource implements LoginChief {
     @Override
     public ChiefRepresentation loginChief(LoginRepresentation loginRepresentation) throws NotFoundException, WrongCredentials {
         LOGGER.info("Login chief");
-        // Check authorization
-        ResourceUtils.checkRole(this, loginRepresentation.getRole().getRoleName());
         // Initialize the persistence layer
         Chiefs chief;
         try {
