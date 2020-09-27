@@ -4,6 +4,7 @@ import com.pfizer.sacchon.team3.exception.WrongCredentials;
 import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.model.PatientRecords;
 import com.pfizer.sacchon.team3.model.Patients;
+import com.pfizer.sacchon.team3.resource.doctor.InactiveDoctors;
 
 import javax.persistence.EntityManager;
 import java.util.*;
@@ -32,7 +33,7 @@ public class DoctorRepository {
 
     public Optional<Doctors> findByEmailAndPass(String email, String password) throws WrongCredentials {
         try{
-            Doctors doctor = entityManager.createQuery("from Doctors doctors WHERE doctor.email = email " + "and doctor.password = password", Doctors.class)
+            Doctors doctor = entityManager.createQuery("from Doctors  WHERE email = :email " + "and password = :password", Doctors.class)
                     .setParameter("email", email)
                     .setParameter("password", password)
                     .getSingleResult();
@@ -136,5 +137,20 @@ public class DoctorRepository {
         }
 
         return Optional.empty();
+    }
+
+    public List<Doctors> findInactiveDoctors() {
+        List<Doctors> doctors = entityManager.createQuery("from Doctors").getResultList();
+        List<Doctors> inactiveDoctors = new ArrayList<>();
+        Calendar cDeadline = Calendar.getInstance();
+        Calendar cNow = Calendar.getInstance();
+        for(Doctors doctor: doctors) {
+            cDeadline.setTime(doctor.getLastActive());
+            cNow.setTime(new Date());
+            if (cNow.compareTo(cDeadline) >= 15)
+                inactiveDoctors.add(doctor);
+        }
+
+        return inactiveDoctors;
     }
 }

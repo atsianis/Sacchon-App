@@ -35,7 +35,7 @@ public class LoginDoctorImpl extends ServerResource implements LoginDoctor {
     public DoctorRepresentation loginDoctor(LoginRepresentation loginRepresentation) throws NotFoundException, WrongCredentials {
         LOGGER.info("Login doctor");
         // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+        ResourceUtils.checkRole(this, loginRepresentation.getRole().getRoleName());
         // Initialize the persistence layer
         Doctors doctor;
         try {
