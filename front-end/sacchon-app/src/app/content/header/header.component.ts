@@ -17,8 +17,7 @@ export class HeaderComponent implements OnInit {
 	}
 
 	isLoggedIn(): boolean {
-		this.user = sessionStorage.getItem('firstName');
-		return this.user !== null;
+		return sessionStorage.getItem('firstName') !== null;
 	}
 
 	signOut(): any {
