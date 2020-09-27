@@ -26,10 +26,19 @@ public class DoctorRepository {
         return doctor != null ? Optional.of(doctor) : Optional.empty();
     }
 
-    // find all Doctors
-    public List<Doctors> findAll() {
+    // find all Doctors from DB
+    public List<Doctors> findAllDoctorsDB() {
         return entityManager.createQuery("from Doctors").getResultList();
     }
+
+    //find all Doctors currently in the web app
+    public List<Doctors> findAll() {
+        List<Doctors> doctors = entityManager
+                .createQuery("from Doctors WHERE isDeleted = 0", Doctors.class)
+                .getResultList();
+        return doctors;
+    }
+
 
     public Optional<Doctors> findByEmailAndPass(String email, String password) throws WrongCredentials {
         try{
