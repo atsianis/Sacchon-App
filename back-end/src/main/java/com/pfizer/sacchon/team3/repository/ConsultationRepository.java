@@ -50,7 +50,7 @@ public class ConsultationRepository {
         return Optional.empty();
     }
 
-    public Optional<Consultations> setComment(Consultations c) {
+    public Optional<Consultations> addNewComment(Consultations c) {
         Consultations consultationsIn = entityManager.find(Consultations.class, c.getId());
         consultationsIn.setComment(c.getComment());
         try {
@@ -65,6 +65,21 @@ public class ConsultationRepository {
         entityManager.createQuery("UPDATE Patients p SET p.canBeExamined = false "
                 + "WHERE p.id = :patient_id")
                 .setParameter("patient_id", c.getPatient().getId());
+
+        return Optional.empty();
+    }
+
+    public Optional<Consultations> setComment(Consultations c) {
+        Consultations consultationsIn = entityManager.find(Consultations.class, c.getId());
+        consultationsIn.setComment(c.getComment());
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(consultationsIn);
+            entityManager.getTransaction().commit();
+            return Optional.of(consultationsIn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return Optional.empty();
     }
