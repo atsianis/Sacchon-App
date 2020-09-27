@@ -42,7 +42,7 @@ public class PatientRepository {
     public Optional<Patients> findByEmailAndPass(String email, String password) throws WrongCredentials {
         try{
             Patients patient = entityManager
-                    .createQuery("from Patients patient WHERE patient.email = :email " + "and patient.password = :password", Patients.class)
+                    .createQuery("from Patients WHERE email = :email " + "and password = :password", Patients.class)
                     .setParameter("email", email)
                     .setParameter("password", password)
                     .getSingleResult();

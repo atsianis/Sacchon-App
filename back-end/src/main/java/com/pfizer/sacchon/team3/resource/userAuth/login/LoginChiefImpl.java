@@ -35,7 +35,7 @@ public class LoginChiefImpl extends ServerResource implements LoginChief {
     public ChiefRepresentation loginChief(LoginRepresentation loginRepresentation) throws NotFoundException, WrongCredentials {
         LOGGER.info("Login chief");
         // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+        ResourceUtils.checkRole(this, loginRepresentation.getRole().getRoleName());
         // Initialize the persistence layer
         Chiefs chief;
         try {
