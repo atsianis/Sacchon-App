@@ -35,7 +35,7 @@ public class LoginPatientImpl extends ServerResource implements LoginPatient {
     public PatientRepresentation loginPatient(LoginRepresentation loginRepresentation) throws NotFoundException, WrongCredentials {
         LOGGER.info("Login Patient");
         // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        ResourceUtils.checkRole(this, loginRepresentation.getRole().getRoleName());
         // Initialize the persistence layer
         Patients patient;
         try {
