@@ -1,10 +1,10 @@
 package com.pfizer.sacchon.team3.resource.chief;
 
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
 import org.hibernate.Hibernate;
 import org.restlet.engine.Engine;
@@ -30,7 +30,7 @@ public class AllDoctorsListImpl extends ServerResource implements AllDoctorsList
     }
 
     @Override
-    public List<DoctorRepresentation> getDoctors() throws NotFoundException {
+    public ResponseRepresentation<List<DoctorRepresentation>> getDoctors(){
         LOGGER.finer("Select all doctors.");
         try {
             List<Doctors> doctors = doctorRepository.findAll();
@@ -39,9 +39,9 @@ public class AllDoctorsListImpl extends ServerResource implements AllDoctorsList
             List<DoctorRepresentation> result = new ArrayList<>();
             doctors.forEach(doc -> result.add(new DoctorRepresentation(doc)));
 
-            return result;
+            return new ResponseRepresentation<List<DoctorRepresentation>>(200,"Doctors retrieved",result);
         } catch (Exception e) {
-            throw new NotFoundException("doctors not found");
+            return new ResponseRepresentation<List<DoctorRepresentation>>(404,"Doctors not found",null);
         }
     }
 }

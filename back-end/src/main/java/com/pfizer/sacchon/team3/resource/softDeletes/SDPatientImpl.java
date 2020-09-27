@@ -1,14 +1,13 @@
 package com.pfizer.sacchon.team3.resource.softDeletes;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import org.restlet.engine.Engine;
-import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import java.util.Optional;
@@ -32,11 +31,16 @@ public class SDPatientImpl extends ServerResource implements SoftDeletePatient {
     }
 
     @Override
-    public PatientRepresentation softDelete(PatientRepresentation patientRepresentation) throws NotFoundException, BadEntityException {
+    public ResponseRepresentation<PatientRepresentation> softDelete(PatientRepresentation patientRepresentation){
         LOGGER.finer("Soft Delete a patient.");
         // Check given entity
-        ResourceValidator.notNull(patientRepresentation);
-        ResourceValidator.validatePatient(patientRepresentation);
+        try{
+            ResourceValidator.notNull(patientRepresentation);
+            ResourceValidator.validatePatient(patientRepresentation);
+        }catch(BadEntityException ex){
+            return new ResponseRepresentation<PatientRepresentation>(422,"Bad Entity Exception",null);
+        }
+
         LOGGER.finer("Patient checked");
 
         try {
@@ -53,17 +57,17 @@ public class SDPatientImpl extends ServerResource implements SoftDeletePatient {
                 // means that the id is wrong.
                 if (!patientOut.isPresent()) {
                     LOGGER.finer("Patient does not exist.");
-                    throw new NotFoundException("Patient with the following id does not exist: " + id);
+                    return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
                 }
             } else {
                 LOGGER.finer("Patient does not exist.");
-                throw new NotFoundException("Patient with the following id does not exist: " + id);
+                return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
             }
             LOGGER.finer("Patient successfully updated.");
 
-            return new PatientRepresentation(patientOut.get());
+            return new ResponseRepresentation<PatientRepresentation>(404,"Patient has been softly deleted",new PatientRepresentation(patientOut.get()));
         } catch (Exception ex) {
-            throw new ResourceException(ex);
+            return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
         }
     }
 }

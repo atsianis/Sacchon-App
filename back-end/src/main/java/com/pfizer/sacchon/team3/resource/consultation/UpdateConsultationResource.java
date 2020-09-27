@@ -1,18 +1,15 @@
 package com.pfizer.sacchon.team3.resource.consultation;
 
-import com.pfizer.sacchon.team3.exception.BadEntityException;
-import com.pfizer.sacchon.team3.exception.BadInsertionException;
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.repository.ConsultationRepository;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.representation.UpdateConsultationRepresentation;
 import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
 import org.restlet.engine.Engine;
-import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import java.util.Date;
@@ -41,17 +38,17 @@ public class UpdateConsultationResource extends ServerResource implements Update
         LOGGER.info("Initialising doctor resource ends");
     }
 
-    public ConsultationRepresentation updateConsultation(UpdateConsultationRepresentation consultReprIn) throws NotFoundException, BadEntityException, BadInsertionException {
+    public ResponseRepresentation<ConsultationRepresentation> updateConsultation(UpdateConsultationRepresentation consultReprIn){
         LOGGER.finer("Update a consultation.");
         if (consultReprIn.getComment().isEmpty())
-            throw new BadInsertionException("Cant post an empty consultation, doc !");
+            return new ResponseRepresentation<ConsultationRepresentation>(422,"Bad Entity",null);
         // get Doctor
         Optional<Doctors> odoctor = doctorRepository.findById(doctor_id);
         Doctors doctor;
         setExisting(odoctor.isPresent());
         if (!isExisting()) {
             LOGGER.config("Doctor id does not exist:" + doctor_id);
-            throw new NotFoundException("No doctor with id  : " + doctor_id);
+            return new ResponseRepresentation<ConsultationRepresentation>(404,"Doctor not found",null);
         } else {
             doctor = odoctor.get();
             LOGGER.finer("Doctor allowed to update a consultation.");
@@ -66,7 +63,7 @@ public class UpdateConsultationResource extends ServerResource implements Update
             if (isExisting()) {
                 consultation= consultationOut.get();
                 if (!isMyConsult(doctor,consultation)){
-                    throw new NotFoundException("This consult is not yours");
+                    return new ResponseRepresentation<ConsultationRepresentation>(401,"Unauthorized ! Can't update someone else's consultation",null);
                 }
                 consultation.setComment(consultReprIn.getComment());
                 LOGGER.finer("Update consultation.");
@@ -77,16 +74,17 @@ public class UpdateConsultationResource extends ServerResource implements Update
                 if(isExisting()){
                     doctor.setLastActive(new Date());
                     doctorRepository.update(doctor);
-                    return new ConsultationRepresentation(oconsult.get());
+
+                    return new ResponseRepresentation<ConsultationRepresentation>(200,"Consultation updated",new ConsultationRepresentation(oconsult.get()));
                 }else{
-                    throw new NotFoundException("consultation is not found");
+                    return new ResponseRepresentation<ConsultationRepresentation>(404,"Consultation not found",null);
                 }
             } else {
                 LOGGER.finer("Resource does not exist.");
-                throw new NotFoundException("Consultation with the following id does not exist: " + consultation_id);
+                return new ResponseRepresentation<ConsultationRepresentation>(404,"Consultation not found",null);
             }
         } catch (Exception ex) {
-            throw new ResourceException(ex);
+            return new ResponseRepresentation<ConsultationRepresentation>(404,"Consultation not found",null);
         }
     }
 

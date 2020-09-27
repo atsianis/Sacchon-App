@@ -1,10 +1,10 @@
 package com.pfizer.sacchon.team3.resource.doctor;
 
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -51,18 +51,18 @@ public class AvailablePatientsFromToResourceImpl extends ServerResource implemen
     }
 
     @Override
-    public List<PatientRepresentation> availablePatients() throws NotFoundException {
+    public ResponseRepresentation<List<PatientRepresentation>> availablePatients(){
         LOGGER.finer("Select all available patients.");
         try{
             List<Patients> patients = doctorRepository.availablePatientsFromTo(startDate, endDate);
             List<PatientRepresentation> result = new ArrayList<>();
             patients.forEach(patient -> result.add(new PatientRepresentation(patient)));
 
-            return result;
+            return new ResponseRepresentation<List<PatientRepresentation>>(200,"Patients retrieved",result);
         }
         catch(Exception e)
         {
-            throw new NotFoundException("available patients not found");
+            return new ResponseRepresentation<List<PatientRepresentation>>(404,"Patients not found",null);
         }
     }
 }

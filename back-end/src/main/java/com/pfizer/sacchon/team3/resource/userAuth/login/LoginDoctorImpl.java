@@ -1,14 +1,12 @@
 package com.pfizer.sacchon.team3.resource.userAuth.login;
 
-import com.pfizer.sacchon.team3.exception.NotFoundException;
-import com.pfizer.sacchon.team3.exception.WrongCredentials;
 import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.representation.LoginRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.engine.Engine;
-import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import java.util.Optional;
@@ -30,7 +28,7 @@ public class LoginDoctorImpl extends ServerResource implements LoginDoctor {
     }
 
     @Override
-    public DoctorRepresentation loginDoctor(LoginRepresentation loginRepresentation) throws NotFoundException, WrongCredentials {
+    public ResponseRepresentation<DoctorRepresentation> loginDoctor(LoginRepresentation loginRepresentation){
         LOGGER.info("Login doctor");
         // Initialize the persistence layer
         Doctors doctor;
@@ -39,16 +37,16 @@ public class LoginDoctorImpl extends ServerResource implements LoginDoctor {
             setExisting(opDoctor.isPresent());
             if (!isExisting()) {
                 LOGGER.config("email does not exist:" + loginRepresentation.getEmail());
-                throw new NotFoundException("No doctor with that email : " + loginRepresentation.getPassword());
+                return new ResponseRepresentation<DoctorRepresentation>(401,"Doctor not found",null);
             } else {
                 doctor = opDoctor.get();
                 DoctorRepresentation result = new DoctorRepresentation(doctor);
                 LOGGER.finer("Doctor successfully logged in");
 
-                return result;
+                return new ResponseRepresentation<DoctorRepresentation>(200,"Logged In",result);
             }
         } catch (Exception ex) {
-            throw new ResourceException(ex);
+            return new ResponseRepresentation<DoctorRepresentation>(422,"Bad Entity",null);
         }
     }
 }

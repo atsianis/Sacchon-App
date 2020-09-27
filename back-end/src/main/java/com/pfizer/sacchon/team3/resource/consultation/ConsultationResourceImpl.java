@@ -1,13 +1,12 @@
 package com.pfizer.sacchon.team3.resource.consultation;
 
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.repository.ConsultationRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
 import org.restlet.engine.Engine;
-import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import java.util.Optional;
@@ -31,7 +30,7 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
     }
 
     @Override
-    public ConsultationRepresentation getConsultation() throws NotFoundException {
+    public ResponseRepresentation<ConsultationRepresentation> getConsultation(){
         LOGGER.info("Retrieve a consultation");
         // Initialize the persistence layer.
         ConsultationRepository consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
@@ -41,17 +40,17 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
             setExisting(opConsultation.isPresent());
             if (!isExisting()) {
                 LOGGER.config("Consultation id does not exist:" + id);
-                throw new NotFoundException("No consultation with  : " + id);
+                return new ResponseRepresentation<ConsultationRepresentation>(404,"Consultation not found",null);
             } else {
                 consultation = opConsultation.get();
                 LOGGER.finer("User allowed to retrieve a consultation.");
                 ConsultationRepresentation result = new ConsultationRepresentation(consultation);
                 LOGGER.finer("Consultation successfully retrieved");
 
-                return result;
+                return new ResponseRepresentation<ConsultationRepresentation>(200,"Consultation retrieved",result);
             }
         } catch (Exception ex) {
-            throw new ResourceException(ex);
+            return new ResponseRepresentation<ConsultationRepresentation>(404,"Consultation not found",null);
         }
     }
 }
