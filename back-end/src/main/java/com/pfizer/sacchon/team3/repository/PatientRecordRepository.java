@@ -38,8 +38,8 @@ public class PatientRecordRepository {
 
     public Optional<PatientRecords> update(PatientRecords p) {
         PatientRecords patientRecordsIn = entityManager.find(PatientRecords.class, p.getId());
-        patientRecordsIn.setSacchon(p.getSacchon());
-        patientRecordsIn.setCalories(p.getCalories());
+        patientRecordsIn.setGlycose(p.getGlycose());
+        patientRecordsIn.setCarbs(p.getCarbs());
         patientRecordsIn.setTimeCreated(p.getTimeCreated());
         try {
             entityManager.getTransaction().begin();

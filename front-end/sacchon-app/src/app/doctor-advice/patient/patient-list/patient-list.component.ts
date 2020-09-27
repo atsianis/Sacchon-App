@@ -12,6 +12,10 @@ import * as moment from 'moment';
 })
 export class PatientListComponent implements OnInit {
 
+	patientGlycose: any = [];
+	patientCarbs: any = [];
+	patientRecordTimestamp: any = [];
+
 	constructor(private route: ActivatedRoute, private http: HttpClient) { }
 	patient: any;
 	// Array of different segments in chart
@@ -55,22 +59,19 @@ export class PatientListComponent implements OnInit {
 		console.log(event, active);
 	}
 
-	patientGlycose: any = [];
-	patientCalories: any = [];
-	patientRecordTimestamp: any = [];
 
 	getPatientById(): void {
 		const httpOptions = {
 			headers: new HttpHeaders({
-			  'Authorization': 'Basic ' + btoa('asd@asd.asd:asdasdasd')
+				'Authorization': 'Basic ' + btoa('asd@asd.asd:asdasdasd')
 			})
 		};
 		this.route.params.subscribe(params => {
 			this.http.get(`http://localhost:9000/v1/patient/${params.id}`, httpOptions).subscribe(patient => {
 				this.patient = patient;
-				patient.patientRecords.forEach(record => {
-					this.patientGlycose.push(record.sacchon)
-					this.patientCalories.push(record.calories)
+				this.patient.patientRecords.forEach(record => {
+					this.patientGlycose.push(record.glycose)
+					this.patientCarbs.push(record.carbs)
 					this.patientRecordTimestamp.push(moment.utc(record.timecreated).format("MM/DD/YYYY"))
 				});
 			}, (err) => {
@@ -82,14 +83,14 @@ export class PatientListComponent implements OnInit {
 	ngOnInit(): void {
 		this.getPatientById();
 		this.lineChartData = [
-			{ data: this.patientCalories, label: 'Calories (gr)' },
+			{ data: this.patientCarbs, label: 'Carbs (gr)' },
 			{ data: this.patientGlycose, label: 'Glycose (ml)' }
 		];
 		this.lineChartLabels = this.patientRecordTimestamp;
 	}
 
-	toProperDate(date): String {
-		return moment.utc(date).format("MM/DD/YYYY");
+	toProperDate(date): string {
+		return moment.utc(date).format('MM/DD/YYYY');
 	}
 
 }

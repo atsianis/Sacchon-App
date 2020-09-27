@@ -1,0 +1,72 @@
+<div class="d-flex flex-column justify-content-between align-items-center">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-6">
+				<div class="card bg-light" style="width: 20rem;">
+					<div class="card-body">
+						<h5 class="card-title text-center">Sign up as Doctor</h5>
+						<form class="py-3" [formGroup]="doctorSignUp">
+							<div class="form-group">
+								<input placeholder="Email" required formControlName="email" type="text"
+									class="mt-3 form-control" id="mail"
+									[ngClass]="(doctorSignUp.get('email').errors?.required && doctorSignUp.get('email').touched)? 'border-danger'  : ''">
+								<small
+									*ngIf="doctorSignUp.get('email').errors?.required && doctorSignUp.get('email').touched"
+									class="text-danger py-0 my-0">
+									An email address is required
+								</small>
+								<small
+									*ngIf="doctorSignUp.get('email').errors?.email && doctorSignUp.get('email').touched"
+									class="text-danger py-0 my-0">
+									Must be a valid email address
+								</small>
+								<input placeholder="First name" required formControlName="firstName" type="text"
+									class="mt-3 form-control"
+									[ngClass]="(doctorSignUp.get('firstName').errors?.required && doctorSignUp.get('firstName').touched)? 'border-danger'  : ''"
+									id="firstName">
+								<small
+									*ngIf="doctorSignUp.get('firstName').errors?.required && doctorSignUp.get('firstName').touched"
+									class="text-danger py-0 my-0">
+									First name is required
+								</small>
+								<input placeholder="Last name" required formControlName="lastName" type="text"
+									class="mt-3 form-control"
+									[ngClass]="(doctorSignUp.get('lastName').errors?.required && doctorSignUp.get('lastName').touched)? 'border-danger'  : ''"
+									id="lastName">
+								<small
+									*ngIf="doctorSignUp.get('lastName').errors?.required && doctorSignUp.get('lastName').touched"
+									class="text-danger py-0 my-0">
+									Last name is required
+								</small>
+								<input placeholder="Password" required formControlName="password" type="password"
+									class="mt-3 form-control"
+									[ngClass]="(doctorSignUp.get('password').errors?.required && doctorSignUp.get('password').touched)? 'border-danger'  : ''"
+									id="password">
+								<small
+									*ngIf="doctorSignUp.get('password').errors?.required && doctorSignUp.get('password').touched"
+									class="text-danger py-0 my-0">
+									A password is required
+								</small>
+								<small
+									*ngIf="doctorSignUp.get('password').errors?.minlength && doctorSignUp.get('password').touched"
+									class="text-danger py-0 my-0">
+									Password must be at least 8 characters long
+								</small>
+								<input placeholder="Confirm Password" required formControlName="passwordconfirm"
+									type="password" class="mt-3 form-control"
+									[ngClass]="(doctorSignUp.get('passwordconfirm').errors?.required && doctorSignUp.get('passwordconfirm').touched)? 'border-danger'  : ''"
+									id="passwordconfirm">
+								<small
+									*ngIf="doctorSignUp.get('passwordconfirm').errors?.required && doctorSignUp.get('passwordconfirm').touched"
+									class="text-danger py-0 my-0">
+									Passwords do not match
+								</small>
+							</div>
+							<button class="btn btn-primary btn-block py-2" (click)="signUp()">Submit</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

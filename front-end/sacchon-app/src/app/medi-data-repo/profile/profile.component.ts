@@ -13,7 +13,7 @@ export class PatientProfileComponent implements OnInit {
 
 	// Array of different segments in chart
 	lineChartData: ChartDataSets[] = [
-		{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Calories (gr)' },
+		{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Carbs (gr)' },
 		{ data: [28, 48, 40, 19, 86, 27, 90], label: 'Glycose (ml)' }
 	];
 

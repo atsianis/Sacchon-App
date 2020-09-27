@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 import { ChartsModule } from 'ng2-charts';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +20,8 @@ import { DoctorAdviceModule } from './doctor-advice/doctor-advice.module';
 import { MediDataRepoLoginComponent } from './auth/login/medi-data-repo-login/medi-data-repo-login.component';
 import { DoctorAdviceLoginComponent } from './auth/login/doctor-advice-login/doctor-advice-login.component';
 import { ReporterLoginComponent } from './auth/login/reporter-login/reporter-login.component';
+import { PatientSignUpComponent } from './auth/signup/patient-sign-up/patient-sign-up.component';
+import { DoctorSignUpComponent } from './auth/signup/doctor-sign-up/doctor-sign-up.component';
 
 @NgModule({
 	declarations: [
@@ -31,6 +34,8 @@ import { ReporterLoginComponent } from './auth/login/reporter-login/reporter-log
 		MediDataRepoLoginComponent,
 		DoctorAdviceLoginComponent,
 		ReporterLoginComponent,
+		PatientSignUpComponent,
+		DoctorSignUpComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -41,6 +46,8 @@ import { ReporterLoginComponent } from './auth/login/reporter-login/reporter-log
 		MediDataRepoModule,
 		DoctorAdviceModule,
 		ReactiveFormsModule,
+		BrowserAnimationsModule,
+		ToastrModule.forRoot(),
 	],
 	providers: [],
 	bootstrap: [AppComponent]

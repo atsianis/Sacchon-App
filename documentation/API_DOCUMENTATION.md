@@ -36,7 +36,7 @@ These are the basic endpoints for the patient and all his/her actions
 | "/settings"          | patient settings update                                   | **PUT**     | id, patient                 |
 | "/settings"          | patient delete profile                                    | **DELETE**  | id                          |
 | "/storedata"         | add new patient record landing page                       | **GET**     | -                           |
-| "/storedata"         | add data for a new patient record                         | **POST**    | id, sacchon, calories       |
+| "/storedata"         | add data for a new patient record                         | **POST**    | id, glycose, carbs       |
 | "/updatestoreddata"  | edit/delete data from a patient record landing page       | **GET**     | -                           |
 | "/updatestoreddata"  | edit a patient record                                     | **POST**    | id, patient_record          |
 | "/updatestoreddata"  | delete a patient record                                   | **DELETE**  | id                          |
@@ -55,6 +55,6 @@ These are the basic endpoints for the doctor and all his/her actions
 | "/availablepatients"    | doctor's list of patients that are new to the system       | **GET**     | -                           |
 | "/patient/{id}"         | patient profile page                                       | **GET**     | -                           |
 | "/patient/{id}/consult" | create consultation for a patient landing page             | **GET**     | -                           |
-| "/patient/{id}/consult" | add new consultation                                       | **POST**    | id, sacchon, calories       |
+| "/patient/{id}/consult" | add new consultation                                       | **POST**    | id, glycose, carbs       |
 | "/patient/{id}/consult" | edit a consultation                                        | **PUT**     | id, consultation            |
 | "/patient/{id}/consult" | delete a consultation                                      | **DELETE**  | id                          |
