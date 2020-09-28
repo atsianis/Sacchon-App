@@ -12,6 +12,7 @@ import { PatientListComponent } from './patient/patient-list/patient-list.compon
 import { ConsultComponent } from './consult/consult.component';
 import { ConsultListComponent } from './consult/consult-list/consult-list.component';
 import { ConsultEditComponent } from './consult-edit/consult-edit.component';
+import { DoctorAdviceGuard } from './doctor-advice.guard';
 
 
 
@@ -32,14 +33,14 @@ import { ConsultEditComponent } from './consult-edit/consult-edit.component';
 		ChartsModule,
 		HttpClientModule,
 		RouterModule.forChild([
-			{ path: 'doctoradvice', component: DoctorAdviceComponent },
-			{ path: 'doctoradvice/profile', component: ProfileComponent },
-			{ path: 'doctoradvice/profile/edit', component: EditProfileComponent },
-			{ path: 'doctoradvice/patients', component: PatientComponent },
-			{ path: 'doctoradvice/patient/:id', component: PatientListComponent },
-			{ path: 'doctoradvice/consult', component: ConsultComponent },
-			{ path: 'doctoradvice/consult/:id', component: ConsultListComponent },
-			{ path: 'doctoradvice/consult/:id/edit', component: ConsultEditComponent },
+			{ path: 'doctoradvice', component: DoctorAdviceComponent, canActivate: [ DoctorAdviceGuard ] },
+			{ path: 'doctoradvice/profile', component: ProfileComponent, canActivate: [ DoctorAdviceGuard ] },
+			{ path: 'doctoradvice/profile/edit', component: EditProfileComponent, canActivate: [ DoctorAdviceGuard ] },
+			{ path: 'doctoradvice/patients', component: PatientComponent, canActivate: [ DoctorAdviceGuard ] },
+			{ path: 'doctoradvice/patient/:id', component: PatientListComponent, canActivate: [ DoctorAdviceGuard ] },
+			{ path: 'doctoradvice/consult', component: ConsultComponent, canActivate: [ DoctorAdviceGuard ] },
+			{ path: 'doctoradvice/consult/:id', component: ConsultListComponent, canActivate: [ DoctorAdviceGuard ] },
+			{ path: 'doctoradvice/consult/:id/edit', component: ConsultEditComponent, canActivate: [ DoctorAdviceGuard ] },
 		])
 	],
 	exports: [
