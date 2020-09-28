@@ -28,7 +28,7 @@ export class InspectDoctorComponent implements OnInit {
 	}
 
 	getDoctors(): void {
-		this.http.get('http://localhost:9000/v1/doctors').subscribe(doctors => {
+		this.http.get('http://localhost:9000/v1/chief/doctors').subscribe(doctors => {
 			this.doctors = doctors;
 			this.dtTrigger.next();
 		}, (err) => {

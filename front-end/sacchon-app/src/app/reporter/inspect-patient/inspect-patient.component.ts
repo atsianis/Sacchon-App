@@ -29,7 +29,7 @@ export class InspectPatientComponent implements OnInit {
 	}
 
 	getPatients(): void {
-		this.http.get('http://localhost:9000/v1/patients').subscribe(patients => {
+		this.http.get('http://localhost:9000/v1/chief/patients').subscribe(patients => {
 			this.patients = patients;
 			this.dtTrigger.next();
 		}, (err) => {
