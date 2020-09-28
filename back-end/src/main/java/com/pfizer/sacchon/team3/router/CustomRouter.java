@@ -9,6 +9,8 @@ import com.pfizer.sacchon.team3.resource.patient.PatientConsultationsResourceImp
 import com.pfizer.sacchon.team3.resource.patient.PatientRecordsListImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientResourceImpl;
 import com.pfizer.sacchon.team3.resource.patientRecord.PatientRecordResourceImpl;
+import com.pfizer.sacchon.team3.resource.softDeletes.SDDoctorImpl;
+import com.pfizer.sacchon.team3.resource.softDeletes.SDPatientImpl;
 import com.pfizer.sacchon.team3.resource.userAuth.login.LoginChiefImpl;
 import com.pfizer.sacchon.team3.resource.userAuth.login.LoginDoctorImpl;
 import com.pfizer.sacchon.team3.resource.userAuth.login.LoginPatientImpl;
@@ -45,40 +47,27 @@ public class CustomRouter {
         router.attach("/chief/inactivepatients", InactivePatientsImpl.class);
         router.attach("/chief/allconsultations", ConsultationListResourceImpl.class);
         router.attach("/chief/settings/update", ChiefResourceImpl.class);
-
-
-
-
+        //patient Endpoints
         router.attach("/patient/{id}", PatientResourceImpl.class);
-        router.attach("/consultation/{id}", ConsultationResourceImpl.class);
-//        router.attach("/patients/inactive/{days}", PatientListResourceImp.class);
-        router.attach("/doctor/{id}", DoctorResourceImpl.class);
-        // settings
-        router.attach("/doctor/{id}/settings",  DoctorResourceImpl.class);
-
-        // Doctor's patients
-        router.attach("/doctor/{id}/mypatients",  MyPatientsResourceImpl.class);
-
-        // Consultable patients (doctor_id = null && canBeExamined  = true)
-        router.attach("/doctors/consultable-patients",  AllConsultablePatientListResourceImpl.class);
-
-        // Available patients (doctor_id = null && canBeExamined  = false)
-        router.attach("/doctors/available-patients",  AllAvailablePatientListResourceImpl.class);
-
-        // Doctor selects patient
-        router.attach("/doctor/{did}/select/{pid}", DoctorSelectionResourceImpl.class);
-
-        // Get Patients Consults
-        router.attach("/patient/{id}/consultations", PatientConsultationsResourceImpl.class);
-
-        // Update Consultation
-        router.attach("/doctor/{did}/consultation/{cid}", UpdateConsultationResource.class);
-
-        //router.attach("/availablePatients", AllPatientsListImpl.class);
         router.attach("/patient/{id}/settings", PatientResourceImpl.class);
-        router.attach("/patients/{id}/storeData", PatientRecordsListImpl.class);
-        router.attach("/patients/{id}/storeData/allData", PatientRecordsListImpl.class);
+        router.attach("/patient/{id}/storeData", PatientRecordsListImpl.class);
+        router.attach("/patient/{id}/storeData/allData", PatientRecordsListImpl.class);
         router.attach("/patient/{pid}/storeData/patientRecord/{rid}", PatientRecordResourceImpl.class);
+        router.attach("/patient/{id}/consultations", PatientConsultationsResourceImpl.class);
+        //doctor Endpoints
+        router.attach("/doctor/{id}", DoctorResourceImpl.class);
+        router.attach("/doctor/{id}/settings",  DoctorResourceImpl.class);
+        router.attach("/doctor/{id}/mypatients",  MyPatientsResourceImpl.class);
+        router.attach("/doctor/{id}/available-patients",  AllAvailablePatientListResourceImpl.class);
+        router.attach("/doctor/{did}/select/patient/{pid}", DoctorSelectionResourceImpl.class);
+        router.attach("/doctor/{did}/consultation/{cid}", UpdateConsultationResource.class);
+        router.attach("/doctor/{id}/consultable-patients",  AllConsultablePatientListResourceImpl.class);
+        //soft Deletes
+        router.attach("/patient/{id}/settings/softDelete", SDPatientImpl.class);
+        router.attach("/doctor/{id}/settings/softDelete", SDDoctorImpl.class);
+
+        // wtf ?
+        router.attach("/consultation/{id}", ConsultationResourceImpl.class);
 
         return router;
     }
