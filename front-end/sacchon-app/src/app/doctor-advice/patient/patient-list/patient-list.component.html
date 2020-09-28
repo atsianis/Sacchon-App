@@ -20,8 +20,8 @@
 						<div class="col-6">{{ toProperDate(patient.dob) }}</div>
 					</div>
 					<div class="row align-items-center">
-						<a [routerLink]="['/doctoradvice/consult/', patient?.id, add]" class="btn btn-block btn-primary my-2 mx-2">Create Consult</a>
-						<a [routerLink]="['/doctoradvice/consult/', patient?.id]" class="btn btn-block btn-primary my-2 mx-2">View all consults</a>
+						<a [routerLink]="['/doctoradvice/consult/', patient.id, 'add']" class="btn btn-block btn-primary my-2 mx-2">Create Consult</a>
+						<a [routerLink]="['/doctoradvice/consult/', patient.id]" class="btn btn-block btn-primary my-2 mx-2">View all consults</a>
 					</div>
 				</div>
 			</div>
