@@ -1,8 +1,6 @@
 package com.pfizer.sacchon.team3.resource.patient;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
-import com.pfizer.sacchon.team3.exception.BadInsertionException;
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.PatientRecords;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRecordRepository;
@@ -10,6 +8,7 @@ import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRecordRepresentation;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
@@ -44,7 +43,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     }
 
     @Override
-    public List<PatientRecordRepresentation> getAllPatientRecords() throws NotFoundException {
+    public ResponseRepresentation<List<PatientRecordRepresentation>> getAllPatientRecords(){
         LOGGER.finer("Select all records.");
         try{
             List<PatientRecords> patientRecords = patientRecordRepository.findAllPatientRecords();
@@ -53,19 +52,19 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
             for(PatientRecords p : patientRecords)
                 result.add(new PatientRecordRepresentation(p));
 
-            return result;
+            return new ResponseRepresentation<List<PatientRecordRepresentation>>(200,"Records retrieved",result);
         }
         catch(Exception e)
         {
-            throw new NotFoundException("patients not found");
+            return new ResponseRepresentation<List<PatientRecordRepresentation>>(404,"Records not found",null);
         }
     }
 
     @Override
-    public PatientRecordRepresentation storeData(PatientRecordRepresentation patientRecordRepresentation) throws NotFoundException, BadEntityException, BadInsertionException {
+    public ResponseRepresentation<PatientRecordRepresentation> storeData(PatientRecordRepresentation patientRecordRepresentation){
         LOGGER.finer("Add a new record.");
         if (patientRecordRepresentation.getCarbs()==0 || patientRecordRepresentation.getGlycose()==0)
-            throw new BadInsertionException("Can't insert empty or zero");
+            return new ResponseRepresentation<PatientRecordRepresentation>(422,"Bad Entity",null);
         // get patient
         Optional<Patients> opatient = patientRepository.findById(id);
         if (opatient.isPresent()){
@@ -75,9 +74,13 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
             PatientRepresentation pr = new PatientRepresentation();
             pr.setLastName(patient.getLastName());
             pr.setFirstName(patient.getFirstName());
+            try{
+                ResourceValidator.notNull(patientRecordRepresentation);
+                ResourceValidator.validatePatient(pr);
+            }catch(BadEntityException ex){
+                return new ResponseRepresentation<PatientRecordRepresentation>(422,"Bad Entity",null);
+            }
 
-            ResourceValidator.notNull(patientRecordRepresentation);
-            ResourceValidator.validatePatient(pr);
             LOGGER.finer("Patient checked");
 
             try {
@@ -102,7 +105,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
                         patientRepository.update(patient);
                     }
                     else
-                        throw new BadEntityException("Record has not been created");
+                        return new ResponseRepresentation<PatientRecordRepresentation>(404,"Record not found",null);
 
                     //Convert PatientRecord to PatientRecordRepr
                     PatientRecordRepresentation result = new PatientRecordRepresentation();
@@ -116,10 +119,9 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
 
                     LOGGER.finer("Record successfully added.");
 
-                    return result;
+                    return new ResponseRepresentation<PatientRecordRepresentation>(404,"Record created",result);
                 } else {
-                    throw new BadInsertionException("Either your insertion date is older than your sign up date" +
-                            "or there is a pending consultation");
+                    return new ResponseRepresentation<PatientRecordRepresentation>(422,"Bad Record Date",null);
                 }
 
             } catch (Exception ex) {
@@ -127,7 +129,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
                 throw new ResourceException(ex);
             }
         }else{
-            throw new NotFoundException("Patient not found");
+            return new ResponseRepresentation<PatientRecordRepresentation>(404,"Not found",null);
         }
     }
 }

@@ -1,20 +1,19 @@
 package com.pfizer.sacchon.team3.resource.doctor;
 
-import com.pfizer.sacchon.team3.exception.BadEntityException;
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedDoctorRepresentation;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
 import org.restlet.resource.Put;
 
 public interface DoctorResource {
     @Get("json")
-    public DoctorRepresentation getDoctor() throws NotFoundException;
+    public ResponseRepresentation<DoctorRepresentation> getDoctor();
 
     @Delete
-    public void remove() throws NotFoundException;
+    public ResponseRepresentation<DoctorRepresentation> remove();
 
     @Put("json")
-    public DoctorRepresentation updateDoctor(CreatedOrUpdatedDoctorRepresentation doctorReprIn) throws NotFoundException, BadEntityException;
+    public ResponseRepresentation<DoctorRepresentation> updateDoctor(CreatedOrUpdatedDoctorRepresentation doctorReprIn);
 }

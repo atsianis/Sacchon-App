@@ -6,11 +6,11 @@ import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedDoctorRepresentation;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import org.hibernate.Hibernate;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
-import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import java.util.Optional;
@@ -33,13 +33,16 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
     }
 
     @Override
-    public DoctorRepresentation add(CreatedOrUpdatedDoctorRepresentation createdOrUpdatedDoctorRepresentation) throws BadEntityException {
+    public ResponseRepresentation<DoctorRepresentation> add(CreatedOrUpdatedDoctorRepresentation createdOrUpdatedDoctorRepresentation){
         LOGGER.finer("Add a new doctor.");
         // Check entity
-        ResourceValidator.notNull(createdOrUpdatedDoctorRepresentation);
-        ResourceValidator.validateDoctor(createdOrUpdatedDoctorRepresentation);
+        try{
+            ResourceValidator.notNull(createdOrUpdatedDoctorRepresentation);
+            ResourceValidator.validateDoctor(createdOrUpdatedDoctorRepresentation);
+        }catch(BadEntityException ex){
+            return new ResponseRepresentation<DoctorRepresentation>(422,"Bad Entity",null);
+        }
         LOGGER.finer("doctor checked");
-
         try {
             // Convert DoctorRepr to doctor
             Doctors doctorsIn = new Doctors();
@@ -54,7 +57,7 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
             if (doctorOut.isPresent())
                 doctors = doctorOut.get();
             else
-                throw new BadEntityException("doctor has not been created");
+                return new ResponseRepresentation<DoctorRepresentation>(404,"Doctor not found",null);
 
             DoctorRepresentation result = new DoctorRepresentation();
             result.setFirstName(doctors.getFirstName());
@@ -71,10 +74,10 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
 
             LOGGER.finer("doctor successfully added.");
 
-            return result;
+            return new ResponseRepresentation<DoctorRepresentation>(200,"Doctor registered successfully",result);
         } catch (Exception ex) {
             LOGGER.log(Level.WARNING, "Error when adding a doctor", ex);
-            throw new ResourceException(ex);
+            return new ResponseRepresentation<DoctorRepresentation>(422,"Bad Entity",null);
         }
     }
 }

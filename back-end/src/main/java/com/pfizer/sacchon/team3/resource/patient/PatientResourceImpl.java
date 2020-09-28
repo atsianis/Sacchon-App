@@ -1,11 +1,11 @@
 package com.pfizer.sacchon.team3.resource.patient;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import org.hibernate.Hibernate;
 import org.restlet.engine.Engine;
@@ -34,7 +34,7 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
     }
 
     @Override
-    public PatientRepresentation getPatient() throws NotFoundException {
+    public ResponseRepresentation<PatientRepresentation> getPatient(){
         LOGGER.info("Retrieve a patient");
         // Initialize the persistence layer.
         PatientRepository patientRepository = new PatientRepository(JpaUtil.getEntityManager());
@@ -44,7 +44,7 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
             setExisting(opProduct.isPresent());
             if (!isExisting()) {
                 LOGGER.config("patient id does not exist:" + id);
-                throw new NotFoundException("No patient with  : " + id);
+                return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
             } else {
                 patient = opProduct.get();
                 Hibernate.initialize(patient.getPatientRecords());
@@ -53,15 +53,15 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
                 PatientRepresentation result = new PatientRepresentation(patient);
                 LOGGER.finer("Patient successfully retrieved");
 
-                return result;
+                return new ResponseRepresentation<PatientRepresentation>(200,"Patient retrieved",result);
             }
         } catch (Exception ex) {
-            throw new ResourceException(ex);
+            return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
         }
     }
 
     @Override
-    public void remove() throws NotFoundException {
+    public ResponseRepresentation<PatientRepresentation> remove(){
         LOGGER.finer("Removal of patient");
         try {
             // Delete patient in DB: return true if deleted
@@ -70,21 +70,27 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
             // be wrong
             if (!isDeleted) {
                 LOGGER.config("Patient id does not exist");
-                throw new NotFoundException("Patient with the following identifier does not exist:" + id);
+                return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
             }
             LOGGER.finer("Patient successfully removed.");
         } catch (Exception ex) {
             LOGGER.log(Level.WARNING, "Error when removing a patient", ex);
-            throw new ResourceException(ex);
+            return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
         }
+        return new ResponseRepresentation<PatientRepresentation>(200,"Patient removed",null);
     }
 
     @Override
-    public PatientRepresentation store(PatientRepresentation patientRepresentation) throws NotFoundException, BadEntityException {
+    public ResponseRepresentation<PatientRepresentation> store(PatientRepresentation patientRepresentation){
         LOGGER.finer("Update a patient.");
         // Check given entity
-        ResourceValidator.notNull(patientRepresentation);
-        ResourceValidator.validatePatient(patientRepresentation);
+        try{
+            ResourceValidator.notNull(patientRepresentation);
+            ResourceValidator.validatePatient(patientRepresentation);
+        }catch(BadEntityException ex){
+            return new ResponseRepresentation<PatientRepresentation>(422,"Bad Entity",null);
+        }
+
         LOGGER.finer("Patient checked");
         try {
             // Convert PatientRepr to Patient
@@ -102,15 +108,14 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
                 // means that the id is wrong.
                 if (!patientOut.isPresent()) {
                     LOGGER.finer("Patient does not exist.");
-                    throw new NotFoundException("Patient with the following id does not exist: " + id);
+                    return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
                 }
             } else {
                 LOGGER.finer("Patient does not exist.");
-                throw new NotFoundException("Patient with the following id does not exist: " + id);
+                return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
             }
             LOGGER.finer("Patient successfully updated.");
-
-            return new PatientRepresentation(patientOut.get());
+            return new ResponseRepresentation<PatientRepresentation>(200,"Patient created",new PatientRepresentation(patientOut.get()));
         } catch (Exception ex) {
             throw new ResourceException(ex);
         }

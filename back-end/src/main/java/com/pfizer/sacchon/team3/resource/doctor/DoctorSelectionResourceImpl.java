@@ -1,11 +1,11 @@
 package com.pfizer.sacchon.team3.resource.doctor;
 
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -36,7 +36,7 @@ public class DoctorSelectionResourceImpl extends ServerResource implements Docto
     }
 
     @Override
-    public boolean selectPatient() throws NotFoundException {
+    public ResponseRepresentation<Boolean> selectPatient(){
         LOGGER.finer("Doctor selects a patient starts");
         try{
             Doctors doctor;
@@ -47,27 +47,27 @@ public class DoctorSelectionResourceImpl extends ServerResource implements Docto
             if(isExisting()){
                 doctor = odoctor.get();
             }else{
-                throw new NotFoundException("Doctor not found");
+                return new ResponseRepresentation<Boolean>(404,"Doctor not found",false);
             }
             setExisting(opatient.isPresent());
             if(isExisting()){
                 patient = opatient.get();
             }else{
-                throw new NotFoundException("Patient not found");
+                return new ResponseRepresentation<Boolean>(404,"Patient not found",false);
             }
             if (patient.getDoctor()==null){
                 patient.setDoctor(doctor);
                 try{
                     patientRepository.update(patient);
-                    return true;
+                    return new ResponseRepresentation<Boolean>(200,"Patient successfully selected",true);
                 }catch(Exception e){
-                    throw new NotFoundException("Update could not be done");
+                    return new ResponseRepresentation<Boolean>(404,"Update not done",false);
                 }
             }else{
-                return false;
+                return new ResponseRepresentation<Boolean>(401,"Patient already has a doctor",false);
             }
         }catch(Exception e){
-            throw new NotFoundException("Patient or Doctor dont exist");
+            return new ResponseRepresentation<Boolean>(404,"Not found",false);
         }
     }
 }

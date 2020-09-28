@@ -1,14 +1,13 @@
 package com.pfizer.sacchon.team3.resource.softDeletes;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import org.restlet.engine.Engine;
-import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import java.util.Optional;
@@ -32,13 +31,16 @@ public class SDDoctorImpl extends ServerResource implements SoftDeleteDoctor {
     }
 
     @Override
-    public DoctorRepresentation softDelete(DoctorRepresentation doctorRepresentation) throws NotFoundException, BadEntityException {
+    public ResponseRepresentation<DoctorRepresentation> softDelete(DoctorRepresentation doctorRepresentation){
         LOGGER.finer("Soft Delete a doctor.");
         // Check given entity
-        ResourceValidator.notNull(doctorRepresentation);
-        ResourceValidator.validateDoctor(doctorRepresentation);
+        try{
+            ResourceValidator.notNull(doctorRepresentation);
+            ResourceValidator.validateDoctor(doctorRepresentation);
+        }catch(BadEntityException ex){
+            return new ResponseRepresentation<DoctorRepresentation>(422,"Bad Entity Exception",null);
+        }
         LOGGER.finer("Doctor checked");
-
         try {
             // Convert DoctorRepr to Doctor
             Doctors doctorsIn = doctorRepresentation.createDoctor();
@@ -51,17 +53,19 @@ public class SDDoctorImpl extends ServerResource implements SoftDeleteDoctor {
                 doctorsOut = doctorRepository.softDelete(doctorsIn);
                 if (!doctorsOut.isPresent()) {
                     LOGGER.finer("Doctor does not exist.");
-                    throw new NotFoundException("Doctor with the following id does not exist: " + id);
+
+                    return new ResponseRepresentation<DoctorRepresentation>(404,"Doctor not found",null);
                 }
             } else {
                 LOGGER.finer("Doctor does not exist.");
-                throw new NotFoundException("Doctor with the following id does not exist: " + id);
+
+                return new ResponseRepresentation<DoctorRepresentation>(404,"Doctor not found",null);
             }
             LOGGER.finer("Doctor successfully updated.");
 
-            return new DoctorRepresentation(doctorsOut.get());
+            return new ResponseRepresentation<DoctorRepresentation>(200,"Doctor has been softly deleted",new DoctorRepresentation(doctorsOut.get()));
         } catch (Exception ex) {
-            throw new ResourceException(ex);
+            return new ResponseRepresentation<DoctorRepresentation>(404,"Doctor not found",null);
         }
     }
 }

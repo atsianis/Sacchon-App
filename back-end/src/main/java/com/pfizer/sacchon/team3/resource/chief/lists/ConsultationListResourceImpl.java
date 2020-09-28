@@ -1,10 +1,10 @@
 package com.pfizer.sacchon.team3.resource.chief.lists;
 
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.repository.ConsultationRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
@@ -29,16 +29,16 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     }
 
     @Override
-    public List<ConsultationRepresentation> getConsultations() throws NotFoundException {
+    public ResponseRepresentation<List<ConsultationRepresentation>> getConsultations(){
         LOGGER.finer("Select all consultations.");
         try {
             List<Consultations> consultations = consultationRepository.findAll();
             List<ConsultationRepresentation> result = new ArrayList<>();
             consultations.forEach(cons -> result.add(new ConsultationRepresentation(cons)));
 
-            return result;
+            return new ResponseRepresentation<List<ConsultationRepresentation>>(200,"Consultations retrieved",result);
         } catch (Exception e) {
-            throw new NotFoundException("consultations not found");
+            return new ResponseRepresentation<List<ConsultationRepresentation>>(404,"Consultations not found",null);
         }
     }
 }

@@ -1,7 +1,5 @@
 package com.pfizer.sacchon.team3.resource.userAuth.login;
 
-import com.pfizer.sacchon.team3.exception.NotFoundException;
-import com.pfizer.sacchon.team3.exception.WrongCredentials;
 import com.pfizer.sacchon.team3.model.Chiefs;
 import com.pfizer.sacchon.team3.repository.ChiefRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
@@ -9,7 +7,6 @@ import com.pfizer.sacchon.team3.representation.ChiefRepresentation;
 import com.pfizer.sacchon.team3.representation.LoginRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.engine.Engine;
-import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import java.util.Optional;
@@ -31,7 +28,7 @@ public class LoginChiefImpl extends ServerResource implements LoginChief {
     }
 
     @Override
-    public ResponseRepresentation<ChiefRepresentation> loginChief(LoginRepresentation loginRepresentation) throws NotFoundException, WrongCredentials {
+    public ResponseRepresentation<ChiefRepresentation> loginChief(LoginRepresentation loginRepresentation){
         LOGGER.info("Login chief");
         // Initialize the persistence layer
         Chiefs chief;
@@ -41,7 +38,6 @@ public class LoginChiefImpl extends ServerResource implements LoginChief {
             if (!isExisting()) {
                 LOGGER.config("email does not exist:" + loginRepresentation.getEmail());
                 return new ResponseRepresentation<ChiefRepresentation>(401,"chief not found",null);
-                //throw new NotFoundException("No chief with that email : " + loginRepresentation.getEmail());
             } else {
                 chief = opChief.get();
                 ChiefRepresentation result = new ChiefRepresentation(chief);
@@ -50,8 +46,7 @@ public class LoginChiefImpl extends ServerResource implements LoginChief {
                 return new ResponseRepresentation<ChiefRepresentation>(200,"logged in",result);
             }
         } catch (Exception ex) {
-            return new ResponseRepresentation<ChiefRepresentation>(401,"chief not found",null);
-            //throw new ResourceException(ex);
+            return new ResponseRepresentation<ChiefRepresentation>(422,"Bad Entity",null);
         }
     }
 }

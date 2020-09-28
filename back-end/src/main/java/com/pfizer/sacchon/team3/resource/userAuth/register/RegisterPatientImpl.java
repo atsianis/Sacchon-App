@@ -9,10 +9,10 @@ import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
 import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedPatientRepresentation;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
-import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import java.util.Date;
@@ -40,11 +40,16 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
     }
 
     @Override
-    public PatientRepresentation add(CreatedOrUpdatedPatientRepresentation patientRepresentation) throws BadEntityException {
+    public ResponseRepresentation<PatientRepresentation> add(CreatedOrUpdatedPatientRepresentation patientRepresentation){
         LOGGER.info("Add a new patient.");
         // Check entity
-        ResourceValidator.notNull(patientRepresentation);
-        ResourceValidator.validatePatient(patientRepresentation);
+        try{
+            ResourceValidator.notNull(patientRepresentation);
+            ResourceValidator.validatePatient(patientRepresentation);
+        }catch(BadEntityException ex){
+            return new ResponseRepresentation<PatientRepresentation>(422,"Bad Entity",null);
+        }
+
         LOGGER.info("Patient checked");
 
         try {
@@ -74,7 +79,7 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
                 if (patientOut.isPresent())
                     patients = patientOut.get();
                 else
-                    throw new BadEntityException("Patient has not been created");
+                    return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
 
                 PatientRepresentation result = new PatientRepresentation();
                 result.setFirstName(patients.getFirstName());
@@ -89,16 +94,16 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
 
                 LOGGER.finer("Patient successfully added.");
 
-                return result;
+                return new ResponseRepresentation<PatientRepresentation>(200,"Patient registered successfully",result);
             }catch(Exception e){
                 e.printStackTrace();
-                throw new BadEntityException("Patient has incorrect data");
+                return new ResponseRepresentation<PatientRepresentation>(422,"Bad Entity",null);
             }
 
 
         } catch (Exception ex) {
             LOGGER.log(Level.WARNING, "Error when adding a patient", ex);
-            throw new ResourceException(ex);
+            return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
         }
     }
 }
