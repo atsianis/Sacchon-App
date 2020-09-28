@@ -6,7 +6,11 @@ import com.pfizer.sacchon.team3.model.PatientRecords;
 import com.pfizer.sacchon.team3.model.Patients;
 
 import javax.persistence.EntityManager;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 public class DoctorRepository {
 
@@ -150,14 +154,12 @@ public class DoctorRepository {
     }
 
     public List<Doctors> findInactiveDoctors() {
-        List<Doctors> doctors = entityManager.createQuery("from Doctors").getResultList();
+        List<Doctors> doctors = entityManager.createQuery("from Doctors WHERE isDeleted = 0").getResultList();
         List<Doctors> inactiveDoctors = new ArrayList<>();
-        Calendar cDeadline = Calendar.getInstance();
-        Calendar cNow = Calendar.getInstance();
+        Date now = new Date();
         for (Doctors doctor : doctors) {
-            cDeadline.setTime(doctor.getLastActive());
-            cNow.setTime(new Date());
-            if (cNow.compareTo(cDeadline) >= 15)
+            long inactiveDays = TimeUnit.DAYS.convert(Math.abs(doctor.getLastActive().getTime() - now.getTime()), TimeUnit.MILLISECONDS);
+            if (inactiveDays >= 15)
                 inactiveDoctors.add(doctor);
         }
 
