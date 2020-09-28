@@ -14,7 +14,7 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let doctor of doctors" [routerLink]="['/reporter/doctor/', doctor.id]">
-					<td>{{ doctor | json }}</td>
+					<td>{{ doctor.id }}</td>
 					<td>{{ doctor.firstName }}</td>
 					<td>{{ doctor.lastName }}</td>
 					<td>{{ doctor.email }}</td>
@@ -38,7 +38,7 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let patient of patients" [routerLink]="['/reporter/patient/', patient.id]">
-					<td>{{ patient | json }}</td>
+					<td>{{ patient.id }}</td>
 					<td>{{ patient.firstName }}</td>
 					<td>{{ patient.lastName }}</td>
 					<td>{{ patient.email }}</td>
