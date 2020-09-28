@@ -5,6 +5,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UpdateConsultationRepresentation {
-    String comment;
+public class CreatedOrUpdatedConsultRepresentation {
+    private String comment;
 }

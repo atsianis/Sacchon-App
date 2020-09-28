@@ -2,12 +2,14 @@ package com.pfizer.sacchon.team3.resource.consultation;
 
 import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.model.Doctors;
+import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.ConsultationRepository;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
+import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
-import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
+import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedConsultRepresentation;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
@@ -16,30 +18,30 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 public class AddCommentResourceImpl extends ServerResource implements AddCommentResource {
-    public static final Logger LOGGER = Engine.getLogger(DoctorResourceImpl.class);
+    public static final Logger LOGGER = Engine.getLogger(AddCommentResourceImpl.class);
     private long doctor_id;
-    private long consultation_id;
-    private ConsultationRepository consultationRepository;
+    private long patient_id;
+    private PatientRepository patientRepository;
     private DoctorRepository doctorRepository;
-    private ConsultationRepresentation consultationRepresentation;
+    private ConsultationRepository consultationRepository;
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising doctor resource starts");
         try {
-            consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
-            consultationRepresentation = new ConsultationRepresentation();
+            patientRepository = new PatientRepository(JpaUtil.getEntityManager());
             doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
+            consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
             doctor_id = Long.parseLong(getAttribute("did"));
-            consultation_id = Long.parseLong(getAttribute("cid"));
+            patient_id = Long.parseLong(getAttribute("pid"));
         } catch (Exception e) {
-            consultation_id = -1;
+            patient_id = -1;
             doctor_id = -1;
         }
         LOGGER.info("Initialising doctor resource ends");
     }
 
-    public ResponseRepresentation<ConsultationRepresentation> addCommentConsultation(ConsultationRepresentation consultReprIn) {
+    public ResponseRepresentation<ConsultationRepresentation> addCommentConsultation(CreatedOrUpdatedConsultRepresentation consultReprIn) {
         LOGGER.finer("Create a consultation.");
         if (consultReprIn.getComment().isEmpty())
             return new ResponseRepresentation<ConsultationRepresentation>(422, "Bad Entity", null);
@@ -52,52 +54,40 @@ public class AddCommentResourceImpl extends ServerResource implements AddComment
             return new ResponseRepresentation<ConsultationRepresentation>(404, "Doctor not found", null);
         } else {
             doctor = odoctor.get();
-            LOGGER.finer("Doctor allowed to update a consultation.");
+            LOGGER.finer("Doctor found");
         }
         // We have the doctor
-        // Now we find the consultation
+        // Now we find the patient
+        Optional<Patients> opatient = patientRepository.findById(patient_id);
+        Patients patient;
+        setExisting(opatient.isPresent());
+        if (!isExisting()) {
+            LOGGER.config("Patient id does not exist:" + patient_id);
+            return new ResponseRepresentation<ConsultationRepresentation>(404, "Patient not found", null);
+        } else {
+            patient = opatient.get();
+            LOGGER.finer("Patient found");
+        }
+        //Check if this patient belongs to this doctor
+        if (!isMyPatient(doctor,patient))
+            return new ResponseRepresentation<ConsultationRepresentation>(401, "Unauthorized ! Cant consult this patient", null);
         try {
-            Optional<Consultations> consultationOut = consultationRepository.findById(consultation_id);
-            Consultations consultation;
-            setExisting(consultationOut.isPresent());
-            // If patientRecord exists, we update it.
-            if (isExisting()) {
-                consultation = consultationOut.get();
-                if (!isMyConsult(doctor, consultation)) {
-                    return new ResponseRepresentation<ConsultationRepresentation>(401, "Unauthorized ! Can't update someone else's consultation", null);
-                }
-                consultation.setComment(consultReprIn.getComment());
-                LOGGER.finer("Update consultation.");
-                // Update Record in DB and retrieve the new one.
-
-                Optional<Consultations> oconsult = consultationRepository.addNewComment(consultation);
-                setExisting(oconsult.isPresent());
-
-                // Create new Consultation with initialized patient_id and Date
-                Consultations consult = consultationRepresentation.createConsultation();
-                consult.setPatient(consultReprIn.getPatient());
-                consult.setTimeCreated(new Date());
-                consult.setDoctor(consultReprIn.getDoctor());
-                // Add consult in db
-                consultationRepository.save(consult);
-
-                if (isExisting()) {
-                    doctor.setLastActive(new Date());
-                    doctorRepository.update(doctor);
-                    return new ResponseRepresentation<ConsultationRepresentation>(200, "Consultation created", new ConsultationRepresentation(oconsult.get()));
-                } else {
-                    return new ResponseRepresentation<ConsultationRepresentation>(404, "Consultation not found", null);
-                }
-            } else {
-                LOGGER.finer("Resource does not exist.");
-                return new ResponseRepresentation<ConsultationRepresentation>(404, "Consultation not found", null);
-            }
+            Consultations consultation = new Consultations();
+            consultation.setDoctor(doctor);
+            consultation.setComment(consultReprIn.getComment());
+            consultation.setPatient(patient);
+            consultation.setTimeCreated(new Date());
+            Optional<Consultations> oconsultation = consultationRepository.save(consultation);
+            setExisting(oconsultation.isPresent());
+            if (isExisting())
+                return new ResponseRepresentation<>(200,"Consultation Created",new ConsultationRepresentation(oconsultation.get()));
+            return new ResponseRepresentation<ConsultationRepresentation>(422, "Consultation could not be created", null);
         } catch (Exception ex) {
-            return new ResponseRepresentation<ConsultationRepresentation>(404, "Consultation not found", null);
+            return new ResponseRepresentation<ConsultationRepresentation>(422, "Consultation could not be created", null);
         }
     }
 
-    private boolean isMyConsult(Doctors d, Consultations c) {
-        return d.getId() == c.getDoctor().getId();
+    private boolean isMyPatient(Doctors d, Patients p) {
+        return p.getDoctor().getId() == d.getId();
     }
 }

@@ -2,6 +2,7 @@ package com.pfizer.sacchon.team3.router;
 
 import com.pfizer.sacchon.team3.resource.chief.lists.*;
 import com.pfizer.sacchon.team3.resource.chief.settings.ChiefResourceImpl;
+import com.pfizer.sacchon.team3.resource.consultation.AddCommentResourceImpl;
 import com.pfizer.sacchon.team3.resource.consultation.ConsultationResourceImpl;
 import com.pfizer.sacchon.team3.resource.consultation.UpdateConsultationResource;
 import com.pfizer.sacchon.team3.resource.doctor.*;
@@ -65,6 +66,7 @@ public class CustomRouter {
         router.attach("/doctor/{id}/available-patients", AllAvailablePatientListResourceImpl.class);
         router.attach("/doctor/{did}/select/patient/{pid}", DoctorSelectionResourceImpl.class);
         router.attach("/doctor/{did}/consultation/{cid}", UpdateConsultationResource.class);
+        router.attach("/doctor/{did}/patient/{pid}", AddCommentResourceImpl.class);
         router.attach("/doctor/{id}/consultable-patients", AllConsultablePatientListResourceImpl.class);
 
         //soft Deletes
