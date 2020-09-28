@@ -8,7 +8,6 @@ import org.restlet.Restlet;
 import org.restlet.data.Protocol;
 import org.restlet.engine.Engine;
 import org.restlet.routing.Router;
-import org.restlet.security.Role;
 
 import java.util.logging.Logger;
 

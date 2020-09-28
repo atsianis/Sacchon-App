@@ -1,11 +1,8 @@
 package com.pfizer.sacchon.team3.repository;
 
 import com.pfizer.sacchon.team3.model.Consultations;
-import com.pfizer.sacchon.team3.model.Doctors;
-import com.pfizer.sacchon.team3.model.PatientRecords;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,13 +23,11 @@ public class ConsultationRepository {
         return entityManager.createQuery("from Consultations").getResultList();
     }
 
-    public List<Consultations> findPatientsConsultations(long id){
-        List<Consultations> consultations = entityManager
+    public List<Consultations> findPatientsConsultations(long id) {
+        return entityManager
                 .createQuery("from Consultations WHERE patient_id = :patient_id ", Consultations.class)
-                .setParameter("patient_id" , id)
+                .setParameter("patient_id", id)
                 .getResultList();
-
-        return consultations;
     }
 
     // save a consultation

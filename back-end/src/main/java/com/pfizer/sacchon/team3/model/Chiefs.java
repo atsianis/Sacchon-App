@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 public class Chiefs {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String firstName;
     private String lastName;

@@ -1,7 +1,6 @@
 package com.pfizer.sacchon.team3.representation;
 
 import com.pfizer.sacchon.team3.model.Consultations;
-import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.model.PatientRecords;
 import lombok.Data;

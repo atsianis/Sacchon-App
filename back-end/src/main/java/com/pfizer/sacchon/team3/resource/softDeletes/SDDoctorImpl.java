@@ -31,14 +31,14 @@ public class SDDoctorImpl extends ServerResource implements SoftDeleteDoctor {
     }
 
     @Override
-    public ResponseRepresentation<DoctorRepresentation> softDelete(DoctorRepresentation doctorRepresentation){
+    public ResponseRepresentation<DoctorRepresentation> softDelete(DoctorRepresentation doctorRepresentation) {
         LOGGER.finer("Soft Delete a doctor.");
         // Check given entity
-        try{
+        try {
             ResourceValidator.notNull(doctorRepresentation);
             ResourceValidator.validateDoctor(doctorRepresentation);
-        }catch(BadEntityException ex){
-            return new ResponseRepresentation<DoctorRepresentation>(422,"Bad Entity Exception",null);
+        } catch (BadEntityException ex) {
+            return new ResponseRepresentation<>(422, "Bad Entity Exception", null);
         }
         LOGGER.finer("Doctor checked");
         try {
@@ -54,18 +54,18 @@ public class SDDoctorImpl extends ServerResource implements SoftDeleteDoctor {
                 if (!doctorsOut.isPresent()) {
                     LOGGER.finer("Doctor does not exist.");
 
-                    return new ResponseRepresentation<DoctorRepresentation>(404,"Doctor not found",null);
+                    return new ResponseRepresentation<>(404, "Doctor not found", null);
                 }
             } else {
                 LOGGER.finer("Doctor does not exist.");
 
-                return new ResponseRepresentation<DoctorRepresentation>(404,"Doctor not found",null);
+                return new ResponseRepresentation<>(404, "Doctor not found", null);
             }
             LOGGER.finer("Doctor successfully updated.");
 
-            return new ResponseRepresentation<DoctorRepresentation>(200,"Doctor has been softly deleted",new DoctorRepresentation(doctorsOut.get()));
+            return new ResponseRepresentation<>(200, "Doctor has been softly deleted", new DoctorRepresentation(doctorsOut.get()));
         } catch (Exception ex) {
-            return new ResponseRepresentation<DoctorRepresentation>(404,"Doctor not found",null);
+            return new ResponseRepresentation<>(404, "Doctor not found", null);
         }
     }
 }

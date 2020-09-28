@@ -7,5 +7,5 @@ import org.restlet.resource.Post;
 
 public interface LoginPatient {
     @Post("json")
-    public ResponseRepresentation<PatientRepresentation> loginPatient (LoginRepresentation loginRepresentation);
+    public ResponseRepresentation<PatientRepresentation> loginPatient(LoginRepresentation loginRepresentation);
 }

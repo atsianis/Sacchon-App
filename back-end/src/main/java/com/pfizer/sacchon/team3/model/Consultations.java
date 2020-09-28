@@ -2,6 +2,7 @@ package com.pfizer.sacchon.team3.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 

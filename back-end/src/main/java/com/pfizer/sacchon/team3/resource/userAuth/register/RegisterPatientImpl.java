@@ -11,6 +11,7 @@ import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedPatientRepresenta
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
+import org.jetbrains.annotations.NotNull;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
@@ -40,14 +41,14 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
     }
 
     @Override
-    public ResponseRepresentation<PatientRepresentation> add(CreatedOrUpdatedPatientRepresentation patientRepresentation){
+    public ResponseRepresentation<PatientRepresentation> add(CreatedOrUpdatedPatientRepresentation patientRepresentation) {
         LOGGER.info("Add a new patient.");
         // Check entity
-        try{
+        try {
             ResourceValidator.notNull(patientRepresentation);
             ResourceValidator.validatePatient(patientRepresentation);
-        }catch(BadEntityException ex){
-            return new ResponseRepresentation<PatientRepresentation>(422,"Bad Entity",null);
+        } catch (BadEntityException ex) {
+            return new ResponseRepresentation<>(422, "Bad Entity", null);
         }
 
         LOGGER.info("Patient checked");
@@ -61,49 +62,53 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
             patientsIn.setPassword(patientRepresentation.getPassword());
             patientsIn.setDob(patientRepresentation.getDob());
             patientsIn.setGender(patientRepresentation.getGender());
-            try {
-                Optional<Patients> patientOut = patientRepository.save(patientsIn);
-                // this savedPatient has ID now
-                Patients savedPatient = patientOut.get();
-                // Create First Consultation which is NULL
-                Consultations consultation = consultationRepresentation.createConsultation();
-                // To make the consultation-patient relationship work, the setted patient must be persisted
-                consultation.setPatient(savedPatient);
-                consultation.setComment(null);
-                consultation.setSeenByPatient(new Date());
-                consultation.setTimeCreated(new Date());
-                // Add consult in db
-                consultationRepository.save(consultation);
 
-                Patients patients = null;
-                if (patientOut.isPresent())
-                    patients = patientOut.get();
-                else
-                    return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
-
-                PatientRepresentation result = new PatientRepresentation();
-                result.setFirstName(patients.getFirstName());
-                result.setLastName(patients.getLastName());
-                result.setEmail(patients.getEmail());
-                result.setPassword(patients.getPassword());
-                result.setDob(patients.getDob());
-                result.setId(patients.getId());
-
-                getResponse().setLocationRef("http://localhost:9000/v1/patient/" + patients.getId());
-                getResponse().setStatus(Status.SUCCESS_CREATED);
-
-                LOGGER.finer("Patient successfully added.");
-
-                return new ResponseRepresentation<PatientRepresentation>(200,"Patient registered successfully",result);
-            }catch(Exception e){
-                e.printStackTrace();
-                return new ResponseRepresentation<PatientRepresentation>(422,"Bad Entity",null);
-            }
-
-
+            return getPatientRepresentationResponseRepresentation(patientsIn);
         } catch (Exception ex) {
             LOGGER.log(Level.WARNING, "Error when adding a patient", ex);
-            return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
+            return new ResponseRepresentation<>(404, "Patient not found", null);
+        }
+    }
+
+    @NotNull
+    private ResponseRepresentation<PatientRepresentation> getPatientRepresentationResponseRepresentation(Patients patientsIn) {
+        try {
+            Optional<Patients> patientOut = patientRepository.save(patientsIn);
+            // this savedPatient has ID now
+            Patients savedPatient = patientOut.get();
+            // Create First Consultation which is NULL
+            Consultations consultation = consultationRepresentation.createConsultation();
+            // To make the consultation-patient relationship work, the setted patient must be persisted
+            consultation.setPatient(savedPatient);
+            consultation.setComment(null);
+            consultation.setSeenByPatient(new Date());
+            consultation.setTimeCreated(new Date());
+            // Add consult in db
+            consultationRepository.save(consultation);
+
+            Patients patients = null;
+            if (patientOut.isPresent())
+                patients = patientOut.get();
+            else
+                return new ResponseRepresentation<>(404, "Patient not found", null);
+
+            PatientRepresentation result = new PatientRepresentation();
+            result.setFirstName(patients.getFirstName());
+            result.setLastName(patients.getLastName());
+            result.setEmail(patients.getEmail());
+            result.setPassword(patients.getPassword());
+            result.setDob(patients.getDob());
+            result.setId(patients.getId());
+
+            getResponse().setLocationRef("http://localhost:9000/v1/patient/" + patients.getId());
+            getResponse().setStatus(Status.SUCCESS_CREATED);
+
+            LOGGER.finer("Patient successfully added.");
+
+            return new ResponseRepresentation<>(200, "Patient registered successfully", result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseRepresentation<>(422, "Bad Entity", null);
         }
     }
 }

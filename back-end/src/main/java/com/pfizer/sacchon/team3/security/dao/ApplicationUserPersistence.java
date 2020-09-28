@@ -2,13 +2,16 @@ package com.pfizer.sacchon.team3.security.dao;
 
 import org.restlet.Context;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Objects;
 
-public class ApplicationUserPersistence   {
+public class ApplicationUserPersistence {
 
     // Singleton pattern.
     private static ApplicationUserPersistence applicationUserPersistence = new ApplicationUserPersistence();
+
     private ApplicationUserPersistence() {
     }
 

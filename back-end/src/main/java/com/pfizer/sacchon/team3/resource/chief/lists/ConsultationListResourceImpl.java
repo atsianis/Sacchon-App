@@ -5,7 +5,6 @@ import com.pfizer.sacchon.team3.repository.ConsultationRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
-import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class ConsultationListResourceImpl extends ServerResource implements ConsultationListResource {
-    public static final Logger LOGGER = Engine.getLogger(DoctorResourceImpl.class);
+    public static final Logger LOGGER = Engine.getLogger(ConsultationListResourceImpl.class);
     private ConsultationRepository consultationRepository;
 
     @Override
@@ -29,16 +28,16 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     }
 
     @Override
-    public ResponseRepresentation<List<ConsultationRepresentation>> getConsultations(){
+    public ResponseRepresentation<List<ConsultationRepresentation>> getConsultations() {
         LOGGER.finer("Select all consultations.");
         try {
             List<Consultations> consultations = consultationRepository.findAll();
             List<ConsultationRepresentation> result = new ArrayList<>();
             consultations.forEach(cons -> result.add(new ConsultationRepresentation(cons)));
 
-            return new ResponseRepresentation<List<ConsultationRepresentation>>(200,"Consultations retrieved",result);
+            return new ResponseRepresentation<>(200, "Consultations retrieved", result);
         } catch (Exception e) {
-            return new ResponseRepresentation<List<ConsultationRepresentation>>(404,"Consultations not found",null);
+            return new ResponseRepresentation<>(404, "Consultations not found", null);
         }
     }
 }

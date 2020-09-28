@@ -33,14 +33,14 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
     }
 
     @Override
-    public ResponseRepresentation<DoctorRepresentation> add(CreatedOrUpdatedDoctorRepresentation createdOrUpdatedDoctorRepresentation){
+    public ResponseRepresentation<DoctorRepresentation> add(CreatedOrUpdatedDoctorRepresentation createdOrUpdatedDoctorRepresentation) {
         LOGGER.finer("Add a new doctor.");
         // Check entity
-        try{
+        try {
             ResourceValidator.notNull(createdOrUpdatedDoctorRepresentation);
             ResourceValidator.validateDoctor(createdOrUpdatedDoctorRepresentation);
-        }catch(BadEntityException ex){
-            return new ResponseRepresentation<DoctorRepresentation>(422,"Bad Entity",null);
+        } catch (BadEntityException ex) {
+            return new ResponseRepresentation<>(422, "Bad Entity", null);
         }
         LOGGER.finer("doctor checked");
         try {
@@ -57,7 +57,7 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
             if (doctorOut.isPresent())
                 doctors = doctorOut.get();
             else
-                return new ResponseRepresentation<DoctorRepresentation>(404,"Doctor not found",null);
+                return new ResponseRepresentation<>(404, "Doctor not found", null);
 
             DoctorRepresentation result = new DoctorRepresentation();
             result.setFirstName(doctors.getFirstName());
@@ -74,10 +74,10 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
 
             LOGGER.finer("doctor successfully added.");
 
-            return new ResponseRepresentation<DoctorRepresentation>(200,"Doctor registered successfully",result);
+            return new ResponseRepresentation<>(200, "Doctor registered successfully", result);
         } catch (Exception ex) {
             LOGGER.log(Level.WARNING, "Error when adding a doctor", ex);
-            return new ResponseRepresentation<DoctorRepresentation>(422,"Bad Entity",null);
+            return new ResponseRepresentation<>(422, "Bad Entity", null);
         }
     }
 }
