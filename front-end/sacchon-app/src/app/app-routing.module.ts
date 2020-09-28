@@ -22,7 +22,6 @@ const routes: Routes = [
 	{ path: 'signup', component: PatientSignUpComponent, canActivate:[ AuthGuard ] },
 	{ path: '404', component: NotfoundComponent },
 	{ path: 'unauthorized', component: UnauthorizedComponent },
-	{ path: '**', redirectTo: '404' }
 ]
 
 @NgModule({
