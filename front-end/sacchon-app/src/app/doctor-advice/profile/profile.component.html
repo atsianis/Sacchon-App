@@ -12,13 +12,11 @@
 					<div class="row align-items-start py-5">
 						<!-- WIP: Get data from local storage -->
 						<div class="col-6"><strong>Name:</strong></div>
-						<div class="col-6">asd</div>
+						<div class="col-6">{{ firstName }}</div>
 						<div class="col-6"><strong>Surname:</strong></div>
-						<div class="col-6">asd</div>
+						<div class="col-6">{{ lastName }}</div>
 						<div class="col-6"><strong>Email:</strong></div>
-						<div class="col-6">asd@asd.asd</div>
-						<div class="col-6"><strong>Gender</strong></div>
-						<div class="col-6">Male</div>
+						<div class="col-6">{{ email }}</div>
 					</div>
 					<div class="row align-items-start py-5">
 						<a [routerLink]="['/doctoradvice/profile/edit']" class="btn btn-block btn-primary my-2 mx-2">Edit Profile</a>
