@@ -38,6 +38,7 @@ export class ReporterLoginComponent implements OnInit {
 					sessionStorage.setItem('firstName', response.data.firstName);
 					sessionStorage.setItem('lastName', response.data.lastName);
 					sessionStorage.setItem('id', response.data.id);
+					sessionStorage.setItem('userType', 'reporter');
 					this.router.navigate(['reporter']);
 				})
 			} else {
