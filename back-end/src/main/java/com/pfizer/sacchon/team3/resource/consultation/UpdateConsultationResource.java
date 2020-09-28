@@ -7,7 +7,7 @@ import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
-import com.pfizer.sacchon.team3.representation.UpdateConsultationRepresentation;
+import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedConsultRepresentation;
 import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
@@ -38,7 +38,7 @@ public class UpdateConsultationResource extends ServerResource implements Update
         LOGGER.info("Initialising doctor resource ends");
     }
 
-    public ResponseRepresentation<ConsultationRepresentation> updateConsultation(UpdateConsultationRepresentation consultReprIn){
+    public ResponseRepresentation<ConsultationRepresentation> updateConsultation(CreatedOrUpdatedConsultRepresentation consultReprIn){
         LOGGER.finer("Update a consultation.");
         if (consultReprIn.getComment().isEmpty())
             return new ResponseRepresentation<ConsultationRepresentation>(422,"Bad Entity",null);
