@@ -11,6 +11,7 @@ import java.util.*;
 public class DoctorRepository {
 
     private EntityManager entityManager;
+    private WrongCredentials wrong_credentials;
 
     public DoctorRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -32,23 +33,22 @@ public class DoctorRepository {
 
     //find all Doctors currently in the web app
     public List<Doctors> findAll() {
-        List<Doctors> doctors = entityManager
+        return entityManager
                 .createQuery("from Doctors WHERE isDeleted = 0", Doctors.class)
                 .getResultList();
-        return doctors;
     }
 
 
     public Optional<Doctors> findByEmailAndPass(String email, String password) throws WrongCredentials {
-        try{
+        try {
             Doctors doctor = entityManager.createQuery("from Doctors  WHERE email = :email " + "and password = :password", Doctors.class)
                     .setParameter("email", email)
                     .setParameter("password", password)
                     .getSingleResult();
 
             return doctor != null ? Optional.of(doctor) : Optional.empty();
-        }catch (Exception e){
-            throw new WrongCredentials("wrong credentials");
+        } catch (Exception e) {
+            throw wrong_credentials;
         }
     }
 
@@ -109,34 +109,31 @@ public class DoctorRepository {
 
     // Get Doctor's Patients
     public List<Patients> myPatients(Long id) {
-        List<Patients> myPatients = entityManager.createQuery("from Patients WHERE doctor_id = :id",Patients.class)
+        return entityManager.createQuery("from Patients WHERE doctor_id = :id", Patients.class)
                 .setParameter("id", id)
                 .getResultList();
-        return myPatients;
     }
 
     // Get available Patients
     public List<Patients> availablePatientsFromTo(Date from, Date to) {
-        List<Patients> availblePatients = entityManager.createQuery("from Patients patient WHERE patient.canBeExamined = true  " +
+        return entityManager.createQuery("from Patients patient WHERE patient.canBeExamined = true  " +
                 "and patient.doctor_id = null" +
-                "and patient.creationDate >= :fromDate and patient.creationDate <= :toDate",Patients.class)
+                "and patient.creationDate >= :fromDate and patient.creationDate <= :toDate", Patients.class)
                 .setParameter("fromDate", from)
                 .setParameter("toDate", to)
                 .getResultList();
-        return availblePatients;
     }
 
     public List<PatientRecords> patientRecords(Long id) {
-        List<PatientRecords> patientsRecords = entityManager.createQuery("from PatientRecords patientRec WHERE patientRec.patient_id = :id", PatientRecords.class)
+        return entityManager.createQuery("from PatientRecords patientRec WHERE patientRec.patient_id = :id", PatientRecords.class)
                 .setParameter("id", id)
                 .getResultList();
-        return patientsRecords;
     }
 
     public Optional<Doctors> softDelete(Doctors d) {
         Doctors doctorsIn = entityManager.find(Doctors.class, d.getId());
         doctorsIn.setDeleted(true);
-        for(Patients patient : doctorsIn.getPatients()){
+        for (Patients patient : doctorsIn.getPatients()) {
             patient.setDoctor(null);
             patientRepository.update(patient);
         }
@@ -157,7 +154,7 @@ public class DoctorRepository {
         List<Doctors> inactiveDoctors = new ArrayList<>();
         Calendar cDeadline = Calendar.getInstance();
         Calendar cNow = Calendar.getInstance();
-        for(Doctors doctor: doctors) {
+        for (Doctors doctor : doctors) {
             cDeadline.setTime(doctor.getLastActive());
             cNow.setTime(new Date());
             if (cNow.compareTo(cDeadline) >= 15)

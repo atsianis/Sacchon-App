@@ -5,7 +5,6 @@ import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
-import com.pfizer.sacchon.team3.resource.doctor.InactiveDoctorsImpl;
 import org.hibernate.Hibernate;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
@@ -17,7 +16,7 @@ import java.util.logging.Logger;
 public class InactivePatientsImpl extends ServerResource implements InactivePatients {
 
 
-    public static final Logger LOGGER = Engine.getLogger(InactiveDoctorsImpl.class);
+    public static final Logger LOGGER = Engine.getLogger(InactivePatientsImpl.class);
     private PatientRepository patientRepository;
 
     @Override
@@ -31,7 +30,7 @@ public class InactivePatientsImpl extends ServerResource implements InactivePati
         LOGGER.info("Initialising inactive patients resource ends");
     }
 
-    public ResponseRepresentation<List<PatientRepresentation>> inactivePatients(){
+    public ResponseRepresentation<List<PatientRepresentation>> inactivePatients() {
         LOGGER.finer("Select inactive patients.");
         try {
             List<Patients> patients = patientRepository.findInactivePatients();
@@ -41,9 +40,9 @@ public class InactivePatientsImpl extends ServerResource implements InactivePati
                 result.add(new PatientRepresentation(patient));
             }
 
-            return new ResponseRepresentation<List<PatientRepresentation>>(200,"Patients retrieved",result);
+            return new ResponseRepresentation<>(200, "Patients retrieved", result);
         } catch (Exception e) {
-            return new ResponseRepresentation<List<PatientRepresentation>>(404,"Patients not found",null);
+            return new ResponseRepresentation<>(404, "Patients not found", null);
         }
     }
 }

@@ -28,7 +28,7 @@ public class LoginPatientImpl extends ServerResource implements LoginPatient {
     }
 
     @Override
-    public ResponseRepresentation<PatientRepresentation> loginPatient(LoginRepresentation loginRepresentation){
+    public ResponseRepresentation<PatientRepresentation> loginPatient(LoginRepresentation loginRepresentation) {
         LOGGER.info("Login Patient");
         // Initialize the persistence layer
         Patients patient;
@@ -37,16 +37,16 @@ public class LoginPatientImpl extends ServerResource implements LoginPatient {
             setExisting(opPatient.isPresent());
             if (!isExisting()) {
                 LOGGER.config("email does not exist:" + loginRepresentation.getEmail());
-                return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
+                return new ResponseRepresentation<>(404, "Patient not found", null);
             } else {
                 patient = opPatient.get();
                 PatientRepresentation result = new PatientRepresentation(patient);
                 LOGGER.finer("Patient successfully logged in");
 
-                return new ResponseRepresentation<PatientRepresentation>(200,"Logged in",result);
+                return new ResponseRepresentation<>(200, "Logged in", result);
             }
         } catch (Exception ex) {
-            return new ResponseRepresentation<PatientRepresentation>(422,"Bad Entity",null);
+            return new ResponseRepresentation<>(422, "Bad Entity", null);
         }
     }
 }

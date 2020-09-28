@@ -24,31 +24,25 @@ public class PatientRepository {
     }
 
     public List<Patients> findAllPatients() {
-        List<Patients> patients = entityManager
+        return entityManager
                 .createQuery("from Patients WHERE isDeleted = 0", Patients.class)
                 .getResultList();
-
-        return patients;
     }
 
     public List<Patients> findAllConsultablePatients() {
-        List<Patients> patients = entityManager.createQuery("from Patients WHERE canBeExamined = 1 " +
+        return entityManager.createQuery("from Patients WHERE canBeExamined = 1 " +
                 "and doctor_id = null")
                 .getResultList();
-
-        return patients;
     }
 
     public List<Patients> findAllAvailablePatients() {
-        List<Patients> patients = entityManager.createQuery("from Patients WHERE canBeExamined = 0 " +
+        return entityManager.createQuery("from Patients WHERE canBeExamined = 0 " +
                 "and doctor_id = null")
                 .getResultList();
-
-        return patients;
     }
 
     public Optional<Patients> findByEmailAndPass(String email, String password) throws WrongCredentials {
-        try{
+        try {
             Patients patient = entityManager
                     .createQuery("from Patients WHERE email = :email " + "and password = :password", Patients.class)
                     .setParameter("email", email)
@@ -56,7 +50,7 @@ public class PatientRepository {
                     .getSingleResult();
 
             return patient != null ? Optional.of(patient) : Optional.empty();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new WrongCredentials("wrong Credentials");
         }
     }
@@ -127,7 +121,7 @@ public class PatientRepository {
         return Optional.empty();
     }
 
-    public boolean checkLastConsultation(PatientRecords patientRecord,List<Consultations> consultations) {
+    public boolean checkLastConsultation(PatientRecords patientRecord, List<Consultations> consultations) {
         //sorts the consultation list in reverse order
         //element at index 0 is the most recent
         Collections.reverse(consultations);
@@ -147,7 +141,7 @@ public class PatientRepository {
         return c1.compareTo(c2) > 0; // canBeExamined = true notification
     }
 
-    public boolean checkPatientsCreationTime(PatientRecords patientRecord,Date patientsCreationDate){
+    public boolean checkPatientsCreationTime(PatientRecords patientRecord, Date patientsCreationDate) {
         return patientRecord.getTimeCreated().compareTo(patientsCreationDate) > 0;
     }
 
@@ -156,7 +150,7 @@ public class PatientRepository {
         List<Patients> inactivePatients = new ArrayList<>();
         Calendar cDeadline = Calendar.getInstance();
         Calendar cNow = Calendar.getInstance();
-        for(Patients patient: patients) {
+        for (Patients patient : patients) {
             cDeadline.setTime(patient.getLastActive());
             cNow.setTime(new Date());
             if (cNow.compareTo(cDeadline) >= 15)

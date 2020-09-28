@@ -28,7 +28,7 @@ public class LoginChiefImpl extends ServerResource implements LoginChief {
     }
 
     @Override
-    public ResponseRepresentation<ChiefRepresentation> loginChief(LoginRepresentation loginRepresentation){
+    public ResponseRepresentation<ChiefRepresentation> loginChief(LoginRepresentation loginRepresentation) {
         LOGGER.info("Login chief");
         // Initialize the persistence layer
         Chiefs chief;
@@ -37,16 +37,16 @@ public class LoginChiefImpl extends ServerResource implements LoginChief {
             setExisting(opChief.isPresent());
             if (!isExisting()) {
                 LOGGER.config("email does not exist:" + loginRepresentation.getEmail());
-                return new ResponseRepresentation<ChiefRepresentation>(401,"chief not found",null);
+                return new ResponseRepresentation<>(401, "chief not found", null);
             } else {
                 chief = opChief.get();
                 ChiefRepresentation result = new ChiefRepresentation(chief);
                 LOGGER.finer("chief successfully logged in");
 
-                return new ResponseRepresentation<ChiefRepresentation>(200,"logged in",result);
+                return new ResponseRepresentation<>(200, "logged in", result);
             }
         } catch (Exception ex) {
-            return new ResponseRepresentation<ChiefRepresentation>(422,"Bad Entity",null);
+            return new ResponseRepresentation<>(422, "Bad Entity", null);
         }
     }
 }

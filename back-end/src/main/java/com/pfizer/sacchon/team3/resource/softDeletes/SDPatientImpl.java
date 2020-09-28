@@ -31,14 +31,14 @@ public class SDPatientImpl extends ServerResource implements SoftDeletePatient {
     }
 
     @Override
-    public ResponseRepresentation<PatientRepresentation> softDelete(PatientRepresentation patientRepresentation){
+    public ResponseRepresentation<PatientRepresentation> softDelete(PatientRepresentation patientRepresentation) {
         LOGGER.finer("Soft Delete a patient.");
         // Check given entity
-        try{
+        try {
             ResourceValidator.notNull(patientRepresentation);
             ResourceValidator.validatePatient(patientRepresentation);
-        }catch(BadEntityException ex){
-            return new ResponseRepresentation<PatientRepresentation>(422,"Bad Entity Exception",null);
+        } catch (BadEntityException ex) {
+            return new ResponseRepresentation<>(422, "Bad Entity Exception", null);
         }
 
         LOGGER.finer("Patient checked");
@@ -57,17 +57,17 @@ public class SDPatientImpl extends ServerResource implements SoftDeletePatient {
                 // means that the id is wrong.
                 if (!patientOut.isPresent()) {
                     LOGGER.finer("Patient does not exist.");
-                    return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
+                    return new ResponseRepresentation<>(404, "Patient not found", null);
                 }
             } else {
                 LOGGER.finer("Patient does not exist.");
-                return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
+                return new ResponseRepresentation<>(404, "Patient not found", null);
             }
             LOGGER.finer("Patient successfully updated.");
 
-            return new ResponseRepresentation<PatientRepresentation>(404,"Patient has been softly deleted",new PatientRepresentation(patientOut.get()));
+            return new ResponseRepresentation<>(404, "Patient has been softly deleted", new PatientRepresentation(patientOut.get()));
         } catch (Exception ex) {
-            return new ResponseRepresentation<PatientRepresentation>(404,"Patient not found",null);
+            return new ResponseRepresentation<>(404, "Patient not found", null);
         }
     }
 }

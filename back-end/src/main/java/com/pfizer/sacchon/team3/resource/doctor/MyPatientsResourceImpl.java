@@ -39,9 +39,9 @@ public class MyPatientsResourceImpl extends ServerResource implements Mypatients
             List<PatientRepresentation> result = new ArrayList<>();
             patients.forEach(patient -> result.add(new PatientRepresentation(patient)));
 
-            return new ResponseRepresentation<List<PatientRepresentation>>(200,"Patients retrieved",result);
+            return new ResponseRepresentation<>(200,"Patients retrieved",result);
         } catch (Exception e) {
-            return new ResponseRepresentation<List<PatientRepresentation>>(404,"Not found",null);
+            return new ResponseRepresentation<>(404,"Not found",null);
         }
     }
 }

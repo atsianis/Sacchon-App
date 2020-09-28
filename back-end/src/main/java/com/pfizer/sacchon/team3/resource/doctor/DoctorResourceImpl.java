@@ -35,17 +35,17 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
 
     // GET a doctor
     @Override
-    public ResponseRepresentation<DoctorRepresentation> getDoctor(){
+    public ResponseRepresentation<DoctorRepresentation> getDoctor() {
         LOGGER.info("Retrieve a doctor");
         // Initialize the persistence layer.
-        DoctorRepository doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
+        doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
         Doctors doctor;
         try {
             Optional<Doctors> opDoctor = doctorRepository.findById(id);
             setExisting(opDoctor.isPresent());
             if (!isExisting()) {
                 LOGGER.config("doctor id does not exist:" + id);
-                return new ResponseRepresentation<DoctorRepresentation>(404,"Doctor not found",null);
+                return new ResponseRepresentation<>(404, "Doctor not found", null);
             } else {
                 doctor = opDoctor.get();
                 Hibernate.initialize(doctor.getPatients());
@@ -54,44 +54,44 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
                 DoctorRepresentation result = new DoctorRepresentation(doctor);
                 LOGGER.finer("Doctor successfully retrieved");
 
-                return new ResponseRepresentation<DoctorRepresentation>(200,"Doctor successfully retrieved",result);
+                return new ResponseRepresentation<>(200, "Doctor successfully retrieved", result);
 
             }
         } catch (Exception ex) {
-            return new ResponseRepresentation<DoctorRepresentation>(404,"Doctor not found",null);
+            return new ResponseRepresentation<>(404, "Doctor not found", null);
         }
     }
 
     // DELETE Doctor
     @Override
-    public ResponseRepresentation<DoctorRepresentation> remove(){
+    public ResponseRepresentation<DoctorRepresentation> remove() {
         LOGGER.finer("Removal of doctor");
         try {
             Boolean isDeleted = doctorRepository.remove(id);
             if (!isDeleted) {
                 LOGGER.config("Doctor id does not exist");
-                return new ResponseRepresentation<DoctorRepresentation>(404,"Doctor not found",null);
+                return new ResponseRepresentation<>(404, "Doctor not found", null);
 
             }
             LOGGER.finer("Doctor successfully removed.");
         } catch (Exception ex) {
             LOGGER.log(Level.WARNING, "Error when removing a doctor", ex);
-            return new ResponseRepresentation<DoctorRepresentation>(404,"Doctor not found",null);
+            return new ResponseRepresentation<>(404, "Doctor not found", null);
         }
 
-        return new ResponseRepresentation<DoctorRepresentation>(200,"Doctor deleted updated",null);
+        return new ResponseRepresentation<>(200, "Doctor deleted updated", null);
     }
 
     // UPDATE Doctor
     @Override
-    public ResponseRepresentation<DoctorRepresentation> updateDoctor(CreatedOrUpdatedDoctorRepresentation doctorReprIn){
+    public ResponseRepresentation<DoctorRepresentation> updateDoctor(CreatedOrUpdatedDoctorRepresentation doctorReprIn) {
         LOGGER.finer("Update a doctor.");
         // Check given entity
-        try{
+        try {
             ResourceValidator.notNull(doctorReprIn);
             ResourceValidator.validateDoctor(doctorReprIn);
-        }catch(BadEntityException ex){
-            return new ResponseRepresentation<DoctorRepresentation>(422,"Bad Entity",null);
+        } catch (BadEntityException ex) {
+            return new ResponseRepresentation<>(422, "Bad Entity", null);
         }
 
         LOGGER.finer("Doctor checked");
@@ -111,16 +111,16 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
                 // means that the id is wrong.
                 if (!doctorOut.isPresent()) {
                     LOGGER.finer("Doctor does not exist.");
-                    return new ResponseRepresentation<DoctorRepresentation>(404,"Doctor not found",null);
+                    return new ResponseRepresentation<>(404, "Doctor not found", null);
                 }
             } else {
                 LOGGER.finer("Resource does not exist.");
-                return new ResponseRepresentation<DoctorRepresentation>(404,"Doctor not found",null);
+                return new ResponseRepresentation<>(404, "Doctor not found", null);
             }
             LOGGER.finer("Doctor successfully updated.");
-            return new ResponseRepresentation<DoctorRepresentation>(200,"Doctor successfully updated",new DoctorRepresentation(doctorOut.get()));
+            return new ResponseRepresentation<>(200, "Doctor successfully updated", new DoctorRepresentation(doctorOut.get()));
         } catch (Exception ex) {
-            return new ResponseRepresentation<DoctorRepresentation>(404,"Doctor not found",null);
+            return new ResponseRepresentation<>(404, "Doctor not found", null);
         }
     }
 }

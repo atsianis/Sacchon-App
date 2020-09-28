@@ -8,8 +8,6 @@ import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
 import org.restlet.resource.Put;
 
-import java.util.List;
-
 public interface PatientRecordResource {
 
     @Get("json")

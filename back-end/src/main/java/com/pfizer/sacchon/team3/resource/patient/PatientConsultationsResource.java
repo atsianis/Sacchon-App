@@ -1,6 +1,5 @@
 package com.pfizer.sacchon.team3.resource.patient;
 
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.resource.Get;

@@ -1,7 +1,6 @@
 package com.pfizer.sacchon.team3.representation;
 
 import com.pfizer.sacchon.team3.model.Chiefs;
-import com.pfizer.sacchon.team3.model.Patients;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,7 +24,6 @@ public class ChiefRepresentation {
     }
 
     public Chiefs createChief() {
-        Patients p = new Patients();
         Chiefs c = new Chiefs();
         c.setFirstName(this.firstName);
         c.setLastName(this.lastName);

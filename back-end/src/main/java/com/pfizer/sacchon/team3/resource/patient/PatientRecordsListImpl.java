@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PatientRecordsListImpl extends ServerResource implements PatientRecordsList {
@@ -35,50 +34,47 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
             patientRecordRepository = new PatientRecordRepository(JpaUtil.getEntityManager());
             patientRepository = new PatientRepository(JpaUtil.getEntityManager());
             id = Long.parseLong(getAttribute("id"));
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         LOGGER.info("Initialising patient record resource L ends");
     }
 
     @Override
-    public ResponseRepresentation<List<PatientRecordRepresentation>> getAllPatientRecords(){
+    public ResponseRepresentation<List<PatientRecordRepresentation>> getAllPatientRecords() {
         LOGGER.finer("Select all records.");
-        try{
+        try {
             List<PatientRecords> patientRecords = patientRecordRepository.findAllPatientRecords();
             List<PatientRecordRepresentation> result = new ArrayList<>();
 
-            for(PatientRecords p : patientRecords)
+            for (PatientRecords p : patientRecords)
                 result.add(new PatientRecordRepresentation(p));
 
-            return new ResponseRepresentation<List<PatientRecordRepresentation>>(200,"Records retrieved",result);
-        }
-        catch(Exception e)
-        {
-            return new ResponseRepresentation<List<PatientRecordRepresentation>>(404,"Records not found",null);
+            return new ResponseRepresentation<>(200, "Records retrieved", result);
+        } catch (Exception e) {
+            return new ResponseRepresentation<>(404, "Records not found", null);
         }
     }
 
     @Override
-    public ResponseRepresentation<PatientRecordRepresentation> storeData(PatientRecordRepresentation patientRecordRepresentation){
+    public ResponseRepresentation<PatientRecordRepresentation> storeData(PatientRecordRepresentation patientRecordRepresentation) {
         LOGGER.finer("Add a new record.");
-        if (patientRecordRepresentation.getCarbs()==0 || patientRecordRepresentation.getGlycose()==0)
-            return new ResponseRepresentation<PatientRecordRepresentation>(422,"Bad Entity",null);
+        if (patientRecordRepresentation.getCarbs() == 0 || patientRecordRepresentation.getGlycose() == 0)
+            return new ResponseRepresentation<>(422, "Bad Entity", null);
         // get patient
         Optional<Patients> opatient = patientRepository.findById(id);
-        if (opatient.isPresent()){
+        if (opatient.isPresent()) {
             // Check entity
             // Convert to PatientRepr so a validation can procceed
             Patients patient = opatient.get();
             PatientRepresentation pr = new PatientRepresentation();
             pr.setLastName(patient.getLastName());
             pr.setFirstName(patient.getFirstName());
-            try{
+            try {
                 ResourceValidator.notNull(patientRecordRepresentation);
                 ResourceValidator.validatePatient(pr);
-            }catch(BadEntityException ex){
-                return new ResponseRepresentation<PatientRecordRepresentation>(422,"Bad Entity",null);
+            } catch (BadEntityException ex) {
+                return new ResponseRepresentation<>(422, "Bad Entity", null);
             }
 
             LOGGER.finer("Patient checked");
@@ -92,20 +88,19 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
                 patientRecordsIn.setPatient(patient);
 
                 // Check if patient can add PatientRecord
-                boolean lastConsultationLessThanAMonthAgo = patientRepository.checkLastConsultation(patientRecordsIn,patient.getConsultations());
-                boolean recordTimeMoreRecentThanPatientsCreationTime = patientRepository.checkPatientsCreationTime(patientRecordsIn,patient.getTimeCreated());
+                boolean lastConsultationLessThanAMonthAgo = patientRepository.checkLastConsultation(patientRecordsIn, patient.getConsultations());
+                boolean recordTimeMoreRecentThanPatientsCreationTime = patientRepository.checkPatientsCreationTime(patientRecordsIn, patient.getTimeCreated());
 
-                if(lastConsultationLessThanAMonthAgo && recordTimeMoreRecentThanPatientsCreationTime) {
+                if (lastConsultationLessThanAMonthAgo && recordTimeMoreRecentThanPatientsCreationTime) {
                     Optional<PatientRecords> patientRecordsOut = patientRecordRepository.save(patientRecordsIn);
                     PatientRecords patientRecords = null;
-                    if(patientRecordsOut.isPresent()) {
+                    if (patientRecordsOut.isPresent()) {
                         patientRecords = patientRecordsOut.get();
                         // change patients last activity field
                         patient.setLastActive(new Date());
                         patientRepository.update(patient);
-                    }
-                    else
-                        return new ResponseRepresentation<PatientRecordRepresentation>(404,"Record not found",null);
+                    } else
+                        return new ResponseRepresentation<>(404, "Record not found", null);
 
                     //Convert PatientRecord to PatientRecordRepr
                     PatientRecordRepresentation result = new PatientRecordRepresentation();
@@ -114,22 +109,21 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
                     result.setTimeCreated(patientRecords.getTimeCreated());
                     result.setId(patientRecords.getId());
 
-                    getResponse().setLocationRef("http://localhost:9000/v1/patient/"+patient.getId()+"/storeData/patientRecord/"+patientRecords.getId());
+                    getResponse().setLocationRef("http://localhost:9000/v1/patient/" + patient.getId() + "/storeData/patientRecord/" + patientRecords.getId());
                     getResponse().setStatus(Status.SUCCESS_CREATED);
 
                     LOGGER.finer("Record successfully added.");
 
-                    return new ResponseRepresentation<PatientRecordRepresentation>(404,"Record created",result);
+                    return new ResponseRepresentation<>(404, "Record created", result);
                 } else {
-                    return new ResponseRepresentation<PatientRecordRepresentation>(422,"Bad Record Date",null);
+                    return new ResponseRepresentation<>(422, "Bad Record Date", null);
                 }
 
             } catch (Exception ex) {
-                LOGGER.log(Level.WARNING, "Error when adding a Record", ex);
                 throw new ResourceException(ex);
             }
-        }else{
-            return new ResponseRepresentation<PatientRecordRepresentation>(404,"Not found",null);
+        } else {
+            return new ResponseRepresentation<>(404, "Not found", null);
         }
     }
 }

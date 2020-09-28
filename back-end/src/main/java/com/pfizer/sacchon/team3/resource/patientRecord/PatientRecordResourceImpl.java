@@ -35,32 +35,32 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
     }
 
     @Override
-    public ResponseRepresentation<PatientRecordRepresentation> getRecord(){
+    public ResponseRepresentation<PatientRecordRepresentation> getRecord() {
         LOGGER.info("Retrieve a Record");
         // Initialize the persistence layer.
-        PatientRecordRepository patientRecordRepository = new PatientRecordRepository(JpaUtil.getEntityManager());
+        patientRecordRepository = new PatientRecordRepository(JpaUtil.getEntityManager());
         PatientRecords patientRecords;
         try {
             Optional<PatientRecords> opPatientRec = patientRecordRepository.findById(record_id);
             setExisting(opPatientRec.isPresent());
             if (!isExisting()) {
                 LOGGER.config("record id does not exist:" + record_id);
-                return new ResponseRepresentation<PatientRecordRepresentation>(404,"Record not found",null);
+                return new ResponseRepresentation<>(404, "Record not found", null);
             } else {
                 patientRecords = opPatientRec.get();
                 LOGGER.finer("User allowed to retrieve a record.");
                 PatientRecordRepresentation result = new PatientRecordRepresentation(patientRecords);
                 LOGGER.finer("Record successfully retrieved");
 
-                return new ResponseRepresentation<PatientRecordRepresentation>(200,"Record found",result);
+                return new ResponseRepresentation<>(200, "Record found", result);
             }
         } catch (Exception ex) {
-            return new ResponseRepresentation<PatientRecordRepresentation>(404,"Record not found",null);
+            return new ResponseRepresentation<>(404, "Record not found", null);
         }
     }
 
     @Override
-    public ResponseRepresentation<PatientRecordRepresentation> remove(){
+    public ResponseRepresentation<PatientRecordRepresentation> remove() {
         LOGGER.finer("Removal of record");
         try {
             // Delete record in DB: return true if deleted
@@ -69,25 +69,25 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
             // be wrong
             if (!isDeleted) {
                 LOGGER.config("Record id does not exist");
-                return new ResponseRepresentation<PatientRecordRepresentation>(404,"Record not found",null);
+                return new ResponseRepresentation<>(404, "Record not found", null);
             }
             LOGGER.finer("Record successfully removed.");
         } catch (Exception ex) {
             LOGGER.log(Level.WARNING, "Error when removing a record", ex);
-            return new ResponseRepresentation<PatientRecordRepresentation>(404,"Record not found",null);
+            return new ResponseRepresentation<>(404, "Record not found", null);
         }
 
-        return new ResponseRepresentation<PatientRecordRepresentation>(200,"Record deleted",null);
+        return new ResponseRepresentation<>(200, "Record deleted", null);
     }
 
     @Override
-    public ResponseRepresentation<PatientRecordRepresentation> updateRecord(PatientRecordRepresentation patientRecordRepresentation){
+    public ResponseRepresentation<PatientRecordRepresentation> updateRecord(PatientRecordRepresentation patientRecordRepresentation) {
         LOGGER.finer("Update a record.");
         // Check given entity
-        try{
+        try {
             ResourceValidator.notNull(patientRecordRepresentation);
-        }catch(BadEntityException ex){
-            return new ResponseRepresentation<PatientRecordRepresentation>(422,"Bad Entity",null);
+        } catch (BadEntityException ex) {
+            return new ResponseRepresentation<>(422, "Bad Entity", null);
         }
 
         LOGGER.finer("Patient checked");
@@ -106,17 +106,17 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
                 // means that the id is wrong.
                 if (!patientRecordsOut.isPresent()) {
                     LOGGER.finer("Record does not exist.");
-                    return new ResponseRepresentation<PatientRecordRepresentation>(404,"Record not found",null);
+                    return new ResponseRepresentation<>(404, "Record not found", null);
                 }
             } else {
                 LOGGER.finer("Record does not exist.");
-                return new ResponseRepresentation<PatientRecordRepresentation>(404,"Record not found",null);
+                return new ResponseRepresentation<>(404, "Record not found", null);
             }
             LOGGER.finer("Record successfully updated.");
 
-            return new ResponseRepresentation<PatientRecordRepresentation>(200,"Record updated",new PatientRecordRepresentation(patientRecordsOut.get()));
+            return new ResponseRepresentation<>(200, "Record updated", new PatientRecordRepresentation(patientRecordsOut.get()));
         } catch (Exception ex) {
-            return new ResponseRepresentation<PatientRecordRepresentation>(404,"Record not found",null);
+            return new ResponseRepresentation<>(404, "Record not found", null);
         }
     }
 }

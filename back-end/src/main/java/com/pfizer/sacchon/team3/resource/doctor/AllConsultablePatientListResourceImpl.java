@@ -40,9 +40,9 @@ public class AllConsultablePatientListResourceImpl extends ServerResource implem
                 result.add(new PatientRepresentation(patient));
             }
 
-            return new ResponseRepresentation<List<PatientRepresentation>>(200,"Patients retrieved",result);
+            return new ResponseRepresentation<>(200, "Patients retrieved", result);
         } catch (Exception e) {
-            return new ResponseRepresentation<List<PatientRepresentation>>(404,"Patients not found",null);
+            return new ResponseRepresentation<>(404, "Patients not found", null);
         }
     }
 }

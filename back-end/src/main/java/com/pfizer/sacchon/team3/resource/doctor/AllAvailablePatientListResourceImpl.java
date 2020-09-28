@@ -29,7 +29,7 @@ public class AllAvailablePatientListResourceImpl extends ServerResource implemen
     }
 
     @Override
-    public ResponseRepresentation<List<PatientRepresentation>> getAllAvailablePatients(){
+    public ResponseRepresentation<List<PatientRepresentation>> getAllAvailablePatients() {
         LOGGER.finer("Select available patients.");
         try {
             List<Patients> patients = patientRepository.findAllAvailablePatients();
@@ -39,9 +39,9 @@ public class AllAvailablePatientListResourceImpl extends ServerResource implemen
                 result.add(new PatientRepresentation(patient));
             }
 
-            return new ResponseRepresentation<List<PatientRepresentation>>(200,"Patients retrieved",result);
+            return new ResponseRepresentation<>(200, "Patients retrieved", result);
         } catch (Exception e) {
-            return new ResponseRepresentation<List<PatientRepresentation>>(404,"Patients not found",null);
+            return new ResponseRepresentation<>(404, "Patients not found", null);
         }
     }
 }

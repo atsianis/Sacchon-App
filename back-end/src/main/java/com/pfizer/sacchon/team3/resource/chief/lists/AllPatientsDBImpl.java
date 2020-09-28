@@ -35,7 +35,6 @@ public class AllPatientsDBImpl extends ServerResource implements AllPatientsDB {
             for (Patients patient : patients)
                 if (!patient.isDeleted())
                     result.add(new PatientRepresentation(patient));
-            //patients.forEach(patient -> result.add(new PatientRepresentation(patient)));
 
             return result;
         } catch (Exception e) {

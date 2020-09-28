@@ -2,6 +2,7 @@
 	style="width:100%">
 	<thead>
 		<tr>
+			<th>ID</th>
 			<th>firstName</th>
 			<th>lastName</th>
 			<th>email</th>
@@ -12,14 +13,15 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let patient of patients" [routerLink]="['/doctoradvice/patient/', patient.id]">
+		<tr *ngFor="let patient of patients" [routerLink]="['/reporter/patient/', patient.id]">
+			<td>{{ patient.id }}</td>
 			<td>{{ patient.firstName }}</td>
 			<td>{{ patient.lastName }}</td>
 			<td>{{ patient.email }}</td>
-			<td>{{ patient.dob }}</td>
+			<td>{{ birthDate( patient.dob ) }}</td>
 			<td>{{ patient.canBeExamined }}</td>
 			<td>{{ patient.gender }}</td>
-			<td>{{ patient.lastActive }}</td>
+			<td>{{ lastActive( patient.lastActive ) }}</td>
 		</tr>
 	</tbody>
 </table>

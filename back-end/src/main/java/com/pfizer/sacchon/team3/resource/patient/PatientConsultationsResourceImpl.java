@@ -37,27 +37,25 @@ public class PatientConsultationsResourceImpl extends ServerResource implements 
     }
 
     @Override
-    public ResponseRepresentation<List<ConsultationRepresentation>> getPatientsConsultations(){
+    public ResponseRepresentation<List<ConsultationRepresentation>> getPatientsConsultations() {
         LOGGER.info("Retrieve patient's consultations");
         try {
             Optional<Patients> opPatient = patientRepository.findById(id);
             setExisting(opPatient.isPresent());
             if (!isExisting()) {
                 LOGGER.config("patient id does not exist:" + id);
-                return new ResponseRepresentation<List<ConsultationRepresentation>>(404,"Consults not found",null);
+                return new ResponseRepresentation<>(404, "Consults not found", null);
             } else {
                 List<Consultations> patientsConsultations = consultationRepository.findPatientsConsultations(id);
                 List<ConsultationRepresentation> result = new ArrayList<>();
                 for (Consultations c : patientsConsultations)
                     result.add(new ConsultationRepresentation(c));
 
-                return new ResponseRepresentation<List<ConsultationRepresentation>>(200,"Consults retrieved",result);
+                return new ResponseRepresentation<>(200, "Consults retrieved", result);
             }
 
         } catch (Exception ex) {
-            return new ResponseRepresentation<List<ConsultationRepresentation>>(404,"Consults not found",null);
+            return new ResponseRepresentation<>(404, "Consults not found", null);
         }
     }
-
-
 }

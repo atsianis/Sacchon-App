@@ -5,17 +5,15 @@
 			<th>firstname</th>
 			<th>lastname</th>
 			<th>email</th>
-			<th>isDeleted</th>
 			<th>lastActive</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr *ngFor="let doctor of doctors" [routerLink]="['/reporter/doctor/', doctor.id]">
-			<td>{{ doctor | json }}</td>
+			<td>{{ doctor.id }}</td>
 			<td>{{ doctor.firstName }}</td>
 			<td>{{ doctor.lastName }}</td>
 			<td>{{ doctor.email }}</td>
-			<td>{{ doctor.deleted }}</td>
-			<td>{{ doctor.lastActive }}</td>
+			<td>{{ lastActive( doctor.lastActive ) }}</td>
 		</tr>
 </table>

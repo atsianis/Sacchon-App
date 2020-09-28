@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import * as moment from 'moment';
 
 @Component({
 	selector: 'sacchon-app-inspect-patient-list',
@@ -11,17 +12,18 @@ import { Color, Label } from 'ng2-charts';
 })
 export class InspectPatientListComponent implements OnInit {
 
+	patientGlycose: any = [];
+	patientCarbs: any = [];
+	patientRecordTimestamp: any = [];
+
 	constructor(private route: ActivatedRoute, private http: HttpClient) { }
 	patient: any;
 
 	// Array of different segments in chart
-	lineChartData: ChartDataSets[] = [
-		{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Carbs (gr)' },
-		{ data: [28, 48, 40, 19, 86, 27, 90], label: 'Glycose (ml)' }
-	];
+	lineChartData: ChartDataSets[] = [];
 
 	//Labels shown on the x-axis
-	lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+	lineChartLabels: Label[] = [];
 
 	// Define chart options
 	lineChartOptions: ChartOptions = {
@@ -60,8 +62,13 @@ export class InspectPatientListComponent implements OnInit {
 
 	getPatientById(): void {
 		this.route.params.subscribe(params => {
-			this.http.get(`https://jsonplaceholder.typicode.com/users/${params.id}`).subscribe(patient => {
+			this.http.get(`http://localhost:9000/v1/patient/${params.id}`).subscribe(patient => {
 				this.patient = patient;
+				this.patient.patientRecords.forEach(record => {
+					this.patientGlycose.push(record.glycose)
+					this.patientCarbs.push(record.carbs)
+					this.patientRecordTimestamp.push(moment.utc(record.timecreated).format("MM/DD/YYYY"))
+				});
 			}, (err) => {
 				console.log('-----> err', err);
 			});
@@ -70,5 +77,10 @@ export class InspectPatientListComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getPatientById();
+		this.lineChartData = [
+			{ data: this.patientCarbs, label: 'Carbs (gr)' },
+			{ data: this.patientGlycose, label: 'Glycose (ml)' }
+		];
+		this.lineChartLabels = this.patientRecordTimestamp;
 	}
 }

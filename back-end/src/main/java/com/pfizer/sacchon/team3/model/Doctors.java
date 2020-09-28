@@ -12,11 +12,11 @@ import java.util.List;
 @Data
 public class Doctors {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String firstName;
     private String lastName;
-    @Column(unique=true)
+    @Column(unique = true)
     private String email;
     private String password;
     private Date lastActive;

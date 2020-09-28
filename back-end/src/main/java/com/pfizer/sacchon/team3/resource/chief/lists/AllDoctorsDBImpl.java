@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class AllDoctorsDBImpl extends ServerResource implements AllDoctorsDB {
-    public static final Logger LOGGER = Engine.getLogger(AllPatientsDBImpl.class);
+    public static final Logger LOGGER = Engine.getLogger(AllDoctorsDBImpl.class);
     private DoctorRepository doctorRepository;
 
     @Override

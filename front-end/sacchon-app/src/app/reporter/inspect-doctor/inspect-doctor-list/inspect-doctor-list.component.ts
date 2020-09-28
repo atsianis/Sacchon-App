@@ -30,7 +30,7 @@ export class InspectDoctorListComponent implements OnInit {
 
 	getDoctorById(): void {
 		this.route.params.subscribe(params => {
-			this.http.get(`https://jsonplaceholder.typicode.com/users/${params.id}`).subscribe(doctor => {
+			this.http.get(`http://localhost:9000/v1/doctor/${params.id}`).subscribe(doctor => {
 				this.doctor = doctor;
 			}, (err) => {
 				console.log('-----> err', err);
