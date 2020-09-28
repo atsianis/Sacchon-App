@@ -8,16 +8,22 @@ import { DoctorAdviceLoginComponent } from './auth/login/doctor-advice-login/doc
 import { ReporterLoginComponent } from './auth/login/reporter-login/reporter-login.component';
 import { ContentComponent } from './content/content.component';
 import { PatientSignUpComponent } from './auth/signup/patient-sign-up/patient-sign-up.component';
+import { AuthGuard } from './auth/auth.guard';
+import { NotfoundComponent } from './generic/notfound/notfound.component';
+import { UnauthorizedComponent } from './generic/unauthorized/unauthorized.component';
 
 const routes: Routes = [
 	// Main routes
-	{ path: '', component: ContentComponent },
-	{ path: 'login', component: LoginComponent },
-	{ path: 'login/medidatarepo', component: MediDataRepoLoginComponent },
-	{ path: 'login/doctoradvice', component: DoctorAdviceLoginComponent },
-	{ path: 'login/reporter', component: ReporterLoginComponent },
-	{ path: 'signup', component: PatientSignUpComponent },
-];
+	{ path: '', component: ContentComponent, canActivate:[ AuthGuard ] },
+	{ path: 'login', component: LoginComponent, canActivate:[ AuthGuard ] },
+	{ path: 'login/medidatarepo', component: MediDataRepoLoginComponent, canActivate:[ AuthGuard ] },
+	{ path: 'login/doctoradvice', component: DoctorAdviceLoginComponent, canActivate:[ AuthGuard ] },
+	{ path: 'login/reporter', component: ReporterLoginComponent, canActivate:[ AuthGuard ] },
+	{ path: 'signup', component: PatientSignUpComponent, canActivate:[ AuthGuard ] },
+	{ path: '404', component: NotfoundComponent },
+	{ path: 'unauthorized', component: UnauthorizedComponent },
+	{ path: '**', redirectTo: '404' }
+]
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],
