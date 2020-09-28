@@ -1,10 +1,13 @@
 package com.pfizer.sacchon.team3.repository;
 
 import com.pfizer.sacchon.team3.exception.WrongCredentials;
-import com.pfizer.sacchon.team3.model.*;
+import com.pfizer.sacchon.team3.model.Consultations;
+import com.pfizer.sacchon.team3.model.PatientRecords;
+import com.pfizer.sacchon.team3.model.Patients;
 
 import javax.persistence.EntityManager;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class PatientRepository {
     private EntityManager entityManager;
@@ -146,15 +149,14 @@ public class PatientRepository {
     }
 
     public List<Patients> findInactivePatients() {
-        List<Patients> patients = entityManager.createQuery("from Patients").getResultList();
+        List<Patients> patients = entityManager.createQuery("from Patients WHERE isDeleted = 0", Patients.class).getResultList();
         List<Patients> inactivePatients = new ArrayList<>();
-        Calendar cDeadline = Calendar.getInstance();
-        Calendar cNow = Calendar.getInstance();
+        Date now = new Date();
         for (Patients patient : patients) {
-            cDeadline.setTime(patient.getLastActive());
-            cNow.setTime(new Date());
-            if (cNow.compareTo(cDeadline) >= 15)
+            long diff = TimeUnit.DAYS.convert(Math.abs(patient.getLastActive().getTime() - now.getTime()), TimeUnit.MILLISECONDS);
+            if (diff >= 15) {
                 inactivePatients.add(patient);
+            }
         }
 
         return inactivePatients;
