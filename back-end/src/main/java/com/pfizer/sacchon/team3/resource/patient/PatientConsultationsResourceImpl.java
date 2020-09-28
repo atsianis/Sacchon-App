@@ -1,12 +1,12 @@
 package com.pfizer.sacchon.team3.resource.patient;
 
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.ConsultationRepository;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -37,25 +37,25 @@ public class PatientConsultationsResourceImpl extends ServerResource implements 
     }
 
     @Override
-    public List<ConsultationRepresentation> getPatientsConsultations() throws NotFoundException {
+    public ResponseRepresentation<List<ConsultationRepresentation>> getPatientsConsultations(){
         LOGGER.info("Retrieve patient's consultations");
         try {
             Optional<Patients> opPatient = patientRepository.findById(id);
             setExisting(opPatient.isPresent());
             if (!isExisting()) {
                 LOGGER.config("patient id does not exist:" + id);
-                throw new NotFoundException("No patient with  : " + id);
+                return new ResponseRepresentation<List<ConsultationRepresentation>>(404,"Consults not found",null);
             } else {
                 List<Consultations> patientsConsultations = consultationRepository.findPatientsConsultations(id);
                 List<ConsultationRepresentation> result = new ArrayList<>();
                 for (Consultations c : patientsConsultations)
                     result.add(new ConsultationRepresentation(c));
 
-                return result;
+                return new ResponseRepresentation<List<ConsultationRepresentation>>(200,"Consults retrieved",result);
             }
 
         } catch (Exception ex) {
-            throw new ResourceException(ex);
+            return new ResponseRepresentation<List<ConsultationRepresentation>>(404,"Consults not found",null);
         }
     }
 

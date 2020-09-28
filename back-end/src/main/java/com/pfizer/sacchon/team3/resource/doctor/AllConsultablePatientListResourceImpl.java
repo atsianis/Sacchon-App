@@ -5,6 +5,7 @@ import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.hibernate.Hibernate;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
@@ -29,7 +30,7 @@ public class AllConsultablePatientListResourceImpl extends ServerResource implem
     }
 
     @Override
-    public List<PatientRepresentation> getAllConsultablePatients() throws NotFoundException {
+    public ResponseRepresentation<List<PatientRepresentation>> getAllConsultablePatients() throws NotFoundException {
         LOGGER.finer("Select consultable patients.");
         try {
             List<Patients> patients = patientRepository.findAllConsultablePatients();
@@ -39,9 +40,9 @@ public class AllConsultablePatientListResourceImpl extends ServerResource implem
                 result.add(new PatientRepresentation(patient));
             }
 
-            return result;
+            return new ResponseRepresentation<List<PatientRepresentation>>(200,"Patients retrieved",result);
         } catch (Exception e) {
-            throw new NotFoundException("patients not found");
+            return new ResponseRepresentation<List<PatientRepresentation>>(404,"Patients not found",null);
         }
     }
 }

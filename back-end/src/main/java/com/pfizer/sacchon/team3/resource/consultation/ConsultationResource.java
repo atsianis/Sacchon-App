@@ -1,11 +1,11 @@
 package com.pfizer.sacchon.team3.resource.consultation;
 
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.representation.ConsultationRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.resource.Get;
 
 public interface ConsultationResource {
 
     @Get("json")
-    public ConsultationRepresentation getConsultation() throws NotFoundException;
+    public ResponseRepresentation<ConsultationRepresentation> getConsultation();
 }
