@@ -39,7 +39,6 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
             return new ResponseRepresentation<List<ConsultationRepresentation>>(200,"Consultations retrieved",result);
         } catch (Exception e) {
             return new ResponseRepresentation<List<ConsultationRepresentation>>(404,"Consultations not found",null);
-
         }
     }
 }
