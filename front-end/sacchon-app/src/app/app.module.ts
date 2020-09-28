@@ -21,6 +21,8 @@ import { DoctorAdviceLoginComponent } from './auth/login/doctor-advice-login/doc
 import { ReporterLoginComponent } from './auth/login/reporter-login/reporter-login.component';
 import { PatientSignUpComponent } from './auth/signup/patient-sign-up/patient-sign-up.component';
 import { DoctorSignUpComponent } from './auth/signup/doctor-sign-up/doctor-sign-up.component';
+import { UnauthorizedComponent } from './generic/unauthorized/unauthorized.component';
+import { NotfoundComponent } from './generic/notfound/notfound.component';
 
 @NgModule({
 	declarations: [
@@ -34,6 +36,8 @@ import { DoctorSignUpComponent } from './auth/signup/doctor-sign-up/doctor-sign-
 		ReporterLoginComponent,
 		PatientSignUpComponent,
 		DoctorSignUpComponent,
+		UnauthorizedComponent,
+		NotfoundComponent,
 	],
 	imports: [
 		BrowserModule,
