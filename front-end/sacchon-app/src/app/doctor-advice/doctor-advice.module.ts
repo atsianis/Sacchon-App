@@ -10,8 +10,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { PatientComponent } from './patient/patient.component';
 import { PatientListComponent } from './patient/patient-list/patient-list.component';
 import { ConsultComponent } from './consult/consult.component';
-import { ConsultListComponent } from './consult/consult-list/consult-list.component';
-import { ConsultEditComponent } from './consult-edit/consult-edit.component';
+import { ConsultEditComponent } from './consult/consult-edit/consult-edit.component';
+import { AddConsultComponent } from './consult/add-consult/add-consult.component';
 
 
 
@@ -23,8 +23,8 @@ import { ConsultEditComponent } from './consult-edit/consult-edit.component';
 		PatientComponent,
 		PatientListComponent,
 		ConsultComponent,
-		ConsultListComponent,
 		ConsultEditComponent,
+		AddConsultComponent,
 	],
 	imports: [
 		CommonModule,
@@ -37,8 +37,8 @@ import { ConsultEditComponent } from './consult-edit/consult-edit.component';
 			{ path: 'doctoradvice/profile/edit', component: EditProfileComponent },
 			{ path: 'doctoradvice/patients', component: PatientComponent },
 			{ path: 'doctoradvice/patient/:id', component: PatientListComponent },
-			{ path: 'doctoradvice/consult', component: ConsultComponent },
-			{ path: 'doctoradvice/consult/:id', component: ConsultListComponent },
+			{ path: 'doctoradvice/consult/:id', component: ConsultComponent },
+			{ path: 'doctoradvice/consult/:id/add', component: AddConsultComponent },
 			{ path: 'doctoradvice/consult/:id/edit', component: ConsultEditComponent },
 		])
 	],
