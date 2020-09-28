@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { Doctors } from 'src/app/interfaces/doctors';
 
 @Component({
 	selector: 'sacchon-app-inspect-doctor-list',
@@ -30,8 +31,8 @@ export class InspectDoctorListComponent implements OnInit {
 
 	getDoctorById(): void {
 		this.route.params.subscribe(params => {
-			this.http.get(`http://localhost:9000/v1/doctor/${params.id}`).subscribe(doctor => {
-				this.doctor = doctor;
+			this.http.get<Doctors>(`http://localhost:9000/v1/doctor/${params.id}`).subscribe(doctor => {
+				this.doctor = doctor.data;
 			}, (err) => {
 				console.log('-----> err', err);
 			});

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import * as moment from 'moment';
+import { Patients } from 'src/app/interfaces/patients';
 
 @Component({
 	selector: 'sacchon-app-inspect-patient-list',
@@ -62,12 +63,12 @@ export class InspectPatientListComponent implements OnInit {
 
 	getPatientById(): void {
 		this.route.params.subscribe(params => {
-			this.http.get(`http://localhost:9000/v1/patient/${params.id}`).subscribe(patient => {
-				this.patient = patient;
+			this.http.get<Patients>(`http://localhost:9000/v1/patient/${params.id}`).subscribe(patient => {
+				this.patient = patient.data;
 				this.patient.patientRecords.forEach(record => {
 					this.patientGlycose.push(record.glycose)
 					this.patientCarbs.push(record.carbs)
-					this.patientRecordTimestamp.push(moment.utc(record.timecreated).format("MM/DD/YYYY"))
+					this.patientRecordTimestamp.push(moment.utc(record.timecreated).format("MM/DD/YYYY, h:mm:ss a"))
 				});
 			}, (err) => {
 				console.log('-----> err', err);
