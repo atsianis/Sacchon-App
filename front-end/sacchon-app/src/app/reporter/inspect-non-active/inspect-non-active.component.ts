@@ -37,7 +37,7 @@ export class InspectNonActiveComponent implements OnInit {
   }
 
   getInactiveDoctors(): void {
-    this.http.get('http://localhost:9000/v1/reporter/inactivedoctors').subscribe(doctors => {
+    this.http.get('http://localhost:9000/v1/chief/inactivedoctors').subscribe(doctors => {
       this.doctors = doctors;
       this.dtDoctorTrigger.next();
     }, (err) => {
@@ -46,7 +46,7 @@ export class InspectNonActiveComponent implements OnInit {
   }
 
   getInactivePatients(): void {
-    this.http.get('http://localhost:9000/v1/reporter/inactivepatients').subscribe(patients => {
+    this.http.get('http://localhost:9000/v1/chief/inactivepatients').subscribe(patients => {
       this.patients = patients;
       this.dtPatientTrigger.next();
     }, (err) => {
