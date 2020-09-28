@@ -67,7 +67,7 @@ export class PatientListComponent implements OnInit {
 				this.patient.patientRecords.forEach(record => {
 					this.patientGlycose.push(record.glycose)
 					this.patientCarbs.push(record.carbs)
-					this.patientRecordTimestamp.push(moment.utc(record.timecreated).format("MM/DD/YYYY"))
+					this.patientRecordTimestamp.push(moment.utc(record.timecreated).format("MM/DD/YYYY, h:mm:ss a"))
 				});
 			}, (err) => {
 				console.log('-----> err', err);
