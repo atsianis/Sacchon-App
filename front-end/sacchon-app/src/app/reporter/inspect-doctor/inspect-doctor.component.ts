@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
 	selector: 'sacchon-app-inspect-doctor',
@@ -33,5 +34,12 @@ export class InspectDoctorComponent implements OnInit {
 		}, (err) => {
 			console.log('-----> err', err);
 		});
+	}
+
+	lastActive(date: number): string {
+		if (moment().diff(date, "days") > 0)
+			return `${moment().diff(date, "days")} days ago`;
+		else
+			return `${moment().diff(date, "hours")} hours ago`;
 	}
 }
