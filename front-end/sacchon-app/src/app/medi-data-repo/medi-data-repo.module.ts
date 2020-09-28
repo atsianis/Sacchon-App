@@ -10,6 +10,7 @@ import { EditPatientRecordComponent } from './edit-patient-record/edit-patient-r
 import { DataTablesModule } from 'angular-datatables';
 import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
+import { MediDataRepoGuard } from './medi-data-repo.guard';
 
 
 
@@ -28,12 +29,12 @@ import { HttpClientModule } from '@angular/common/http';
 		ChartsModule,
 		HttpClientModule,
 		RouterModule.forChild([
-			{ path: 'medidatarepo', component: MediDataRepoComponent },
-			{ path: 'medidatarepo/profile', component: PatientProfileComponent },
-			{ path: 'medidatarepo/profile/edit', component: PatientEditProfileComponent },
-			{ path: 'medidatarepo/record', component: PatientRecordComponent },
-			{ path: 'medidatarepo/record/add', component: AddPatientRecordComponent },
-			{ path: 'medidatarepo/record/edit', component: EditPatientRecordComponent },
+			{ path: 'medidatarepo', component: MediDataRepoComponent, canActivate: [ MediDataRepoGuard ] },
+			{ path: 'medidatarepo/profile', component: PatientProfileComponent, canActivate: [ MediDataRepoGuard ] },
+			{ path: 'medidatarepo/profile/edit', component: PatientEditProfileComponent, canActivate: [ MediDataRepoGuard ] },
+			{ path: 'medidatarepo/record', component: PatientRecordComponent, canActivate: [ MediDataRepoGuard ] },
+			{ path: 'medidatarepo/record/add', component: AddPatientRecordComponent, canActivate: [ MediDataRepoGuard ] },
+			{ path: 'medidatarepo/record/edit', component: EditPatientRecordComponent, canActivate: [ MediDataRepoGuard ] },
 		])
 	],
 	exports: [
