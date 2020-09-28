@@ -1,4 +1,4 @@
-package com.pfizer.sacchon.team3.resource.chief;
+package com.pfizer.sacchon.team3.resource.chief.lists;
 
 import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
@@ -6,7 +6,7 @@ import org.restlet.resource.Get;
 
 import java.util.List;
 
-public interface AllPatientsList {
+public interface AllPatientsDB {
     @Get("json")
-    public List<PatientRepresentation> getAllPatients() throws NotFoundException;
+    public List<PatientRepresentation> getAllPatientsDB() throws NotFoundException;
 }
