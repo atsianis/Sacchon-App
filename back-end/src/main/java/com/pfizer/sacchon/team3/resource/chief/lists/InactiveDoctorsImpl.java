@@ -36,7 +36,8 @@ public class InactiveDoctorsImpl extends ServerResource implements InactiveDocto
             List<Doctors> doctors = doctorRepository.findInactiveDoctors();
             List<DoctorRepresentation> result = new ArrayList<>();
             for (Doctors doctor : doctors) {
-                Hibernate.initialize(doctor);
+                Hibernate.initialize(doctor.getPatients());
+                Hibernate.initialize(doctor.getConsultations());
                 result.add(new DoctorRepresentation(doctor));
             }
 
