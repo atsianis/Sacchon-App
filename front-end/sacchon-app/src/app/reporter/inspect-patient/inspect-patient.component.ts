@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import * as moment from 'moment';
+import { Patients } from 'src/app/interfaces/patients';
 
 @Component({
 	selector: 'sacchon-app-inspect-patient',
@@ -29,8 +30,8 @@ export class InspectPatientComponent implements OnInit {
 	}
 
 	getPatients(): void {
-		this.http.get('http://localhost:9000/v1/patients').subscribe(patients => {
-			this.patients = patients;
+		this.http.get<Patients>('http://localhost:9000/v1/chief/allpatients').subscribe(patients => {
+			this.patients = patients.data;
 			this.dtTrigger.next();
 		}, (err) => {
 			console.log('-----> err', err);

@@ -16,16 +16,13 @@ export class HeaderComponent implements OnInit {
 		this.isLoggedIn();
 	}
 
-	isLoggedIn(): boolean {
-		return sessionStorage.getItem('firstName') !== null;
+	isLoggedIn(): string {
+		if (sessionStorage.getItem('firstName'))
+		return this.user = sessionStorage.getItem('firstName');
 	}
 
 	signOut(): any {
-		sessionStorage.removeItem('email');
-		sessionStorage.removeItem('password');
-		sessionStorage.removeItem('firstName');
-		sessionStorage.removeItem('lastName');
-		sessionStorage.removeItem('id');
+		sessionStorage.clear();
 		this.router.navigate(['']);
 	}
 
