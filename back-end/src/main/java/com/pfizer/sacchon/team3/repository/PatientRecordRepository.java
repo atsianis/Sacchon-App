@@ -9,6 +9,7 @@ import java.util.Optional;
 public class PatientRecordRepository {
 
     private EntityManager entityManager;
+
     public PatientRecordRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
