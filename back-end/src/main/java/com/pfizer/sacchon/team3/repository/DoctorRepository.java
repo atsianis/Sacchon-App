@@ -4,7 +4,6 @@ import com.pfizer.sacchon.team3.exception.WrongCredentials;
 import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.model.PatientRecords;
 import com.pfizer.sacchon.team3.model.Patients;
-import com.pfizer.sacchon.team3.resource.doctor.InactiveDoctors;
 
 import javax.persistence.EntityManager;
 import java.util.*;

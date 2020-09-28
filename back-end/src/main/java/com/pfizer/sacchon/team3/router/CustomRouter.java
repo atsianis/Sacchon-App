@@ -1,14 +1,10 @@
 package com.pfizer.sacchon.team3.router;
 
-import com.pfizer.sacchon.team3.resource.chief.AllDoctorsDBImpl;
-import com.pfizer.sacchon.team3.resource.chief.AllPatientsDBImpl;
-import com.pfizer.sacchon.team3.resource.chief.AllPatientsListImpl;
-import com.pfizer.sacchon.team3.resource.chief.AllDoctorsListImpl;
-import com.pfizer.sacchon.team3.resource.chief.ConsultationListResourceImpl;
+import com.pfizer.sacchon.team3.resource.chief.lists.*;
+import com.pfizer.sacchon.team3.resource.chief.settings.ChiefResourceImpl;
 import com.pfizer.sacchon.team3.resource.consultation.ConsultationResourceImpl;
 import com.pfizer.sacchon.team3.resource.consultation.UpdateConsultationResource;
 import com.pfizer.sacchon.team3.resource.doctor.*;
-import com.pfizer.sacchon.team3.resource.patient.InactivePatientsImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientConsultationsResourceImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientRecordsListImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientResourceImpl;
@@ -48,6 +44,7 @@ public class CustomRouter {
         router.attach("/chief/inactivedoctors", InactiveDoctorsImpl.class);
         router.attach("/chief/inactivepatients", InactivePatientsImpl.class);
         router.attach("/chief/allconsultations", ConsultationListResourceImpl.class);
+        router.attach("/chief/settings/update", ChiefResourceImpl.class);
 
 
 

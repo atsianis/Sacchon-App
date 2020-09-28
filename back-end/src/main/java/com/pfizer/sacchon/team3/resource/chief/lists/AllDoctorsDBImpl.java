@@ -1,4 +1,4 @@
-package com.pfizer.sacchon.team3.resource.doctor;
+package com.pfizer.sacchon.team3.resource.chief.lists;
 
 import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Doctors;
@@ -13,37 +13,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class InactiveDoctorsImpl extends ServerResource implements InactiveDoctors{
-
-    public static final Logger LOGGER = Engine.getLogger(InactiveDoctorsImpl.class);
+public class AllDoctorsDBImpl extends ServerResource implements AllDoctorsDB {
+    public static final Logger LOGGER = Engine.getLogger(AllPatientsDBImpl.class);
     private DoctorRepository doctorRepository;
 
     @Override
     protected void doInit() {
-        LOGGER.info("Initialising inactives doctors starts");
+        LOGGER.info("Initialising doctor resource starts");
         try {
             doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        LOGGER.info("Initialising inactives doctors resource ends");
+        LOGGER.info("Initialising doctor resource ends");
     }
 
     @Override
-    public List<DoctorRepresentation> inactiveDoctors() throws NotFoundException {
-        LOGGER.finer("Select inactive doctors.");
+    public List<DoctorRepresentation> getAllDoctorsDB() throws NotFoundException {
+        LOGGER.finer("Select all doctors.");
         try {
-            List<Doctors> doctors = doctorRepository.findInactiveDoctors();
+            List<Doctors> doctors = doctorRepository.findAllDoctorsDB();
+            for (Doctors d : doctors)
+                Hibernate.initialize(d.getConsultations());
             List<DoctorRepresentation> result = new ArrayList<>();
-            for (Doctors doctor : doctors) {
-                Hibernate.initialize(doctor);
-                result.add(new DoctorRepresentation(doctor));
-            }
+            doctors.forEach(doc -> result.add(new DoctorRepresentation(doc)));
 
             return result;
         } catch (Exception e) {
             throw new NotFoundException("doctors not found");
         }
     }
-
 }

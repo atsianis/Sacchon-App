@@ -1,10 +1,7 @@
 package com.pfizer.sacchon.team3.resource.util;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
-import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedDoctorRepresentation;
-import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedPatientRepresentation;
-import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
-import com.pfizer.sacchon.team3.representation.PatientRepresentation;
+import com.pfizer.sacchon.team3.representation.*;
 
 public class ResourceValidator {
     /**
@@ -19,7 +16,18 @@ public class ResourceValidator {
     }
 
     /**
-     * Checks that the given company is valid.
+     * Checks that the given doctor is valid.
+     *
+     * @param chiefRepresentation
+     * @throws BadEntityException
+     */
+    public static void validateChief(ChiefRepresentation chiefRepresentation) throws BadEntityException {
+        if (chiefRepresentation.getFirstName() == null || chiefRepresentation.getLastName() == null)
+            throw new BadEntityException("chief name cannot be null");
+    }
+
+    /**
+     * Checks that the given doctor is valid.
      *
      * @param doctorRepresentation
      * @throws BadEntityException
