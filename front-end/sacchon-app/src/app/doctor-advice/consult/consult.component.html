@@ -1,1 +1,6 @@
-<p>consult works!</p>
+<div class="row">
+	<div *ngFor="let consultation of consultations" class="col-12">
+		<h1>{{ formatConsultationDate(consultation.timeCreated) }}</h1>
+		{{ consultation.comment }}
+	</div>
+</div>
