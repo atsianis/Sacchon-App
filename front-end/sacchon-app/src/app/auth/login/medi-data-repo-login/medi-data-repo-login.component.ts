@@ -43,10 +43,14 @@ export class MediDataRepoLoginComponent implements OnInit {
 					sessionStorage.setItem('canBeExamined', response.data.canBeExamined);
 					sessionStorage.setItem('lastActive', response.data.lastActive);
 					sessionStorage.setItem('gender', response.data.gender);
+					sessionStorage.setItem('userType', 'patient');
 					this.router.navigate(['medidatarepo/profile']);
 				})
 			} else {
-				this.toastr.error('Invalid credentials', 'Login Unsuccessful')
+				this.toastr.error('Invalid credentials', 'Login Unsuccessful', {
+					timeOut: 2000,
+					positionClass: 'toast-top-center'
+				})
 			}
 		})
 	}

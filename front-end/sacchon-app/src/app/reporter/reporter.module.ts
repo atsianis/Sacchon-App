@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { ReporterComponent } from './reporter.component';
 import { DoctorSignUpComponent } from '../auth/signup/doctor-sign-up/doctor-sign-up.component';
 import { InspectNonActiveComponent } from './inspect-non-active/inspect-non-active.component';
+import { ReporterGuard } from './reporter.guard';
 
 @NgModule({
 	declarations: [
@@ -29,13 +30,13 @@ import { InspectNonActiveComponent } from './inspect-non-active/inspect-non-acti
 		ChartsModule,
 		HttpClientModule,
 		RouterModule.forChild([
-			{ path: 'reporter', component: ReporterComponent },
-			{ path: 'reporter/doctors', component: InspectDoctorComponent },
-			{ path: 'reporter/doctor/:id', component: InspectDoctorListComponent },
-			{ path: 'reporter/patients', component: InspectPatientComponent },
-			{ path: 'reporter/patient/:id', component: InspectPatientListComponent },
-			{ path: 'reporter/createdoctor', component: DoctorSignUpComponent },
-			{ path: 'reporter/inactives', component: InspectNonActiveComponent }
+			{ path: 'reporter', component: ReporterComponent , canActivate: [ ReporterGuard ]},
+			{ path: 'reporter/doctors', component: InspectDoctorComponent , canActivate: [ ReporterGuard ]},
+			{ path: 'reporter/doctor/:id', component: InspectDoctorListComponent , canActivate: [ ReporterGuard ]},
+			{ path: 'reporter/patients', component: InspectPatientComponent , canActivate: [ ReporterGuard ]},
+			{ path: 'reporter/patient/:id', component: InspectPatientListComponent , canActivate: [ ReporterGuard ]},
+			{ path: 'reporter/createdoctor', component: DoctorSignUpComponent , canActivate: [ ReporterGuard ]},
+			{ path: 'reporter/inactives', component: InspectNonActiveComponent, canActivate: [ ReporterGuard ] }
 		])
 	],
 	exports: [
