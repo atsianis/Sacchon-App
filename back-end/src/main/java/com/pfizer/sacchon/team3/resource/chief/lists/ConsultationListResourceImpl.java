@@ -1,4 +1,4 @@
-package com.pfizer.sacchon.team3.resource.consultation;
+package com.pfizer.sacchon.team3.resource.chief.lists;
 
 import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.repository.ConsultationRepository;

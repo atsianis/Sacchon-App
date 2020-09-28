@@ -61,13 +61,8 @@ export class PatientListComponent implements OnInit {
 
 
 	getPatientById(): void {
-		const httpOptions = {
-			headers: new HttpHeaders({
-				'Authorization': 'Basic ' + btoa('asd@asd.asd:asdasdasd')
-			})
-		};
 		this.route.params.subscribe(params => {
-			this.http.get(`http://localhost:9000/v1/patient/${params.id}`, httpOptions).subscribe(patient => {
+			this.http.get(`http://localhost:9000/v1/patient/${params.id}`).subscribe(patient => {
 				this.patient = patient;
 				this.patient.patientRecords.forEach(record => {
 					this.patientGlycose.push(record.glycose)

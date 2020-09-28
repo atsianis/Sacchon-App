@@ -1,17 +1,23 @@
 .chief-doctor-doctors-card {
-	background-image: url('https://sknews.gr/images/stories/ellada/doctor-gp.jpg');
+	background-image: url('../../assets/images/inspect_doctors.jpg');
 	background-size: cover;
 }
 
 .chief-doctor-add-doctors-card {
-	background-image: url('https://4rai.com/images/easyblog_articles/44/physicians-reporting.jpg');
+	background-image: url('../../assets/images/add_doctor.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: 90% 60%;
 }
 
 .chief-doctor-patients-card {
-	background-image: url('https://www.frederickhealth.org/images/shutterstock_118928809[1].jpg');
+	background-image: url('../../assets/images/inspect_patients.jpg');
+	background-size: cover;
+	background-position: center center;
+}
+
+.chief-doctor-inspect-inactives-card {
+	background-image: url('https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmomitforward.com%2Fwp-content%2Fuploads%2F2011%2F08%2FDoctor-and-Patient.jpg&f=1&nofb=1');
 	background-size: cover;
 	background-position: center center;
 }

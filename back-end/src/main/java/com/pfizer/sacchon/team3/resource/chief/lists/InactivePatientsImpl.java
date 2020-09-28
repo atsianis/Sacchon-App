@@ -1,4 +1,4 @@
-package com.pfizer.sacchon.team3.resource.patient;
+package com.pfizer.sacchon.team3.resource.chief.lists;
 
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRepository;

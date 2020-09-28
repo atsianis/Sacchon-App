@@ -1,4 +1,4 @@
-package com.pfizer.sacchon.team3.resource.patient;
+package com.pfizer.sacchon.team3.resource.chief.lists;
 
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;

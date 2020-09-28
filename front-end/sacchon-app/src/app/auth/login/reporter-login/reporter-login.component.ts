@@ -19,12 +19,6 @@ export class ReporterLoginComponent implements OnInit {
 		password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
 	});
 
-	httpOptions = {
-		headers: new HttpHeaders({
-			'Authorization': 'Basic ' + btoa('asd@asd.asd:asdasdasd'),
-			'Access-Control-Allow-Origin': '*'
-		})
-	};
 
 	ngOnInit(): void {
 	}
@@ -33,9 +27,9 @@ export class ReporterLoginComponent implements OnInit {
 		this.http.post<Chiefs>('http://localhost:9000/v1/login/chief', {
 			email: this.reporterLoginForm.get('email').value,
 			password: this.reporterLoginForm.get('password').value
-		}, this.httpOptions).subscribe(response => {
+		}).subscribe(response => {
 			if (response.status == 200) {
-				this.toastr.success(`Welcome ${response.firstName}!`, 'Login successful', {
+				this.toastr.success(`Welcome ${response.data.firstName}!`, 'Login successful', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
 				}).onHidden.toPromise().then(_ => {
