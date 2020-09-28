@@ -19,8 +19,16 @@ public class PatientRepository {
         return patient != null ? Optional.of(patient) : Optional.empty();
     }
 
-    public List<Patients> findAllPatients() {
+    public List<Patients> findAllPatientsDB() {
         return entityManager.createQuery("from Patients").getResultList();
+    }
+
+    public List<Patients> findAllPatients() {
+        List<Patients> patients = entityManager
+                .createQuery("from Patients WHERE isDeleted = 0", Patients.class)
+                .getResultList();
+
+        return patients;
     }
 
     public List<Patients> findAllConsultablePatients() {
