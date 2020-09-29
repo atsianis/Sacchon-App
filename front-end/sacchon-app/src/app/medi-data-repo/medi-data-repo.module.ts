@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MediDataRepoComponent } from './medi-data-repo.component';
 import { PatientProfileComponent } from './profile/profile.component';
 import { PatientEditProfileComponent } from './edit-profile/edit-profile.component';
 import { PatientRecordComponent } from './patient-record/patient-record.component';
@@ -16,7 +15,6 @@ import { MediDataRepoGuard } from './medi-data-repo.guard';
 
 @NgModule({
 	declarations: [
-		MediDataRepoComponent,
 		PatientProfileComponent,
 		PatientEditProfileComponent,
 		PatientRecordComponent,
@@ -29,7 +27,6 @@ import { MediDataRepoGuard } from './medi-data-repo.guard';
 		ChartsModule,
 		HttpClientModule,
 		RouterModule.forChild([
-			{ path: 'medidatarepo', component: MediDataRepoComponent, canActivate: [ MediDataRepoGuard ] },
 			{ path: 'medidatarepo/profile', component: PatientProfileComponent, canActivate: [ MediDataRepoGuard ] },
 			{ path: 'medidatarepo/profile/edit', component: PatientEditProfileComponent, canActivate: [ MediDataRepoGuard ] },
 			{ path: 'medidatarepo/record', component: PatientRecordComponent, canActivate: [ MediDataRepoGuard ] },
