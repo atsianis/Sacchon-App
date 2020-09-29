@@ -4,6 +4,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { DoctorAdviceService } from 'src/app/doctor-advice/doctor-advice.service';
 import * as moment from 'moment';
+
 @Component({
 	selector: 'sacchon-app-inspect-doctor-list',
 	templateUrl: './inspect-doctor-list.component.html',
