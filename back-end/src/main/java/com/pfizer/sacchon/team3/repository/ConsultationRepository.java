@@ -30,6 +30,13 @@ public class ConsultationRepository {
                 .getResultList();
     }
 
+    public List<Consultations> findDoctorConsultations(long id) {
+        return entityManager
+                .createQuery("from Consultations WHERE doctor_id = :doctor_id ", Consultations.class)
+                .setParameter("doctor_id", id)
+                .getResultList();
+    }
+
     // save a consultation
     public Optional<Consultations> save(Consultations consultation) {
         try {
