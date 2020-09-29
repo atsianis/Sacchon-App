@@ -4,6 +4,7 @@ import com.pfizer.sacchon.team3.exception.WrongCredentials;
 import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.model.PatientRecords;
 import com.pfizer.sacchon.team3.model.Patients;
+import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -75,11 +76,16 @@ public class DoctorRepository {
     public Optional<Doctors> update(Doctors doctor) {
 
         Doctors doctorIn = entityManager.find(Doctors.class, doctor.getId());
-        doctorIn.setFirstName(doctor.getFirstName());
-        doctorIn.setLastName(doctor.getLastName());
-        doctorIn.setEmail(doctor.getEmail());
-        doctorIn.setLastActive(doctor.getLastActive());
-        doctorIn.setPassword(doctor.getPassword());
+        if (doctor.getFirstName()!=null)
+            doctorIn.setFirstName(doctor.getFirstName());
+        if (doctor.getLastName()!=null)
+            doctorIn.setLastName(doctor.getLastName());
+        if (doctor.getEmail()!=null)
+            doctorIn.setEmail(doctor.getEmail());
+        if (doctor.getLastActive()!=null)
+            doctorIn.setLastActive(doctor.getLastActive());
+        if (doctor.getPassword()!=null)
+            doctorIn.setPassword(doctor.getPassword());
 
         try {
             entityManager.getTransaction().begin();
@@ -92,23 +98,6 @@ public class DoctorRepository {
         }
 
         return Optional.empty();
-    }
-
-    // remove a doctor
-    public boolean remove(Long id) {
-        Optional<Doctors> opDoctor = findById(id);
-        if (opDoctor.isPresent()) {
-            Doctors doctor = opDoctor.get();
-            try {
-                entityManager.getTransaction().begin();
-                entityManager.remove(doctor);
-                entityManager.getTransaction().commit();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return true;
     }
 
     // Get Doctor's Patients
@@ -135,12 +124,12 @@ public class DoctorRepository {
     }
 
     public Optional<Doctors> softDelete(Doctors d) {
+        patientRepository = new PatientRepository(JpaUtil.getEntityManager());
         Doctors doctorsIn = entityManager.find(Doctors.class, d.getId());
-        doctorsIn.setDeleted(true);
         for (Patients patient : doctorsIn.getPatients()) {
-            patient.setDoctor(null);
-            patientRepository.update(patient);
+            patientRepository.removeDoctor(patient);
         }
+        doctorsIn.setDeleted(true);
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(doctorsIn);
