@@ -12,10 +12,10 @@ import { Patients } from 'src/app/interfaces/patients';
 export class ProfileComponent implements OnInit {
 
 	constructor(private http: HttpClient) { }
-	id: any;
-	firstName: any;
-	lastName: any;
-	email: any;
+	id: string;
+	firstName: string;
+	lastName: string;
+	email: string;
 	patients: any;
 	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
