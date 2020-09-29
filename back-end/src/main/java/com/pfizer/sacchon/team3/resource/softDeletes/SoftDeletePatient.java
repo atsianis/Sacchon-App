@@ -6,5 +6,5 @@ import org.restlet.resource.Put;
 
 public interface SoftDeletePatient {
     @Put("json")
-    public ResponseRepresentation<PatientRepresentation> softDelete(PatientRepresentation patientRepresentation);
+    public ResponseRepresentation<PatientRepresentation> softDelete();
 }

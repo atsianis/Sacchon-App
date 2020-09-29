@@ -31,31 +31,18 @@ public class SDPatientImpl extends ServerResource implements SoftDeletePatient {
     }
 
     @Override
-    public ResponseRepresentation<PatientRepresentation> softDelete(PatientRepresentation patientRepresentation) {
+    public ResponseRepresentation<PatientRepresentation> softDelete() {
         LOGGER.finer("Soft Delete a patient.");
-        // Check given entity
         try {
-            ResourceValidator.notNull(patientRepresentation);
-            ResourceValidator.validatePatient(patientRepresentation);
-        } catch (BadEntityException ex) {
-            return new ResponseRepresentation<>(422, "Bad Entity Exception", null);
-        }
-
-        LOGGER.finer("Patient checked");
-
-        try {
-            // Convert PatientRepr to Patient
-            Patients patientsIn = patientRepresentation.createPatient();
-            patientsIn.setId(id);
             Optional<Patients> patientOut = patientRepository.findById(id);
             setExisting(patientOut.isPresent());
             // If patient exists, we update it.
             if (isExisting()) {
                 LOGGER.finer("Soft delete Patient.");
-                patientOut = patientRepository.softDelete(patientsIn);
+                Optional patientDeleted = patientRepository.softDelete(patientOut.get());
                 // Check if retrieved patient is not null : if it is null it
                 // means that the id is wrong.
-                if (!patientOut.isPresent()) {
+                if (!patientDeleted.isPresent()) {
                     LOGGER.finer("Patient does not exist.");
                     return new ResponseRepresentation<>(404, "Patient not found", null);
                 }
