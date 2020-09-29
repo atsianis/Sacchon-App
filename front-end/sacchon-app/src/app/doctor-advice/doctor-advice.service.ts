@@ -14,5 +14,9 @@ export class DoctorAdviceService {
 			return `${moment().diff(date, "days")} days ago`;
 		else
 			return `${moment().diff(date, "hours")} hours ago`;
+  }
+  
+  birthDate(date: number): string {
+		return moment(date).format('DD/MM/YYYY');
 	}
 }
