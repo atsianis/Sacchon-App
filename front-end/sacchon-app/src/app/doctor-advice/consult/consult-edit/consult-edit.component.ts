@@ -1,11 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Consultations } from 'src/app/interfaces/consultations';
 import * as moment from 'moment';
-import { param } from 'jquery';
+import { DoctorAdviceService } from '../../doctor-advice.service';
 
 @Component({
 	selector: 'sacchon-app-consult-edit',
@@ -14,13 +12,13 @@ import { param } from 'jquery';
 })
 export class ConsultEditComponent implements OnInit {
 
-	constructor(private http: HttpClient, private route: ActivatedRoute, private toastr: ToastrService, private router: Router) { }
+	constructor(private doctorService: DoctorAdviceService, private route: ActivatedRoute, private toastr: ToastrService, private router: Router) { }
 
 	consultation_id: string;
 	consultation: any;
 	doctor_id: string;
 	patient_id: string;
-	editConsultForm = new FormGroup ({
+	editConsultForm = new FormGroup({
 		comment: new FormControl
 	})
 
@@ -32,16 +30,14 @@ export class ConsultEditComponent implements OnInit {
 		this.route.params.subscribe(params => {
 			this.consultation_id = params.consultation_id
 		})
-		this.http.get<Consultations>(`http://localhost:9000/v1/consultation/${this.consultation_id}`).subscribe(response => {
+		this.doctorService.getConsultationById(this.consultation_id).subscribe(response => {
 			this.consultation = response.data
 		})
 	}
 
 	submitConsultation(): any {
 		this.doctor_id = sessionStorage.getItem('id');
-		this.http.put(`http://localhost:9000/v1/consultation/${this.consultation_id}/doctor/${this.doctor_id}/`, {
-			comment: this.editConsultForm.get('comment').value
-		}).subscribe(response => {
+		this.doctorService.editConsultation(this.consultation_id, this.doctor_id, this.editConsultForm.get('comment').value).subscribe(response => {
 			this.toastr.success('Consultation edited successfully', 'Success', {
 				timeOut: 2000,
 				positionClass: 'toast-top-center'
