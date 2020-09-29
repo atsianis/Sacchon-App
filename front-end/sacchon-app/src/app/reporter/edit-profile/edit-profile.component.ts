@@ -27,8 +27,6 @@ export class EditProfileComponent implements OnInit {
 
 
 	ngOnInit(): void {
-		console.log(this.firstName);
-		console.log(this.lastName);
 	 }
 
 	edit(): void {
