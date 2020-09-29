@@ -63,10 +63,11 @@ public class CustomRouter {
         router.attach("/doctor/{id}", DoctorResourceImpl.class);
         router.attach("/doctor/{id}/settings", DoctorResourceImpl.class);
         router.attach("/doctor/{id}/mypatients", MyPatientsResourceImpl.class);
+        router.attach("/doctor/{id}/consultations",DoctorConsultationsImpl.class);
         router.attach("/doctor/{id}/available-patients", AllAvailablePatientListResourceImpl.class);
         router.attach("/doctor/{did}/select/patient/{pid}", DoctorSelectionResourceImpl.class);
         router.attach("/doctor/{did}/consultation/{cid}", UpdateConsultationResource.class);
-        router.attach("/doctor/{did}/patient/{pid}", AddCommentResourceImpl.class);
+        router.attach("/consult/doctor/{did}/patient/{pid}", AddCommentResourceImpl.class);
         router.attach("/doctor/{id}/consultable-patients", AllConsultablePatientListResourceImpl.class);
 
         //soft Deletes
