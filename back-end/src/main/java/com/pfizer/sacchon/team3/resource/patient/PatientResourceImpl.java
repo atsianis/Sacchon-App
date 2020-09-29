@@ -4,6 +4,7 @@ import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
+import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedPatientRepresentation;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
@@ -61,27 +62,7 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
     }
 
     @Override
-    public ResponseRepresentation<PatientRepresentation> remove() {
-        LOGGER.finer("Removal of patient");
-        try {
-            // Delete patient in DB: return true if deleted
-            Boolean isDeleted = patientRepository.remove(id);
-            // If patient has not been deleted: if not it means that the id must
-            // be wrong
-            if (!isDeleted) {
-                LOGGER.config("Patient id does not exist");
-                return new ResponseRepresentation<>(404, "Patient not found", null);
-            }
-            LOGGER.finer("Patient successfully removed.");
-        } catch (Exception ex) {
-            LOGGER.log(Level.WARNING, "Error when removing a patient", ex);
-            return new ResponseRepresentation<>(404, "Patient not found", null);
-        }
-        return new ResponseRepresentation<>(200, "Patient removed", null);
-    }
-
-    @Override
-    public ResponseRepresentation<PatientRepresentation> store(PatientRepresentation patientRepresentation) {
+    public ResponseRepresentation<PatientRepresentation> updatePatient(PatientRepresentation patientRepresentation) {
         LOGGER.finer("Update a patient.");
         // Check given entity
         try {
