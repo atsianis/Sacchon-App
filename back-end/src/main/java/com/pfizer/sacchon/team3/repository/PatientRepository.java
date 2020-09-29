@@ -191,4 +191,11 @@ public class PatientRepository {
 
         return inactivePatients;
     }
+
+    public boolean activeConsultationExists(List<Consultations> consultations) {
+        Collections.reverse(consultations);
+        Consultations consultation = consultations.get(0);
+
+        return ( new Date().compareTo(consultation.getTimeCreated()) < 30 );
+    }
 }
