@@ -20,8 +20,6 @@ public class DoctorRepresentation {
     private String password;
     private Date lastActive;
     private boolean isDeleted;
-    //private List<Patients> patients = new ArrayList<>();
-    //private List<Consultations> consultations = new ArrayList<>();
     private long id;
 
     public DoctorRepresentation(Doctors doctor) {
@@ -31,8 +29,6 @@ public class DoctorRepresentation {
             email = doctor.getEmail();
             password = doctor.getPassword();
             lastActive = doctor.getLastActive();
-            //patients = doctor.getPatients();
-            //consultations = doctor.getConsultations();
             isDeleted = doctor.isDeleted();
             id = doctor.getId();
         }

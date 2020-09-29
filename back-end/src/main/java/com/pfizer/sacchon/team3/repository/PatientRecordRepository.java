@@ -26,7 +26,7 @@ public class PatientRecordRepository {
 
     public List<PatientRecords> findPatientRecordsByPatient(long id) {
         return entityManager.createQuery("from PatientRecords WHERE patient_id = :id")
-                .setParameter("id",id)
+                .setParameter("id", id)
                 .getResultList();
     }
 

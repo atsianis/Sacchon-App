@@ -37,8 +37,9 @@ public class AllPatientsDBImpl extends ServerResource implements AllPatientsDB {
                 if (!patient.isDeleted())
                     result.add(new PatientRepresentation(patient));
 
-            return new ResponseRepresentation<>(200,"Patients found",result);
+            return new ResponseRepresentation<>(200, "Patients found", result);
         } catch (Exception e) {
-            return new ResponseRepresentation<>(404,"Patients not found",null);        }
+            return new ResponseRepresentation<>(404, "Patients not found", null);
+        }
     }
 }

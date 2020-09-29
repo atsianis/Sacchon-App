@@ -66,8 +66,6 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
             result.setPassword(doctors.getPassword());
             result.setDeleted(doctors.isDeleted());
             result.setId(doctors.getId());
-            //Hibernate.initialize(result.getConsultations());
-            //Hibernate.initialize(result.getPatients());
 
             getResponse().setLocationRef("http://localhost:9000/v1/doctor/" + doctors.getId());
             getResponse().setStatus(Status.SUCCESS_CREATED);

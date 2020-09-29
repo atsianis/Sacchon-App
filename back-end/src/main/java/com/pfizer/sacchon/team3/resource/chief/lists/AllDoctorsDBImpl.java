@@ -1,6 +1,5 @@
 package com.pfizer.sacchon.team3.resource.chief.lists;
 
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
@@ -30,7 +29,7 @@ public class AllDoctorsDBImpl extends ServerResource implements AllDoctorsDB {
     }
 
     @Override
-    public ResponseRepresentation<List<DoctorRepresentation>> getAllDoctorsDB(){
+    public ResponseRepresentation<List<DoctorRepresentation>> getAllDoctorsDB() {
         LOGGER.finer("Select all doctors.");
         try {
             List<Doctors> doctors = doctorRepository.findAllDoctorsDB();
@@ -39,9 +38,9 @@ public class AllDoctorsDBImpl extends ServerResource implements AllDoctorsDB {
             List<DoctorRepresentation> result = new ArrayList<>();
             doctors.forEach(doc -> result.add(new DoctorRepresentation(doc)));
 
-            return new ResponseRepresentation<>(200,"Doctors retrieved",result);
+            return new ResponseRepresentation<>(200, "Doctors retrieved", result);
         } catch (Exception e) {
-            return new ResponseRepresentation<>(404,"Doctors not found",null);
+            return new ResponseRepresentation<>(404, "Doctors not found", null);
         }
     }
 }

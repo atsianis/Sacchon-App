@@ -76,15 +76,15 @@ public class DoctorRepository {
     public Optional<Doctors> update(Doctors doctor) {
 
         Doctors doctorIn = entityManager.find(Doctors.class, doctor.getId());
-        if (doctor.getFirstName()!=null)
+        if (doctor.getFirstName() != null)
             doctorIn.setFirstName(doctor.getFirstName());
-        if (doctor.getLastName()!=null)
+        if (doctor.getLastName() != null)
             doctorIn.setLastName(doctor.getLastName());
-        if (doctor.getEmail()!=null)
+        if (doctor.getEmail() != null)
             doctorIn.setEmail(doctor.getEmail());
-        if (doctor.getLastActive()!=null)
+        if (doctor.getLastActive() != null)
             doctorIn.setLastActive(doctor.getLastActive());
-        if (doctor.getPassword()!=null)
+        if (doctor.getPassword() != null)
             doctorIn.setPassword(doctor.getPassword());
 
         try {

@@ -5,7 +5,6 @@ import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
-import org.hibernate.Hibernate;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
@@ -36,11 +35,8 @@ public class InactivePatientsImpl extends ServerResource implements InactivePati
             List<Patients> inactivePatients = patientRepository.findInactivePatients();
             List<PatientRepresentation> result = new ArrayList<>();
 
-            for (Patients patient : inactivePatients) {
-                //Hibernate.initialize(patient.getConsultations());
-                //Hibernate.initialize(patient.getPatientRecords());
+            for (Patients patient : inactivePatients)
                 result.add(new PatientRepresentation(patient));
-            }
 
             return new ResponseRepresentation<>(200, "Patients retrieved", result);
         } catch (Exception e) {

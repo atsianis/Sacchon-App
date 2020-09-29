@@ -1,20 +1,18 @@
 package com.pfizer.sacchon.team3.resource.softDeletes;
 
-import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
-import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
 import java.util.Optional;
 import java.util.logging.Logger;
 
-public class SDPatientImpl extends ServerResource implements SoftDeletePatient {
-    public static final Logger LOGGER = Engine.getLogger(SDPatientImpl.class);
+public class SoftDeletePatientImpl extends ServerResource implements SoftDeletePatient {
+    public static final Logger LOGGER = Engine.getLogger(SoftDeletePatientImpl.class);
     private long id;
     private PatientRepository patientRepository;
 

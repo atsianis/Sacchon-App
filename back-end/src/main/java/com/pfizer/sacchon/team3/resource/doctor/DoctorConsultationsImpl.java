@@ -2,7 +2,6 @@ package com.pfizer.sacchon.team3.resource.doctor;
 
 import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.model.Doctors;
-import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.ConsultationRepository;
 import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
@@ -59,5 +58,5 @@ public class DoctorConsultationsImpl extends ServerResource implements DoctorCon
             return new ResponseRepresentation<>(404, "Consults not found", null);
         }
     }
-    }
+}
 

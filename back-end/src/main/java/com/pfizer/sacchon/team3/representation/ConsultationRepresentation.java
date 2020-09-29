@@ -1,8 +1,6 @@
 package com.pfizer.sacchon.team3.representation;
 
 import com.pfizer.sacchon.team3.model.Consultations;
-import com.pfizer.sacchon.team3.model.Doctors;
-import com.pfizer.sacchon.team3.model.Patients;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,14 +21,14 @@ public class ConsultationRepresentation {
             timeCreated = consultation.getTimeCreated();
             comment = consultation.getComment();
             seenByPatient = consultation.getSeenByPatient();
-            if (consultation.getDoctor()!=null){
+            if (consultation.getDoctor() != null) {
                 doctor_id = consultation.getDoctor().getId();
-            }else{
+            } else {
                 doctor_id = 0;
             }
-            if (consultation.getPatient()!=null){
+            if (consultation.getPatient() != null) {
                 patient_id = consultation.getPatient().getId();
-            }else{
+            } else {
                 patient_id = 0;
             }
             id = consultation.getId();
@@ -41,8 +39,6 @@ public class ConsultationRepresentation {
         Consultations c = new Consultations();
         c.setComment(this.comment);
         c.setTimeCreated(this.timeCreated);
-        //c.setDoctor(this.doctor);
-        //c.setPatient(this.patient);
         c.setSeenByPatient(this.seenByPatient);
         c.setId(this.id);
 

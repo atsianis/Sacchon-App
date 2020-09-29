@@ -11,8 +11,8 @@ import org.restlet.resource.ServerResource;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-public class SDDoctorImpl extends ServerResource implements SoftDeleteDoctor {
-    public static final Logger LOGGER = Engine.getLogger(SDDoctorImpl.class);
+public class SoftDeleteDoctorImpl extends ServerResource implements SoftDeleteDoctor {
+    public static final Logger LOGGER = Engine.getLogger(SoftDeleteDoctorImpl.class);
     private long id;
     private DoctorRepository doctorRepository;
 

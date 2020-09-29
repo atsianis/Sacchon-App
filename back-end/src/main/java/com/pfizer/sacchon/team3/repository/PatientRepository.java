@@ -73,16 +73,16 @@ public class PatientRepository {
 
     public Optional<Patients> update(Patients p) {
         Patients patientIn = entityManager.find(Patients.class, p.getId());
-        if (!(p.getFirstName()==null))
+        if (!(p.getFirstName() == null))
             patientIn.setFirstName(p.getFirstName());
-        if (!(p.getLastName()==null))
+        if (!(p.getLastName() == null))
             patientIn.setLastName(p.getLastName());
         //System.out.println(p.getPassword().equals(null));
-        if (!(p.getPassword()==null))
+        if (!(p.getPassword() == null))
             patientIn.setPassword(p.getPassword());
-        if (!(p.getEmail()==null))
+        if (!(p.getEmail() == null))
             patientIn.setEmail(p.getEmail());
-        if (!(p.getDob()==null))
+        if (!(p.getDob() == null))
             patientIn.setDob(p.getDob());
         try {
             entityManager.getTransaction().begin();
@@ -96,10 +96,10 @@ public class PatientRepository {
         return Optional.empty();
     }
 
-    public boolean removeDoctor(Patients patient){
+    public boolean removeDoctor(Patients patient) {
         Patients patientIn = entityManager.find(Patients.class, patient.getId());
         System.out.println(patientIn.getFirstName());
-        if (patient.getDoctor()!=null){
+        if (patient.getDoctor() != null) {
             patientIn.setDoctor(null);
         }
         try {
