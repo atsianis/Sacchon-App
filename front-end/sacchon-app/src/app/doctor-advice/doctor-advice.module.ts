@@ -12,6 +12,7 @@ import { ConsultComponent } from './consult/consult.component';
 import { ConsultEditComponent } from './consult/consult-edit/consult-edit.component';
 import { AddConsultComponent } from './consult/add-consult/add-consult.component';
 import { DoctorAdviceGuard } from './doctor-advice.guard';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -30,6 +31,7 @@ import { DoctorAdviceGuard } from './doctor-advice.guard';
 		DataTablesModule,
 		ChartsModule,
 		HttpClientModule,
+		ReactiveFormsModule,
 		RouterModule.forChild([
 			{ path: 'doctoradvice/profile', component: ProfileComponent, canActivate: [ DoctorAdviceGuard ] },
 			{ path: 'doctoradvice/profile/edit', component: EditProfileComponent, canActivate: [ DoctorAdviceGuard ] },
