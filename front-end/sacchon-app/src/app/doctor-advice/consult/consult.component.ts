@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Consultations } from 'src/app/interfaces/consultations';
 import * as moment from 'moment';
+import { DoctorAdviceService } from '../doctor-advice.service';
 
 @Component({
 	selector: 'sacchon-app-consult',
@@ -14,7 +13,7 @@ export class ConsultComponent implements OnInit {
 	consultations: any;
 	id: number;
 
-	constructor(private http: HttpClient, private route: ActivatedRoute) { }
+	constructor(private doctorService: DoctorAdviceService, private route: ActivatedRoute) { }
 
 	ngOnInit(): void {
 		this.consultations = [];
@@ -25,7 +24,7 @@ export class ConsultComponent implements OnInit {
 		this.route.params.subscribe(params => {
 			this.id = params.patient_id
 		})
-		this.http.get<Consultations>(`http://localhost:9000/v1/patient/${this.id}/consultations`).subscribe(response => {
+		this.doctorService.getPatientConsultations(this.id).subscribe(response => {
 			this.consultations = response.data;
 		}, (err) => {
 			console.log('-----> err', err);

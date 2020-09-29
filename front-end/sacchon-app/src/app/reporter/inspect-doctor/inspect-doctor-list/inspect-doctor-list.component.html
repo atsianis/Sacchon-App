@@ -29,13 +29,16 @@
 								<th>ID</th>
 								<th>User ID</th>
 								<th>Consultation</th>
+								<th>Time</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr *ngFor="let consultation of consultations">
 								<td>{{ consultation.id }}</td>
-								<td>{{ consultation.userId }}</td>
-								<td>{{ consultation.title }}</td>
+								<!-- WIP: get patient full name -->
+								<td>{{ consultation.patient_id }}</td>
+								<td>{{ consultation.comment }}</td>
+								<td>{{ birthDate(consultation.timeCreated) }}</td>
 							</tr>
 						</tbody>
 					</table>

@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-import { Doctors } from 'src/app/interfaces/doctors';
+import { DoctorAdviceService } from 'src/app/doctor-advice/doctor-advice.service';
+import * as moment from 'moment';
 
 @Component({
 	selector: 'sacchon-app-inspect-doctor-list',
@@ -12,7 +12,7 @@ import { Doctors } from 'src/app/interfaces/doctors';
 })
 export class InspectDoctorListComponent implements OnInit {
 
-	constructor(private route: ActivatedRoute, private http: HttpClient) { }
+	constructor(private route: ActivatedRoute, private doctorService: DoctorAdviceService) { }
 	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();
@@ -31,7 +31,7 @@ export class InspectDoctorListComponent implements OnInit {
 
 	getDoctorById(): void {
 		this.route.params.subscribe(params => {
-			this.http.get<Doctors>(`http://localhost:9000/v1/doctor/${params.id}`).subscribe(doctor => {
+			this.doctorService.getDoctorById(params.id).subscribe(doctor => {
 				this.doctor = doctor.data;
 			}, (err) => {
 				console.log('-----> err', err);
@@ -41,12 +41,16 @@ export class InspectDoctorListComponent implements OnInit {
 
 	getConsultations(): void {
 		this.route.params.subscribe(params => {
-			this.http.get(`https://jsonplaceholder.typicode.com/albums/`).subscribe(consultations => {
-				this.consultations = consultations;
+			this.doctorService.getCurrentDoctorConsultations(params.id).subscribe(consultations => {
+				this.consultations = consultations.data;
 				this.dtTrigger.next();
 			}, (err) => {
 				console.log('-----> err', err);
 			});
 		});
+	}
+
+	birthDate(date: number): string {
+		return moment(date).format('DD/MM/YYYY');
 	}
 }

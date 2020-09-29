@@ -36,7 +36,7 @@ export class AddConsultComponent implements OnInit {
 				timeOut: 2000,
 				positionClass: 'toast-top-center'
 			}).onHidden.toPromise().then(_ => {
-				this.router.navigate(['/doctoradvice/profile']);
+				this.router.navigate(['/doctoradvice/patient', this.patient_id]);
 			}).catch(error => {
 				console.log(error);
 			});

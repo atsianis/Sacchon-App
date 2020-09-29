@@ -14,6 +14,10 @@ import { RouterModule } from '@angular/router';
 import { ReporterComponent } from './reporter.component';
 import { DoctorSignUpComponent } from '../auth/signup/doctor-sign-up/doctor-sign-up.component';
 import { InspectNonActiveComponent } from './inspect-non-active/inspect-non-active.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { AllPatientsDbComponent } from './all-patients-db/all-patients-db.component';
+import { AllDoctorsDbComponent } from './all-doctors-db/all-doctors-db.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReporterGuard } from './reporter.guard';
 
 @NgModule({
@@ -22,21 +26,29 @@ import { ReporterGuard } from './reporter.guard';
 		InspectPatientComponent,
 		InspectDoctorListComponent,
 		InspectPatientListComponent,
-		InspectNonActiveComponent
+		InspectNonActiveComponent,
+		EditProfileComponent,
+		AllPatientsDbComponent,
+		AllDoctorsDbComponent,
 	],
 	imports: [
 		CommonModule,
 		DataTablesModule,
 		ChartsModule,
 		HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
 		RouterModule.forChild([
-			{ path: 'reporter', component: ReporterComponent , canActivate: [ ReporterGuard ]},
-			{ path: 'reporter/doctors', component: InspectDoctorComponent , canActivate: [ ReporterGuard ]},
-			{ path: 'reporter/doctor/:id', component: InspectDoctorListComponent , canActivate: [ ReporterGuard ]},
-			{ path: 'reporter/patients', component: InspectPatientComponent , canActivate: [ ReporterGuard ]},
-			{ path: 'reporter/patient/:id', component: InspectPatientListComponent , canActivate: [ ReporterGuard ]},
-			{ path: 'reporter/createdoctor', component: DoctorSignUpComponent , canActivate: [ ReporterGuard ]},
-			{ path: 'reporter/inactives', component: InspectNonActiveComponent, canActivate: [ ReporterGuard ] }
+			{ path: 'reporter', component: ReporterComponent , canActivate: [ ReporterGuard ] },
+			{ path: 'reporter/doctors', component: InspectDoctorComponent , canActivate: [ ReporterGuard ] },
+			{ path: 'reporter/doctor/:id', component: InspectDoctorListComponent , canActivate: [ ReporterGuard ] },
+			{ path: 'reporter/patients', component: InspectPatientComponent , canActivate: [ ReporterGuard ] },
+			{ path: 'reporter/patient/:id', component: InspectPatientListComponent , canActivate: [ ReporterGuard ] },
+			{ path: 'reporter/createdoctor', component: DoctorSignUpComponent , canActivate: [ ReporterGuard ] },
+			{ path: 'reporter/inactives', component: InspectNonActiveComponent, canActivate: [ ReporterGuard ] },
+			{ path: 'reporter/edit', component: EditProfileComponent, canActivate: [ ReporterGuard ] },
+			{ path: 'reporter/allpatientsDB', component: AllPatientsDbComponent, canActivate: [ ReporterGuard ] },
+			{ path: 'reporter/alldoctorsDB', component: AllDoctorsDbComponent, canActivate: [ ReporterGuard ] }
 		])
 	],
 	exports: [
