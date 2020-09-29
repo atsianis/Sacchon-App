@@ -18,17 +18,15 @@
 						<div class="col-6">{{email}}</div>
 					</div>
 					<div class="row align-items-center">
-						<a href = "/reporter/edit" class="btn btn-block btn-primary my-2 mx-2">
+						<a [routerLink] ="['/reporter/edit']" class="btn btn-block btn-primary my-2 mx-2">
 							Edit Profile
 						</a>
-						<div class="btn-group" style="left: 18%;">
-							<a  href="/reporter/allpatientsDB" class="btn btn-primary my-2 mx-2" style="padding-inline-start: 8%; padding-inline-end: 8%;">
-								Patients DB
-							</a>
-							<a href="/reporter/alldoctorsDB" class="btn btn-primary my-2 mx-2" style="padding-inline-start: 8%; padding-inline-end: 8%;">
-								Doctors DB
-							</a>
-						</div>
+						<a href="/reporter/allpatientsDB" class="btn btn-block btn-primary my-2 mx-2">
+							Patients DB
+						</a>
+						<a href="/reporter/alldoctorsDB" class="btn btn-block btn-primary my-2 mx-2">
+							Doctors DB
+						</a>
 					</div>
 				</div>
 			</div>

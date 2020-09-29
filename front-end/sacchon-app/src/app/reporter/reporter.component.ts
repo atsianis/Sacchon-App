@@ -12,10 +12,10 @@ export class ReporterComponent implements OnInit {
 	
 	constructor(private http: HttpClient, private router: Router) { }
 
-	firstName = sessionStorage.getItem('firstName');
-  	lastName = sessionStorage.getItem('lastName');
-  	email = sessionStorage.getItem('email');
-  	password = sessionStorage.getItem('password');
+	firstName: string = sessionStorage.getItem('firstName');
+  	lastName: string = sessionStorage.getItem('lastName');
+  	email: string = sessionStorage.getItem('email');
+  	password: string = sessionStorage.getItem('password');
 
 	ngOnInit(): void {
 		
