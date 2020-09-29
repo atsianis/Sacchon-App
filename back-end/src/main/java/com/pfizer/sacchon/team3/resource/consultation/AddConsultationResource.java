@@ -5,7 +5,7 @@ import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedConsultRepresentation;
 import org.restlet.resource.Post;
 
-public interface AddCommentResource {
+public interface AddConsultationResource {
     @Post("json")
-    public ResponseRepresentation<ConsultationRepresentation> addCommentConsultation(CreatedOrUpdatedConsultRepresentation consultationRepresentation);
+    public ResponseRepresentation<ConsultationRepresentation> addConsultation(CreatedOrUpdatedConsultRepresentation consultationRepresentation);
 }
