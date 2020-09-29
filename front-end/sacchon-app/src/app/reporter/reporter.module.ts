@@ -15,6 +15,8 @@ import { ReporterComponent } from './reporter.component';
 import { DoctorSignUpComponent } from '../auth/signup/doctor-sign-up/doctor-sign-up.component';
 import { InspectNonActiveComponent } from './inspect-non-active/inspect-non-active.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { AllPatientsDbComponent } from './all-patients-db/all-patients-db.component';
+import { AllDoctorsDbComponent } from './all-doctors-db/all-doctors-db.component';
 
 @NgModule({
 	declarations: [
@@ -23,7 +25,9 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 		InspectDoctorListComponent,
 		InspectPatientListComponent,
 		InspectNonActiveComponent,
-		EditProfileComponent
+		EditProfileComponent,
+		AllPatientsDbComponent,
+		AllDoctorsDbComponent
 	],
 	imports: [
 		CommonModule,
@@ -38,7 +42,9 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 			{ path: 'reporter/patient/:id', component: InspectPatientListComponent },
 			{ path: 'reporter/createdoctor', component: DoctorSignUpComponent },
 			{ path: 'reporter/inactives', component: InspectNonActiveComponent },
-			{ path: 'reporter/edit', component: EditProfileComponent}
+			{ path: 'reporter/edit', component: EditProfileComponent},
+			{ path: 'reporter/allpatients', component: AllPatientsDbComponent},
+			{ path: 'reporter/alldoctors', component: AllDoctorsDbComponent}
 		])
 	],
 	exports: [
