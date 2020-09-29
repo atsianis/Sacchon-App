@@ -1,9 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
-import { Patients } from 'src/app/interfaces/patients';
+import { ReporterService } from '../reporter.service';
 
 @Component({
   selector: 'sacchon-app-all-patients-db',
@@ -17,7 +16,7 @@ export class AllPatientsDbComponent implements OnInit {
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();
 
-	constructor(private http: HttpClient) { }
+	constructor(private reporterService: ReporterService) { }
 
 	ngOnInit(): void {
 		this.patients = [];
@@ -32,7 +31,7 @@ export class AllPatientsDbComponent implements OnInit {
 	}
 
 	getPatientsDB(): void {
-		this.http.get<Patients>('http://localhost:9000/v1/chief/allpatientsDB').subscribe(patients => {
+		this.reporterService.getAllPatientsFromDatabase().subscribe(patients => {
 			console.log(patients);	
 			this.patients = patients.data;
 			this.dtTrigger.next();
@@ -40,7 +39,6 @@ export class AllPatientsDbComponent implements OnInit {
 			console.log('-----> err', err);
 		});
 	}
-
 
 	birthDate(date: number): string {
 		return moment(date).format('DD/MM/YYYY');

@@ -1,9 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import * as moment from 'moment';
-import { Patients } from 'src/app/interfaces/patients';
+import { ReporterService } from '../reporter.service';
 
 @Component({
 	selector: 'sacchon-app-inspect-patient',
@@ -17,7 +16,7 @@ export class InspectPatientComponent implements OnInit {
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();
 
-	constructor(private http: HttpClient) { }
+	constructor(private reporterService: ReporterService) { }
 
 	ngOnInit(): void {
 		this.patients = [];
@@ -30,7 +29,7 @@ export class InspectPatientComponent implements OnInit {
 	}
 
 	getPatients(): void {
-		this.http.get<Patients>('http://localhost:9000/v1/chief/allpatients').subscribe(patients => {
+		this.reporterService.getPatients().subscribe(patients => {
 			this.patients = patients.data;
 			this.dtTrigger.next();
 		}, (err) => {

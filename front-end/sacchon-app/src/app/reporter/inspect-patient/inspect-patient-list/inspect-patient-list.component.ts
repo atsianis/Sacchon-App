@@ -1,10 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { Patients } from 'src/app/interfaces/patients';
-import { PatientRecords } from 'src/app/interfaces/patient-records';
+import { ReporterService } from '../../reporter.service';
 
 @Component({
 	selector: 'sacchon-app-inspect-patient-list',
@@ -17,7 +16,7 @@ export class InspectPatientListComponent implements OnInit {
 	patientCarbs: any = [];
 	patientRecordTimestamp: any = [];
 
-	constructor(private route: ActivatedRoute, private http: HttpClient) { }
+	constructor(private route: ActivatedRoute, private reporterService: ReporterService) { }
 	patient: any;
 
 	// Array of different segments in chart
@@ -63,7 +62,7 @@ export class InspectPatientListComponent implements OnInit {
 
 	getPatientById(): void {
 		this.route.params.subscribe(params => {
-			this.http.get<Patients>(`http://localhost:9000/v1/patient/${params.id}`).subscribe(patient => {
+			this.reporterService.getPatientById(params.id).subscribe(patient => {
 				this.patient = patient.data;
 				this.getCurrentPatientRecords(patient.data)
 			}, (err) => {
@@ -72,8 +71,8 @@ export class InspectPatientListComponent implements OnInit {
 		});
 	}
 
-	getCurrentPatientRecords(patient): any {
-		this.http.get<PatientRecords>(`http://localhost:9000/v1/patient/${patient.id}/storeData/allData`).subscribe(patientRecords => {
+	getCurrentPatientRecords(patient: Patients): void {
+		this.reporterService.getCurrentPatientRecords(patient.id).subscribe(patientRecords => {
 		patientRecords.data.forEach(patientRecord => {
 				this.patientCarbs.push(patientRecord.carbs)
 				this.patientGlycose.push(patientRecord.glycose)

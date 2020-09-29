@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Doctors } from '../interfaces/doctors';
-import { Patients } from '../interfaces/patients';
 
 @Injectable({
 	providedIn: 'root'
@@ -11,11 +9,27 @@ export class ReporterService {
 
 	constructor(private http: HttpClient) { }
 
-	getDoctors(): Observable<Doctors[]> {
-		return this.http.get<Doctors[]>('https://jsonplaceholder.typicode.com/users');
+	getDoctors(): Observable<any> {
+		return this.http.get<any>('https://jsonplaceholder.typicode.com/users');
 	}
 
-	getPatients(): Observable<Patients[]> {
-		return this.http.get<Patients[]>('https://jsonplaceholder.typicode.com/users');
+	getPatients(): Observable<any> {
+		return this.http.get<any>('https://jsonplaceholder.typicode.com/users');
+	}
+
+	getCurrentPatientRecords(patient_id): Observable<any> {
+		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/storeData/allData`)
+	}
+
+	getPatientById(patient_id): Observable<any> {
+		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}`)
+	}
+
+	getAllDoctorsFromDatabase(): Observable<any> {
+		return this.http.get<any>('http://localhost:9000/v1/chief/alldoctorsDB')
+	}
+
+	getAllPatientsFromDatabase(): Observable<any> {
+		return this.http.get<any>('http://localhost:9000/v1/chief/allpatientsDB')
 	}
 }
