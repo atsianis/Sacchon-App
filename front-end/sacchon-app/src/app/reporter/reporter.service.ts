@@ -10,11 +10,11 @@ export class ReporterService {
 	constructor(private http: HttpClient) { }
 
 	getDoctors(): Observable<any> {
-		return this.http.get<any>('https://jsonplaceholder.typicode.com/users');
+		return this.http.get<any>('http://localhost:9000/v1/chief/alldoctors');
 	}
 
 	getPatients(): Observable<any> {
-		return this.http.get<any>('https://jsonplaceholder.typicode.com/users');
+		return this.http.get<any>('http://localhost:9000/v1/chief/allpatients');
 	}
 
 	getCurrentPatientRecords(patient_id): Observable<any> {
