@@ -5,6 +5,7 @@ import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
@@ -27,7 +28,7 @@ public class AllPatientsDBImpl extends ServerResource implements AllPatientsDB {
         LOGGER.info("Initialising patient resource ends");
     }
 
-    public List<PatientRepresentation> getAllPatientsDB() throws NotFoundException {
+    public ResponseRepresentation<List<PatientRepresentation>> getAllPatientsDB() throws NotFoundException {
         LOGGER.finer("Select all patients from DB.");
         try {
             List<Patients> patients = patientRepository.findAllPatientsDB();
@@ -36,9 +37,8 @@ public class AllPatientsDBImpl extends ServerResource implements AllPatientsDB {
                 if (!patient.isDeleted())
                     result.add(new PatientRepresentation(patient));
 
-            return result;
+            return new ResponseRepresentation<>(200,"Patients found",result);
         } catch (Exception e) {
-            throw new NotFoundException("patients not found");
-        }
+            return new ResponseRepresentation<>(404,"Patients not found",null);        }
     }
 }
