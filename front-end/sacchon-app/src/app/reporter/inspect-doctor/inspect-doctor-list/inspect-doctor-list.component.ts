@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { DoctorAdviceService } from 'src/app/doctor-advice/doctor-advice.service';
-
+import * as moment from 'moment';
 @Component({
 	selector: 'sacchon-app-inspect-doctor-list',
 	templateUrl: './inspect-doctor-list.component.html',
@@ -41,11 +41,15 @@ export class InspectDoctorListComponent implements OnInit {
 	getConsultations(): void {
 		this.route.params.subscribe(params => {
 			this.doctorService.getCurrentDoctorConsultations(params.id).subscribe(consultations => {
-				this.consultations = consultations;
+				this.consultations = consultations.data;
 				this.dtTrigger.next();
 			}, (err) => {
 				console.log('-----> err', err);
 			});
 		});
+	}
+
+	birthDate(date: number): string {
+		return moment(date).format('DD/MM/YYYY');
 	}
 }
