@@ -11,17 +11,23 @@
 					</h5>
 					<div class="row align-items-start py-5">
 						<div class="col-6"><strong>Name:</strong></div>
-						<div class="col-6">SADIO</div>
+						<div class="col-6">{{firstName}}</div>
 						<div class="col-6"><strong>Surname:</strong></div>
-						<div class="col-6">MANE</div>
+						<div class="col-6">{{lastName}}</div>
 						<div class="col-6"><strong>Email:</strong></div>
-						<div class="col-6">mane@gmail.com</div>
+						<div class="col-6">{{email}}</div>
 					</div>
 					<div class="row align-items-center">
-						<button href="reporter/edit" class="btn btn-block btn-primary my-2 mx-2">Edit Profile</button>
-						<div class="btn-group" style="left: 8%;">
-							<button href="reporter/allpatients" class=" btn-primary my-2 mx-2" style="padding-inline-start: 8%; padding-inline-end: 8%;">Patients DB</button>
-							<button href="reporter/alldoctors" class=" btn-primary my-2 mx-2" style="padding-inline-start: 8%; padding-inline-end: 8%;">Doctors DB</button>
+						<a href = "/reporter/edit" class="btn btn-block btn-primary my-2 mx-2">
+							Edit Profile
+						</a>
+						<div class="btn-group" style="left: 18%;">
+							<a  href="/reporter/allpatientsDB" class="btn btn-primary my-2 mx-2" style="padding-inline-start: 8%; padding-inline-end: 8%;">
+								Patients DB
+							</a>
+							<a href="/reporter/alldoctorsDB" class="btn btn-primary my-2 mx-2" style="padding-inline-start: 8%; padding-inline-end: 8%;">
+								Doctors DB
+							</a>
 						</div>
 					</div>
 				</div>

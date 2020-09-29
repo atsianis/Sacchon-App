@@ -17,6 +17,8 @@ import { InspectNonActiveComponent } from './inspect-non-active/inspect-non-acti
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AllPatientsDbComponent } from './all-patients-db/all-patients-db.component';
 import { AllDoctorsDbComponent } from './all-doctors-db/all-doctors-db.component';
+import { AllDoctorsDbListComponent } from './all-doctors-db/all-doctors-db-list/all-doctors-db-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [
@@ -27,13 +29,16 @@ import { AllDoctorsDbComponent } from './all-doctors-db/all-doctors-db.component
 		InspectNonActiveComponent,
 		EditProfileComponent,
 		AllPatientsDbComponent,
-		AllDoctorsDbComponent
+		AllDoctorsDbComponent,
+		AllDoctorsDbListComponent
 	],
 	imports: [
 		CommonModule,
 		DataTablesModule,
 		ChartsModule,
 		HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
 		RouterModule.forChild([
 			{ path: 'reporter', component: ReporterComponent },
 			{ path: 'reporter/doctors', component: InspectDoctorComponent },
@@ -43,8 +48,8 @@ import { AllDoctorsDbComponent } from './all-doctors-db/all-doctors-db.component
 			{ path: 'reporter/createdoctor', component: DoctorSignUpComponent },
 			{ path: 'reporter/inactives', component: InspectNonActiveComponent },
 			{ path: 'reporter/edit', component: EditProfileComponent},
-			{ path: 'reporter/allpatients', component: AllPatientsDbComponent},
-			{ path: 'reporter/alldoctors', component: AllDoctorsDbComponent}
+			{ path: 'reporter/allpatientsDB', component: AllPatientsDbComponent},
+			{ path: 'reporter/alldoctorsDB', component: AllDoctorsDbComponent}
 		])
 	],
 	exports: [
