@@ -1,11 +1,11 @@
 export interface Doctors {
 	status: number;
-	data: {
+	data: [{
 		id: string;
 		firstName: string;
 		lastName: string;
 		email: string;
 		password: string;
 		lastActive: string;
-	}
+	}]
 }

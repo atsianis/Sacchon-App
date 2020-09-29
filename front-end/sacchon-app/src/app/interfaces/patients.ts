@@ -1,6 +1,6 @@
 export interface Patients {
 	status: number;
-	data: {
+	data: [{
 		id: string;
 		firstName: string;
 		lastName: string;
@@ -10,5 +10,5 @@ export interface Patients {
 		canBeExamined: string;
 		lastActive: string;
 		gender: string;
-	}
+	}]
 }

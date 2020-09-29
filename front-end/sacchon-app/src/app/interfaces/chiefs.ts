@@ -1,10 +1,10 @@
 export interface Chiefs {
     status: number;
-    data: {
+    data: [{
         firstName: string;
         lastName: string;
         email: string;
         password: string;
         id: string;
-    }
+    }]
 }
