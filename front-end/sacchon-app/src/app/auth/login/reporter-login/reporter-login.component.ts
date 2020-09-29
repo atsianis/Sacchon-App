@@ -29,15 +29,15 @@ export class ReporterLoginComponent implements OnInit {
 			password: this.reporterLoginForm.get('password').value
 		}).subscribe(response => {
 			if (response.status == 200) {
-				this.toastr.success(`Welcome ${response.data.firstName}!`, 'Login successful', {
+				this.toastr.success(`Welcome ${response.data[0].firstName}!`, 'Login successful', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
 				}).onHidden.toPromise().then(_ => {
-					sessionStorage.setItem('email', response.data.email);
-					sessionStorage.setItem('password', response.data.password);
-					sessionStorage.setItem('firstName', response.data.firstName);
-					sessionStorage.setItem('lastName', response.data.lastName);
-					sessionStorage.setItem('id', response.data.id);
+					sessionStorage.setItem('email', response.data[0].email);
+					sessionStorage.setItem('password', response.data[0].password);
+					sessionStorage.setItem('firstName', response.data[0].firstName);
+					sessionStorage.setItem('lastName', response.data[0].lastName);
+					sessionStorage.setItem('id', response.data[0].id);
 					sessionStorage.setItem('userType', 'reporter');
 					this.router.navigate(['reporter']);
 				})
