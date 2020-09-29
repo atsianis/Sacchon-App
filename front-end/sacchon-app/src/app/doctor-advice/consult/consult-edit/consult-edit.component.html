@@ -1,1 +1,18 @@
-<p>consult-edit works!</p>
+
+<div class="container">
+	<div class="row align-items-center justify-content-center">
+		<form [formGroup]="editConsultForm">
+			<div class="form-group">
+				<h5 for="exampleFormControlTextarea1">{{ formatConsultationDate(consultation.timeCreated) }}</h5>
+				<p>{{ consultation.comment }}</p>
+				<br>
+				<br>
+				<label for="exampleFormControlTextarea1">{{ formatConsultationDate(consultation.timeCreated) }}</label>
+				<textarea formControlName="comment" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+			</div>
+			<div>
+				<button class="btn btn-block btn-primary" (click)="submitConsultation()">Submit</button>
+			</div>
+		</form>
+	</div>
+</div>
