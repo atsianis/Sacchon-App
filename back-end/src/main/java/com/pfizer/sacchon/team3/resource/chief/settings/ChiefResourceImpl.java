@@ -1,14 +1,13 @@
 package com.pfizer.sacchon.team3.resource.chief.settings;
 
 import com.pfizer.sacchon.team3.exception.BadEntityException;
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Chiefs;
 import com.pfizer.sacchon.team3.repository.ChiefRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ChiefRepresentation;
+import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import org.restlet.engine.Engine;
-import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import java.util.Optional;
@@ -32,12 +31,18 @@ public class ChiefResourceImpl extends ServerResource implements ChiefResource {
     }
 
     @Override
-    public ChiefRepresentation update(ChiefRepresentation chiefRepresentation) throws BadEntityException {
+    public ResponseRepresentation<ChiefRepresentation> update(ChiefRepresentation chiefRepresentation) {
         LOGGER.finer("Update chief.");
         // Check given entity
-        ResourceValidator.notNull(chiefRepresentation);
-        ResourceValidator.validateChief(chiefRepresentation);
+        try {
+            ResourceValidator.notNull(chiefRepresentation);
+            ResourceValidator.validateChief(chiefRepresentation);
+        } catch (BadEntityException ex) {
+            return new ResponseRepresentation<>(422, "BadEntity", null);
+        }
+
         LOGGER.finer("Chief checked");
+
         try {
             // Convert ChiefRepr to Chief
             Chiefs chiefIn = chiefRepresentation.createChief();
@@ -50,17 +55,17 @@ public class ChiefResourceImpl extends ServerResource implements ChiefResource {
                 chiefOut = chiefRepository.update(chiefIn);
                 if (!chiefOut.isPresent()) {
                     LOGGER.finer("chief does not exist.");
-                    throw new NotFoundException("chief with the following id does not exist: " + id);
+                    return new ResponseRepresentation<>(404, "Chief not found", null);
                 }
             } else {
                 LOGGER.finer("chief does not exist.");
-                throw new NotFoundException("chief with the following id does not exist: " + id);
+                return new ResponseRepresentation<>(404, "Chief not found", null);
             }
             LOGGER.finer("Chief successfully updated.");
 
-            return new ChiefRepresentation(chiefOut.get());
+            return new ResponseRepresentation<>(200, "Chief retrieved", new ChiefRepresentation(chiefOut.get()));
         } catch (Exception ex) {
-            throw new ResourceException(ex);
+            return new ResponseRepresentation<>(422, "Resource exception", null);
         }
     }
 }

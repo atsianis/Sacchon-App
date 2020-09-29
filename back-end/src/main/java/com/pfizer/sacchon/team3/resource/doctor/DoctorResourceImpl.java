@@ -62,26 +62,6 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
         }
     }
 
-    // DELETE Doctor
-    @Override
-    public ResponseRepresentation<DoctorRepresentation> remove() {
-        LOGGER.finer("Removal of doctor");
-        try {
-            Boolean isDeleted = doctorRepository.remove(id);
-            if (!isDeleted) {
-                LOGGER.config("Doctor id does not exist");
-                return new ResponseRepresentation<>(404, "Doctor not found", null);
-
-            }
-            LOGGER.finer("Doctor successfully removed.");
-        } catch (Exception ex) {
-            LOGGER.log(Level.WARNING, "Error when removing a doctor", ex);
-            return new ResponseRepresentation<>(404, "Doctor not found", null);
-        }
-
-        return new ResponseRepresentation<>(200, "Doctor deleted updated", null);
-    }
-
     // UPDATE Doctor
     @Override
     public ResponseRepresentation<DoctorRepresentation> updateDoctor(CreatedOrUpdatedDoctorRepresentation doctorReprIn) {

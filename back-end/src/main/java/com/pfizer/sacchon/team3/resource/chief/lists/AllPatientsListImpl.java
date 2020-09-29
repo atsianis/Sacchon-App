@@ -32,10 +32,10 @@ public class AllPatientsListImpl extends ServerResource implements AllPatientsLi
         try {
             List<Patients> patients = patientRepository.findAllPatients();
             List<PatientRepresentation> result = new ArrayList<>();
-            for (Patients patient : patients)
+            for (Patients patient : patients) {
                 if (!patient.isDeleted())
                     result.add(new PatientRepresentation(patient));
-
+            }
             return new ResponseRepresentation<>(200, "Patients retrieved", result);
         } catch (Exception e) {
             return new ResponseRepresentation<>(404, "Patients not found", null);

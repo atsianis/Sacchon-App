@@ -10,8 +10,8 @@ import com.pfizer.sacchon.team3.resource.patient.PatientConsultationsResourceImp
 import com.pfizer.sacchon.team3.resource.patient.PatientRecordsListImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientResourceImpl;
 import com.pfizer.sacchon.team3.resource.patientRecord.PatientRecordResourceImpl;
-import com.pfizer.sacchon.team3.resource.softDeletes.SDDoctorImpl;
-import com.pfizer.sacchon.team3.resource.softDeletes.SDPatientImpl;
+import com.pfizer.sacchon.team3.resource.softDeletes.SoftDeleteDoctorImpl;
+import com.pfizer.sacchon.team3.resource.softDeletes.SoftDeletePatientImpl;
 import com.pfizer.sacchon.team3.resource.userAuth.login.LoginChiefImpl;
 import com.pfizer.sacchon.team3.resource.userAuth.login.LoginDoctorImpl;
 import com.pfizer.sacchon.team3.resource.userAuth.login.LoginPatientImpl;
@@ -63,15 +63,16 @@ public class CustomRouter {
         router.attach("/doctor/{id}", DoctorResourceImpl.class);
         router.attach("/doctor/{id}/settings", DoctorResourceImpl.class);
         router.attach("/doctor/{id}/mypatients", MyPatientsResourceImpl.class);
+        router.attach("/doctor/{id}/consultations",DoctorConsultationsImpl.class);
         router.attach("/doctor/{id}/available-patients", AllAvailablePatientListResourceImpl.class);
         router.attach("/doctor/{did}/select/patient/{pid}", DoctorSelectionResourceImpl.class);
         router.attach("/doctor/{did}/consultation/{cid}", UpdateConsultationResource.class);
-        router.attach("/doctor/{did}/patient/{pid}", AddCommentResourceImpl.class);
+        router.attach("/consult/doctor/{did}/patient/{pid}", AddCommentResourceImpl.class);
         router.attach("/doctor/{id}/consultable-patients", AllConsultablePatientListResourceImpl.class);
 
         //soft Deletes
-        router.attach("/patient/{id}/settings/softDelete", SDPatientImpl.class);
-        router.attach("/doctor/{id}/settings/softDelete", SDDoctorImpl.class);
+        router.attach("/patient/{id}/settings/softDelete", SoftDeletePatientImpl.class);
+        router.attach("/doctor/{id}/settings/softDelete", SoftDeleteDoctorImpl.class);
 
         // wtf ?
         router.attach("/consultation/{id}", ConsultationResourceImpl.class);

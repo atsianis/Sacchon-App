@@ -44,7 +44,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     public ResponseRepresentation<List<PatientRecordRepresentation>> getAllPatientRecords() {
         LOGGER.finer("Select all records.");
         try {
-            List<PatientRecords> patientRecords = patientRecordRepository.findAllPatientRecords();
+            List<PatientRecords> patientRecords = patientRecordRepository.findPatientRecordsByPatient(id);
             List<PatientRecordRepresentation> result = new ArrayList<>();
 
             for (PatientRecords p : patientRecords)
