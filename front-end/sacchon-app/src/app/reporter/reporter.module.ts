@@ -17,7 +17,6 @@ import { InspectNonActiveComponent } from './inspect-non-active/inspect-non-acti
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AllPatientsDbComponent } from './all-patients-db/all-patients-db.component';
 import { AllDoctorsDbComponent } from './all-doctors-db/all-doctors-db.component';
-import { AllDoctorsDbListComponent } from './all-doctors-db/all-doctors-db-list/all-doctors-db-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReporterGuard } from './reporter.guard';
 
@@ -31,7 +30,6 @@ import { ReporterGuard } from './reporter.guard';
 		EditProfileComponent,
 		AllPatientsDbComponent,
 		AllDoctorsDbComponent,
-		AllDoctorsDbListComponent
 	],
 	imports: [
 		CommonModule,
@@ -41,7 +39,6 @@ import { ReporterGuard } from './reporter.guard';
         FormsModule,
         ReactiveFormsModule,
 		RouterModule.forChild([
-
 			{ path: 'reporter', component: ReporterComponent , canActivate: [ ReporterGuard ] },
 			{ path: 'reporter/doctors', component: InspectDoctorComponent , canActivate: [ ReporterGuard ] },
 			{ path: 'reporter/doctor/:id', component: InspectDoctorListComponent , canActivate: [ ReporterGuard ] },
