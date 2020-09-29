@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Consultations } from 'src/app/interfaces/consultations';
 import * as moment from 'moment';
+import { param } from 'jquery';
 
 @Component({
 	selector: 'sacchon-app-consult-edit',
@@ -17,6 +18,8 @@ export class ConsultEditComponent implements OnInit {
 
 	consultation_id: string;
 	consultation: any;
+	doctor_id: string;
+	patient_id: string;
 	editConsultForm = new FormGroup ({
 		comment: new FormControl
 	})
@@ -35,7 +38,8 @@ export class ConsultEditComponent implements OnInit {
 	}
 
 	submitConsultation(): any {
-		this.http.post(`http://localhost:9000/v1/consult/doctor/${this.doctor_id}/patient/${this.patient_id}`, {
+		this.doctor_id = sessionStorage.getItem('id');
+		this.http.put(`http://localhost:9000/v1/consultation/${this.consultation_id}/doctor/${this.doctor_id}/`, {
 			comment: this.editConsultForm.get('comment').value
 		}).subscribe(response => {
 			this.toastr.success('Consultation edited successfully', 'Success', {
