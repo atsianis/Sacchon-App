@@ -13,7 +13,6 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DoctorResourceImpl extends ServerResource implements DoctorResource {
@@ -69,7 +68,7 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
         // Check given entity
         try {
             ResourceValidator.notNull(doctorReprIn);
-            ResourceValidator.validateDoctor(doctorReprIn);
+            ResourceValidator.validate(doctorReprIn);
         } catch (BadEntityException ex) {
             return new ResponseRepresentation<>(422, "Bad Entity", null);
         }

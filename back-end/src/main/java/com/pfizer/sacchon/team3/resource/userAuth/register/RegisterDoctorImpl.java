@@ -8,7 +8,6 @@ import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedDoctorRepresentat
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
-import org.hibernate.Hibernate;
 import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
@@ -38,7 +37,7 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
         // Check entity
         try {
             ResourceValidator.notNull(createdOrUpdatedDoctorRepresentation);
-            ResourceValidator.validateDoctor(createdOrUpdatedDoctorRepresentation);
+            ResourceValidator.validate(createdOrUpdatedDoctorRepresentation);
         } catch (BadEntityException ex) {
             return new ResponseRepresentation<>(422, "Bad Entity", null);
         }

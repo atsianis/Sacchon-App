@@ -46,7 +46,7 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
         // Check entity
         try {
             ResourceValidator.notNull(patientRepresentation);
-            ResourceValidator.validatePatient(patientRepresentation);
+            ResourceValidator.validate(patientRepresentation);
         } catch (BadEntityException ex) {
             return new ResponseRepresentation<>(422, "Bad Entity", null);
         }

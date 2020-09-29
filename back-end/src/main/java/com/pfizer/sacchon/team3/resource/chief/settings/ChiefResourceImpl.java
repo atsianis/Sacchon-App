@@ -36,7 +36,7 @@ public class ChiefResourceImpl extends ServerResource implements ChiefResource {
         // Check given entity
         try {
             ResourceValidator.notNull(chiefRepresentation);
-            ResourceValidator.validateChief(chiefRepresentation);
+            ResourceValidator.validate(chiefRepresentation);
         } catch (BadEntityException ex) {
             return new ResponseRepresentation<>(422, "BadEntity", null);
         }

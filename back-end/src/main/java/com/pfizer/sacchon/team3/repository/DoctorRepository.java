@@ -117,12 +117,6 @@ public class DoctorRepository {
                 .getResultList();
     }
 
-    public List<PatientRecords> patientRecords(Long id) {
-        return entityManager.createQuery("from PatientRecords patientRec WHERE patientRec.patient_id = :id", PatientRecords.class)
-                .setParameter("id", id)
-                .getResultList();
-    }
-
     public Optional<Doctors> softDelete(Doctors d) {
         patientRepository = new PatientRepository(JpaUtil.getEntityManager());
         Doctors doctorsIn = entityManager.find(Doctors.class, d.getId());
