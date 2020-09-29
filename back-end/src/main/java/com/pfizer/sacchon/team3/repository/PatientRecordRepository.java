@@ -9,6 +9,7 @@ import java.util.Optional;
 public class PatientRecordRepository {
 
     private EntityManager entityManager;
+
     public PatientRecordRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
@@ -21,6 +22,12 @@ public class PatientRecordRepository {
 
     public List<PatientRecords> findAllPatientRecords() {
         return entityManager.createQuery("from PatientRecords").getResultList();
+    }
+
+    public List<PatientRecords> findPatientRecordsByPatient(long id) {
+        return entityManager.createQuery("from PatientRecords WHERE patient_id = :id")
+                .setParameter("id", id)
+                .getResultList();
     }
 
     public Optional<PatientRecords> save(PatientRecords p) {

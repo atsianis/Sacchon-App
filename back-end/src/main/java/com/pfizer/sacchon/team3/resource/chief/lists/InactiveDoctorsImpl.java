@@ -5,7 +5,6 @@ import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
-import org.hibernate.Hibernate;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
@@ -35,10 +34,8 @@ public class InactiveDoctorsImpl extends ServerResource implements InactiveDocto
         try {
             List<Doctors> doctors = doctorRepository.findInactiveDoctors();
             List<DoctorRepresentation> result = new ArrayList<>();
-            for (Doctors doctor : doctors) {
-                Hibernate.initialize(doctor);
+            for (Doctors doctor : doctors)
                 result.add(new DoctorRepresentation(doctor));
-            }
 
             return new ResponseRepresentation<>(200, "Doctors retrieved", result);
         } catch (Exception e) {

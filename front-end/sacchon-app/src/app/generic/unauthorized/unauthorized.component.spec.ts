@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MediDataRepoComponent } from './medi-data-repo.component';
+import { UnauthorizedComponent } from './unauthorized.component';
 
-describe('MediDataRepoComponent', () => {
-  let component: MediDataRepoComponent;
-  let fixture: ComponentFixture<MediDataRepoComponent>;
+describe('UnauthorizedComponent', () => {
+  let component: UnauthorizedComponent;
+  let fixture: ComponentFixture<UnauthorizedComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MediDataRepoComponent ]
+      declarations: [ UnauthorizedComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MediDataRepoComponent);
+    fixture = TestBed.createComponent(UnauthorizedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

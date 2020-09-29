@@ -1,10 +1,13 @@
 package com.pfizer.sacchon.team3.repository;
 
 import com.pfizer.sacchon.team3.exception.WrongCredentials;
-import com.pfizer.sacchon.team3.model.*;
+import com.pfizer.sacchon.team3.model.Consultations;
+import com.pfizer.sacchon.team3.model.PatientRecords;
+import com.pfizer.sacchon.team3.model.Patients;
 
 import javax.persistence.EntityManager;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class PatientRepository {
     private EntityManager entityManager;
@@ -70,13 +73,17 @@ public class PatientRepository {
 
     public Optional<Patients> update(Patients p) {
         Patients patientIn = entityManager.find(Patients.class, p.getId());
-        patientIn.setFirstName(p.getFirstName());
-        patientIn.setLastName(p.getLastName());
-        patientIn.setPassword(p.getPassword());
-        patientIn.setLastActive(p.getLastActive());
-        patientIn.setEmail(p.getEmail());
-        patientIn.setDob(p.getDob());
-
+        if (!(p.getFirstName() == null))
+            patientIn.setFirstName(p.getFirstName());
+        if (!(p.getLastName() == null))
+            patientIn.setLastName(p.getLastName());
+        //System.out.println(p.getPassword().equals(null));
+        if (!(p.getPassword() == null))
+            patientIn.setPassword(p.getPassword());
+        if (!(p.getEmail() == null))
+            patientIn.setEmail(p.getEmail());
+        if (!(p.getDob() == null))
+            patientIn.setDob(p.getDob());
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(patientIn);
@@ -89,20 +96,22 @@ public class PatientRepository {
         return Optional.empty();
     }
 
-    public boolean remove(Long id) {
-        Optional<Patients> patient = findById(id);
-        if (patient.isPresent()) {
-            Patients p = patient.get();
-            try {
-                entityManager.getTransaction().begin();
-                entityManager.remove(p);
-                entityManager.getTransaction().commit();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    public boolean removeDoctor(Patients patient) {
+        Patients patientIn = entityManager.find(Patients.class, patient.getId());
+        System.out.println(patientIn.getFirstName());
+        if (patient.getDoctor() != null) {
+            patientIn.setDoctor(null);
+        }
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(patientIn);
+            entityManager.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        return true;
+        return false;
     }
 
     public Optional<Patients> softDelete(Patients p) {
@@ -146,15 +155,14 @@ public class PatientRepository {
     }
 
     public List<Patients> findInactivePatients() {
-        List<Patients> patients = entityManager.createQuery("from Patients").getResultList();
+        List<Patients> patients = entityManager.createQuery("from Patients WHERE isDeleted = 0", Patients.class).getResultList();
         List<Patients> inactivePatients = new ArrayList<>();
-        Calendar cDeadline = Calendar.getInstance();
-        Calendar cNow = Calendar.getInstance();
+        Date now = new Date();
         for (Patients patient : patients) {
-            cDeadline.setTime(patient.getLastActive());
-            cNow.setTime(new Date());
-            if (cNow.compareTo(cDeadline) >= 15)
+            long diff = TimeUnit.DAYS.convert(Math.abs(patient.getLastActive().getTime() - now.getTime()), TimeUnit.MILLISECONDS);
+            if (diff >= 15) {
                 inactivePatients.add(patient);
+            }
         }
 
         return inactivePatients;

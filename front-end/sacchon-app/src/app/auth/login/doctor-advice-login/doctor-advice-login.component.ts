@@ -39,10 +39,14 @@ export class DoctorAdviceLoginComponent implements OnInit {
 					sessionStorage.setItem('lastName', response.data.lastName);
 					sessionStorage.setItem('id', response.data.id);
 					sessionStorage.setItem('lastActive', response.data.lastActive);
+					sessionStorage.setItem('userType', 'doctor');
 					this.router.navigate(['doctoradvice/profile']);
 				})
 			} else {
-				this.toastr.error('Invalid credentials', 'Login Unsuccessful')
+				this.toastr.error('Invalid credentials', 'Login Unsuccessful', {
+					timeOut: 2000,
+					positionClass: 'toast-top-center'
+				})
 			}
 		})
 	}

@@ -51,7 +51,7 @@ public class AddCommentResourceImpl extends ServerResource implements AddComment
         setExisting(odoctor.isPresent());
         if (!isExisting()) {
             LOGGER.config("Doctor id does not exist:" + doctor_id);
-            return new ResponseRepresentation<ConsultationRepresentation>(404, "Doctor not found", null);
+            return new ResponseRepresentation<>(404, "Doctor not found", null);
         } else {
             doctor = odoctor.get();
             LOGGER.finer("Doctor found");
@@ -63,14 +63,14 @@ public class AddCommentResourceImpl extends ServerResource implements AddComment
         setExisting(opatient.isPresent());
         if (!isExisting()) {
             LOGGER.config("Patient id does not exist:" + patient_id);
-            return new ResponseRepresentation<ConsultationRepresentation>(404, "Patient not found", null);
+            return new ResponseRepresentation<>(404, "Patient not found", null);
         } else {
             patient = opatient.get();
             LOGGER.finer("Patient found");
         }
         //Check if this patient belongs to this doctor
         if (!isMyPatient(doctor,patient))
-            return new ResponseRepresentation<ConsultationRepresentation>(401, "Unauthorized ! Cant consult this patient", null);
+            return new ResponseRepresentation<>(401, "Unauthorized ! Cant consult this patient", null);
         try {
             Consultations consultation = new Consultations();
             consultation.setDoctor(doctor);
@@ -81,9 +81,9 @@ public class AddCommentResourceImpl extends ServerResource implements AddComment
             setExisting(oconsultation.isPresent());
             if (isExisting())
                 return new ResponseRepresentation<>(200,"Consultation Created",new ConsultationRepresentation(oconsultation.get()));
-            return new ResponseRepresentation<ConsultationRepresentation>(422, "Consultation could not be created", null);
+            return new ResponseRepresentation<>(422, "Consultation could not be created", null);
         } catch (Exception ex) {
-            return new ResponseRepresentation<ConsultationRepresentation>(422, "Consultation could not be created", null);
+            return new ResponseRepresentation<>(422, "Consultation could not be created", null);
         }
     }
 

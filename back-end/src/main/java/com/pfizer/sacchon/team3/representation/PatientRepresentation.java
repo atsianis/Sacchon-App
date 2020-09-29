@@ -1,14 +1,10 @@
 package com.pfizer.sacchon.team3.representation;
 
-import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.model.Patients;
-import com.pfizer.sacchon.team3.model.PatientRecords;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,14 +17,19 @@ public class PatientRepresentation {
     private boolean canBeExamined;
     private boolean isDeleted;
     private Date lastActive;
+    private Date timeCreated;
     private String gender;
-    private List<PatientRecords> patientRecords = new ArrayList<>();
-    private List<Consultations> consultations = new ArrayList<>();
+    private long doctor_id;
     private long id;
 
 
     public PatientRepresentation(Patients patient) {
         if (patient != null) {
+            if (patient.getDoctor() != null) {
+                doctor_id = patient.getDoctor().getId();
+            } else {
+                doctor_id = 0;
+            }
             firstName = patient.getFirstName();
             lastName = patient.getLastName();
             email = patient.getEmail();
@@ -36,10 +37,9 @@ public class PatientRepresentation {
             dob = patient.getDob();
             canBeExamined = patient.isCanBeExamined();
             isDeleted = patient.isDeleted();
+            timeCreated = patient.getTimeCreated();
             lastActive = patient.getLastActive();
             gender = patient.getGender();
-            patientRecords = patient.getPatientRecords();
-            consultations = patient.getConsultations();
             id = patient.getId();
         }
     }
@@ -55,8 +55,7 @@ public class PatientRepresentation {
         p.setDeleted(this.isDeleted);
         p.setLastActive(this.lastActive);
         p.setGender(this.gender);
-        p.setPatientRecords(this.patientRecords);
-        p.setConsultations(this.consultations);
+        p.setTimeCreated((this.timeCreated));
         p.setId(this.id);
 
         return p;

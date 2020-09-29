@@ -1,0 +1,14 @@
+
+<div class="container">
+	<div class="row align-items-center justify-content-center">
+		<form [formGroup]="createConsultForm">
+			<div class="form-group">
+				<label for="exampleFormControlTextarea1">Consultation for month (WIP: insert month here)</label>
+				<textarea formControlName="comment" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+			</div>
+			<div>
+				<button class="btn btn-block btn-primary" (click)="submitConsultation()">Submit</button>
+			</div>
+		</form>
+	</div>
+</div>
