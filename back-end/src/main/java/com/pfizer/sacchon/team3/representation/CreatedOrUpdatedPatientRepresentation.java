@@ -35,7 +35,7 @@ public class CreatedOrUpdatedPatientRepresentation {
         }
     }
 
-    public Patients createPatients() {
+    public Patients createPatient() {
         Patients patient = new Patients();
         patient.setFirstName(firstName);
         patient.setLastName(lastName);

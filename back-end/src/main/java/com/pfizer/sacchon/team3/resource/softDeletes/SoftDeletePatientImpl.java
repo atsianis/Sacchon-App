@@ -1,20 +1,18 @@
 package com.pfizer.sacchon.team3.resource.softDeletes;
 
-import com.pfizer.sacchon.team3.exception.BadEntityException;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
-import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
 import java.util.Optional;
 import java.util.logging.Logger;
 
-public class SDPatientImpl extends ServerResource implements SoftDeletePatient {
-    public static final Logger LOGGER = Engine.getLogger(SDPatientImpl.class);
+public class SoftDeletePatientImpl extends ServerResource implements SoftDeletePatient {
+    public static final Logger LOGGER = Engine.getLogger(SoftDeletePatientImpl.class);
     private long id;
     private PatientRepository patientRepository;
 
@@ -31,31 +29,18 @@ public class SDPatientImpl extends ServerResource implements SoftDeletePatient {
     }
 
     @Override
-    public ResponseRepresentation<PatientRepresentation> softDelete(PatientRepresentation patientRepresentation) {
+    public ResponseRepresentation<PatientRepresentation> softDelete() {
         LOGGER.finer("Soft Delete a patient.");
-        // Check given entity
         try {
-            ResourceValidator.notNull(patientRepresentation);
-            ResourceValidator.validatePatient(patientRepresentation);
-        } catch (BadEntityException ex) {
-            return new ResponseRepresentation<>(422, "Bad Entity Exception", null);
-        }
-
-        LOGGER.finer("Patient checked");
-
-        try {
-            // Convert PatientRepr to Patient
-            Patients patientsIn = patientRepresentation.createPatient();
-            patientsIn.setId(id);
             Optional<Patients> patientOut = patientRepository.findById(id);
             setExisting(patientOut.isPresent());
             // If patient exists, we update it.
             if (isExisting()) {
                 LOGGER.finer("Soft delete Patient.");
-                patientOut = patientRepository.softDelete(patientsIn);
+                Optional patientDeleted = patientRepository.softDelete(patientOut.get());
                 // Check if retrieved patient is not null : if it is null it
                 // means that the id is wrong.
-                if (!patientOut.isPresent()) {
+                if (!patientDeleted.isPresent()) {
                     LOGGER.finer("Patient does not exist.");
                     return new ResponseRepresentation<>(404, "Patient not found", null);
                 }

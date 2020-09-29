@@ -11,9 +11,6 @@ public interface DoctorResource {
     @Get("json")
     public ResponseRepresentation<DoctorRepresentation> getDoctor();
 
-    @Delete
-    public ResponseRepresentation<DoctorRepresentation> remove();
-
     @Put("json")
     public ResponseRepresentation<DoctorRepresentation> updateDoctor(CreatedOrUpdatedDoctorRepresentation doctorReprIn);
 }

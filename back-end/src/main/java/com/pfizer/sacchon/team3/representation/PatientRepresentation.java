@@ -1,15 +1,10 @@
 package com.pfizer.sacchon.team3.representation;
 
-import com.pfizer.sacchon.team3.model.Consultations;
-import com.pfizer.sacchon.team3.model.Doctors;
 import com.pfizer.sacchon.team3.model.Patients;
-import com.pfizer.sacchon.team3.model.PatientRecords;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,15 +19,17 @@ public class PatientRepresentation {
     private Date lastActive;
     private Date timeCreated;
     private String gender;
-    private Doctors doctor;
-    private List<PatientRecords> patientRecords = new ArrayList<>();
-    private List<Consultations> consultations = new ArrayList<>();
+    private long doctor_id;
     private long id;
 
 
     public PatientRepresentation(Patients patient) {
         if (patient != null) {
-            doctor = patient.getDoctor();
+            if (patient.getDoctor() != null) {
+                doctor_id = patient.getDoctor().getId();
+            } else {
+                doctor_id = 0;
+            }
             firstName = patient.getFirstName();
             lastName = patient.getLastName();
             email = patient.getEmail();
@@ -43,8 +40,6 @@ public class PatientRepresentation {
             timeCreated = patient.getTimeCreated();
             lastActive = patient.getLastActive();
             gender = patient.getGender();
-            patientRecords = patient.getPatientRecords();
-            consultations = patient.getConsultations();
             id = patient.getId();
         }
     }
@@ -61,8 +56,6 @@ public class PatientRepresentation {
         p.setLastActive(this.lastActive);
         p.setGender(this.gender);
         p.setTimeCreated((this.timeCreated));
-        p.setPatientRecords(this.patientRecords);
-        p.setConsultations(this.consultations);
         p.setId(this.id);
 
         return p;
