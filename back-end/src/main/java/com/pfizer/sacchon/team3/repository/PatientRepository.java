@@ -32,15 +32,21 @@ public class PatientRepository {
                 .getResultList();
     }
 
+    /**
+     * this method returns a List of Patients that have been recording for 30 days and await for a consultation
+     * from a doctor . If they belong to a doctor a notification will appear on doctors dashboard .
+     */
     public List<Patients> findAllConsultablePatients() {
-        return entityManager.createQuery("from Patients WHERE canBeExamined = 1 " +
-                "and doctor_id = null")
+        return entityManager.createQuery("from Patients WHERE canBeExamined = 1 ")
                 .getResultList();
     }
 
+    /**
+     * this method returns a List of Patients that have registered to the system
+     * and await for a doctor to select them .
+     */
     public List<Patients> findAllAvailablePatients() {
-        return entityManager.createQuery("from Patients WHERE canBeExamined = 0 " +
-                "and doctor_id = null")
+        return entityManager.createQuery("from Patients WHERE doctor_id = null")
                 .getResultList();
     }
 

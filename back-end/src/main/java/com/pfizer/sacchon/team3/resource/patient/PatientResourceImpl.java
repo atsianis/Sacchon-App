@@ -7,6 +7,7 @@ import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
+import com.pfizer.sacchon.team3.resource.util.Validate;
 import org.hibernate.Hibernate;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
@@ -64,11 +65,11 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
         LOGGER.finer("Update a patient.");
         // Check given entity
         try {
-            ResourceValidator.notNull(patientRepresentation);
-            ResourceValidator.validatePatient(patientRepresentation);
-        } catch (BadEntityException ex) {
-            return new ResponseRepresentation<>(422, "Bad Entity", null);
-        }
+                ResourceValidator.notNull(patientRepresentation);
+                ResourceValidator.validate(patientRepresentation);
+            } catch (BadEntityException ex) {
+                return new ResponseRepresentation<>(422, "Bad Entity", null);
+            }
 
         LOGGER.finer("Patient checked");
         try {

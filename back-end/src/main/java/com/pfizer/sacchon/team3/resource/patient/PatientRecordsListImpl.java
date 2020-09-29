@@ -72,7 +72,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
             pr.setFirstName(patient.getFirstName());
             try {
                 ResourceValidator.notNull(patientRecordRepresentation);
-                ResourceValidator.validatePatient(pr);
+                ResourceValidator.validate(pr);
             } catch (BadEntityException ex) {
                 return new ResponseRepresentation<>(422, "Bad Entity", null);
             }
