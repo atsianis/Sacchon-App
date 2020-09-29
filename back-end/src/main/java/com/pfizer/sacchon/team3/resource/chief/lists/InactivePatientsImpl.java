@@ -37,8 +37,8 @@ public class InactivePatientsImpl extends ServerResource implements InactivePati
             List<PatientRepresentation> result = new ArrayList<>();
 
             for (Patients patient : inactivePatients) {
-                Hibernate.initialize(patient.getConsultations());
-                Hibernate.initialize(patient.getPatientRecords());
+                //Hibernate.initialize(patient.getConsultations());
+                //Hibernate.initialize(patient.getPatientRecords());
                 result.add(new PatientRepresentation(patient));
             }
 
