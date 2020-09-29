@@ -3,6 +3,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Patients } from 'src/app/interfaces/patients';
+import { DoctorAdviceService } from '../doctor-advice.service';
 
 @Component({
 	selector: 'sacchon-app-profile',
@@ -11,7 +12,7 @@ import { Patients } from 'src/app/interfaces/patients';
 })
 export class ProfileComponent implements OnInit {
 
-	constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient, private doctorService: DoctorAdviceService) { }
 	id: string;
 	firstName: string;
 	lastName: string;
@@ -46,5 +47,9 @@ export class ProfileComponent implements OnInit {
 		}, (err) => {
 			console.log('-----> err', err);
 		});
+	}
+
+	lastActive(date: number): string {
+		return this.doctorService.lastActive(date)
 	}
 }
