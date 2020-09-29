@@ -52,4 +52,8 @@ export class ProfileComponent implements OnInit {
 	lastActive(date: number): string {
 		return this.doctorService.lastActive(date)
 	}
+
+	birthDate(date: number): string {
+		return this.doctorService.birthDate(date)
+	}
 }
