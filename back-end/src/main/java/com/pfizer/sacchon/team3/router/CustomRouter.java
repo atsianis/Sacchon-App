@@ -71,14 +71,14 @@ public class CustomRouter {
         this is the endpoint to view all the patients records per patient ID
         router.attach("/patient/{id}/storeData/allData", PatientRecordsListImpl.class);
         */
-        router.attach("/doctor/{did}/select/patient/{pid}", DoctorSelectionResourceImpl.class);
+        router.attach("/doctor/{did}/select/{pid}", DoctorSelectionResourceImpl.class);
         router.attach("/doctor/{id}/consultable-patients", AllConsultablePatientListResourceImpl.class);
         router.attach("/doctor/{id}/available-patients", AllAvailablePatientListResourceImpl.class);
 
         //Doctor Endpoints -- Consultations
-        router.attach("/consult/doctor/{did}/patient/{pid}", AddCommentResourceImpl.class);
+        router.attach("/consultation/doctor/{did}/patient/{pid}", AddCommentResourceImpl.class);
         router.attach("/consultation/{id}", ConsultationResourceImpl.class);
-        router.attach("/doctor/{did}/consultation/{cid}", UpdateConsultationResource.class);
+        router.attach("/consultation/{cid}/doctor/{did}", UpdateConsultationResource.class);
 
         //soft Deletes
         router.attach("/patient/{id}/settings/softDelete", SoftDeletePatientImpl.class);

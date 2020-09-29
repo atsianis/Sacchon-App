@@ -39,7 +39,7 @@ export class ConsultEditComponent implements OnInit {
 
 	submitConsultation(): any {
 		this.doctor_id = sessionStorage.getItem('id');
-		this.http.put(`http://localhost:9000/v1/doctor/${this.doctor_id}/consultation/${this.consultation_id}`, {
+		this.http.put(`http://localhost:9000/v1/consultation/${this.consultation_id}/doctor/${this.doctor_id}/`, {
 			comment: this.editConsultForm.get('comment').value
 		}).subscribe(response => {
 			this.toastr.success('Consultation edited successfully', 'Success', {

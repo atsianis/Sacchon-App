@@ -29,7 +29,7 @@ export class AddConsultComponent implements OnInit {
 		this.route.params.subscribe(params => {
 			this.patient_id = params.patient_id
 		})
-		this.http.post(`http://localhost:9000/v1/consult/doctor/${this.doctor_id}/patient/${this.patient_id}`, {
+		this.http.post(`http://localhost:9000/v1/consultation/doctor/${this.doctor_id}/patient/${this.patient_id}`, {
 			comment: this.createConsultForm.get('comment').value
 		}).subscribe(response => {
 			this.toastr.success('Consultation created successfully', 'Success', {
