@@ -58,24 +58,31 @@ public class CustomRouter {
         router.attach("/patient/{id}/storeData/allData", PatientRecordsListImpl.class);
         router.attach("/patient/{pid}/storeData/patientRecord/{rid}", PatientRecordResourceImpl.class);
         router.attach("/patient/{id}/consultations", PatientConsultationsResourceImpl.class);
+        /*
+        * This endpoint allow the patient to view a consultation by its ID
+        * router.attach("/consultation/{id}", ConsultationResourceImpl.class);
+         */
 
         //doctor Endpoints
         router.attach("/doctor/{id}", DoctorResourceImpl.class);
-        router.attach("/doctor/{id}/settings", DoctorResourceImpl.class);
         router.attach("/doctor/{id}/mypatients", MyPatientsResourceImpl.class);
         router.attach("/doctor/{id}/consultations",DoctorConsultationsImpl.class);
-        router.attach("/doctor/{id}/available-patients", AllAvailablePatientListResourceImpl.class);
+        /*
+        this is the endpoint to view all the patients records per patient ID
+        router.attach("/patient/{id}/storeData/allData", PatientRecordsListImpl.class);
+        */
         router.attach("/doctor/{did}/select/patient/{pid}", DoctorSelectionResourceImpl.class);
-        router.attach("/doctor/{did}/consultation/{cid}", UpdateConsultationResource.class);
-        router.attach("/consult/doctor/{did}/patient/{pid}", AddCommentResourceImpl.class);
         router.attach("/doctor/{id}/consultable-patients", AllConsultablePatientListResourceImpl.class);
+        router.attach("/doctor/{id}/available-patients", AllAvailablePatientListResourceImpl.class);
+
+        //Doctor Endpoints -- Consultations
+        router.attach("/consult/doctor/{did}/patient/{pid}", AddCommentResourceImpl.class);
+        router.attach("/consultation/{id}", ConsultationResourceImpl.class);
+        router.attach("/doctor/{did}/consultation/{cid}", UpdateConsultationResource.class);
 
         //soft Deletes
         router.attach("/patient/{id}/settings/softDelete", SoftDeletePatientImpl.class);
         router.attach("/doctor/{id}/settings/softDelete", SoftDeleteDoctorImpl.class);
-
-        // wtf ?
-        router.attach("/consultation/{id}", ConsultationResourceImpl.class);
 
         return router;
     }
