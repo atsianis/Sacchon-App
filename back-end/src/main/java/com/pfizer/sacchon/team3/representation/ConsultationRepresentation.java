@@ -13,9 +13,9 @@ import java.util.Date;
 public class ConsultationRepresentation {
     private Date timeCreated;
     private String comment;
-    private Patients patient;
+    private long patient_id;
     private Date seenByPatient;
-    private Doctors doctor;
+    private long doctor_id;
     private long id;
 
     public ConsultationRepresentation(Consultations consultation) {
@@ -23,8 +23,16 @@ public class ConsultationRepresentation {
             timeCreated = consultation.getTimeCreated();
             comment = consultation.getComment();
             seenByPatient = consultation.getSeenByPatient();
-            doctor = consultation.getDoctor();
-            patient = consultation.getPatient();
+            if (consultation.getDoctor()!=null){
+                doctor_id = consultation.getDoctor().getId();
+            }else{
+                doctor_id = 0;
+            }
+            if (consultation.getPatient()!=null){
+                patient_id = consultation.getPatient().getId();
+            }else{
+                patient_id = 0;
+            }
             id = consultation.getId();
         }
     }
@@ -33,8 +41,8 @@ public class ConsultationRepresentation {
         Consultations c = new Consultations();
         c.setComment(this.comment);
         c.setTimeCreated(this.timeCreated);
-        c.setDoctor(this.doctor);
-        c.setPatient(this.patient);
+        //c.setDoctor(this.doctor);
+        //c.setPatient(this.patient);
         c.setSeenByPatient(this.seenByPatient);
         c.setId(this.id);
 
