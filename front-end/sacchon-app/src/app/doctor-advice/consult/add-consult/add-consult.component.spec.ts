@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MediDataRepoComponent } from './medi-data-repo.component';
+import { AddConsultComponent } from './add-consult.component';
 
-describe('MediDataRepoComponent', () => {
-  let component: MediDataRepoComponent;
-  let fixture: ComponentFixture<MediDataRepoComponent>;
+describe('AddConsultComponent', () => {
+  let component: AddConsultComponent;
+  let fixture: ComponentFixture<AddConsultComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MediDataRepoComponent ]
+      declarations: [ AddConsultComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MediDataRepoComponent);
+    fixture = TestBed.createComponent(AddConsultComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
