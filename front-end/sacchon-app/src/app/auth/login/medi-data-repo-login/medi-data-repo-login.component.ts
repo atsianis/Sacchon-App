@@ -33,7 +33,6 @@ export class MediDataRepoLoginComponent implements OnInit {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
 				}).onHidden.toPromise().then(_ => {
-					console.log(response.status == 200);
 					sessionStorage.setItem('email', response.data.email);
 					sessionStorage.setItem('password', response.data.password);
 					sessionStorage.setItem('firstName', response.data.firstName);
