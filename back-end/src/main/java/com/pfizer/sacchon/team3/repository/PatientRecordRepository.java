@@ -1,6 +1,7 @@
 package com.pfizer.sacchon.team3.repository;
 
 import com.pfizer.sacchon.team3.model.PatientRecords;
+import com.pfizer.sacchon.team3.model.Patients;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -20,10 +21,12 @@ public class PatientRecordRepository {
         return p != null ? Optional.of(p) : Optional.empty();
     }
 
+    // find all the records made by patients
     public List<PatientRecords> findAllPatientRecords() {
         return entityManager.createQuery("from PatientRecords").getResultList();
     }
 
+    // find all the records of a specific patient
     public List<PatientRecords> findPatientRecordsByPatient(long id) {
         return entityManager.createQuery("from PatientRecords WHERE patient_id = :id")
                 .setParameter("id", id)

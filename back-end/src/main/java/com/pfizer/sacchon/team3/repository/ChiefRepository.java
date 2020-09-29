@@ -19,6 +19,10 @@ public class ChiefRepository {
         return chief != null ? Optional.of(chief) : Optional.empty();
     }
 
+    /*
+     * find a chif by his mail and pass
+     * used for login
+     */
     public Optional<Chiefs> findByEmailAndPass(String email, String password) throws WrongCredentials {
         try {
             Chiefs chief = entityManager.createQuery("from Chiefs WHERE email = :email " + "and password = :password", Chiefs.class)
@@ -32,6 +36,9 @@ public class ChiefRepository {
         }
     }
 
+    /*
+     * update the fields of the chief
+     */
     public Optional<Chiefs> update(Chiefs chief) {
         Chiefs chiefs = entityManager.find(Chiefs.class, chief.getId());
         chiefs.setFirstName(chief.getFirstName());
