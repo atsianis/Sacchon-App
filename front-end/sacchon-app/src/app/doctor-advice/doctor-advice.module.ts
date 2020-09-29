@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
 import { DataTablesModule } from 'angular-datatables';
 import { RouterModule } from '@angular/router';
-import { DoctorAdviceComponent } from './doctor-advice.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { PatientComponent } from './patient/patient.component';
@@ -19,7 +18,6 @@ import { DoctorAdviceGuard } from './doctor-advice.guard';
 
 @NgModule({
 	declarations: [
-		DoctorAdviceComponent,
 		ProfileComponent,
 		EditProfileComponent,
 		PatientComponent,
@@ -34,14 +32,13 @@ import { DoctorAdviceGuard } from './doctor-advice.guard';
 		ChartsModule,
 		HttpClientModule,
 		RouterModule.forChild([
-			{ path: 'doctoradvice', component: DoctorAdviceComponent, canActivate: [ DoctorAdviceGuard ] },
 			{ path: 'doctoradvice/profile', component: ProfileComponent, canActivate: [ DoctorAdviceGuard ] },
 			{ path: 'doctoradvice/profile/edit', component: EditProfileComponent, canActivate: [ DoctorAdviceGuard ] },
 			{ path: 'doctoradvice/patients', component: PatientComponent, canActivate: [ DoctorAdviceGuard ] },
 			{ path: 'doctoradvice/patient/:id', component: PatientListComponent, canActivate: [ DoctorAdviceGuard ] },
-			{ path: 'doctoradvice/consult', component: ConsultComponent, canActivate: [ DoctorAdviceGuard ] },
-			{ path: 'doctoradvice/consult/:id', component: ConsultListComponent, canActivate: [ DoctorAdviceGuard ] },
-			{ path: 'doctoradvice/consult/:id/edit', component: ConsultEditComponent, canActivate: [ DoctorAdviceGuard ] },
+			{ path: 'doctoradvice/consult/:patient_id', component: ConsultComponent, canActivate: [ DoctorAdviceGuard ] },
+			{ path: 'doctoradvice/consult/:patient_id/add', component: ConsultListComponent, canActivate: [ DoctorAdviceGuard ] },
+			{ path: 'doctoradvice/consult/:patient_id/:consultation_id/edit', component: ConsultEditComponent, canActivate: [ DoctorAdviceGuard ] },
 		])
 	],
 	exports: [
