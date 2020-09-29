@@ -1,9 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Chiefs } from '../interfaces/chiefs';
-import { Doctors } from '../interfaces/doctors';
-import { Patients } from '../interfaces/patients';
 
 @Injectable({
 	providedIn: 'root'
@@ -34,7 +31,7 @@ export class AuthService {
 	}
 
 	reporterLogin(email, password): Observable<any> {
-		return this.http.post<any>('http://localhost:9000/v1/login/reporter', {
+		return this.http.post<any>('http://localhost:9000/v1/login/chief', {
 			email: email,
 			password: password
 		})
