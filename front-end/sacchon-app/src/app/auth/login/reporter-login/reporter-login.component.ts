@@ -27,7 +27,7 @@ export class ReporterLoginComponent implements OnInit {
 		const password = this.reporterLoginForm.get('password').value
 
 		this.authService.reporterLogin(email, password).subscribe(response => {
-			this.handleLogin(response.status)
+			this.handleLogin(response)
 		})
 	}
 

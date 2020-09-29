@@ -27,7 +27,7 @@ export class MediDataRepoLoginComponent implements OnInit {
 		const password =  this.patientLoginForm.get('password').value
 
 		this.authService.patientLogin(email, password).subscribe(response => {
-			this.handleLogin(response.status)
+			this.handleLogin(response)
 		})
 	}
 

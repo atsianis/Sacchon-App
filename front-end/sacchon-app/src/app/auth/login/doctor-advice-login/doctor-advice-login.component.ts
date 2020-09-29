@@ -26,7 +26,6 @@ export class DoctorAdviceLoginComponent implements OnInit {
 		const password = this.doctorLoginForm.get('password').value
 
 		this.authService.doctorLogin(email, password).subscribe(response => {
-			console.log(response)
 			this.handleLogin(response)
 		})
 	}
