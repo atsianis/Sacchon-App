@@ -22,6 +22,7 @@ public class PatientRepository {
         return patient != null ? Optional.of(patient) : Optional.empty();
     }
 
+    // find all the patients from the Database
     public List<Patients> findAllPatientsDB() {
         return entityManager.createQuery("from Patients").getResultList();
     }
@@ -50,6 +51,7 @@ public class PatientRepository {
                 .getResultList();
     }
 
+    // find a patient by his mail and pass ** used for login
     public Optional<Patients> findByEmailAndPass(String email, String password) throws WrongCredentials {
         try {
             Patients patient = entityManager
@@ -136,6 +138,13 @@ public class PatientRepository {
         return Optional.empty();
     }
 
+    /*
+     * this method doesnt allow a patient
+     * to store Data after 30 days .
+     * This happens because his doctor must leave
+     * a consultation for these records .
+     * This is implemented because of the 30 days request from the project requirements
+     */
     public boolean checkLastConsultation(PatientRecords patientRecord, List<Consultations> consultations) {
         //sorts the consultation list in reverse order
         //element at index 0 is the most recent
@@ -156,10 +165,19 @@ public class PatientRepository {
         return c1.compareTo(c2) > 0; // canBeExamined = true notification
     }
 
+    /*
+     * this method doesnt allow a patient to record
+     * data in a DateTime before the time he first
+     * logged in the system .
+     */
     public boolean checkPatientsCreationTime(PatientRecords patientRecord, Date patientsCreationDate) {
         return patientRecord.getTimeCreated().compareTo(patientsCreationDate) > 0;
     }
 
+    /*
+     * find all the patients who have been inactive
+     *  over a specific time period
+     */
     public List<Patients> findInactivePatients() {
         List<Patients> patients = entityManager.createQuery("from Patients WHERE isDeleted = 0", Patients.class).getResultList();
         List<Patients> inactivePatients = new ArrayList<>();

@@ -23,6 +23,7 @@ public class ConsultationRepository {
         return entityManager.createQuery("from Consultations").getResultList();
     }
 
+    // find the consultations of a single patient
     public List<Consultations> findPatientsConsultations(long id) {
         return entityManager
                 .createQuery("from Consultations WHERE patient_id = :patient_id ", Consultations.class)
@@ -30,6 +31,7 @@ public class ConsultationRepository {
                 .getResultList();
     }
 
+    // find the consultations of a single doctor
     public List<Consultations> findDoctorConsultations(long id) {
         return entityManager
                 .createQuery("from Consultations WHERE doctor_id = :doctor_id ", Consultations.class)
@@ -52,6 +54,7 @@ public class ConsultationRepository {
         return Optional.empty();
     }
 
+    // update the comment of a consultation ** to a patient without a doctor
     public Optional<Consultations> addNewComment(Consultations c) {
         Consultations consultationsIn = entityManager.find(Consultations.class, c.getId());
         consultationsIn.setComment(c.getComment());
@@ -71,6 +74,7 @@ public class ConsultationRepository {
         return Optional.empty();
     }
 
+    // update the comment of a consultation
     public Optional<Consultations> setComment(Consultations c) {
         Consultations consultationsIn = entityManager.find(Consultations.class, c.getId());
         consultationsIn.setComment(c.getComment());

@@ -42,25 +42,26 @@ public class DoctorSelectionResourceImpl extends ServerResource implements Docto
         try {
             Doctors doctor;
             Patients patient;
-            Optional<Doctors> odoctor = doctorRepository.findById(doctor_id);
-            Optional<Patients> opatient = patientRepository.findById(patient_id);
-            setExisting(odoctor.isPresent());
-            if (isExisting()) {
-                doctor = odoctor.get();
-            } else {
+            Optional<Doctors> opDoctor = doctorRepository.findById(doctor_id);
+            Optional<Patients> opPatient = patientRepository.findById(patient_id);
+
+            setExisting(opDoctor.isPresent());
+            if (isExisting())
+                doctor = opDoctor.get();
+            else
                 return new ResponseRepresentation<>(404, "Doctor not found", false);
-            }
-            setExisting(opatient.isPresent());
-            if (isExisting()) {
-                patient = opatient.get();
-            } else {
+
+            setExisting(opPatient.isPresent());
+            if (isExisting())
+                patient = opPatient.get();
+            else
                 return new ResponseRepresentation<>(404, "Patient not found", false);
-            }
-            if (patient.getDoctor() == null) {
+
+            if (patient.getDoctor() == null)
                 return getBooleanResponseRepresentation(doctor, patient);
-            } else {
+            else
                 return new ResponseRepresentation<>(401, "Patient already has a doctor", false);
-            }
+
         } catch (Exception e) {
             return new ResponseRepresentation<>(404, "Not found", false);
         }

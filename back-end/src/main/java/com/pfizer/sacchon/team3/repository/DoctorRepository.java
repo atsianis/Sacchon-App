@@ -43,7 +43,7 @@ public class DoctorRepository {
                 .getResultList();
     }
 
-
+    // find a doctor by his mail and password ** used for login
     public Optional<Doctors> findByEmailAndPass(String email, String password) throws WrongCredentials {
         try {
             Doctors doctor = entityManager.createQuery("from Doctors  WHERE email = :email " + "and password = :password", Doctors.class)
@@ -107,16 +107,16 @@ public class DoctorRepository {
                 .getResultList();
     }
 
-    // Get available Patients
+    // Get available Patients within a time period
     public List<Patients> availablePatientsFromTo(Date from, Date to) {
-        return entityManager.createQuery("from Patients patient WHERE patient.canBeExamined = true  " +
-                "and patient.doctor_id = null" +
-                "and patient.creationDate >= :fromDate and patient.creationDate <= :toDate", Patients.class)
+        return entityManager.createQuery("from Patients WHERE canBeExamined = 1 " +
+                "and timeCreated >= :fromDate and timeCreated <= :toDate", Patients.class)
                 .setParameter("fromDate", from)
                 .setParameter("toDate", to)
                 .getResultList();
     }
 
+    // soft delete the doctor acc
     public Optional<Doctors> softDelete(Doctors d) {
         patientRepository = new PatientRepository(JpaUtil.getEntityManager());
         Doctors doctorsIn = entityManager.find(Doctors.class, d.getId());
@@ -136,6 +136,7 @@ public class DoctorRepository {
         return Optional.empty();
     }
 
+    // find all doctors you've inactive for a specific time period
     public List<Doctors> findInactiveDoctors() {
         List<Doctors> doctors = entityManager.createQuery("from Doctors WHERE isDeleted = 0").getResultList();
         List<Doctors> inactiveDoctors = new ArrayList<>();
