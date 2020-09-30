@@ -1,4 +1,4 @@
-Doctor Documentation 
+MediDataRepo Documentation 
 =======================
 [![](https://img.shields.io/badge/User-patient-yellow)](https://github.com/codehub-learn/pfizer-se-team3)
 
