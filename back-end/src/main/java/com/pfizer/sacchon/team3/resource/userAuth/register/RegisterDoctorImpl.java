@@ -8,7 +8,7 @@ import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedDoctorRepresentat
 import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
-import org.restlet.data.Status;
+import org.jetbrains.annotations.NotNull;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
@@ -32,9 +32,8 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
     }
 
     @Override
-    public ResponseRepresentation<DoctorRepresentation> add(CreatedOrUpdatedDoctorRepresentation createdOrUpdatedDoctorRepresentation) {
+    public ResponseRepresentation<DoctorRepresentation> registerDoctor(CreatedOrUpdatedDoctorRepresentation createdOrUpdatedDoctorRepresentation) {
         LOGGER.finer("Add a new doctor.");
-        // Check entity
         try {
             ResourceValidator.notNull(createdOrUpdatedDoctorRepresentation);
             ResourceValidator.validate(createdOrUpdatedDoctorRepresentation);
@@ -43,38 +42,65 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
         }
         LOGGER.finer("doctor checked");
         try {
-            // Convert DoctorRepr to doctor
-            Doctors doctorsIn = new Doctors();
-            doctorsIn.setFirstName(createdOrUpdatedDoctorRepresentation.getFirstName());
-            doctorsIn.setLastName(createdOrUpdatedDoctorRepresentation.getLastName());
-            doctorsIn.setEmail(createdOrUpdatedDoctorRepresentation.getEmail());
-            doctorsIn.setPassword(createdOrUpdatedDoctorRepresentation.getPassword());
-            doctorsIn.setDeleted(false);
+            Doctors doctorsIn = getToBePersistedDoctor(createdOrUpdatedDoctorRepresentation);
 
             Optional<Doctors> doctorOut = doctorRepository.save(doctorsIn);
-            Doctors doctors = null;
+            Doctors doctors;
             if (doctorOut.isPresent())
                 doctors = doctorOut.get();
             else
                 return new ResponseRepresentation<>(404, "Doctor not found", null);
 
-            DoctorRepresentation result = new DoctorRepresentation();
-            result.setFirstName(doctors.getFirstName());
-            result.setLastName(doctors.getLastName());
-            result.setEmail(doctors.getEmail());
-            result.setPassword(doctors.getPassword());
-            result.setDeleted(doctors.isDeleted());
-            result.setId(doctors.getId());
-
-            getResponse().setLocationRef("http://localhost:9000/v1/doctor/" + doctors.getId());
-            getResponse().setStatus(Status.SUCCESS_CREATED);
+            DoctorRepresentation result = getDoctorRepresentationOut(doctors);
 
             LOGGER.finer("doctor successfully added.");
 
             return new ResponseRepresentation<>(200, "Doctor registered successfully", result);
         } catch (Exception ex) {
             LOGGER.log(Level.WARNING, "Error when adding a doctor", ex);
+
             return new ResponseRepresentation<>(422, "Bad Entity", null);
         }
+    }
+
+    /**
+     *
+     * @param doctors
+     * @return DoctorRepresentation
+     *
+     * converts the persisted Doctor to a DoctorRepresentation type object
+     * that will be returned to the client
+     */
+    @NotNull
+    private DoctorRepresentation getDoctorRepresentationOut(Doctors doctors) {
+        DoctorRepresentation result = new DoctorRepresentation();
+        result.setFirstName(doctors.getFirstName());
+        result.setLastName(doctors.getLastName());
+        result.setEmail(doctors.getEmail());
+        result.setPassword(doctors.getPassword());
+        result.setDeleted(doctors.isDeleted());
+        result.setId(doctors.getId());
+
+        return result;
+    }
+
+    /**
+     *
+     * @param createdOrUpdatedDoctorRepresentation
+     * @return a Doctor entity
+     *
+     * convert the DoctorRepresentation input into the Doctor entity
+     * that will be attempted to be persisted into the Database
+     */
+    @NotNull
+    private Doctors getToBePersistedDoctor(CreatedOrUpdatedDoctorRepresentation createdOrUpdatedDoctorRepresentation) {
+        Doctors doctorsIn = new Doctors();
+        doctorsIn.setFirstName(createdOrUpdatedDoctorRepresentation.getFirstName());
+        doctorsIn.setLastName(createdOrUpdatedDoctorRepresentation.getLastName());
+        doctorsIn.setEmail(createdOrUpdatedDoctorRepresentation.getEmail());
+        doctorsIn.setPassword(createdOrUpdatedDoctorRepresentation.getPassword());
+        doctorsIn.setDeleted(false);
+
+        return doctorsIn;
     }
 }
