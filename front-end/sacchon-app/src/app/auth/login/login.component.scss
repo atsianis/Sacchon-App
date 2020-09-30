@@ -1,13 +1,13 @@
-body {
-	background-color: #EBEAEF
+div {
+	column-gap: 80px;
 }
 
 .card {
 	border: none;
-	border-radius: 10px;
-	background-color: #4270C8;
-	width: 350px;
-	margin-top: -60px
+	border-radius: 20px;
+	background: linear-gradient(98deg, rgba(14,78,104,1) 0%, rgba(17,109,191,1) 4%, rgba(23,135,185,1) 46%, rgba(8,181,231,1) 93%);
+	width: 260px;
+	margin-top: -5px
 }
 
 p.mb-1 {
@@ -16,22 +16,8 @@ p.mb-1 {
 }
 
 .btn-primary {
-	border: none;
-	background: #5777DE;
-	margin-bottom: 60px
-}
-
-.btn-primary small {
-	color: #9FB7FD
-}
-
-.btn-primary span {
-	font-size: 13px
-}
-
-.card.two {
-	border-top-right-radius: 60px;
-	border-top-left-radius: 0
+	border-radius: 10px;
+	margin-bottom: 30px
 }
 
 .form-group {
