@@ -54,8 +54,8 @@ public class CustomRouter {
         //patient Endpoints
         router.attach("/patient/{id}", PatientResourceImpl.class);
         router.attach("/patient/{id}/settings", PatientResourceImpl.class);
-        router.attach("/patient/{id}/add-patient-record", PatientRecordsListImpl.class);
-        router.attach("/patient/{id}/all-patient-records", PatientRecordsListImpl.class);
+        router.attach("/patient/{id}/addpatientrecord", PatientRecordsListImpl.class);
+        router.attach("/patient/{id}/allpatientrecords", PatientRecordsListImpl.class);
         router.attach("/patient/{pid}/patientRecord/{rid}", PatientRecordResourceImpl.class);
         router.attach("/patient/{id}/consultations", PatientConsultationsResourceImpl.class);
         /*
@@ -72,7 +72,7 @@ public class CustomRouter {
         router.attach("/patient/{id}/storeData/allData", PatientRecordsListImpl.class);
         */
         router.attach("/doctor/{did}/select/{pid}", DoctorSelectionResourceImpl.class);
-        router.attach("/doctor/{id}/consultable-patients", AllConsultablePatientListResourceImpl.class);
+        router.attach("/doctor/{id}/consultablepatients", AllConsultablePatientListResourceImpl.class);
         router.attach("/doctor/{id}/available-patients", AllAvailablePatientListResourceImpl.class);
 
         //Doctor Endpoints -- Consultations
