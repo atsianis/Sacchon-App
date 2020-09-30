@@ -5,20 +5,20 @@ import { Subject } from 'rxjs';
 import { DoctorAdviceService } from '../doctor-advice.service';
 
 @Component({
-  selector: 'sacchon-app-available-patients',
-  templateUrl: './available-patients.component.html',
-  styleUrls: ['./available-patients.component.scss']
+	selector: 'sacchon-app-available-patients',
+	templateUrl: './available-patients.component.html',
+	styleUrls: ['./available-patients.component.scss']
 })
 export class AvailablePatientsComponent implements OnInit {
 
-  patients: any;
+	patients: any;
 	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();
 
 	constructor(private doctorservice: DoctorAdviceService) { }
 
-  id: string = sessionStorage.getItem('id');
+	id: string = sessionStorage.getItem('id');
 
 	ngOnInit(): void {
 		this.patients = [];
@@ -32,7 +32,7 @@ export class AvailablePatientsComponent implements OnInit {
 
 	getAvailablePatients(): void {
 		this.doctorservice.getAvailablePatients(this.id).subscribe(patients => {
-			console.log(patients);	
+			console.log(patients);
 			this.patients = patients.data;
 			this.dtTrigger.next();
 		}, (err) => {

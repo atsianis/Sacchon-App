@@ -1,23 +1,23 @@
-            <table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
-                class="table table-striped table-bordered" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>firstName</th>
-                        <th>lastName</th>
-                        <th>email</th>
-                        <th>dob</th>
-                        <th>canBeExamined</th>
-                        <th>gender</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let patient of patients" [routerLink]="['/doctoradvice/patient/', patient.id]">
-                        <td>{{ patient.firstName }}</td>
-                        <td>{{ patient.lastName }}</td>
-                        <td>{{ patient.email }}</td>
-                        <td>{{ birthDate(patient.dob) }}</td>
-                        <td>{{ patient.canBeExamined }}</td>
-                        <td>{{ patient.gender }}</td>
-                    </tr>
-                </tbody>
-            </table>
+ <table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" class="table table-striped table-bordered"
+ 	style="width:100%">
+ 	<thead>
+ 		<tr>
+ 			<th>firstName</th>
+ 			<th>lastName</th>
+ 			<th>email</th>
+ 			<th>dob</th>
+ 			<th>canBeExamined</th>
+ 			<th>gender</th>
+ 		</tr>
+ 	</thead>
+ 	<tbody>
+ 		<tr *ngFor="let patient of patients" [routerLink]="['/doctoradvice/patient/', patient.id]">
+ 			<td>{{ patient.firstName }}</td>
+ 			<td>{{ patient.lastName }}</td>
+ 			<td>{{ patient.email }}</td>
+ 			<td>{{ birthDate(patient.dob) }}</td>
+ 			<td>{{ patient.canBeExamined }}</td>
+ 			<td>{{ patient.gender }}</td>
+ 		</tr>
+ 	</tbody>
+ </table>
