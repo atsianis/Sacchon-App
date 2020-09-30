@@ -11,18 +11,20 @@
 					</h5>
 					<div class="row align-items-start py-5">
 						<div class="col-6"><strong>Name:</strong></div>
-						<div class="col-6">asd</div>
+						<div class="col-6">{{ firstName }}</div>
 						<div class="col-6"><strong>Surname:</strong></div>
-						<div class="col-6">asd</div>
+						<div class="col-6">{{ lastName }}</div>
 						<div class="col-6"><strong>Email:</strong></div>
-						<div class="col-6">asd@asd.asd</div>
+						<div class="col-6">{{ email }}</div>
 						<div class="col-6"><strong>Gender</strong></div>
-						<div class="col-6">Male</div>
+						<div class="col-6">{{ gender }}</div>
+						<div class="col-6"><strong>Date of birth</strong></div>
+						<div class="col-6">{{ dob }}</div>
 					</div>
 					<div class="row align-items-center">
-						<button class="btn btn-block btn-primary my-2 mx-2">Edit Profile</button>
-						<button class="btn btn-block btn-primary my-2 mx-2">Add new record</button>
-						<button class="btn btn-block btn-primary my-2 mx-2">Edit a record</button>
+						<button [routerLink]="['/medidatarepo/profile/edit']" class="btn btn-block btn-primary my-2 mx-2">Edit Profile</button>
+						<button [routerLink]="['/medidatarepo/record/add']" class="btn btn-block btn-primary my-2 mx-2">Add new record</button>
+						<button [routerLink]="['/medidatarepo/record/edit']" class="btn btn-block btn-primary my-2 mx-2">Edit a record</button>
 					</div>
 				</div>
 			</div>
