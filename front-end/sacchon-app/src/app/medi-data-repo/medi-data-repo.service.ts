@@ -17,15 +17,15 @@ export class MediDataRepoService {
 	}
 
 	getPatientRecords(patient_id): Observable<any> {
-		return this.http.get(`http://localhost:9000/v1/patient/${patient_id}/allpatientrecords`);
+		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/allpatientrecords`);
 	}
 
 	getPatientRecordById(patient_id, record_id): Observable<any> {
-		return this.http.get(`http://localhost:9000/v1/patient/${patient_id}/patientRecord/${record_id}`);
+		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/patientRecord/${record_id}`);
 	}
 
 	editPatientRecord(patient_id, record_id, glycose, carbs): Observable<any> {
-		return this.http.put(`http://localhost:9000/v1/patient/${patient_id}/patientRecord/${record_id}`, {
+		return this.http.put<any>(`http://localhost:9000/v1/patient/${patient_id}/patientRecord/${record_id}`, {
 			glycose: glycose,
 			carbs: carbs
 		})
