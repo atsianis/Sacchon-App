@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import * as moment from 'moment';
 import { Patients } from 'src/app/interfaces/patients';
 import { DoctorAdviceService } from '../../doctor-advice.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
 	selector: 'sacchon-app-patient-list',
@@ -17,7 +18,7 @@ export class PatientListComponent implements OnInit {
 	patientCarbs: any = [];
 	patientRecordTimestamp: any = [];
 
-	constructor(private route: ActivatedRoute, private doctorService: DoctorAdviceService) { }
+	constructor(private route: ActivatedRoute, private doctorService: DoctorAdviceService, private toastr: ToastrService, private router: Router) { }
 	patient: Patients;
 	// Array of different segments in chart
 	lineChartData: ChartDataSets[] = []
@@ -73,7 +74,7 @@ export class PatientListComponent implements OnInit {
 
 	getCurrentPatientRecords(patient: Patients): void {
 		this.doctorService.getCurrentPatientRecords(patient.id).subscribe(patientRecords => {
-		patientRecords.data.forEach(patientRecord => {
+			patientRecords.data.forEach(patientRecord => {
 				this.patientCarbs.push(patientRecord.carbs)
 				this.patientGlycose.push(patientRecord.glycose)
 				this.patientRecordTimestamp.push(moment(patientRecord.timeCreated).format('DD/MM/YYYY, h:mm:ss a'))
@@ -94,4 +95,18 @@ export class PatientListComponent implements OnInit {
 		return moment.utc(date).format('MM/DD/YYYY');
 	}
 
+	takePatient(patient_id): any {
+		const doctor_id = sessionStorage.getItem('id');
+
+		this.doctorService.undertakePatient(doctor_id, patient_id).subscribe(response => {
+			if (response.status == 200) {
+				this.toastr.success(`Patient was registered to you successfully!`, 'Operation successful', {
+					timeOut: 2000,
+					positionClass: 'toast-top-center'
+				}).onHidden.toPromise().then(_ => {
+					this.router.navigate(['/doctoradvice/profile']);
+				})
+			}
+		})
+	}
 }
