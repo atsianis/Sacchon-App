@@ -21,7 +21,6 @@ export class ConsultationsComponent implements OnInit {
 
 	getConsultations(): void {
 		this.patientService.getConsultations(sessionStorage.getItem('id')).subscribe(response => {
-			console.log(response)
 			this.consultations = response.data;
 		}, (err) => {
 			console.log('-----> err', err);

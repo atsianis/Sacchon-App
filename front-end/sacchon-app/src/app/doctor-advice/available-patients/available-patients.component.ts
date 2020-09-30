@@ -32,7 +32,6 @@ export class AvailablePatientsComponent implements OnInit {
 
 	getAvailablePatients(): void {
 		this.doctorservice.getAvailablePatients(this.id).subscribe(patients => {
-			console.log(patients);
 			this.patients = patients.data;
 			this.dtTrigger.next();
 		}, (err) => {
