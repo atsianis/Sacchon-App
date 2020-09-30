@@ -54,9 +54,9 @@ public class CustomRouter {
         //patient Endpoints
         router.attach("/patient/{id}", PatientResourceImpl.class);
         router.attach("/patient/{id}/settings", PatientResourceImpl.class);
-        router.attach("/patient/{id}/storeData", PatientRecordsListImpl.class);
-        router.attach("/patient/{id}/storeData/allData", PatientRecordsListImpl.class);
-        router.attach("/patient/{pid}/storeData/patientRecord/{rid}", PatientRecordResourceImpl.class);
+        router.attach("/patient/{id}/add-patient-record", PatientRecordsListImpl.class);
+        router.attach("/patient/{id}/all-patient-records", PatientRecordsListImpl.class);
+        router.attach("/patient/{pid}/patientRecord/{rid}", PatientRecordResourceImpl.class);
         router.attach("/patient/{id}/consultations", PatientConsultationsResourceImpl.class);
         /*
         * This endpoint allow the patient to view a consultation by its ID

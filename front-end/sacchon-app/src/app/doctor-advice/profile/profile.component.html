@@ -19,7 +19,10 @@
 						<div class="col-6">{{ email }}</div>
 					</div>
 					<div class="row align-items-start py-5">
-						<a [routerLink]="['/doctoradvice/profile/edit']" class="btn btn-block btn-primary my-2 mx-2">Edit Profile</a>
+						<a [routerLink]="['/doctoradvice/profile/edit']" class="btn btn-block btn-outline-primary border-0 text-left my-2 mx-2"><i class="fa fa-cog px-2" aria-hidden="true"></i><span>Edit Profile</span></a>
+						<a [routerLink]="['/doctoradvice/availablepatients']" class="btn btn-block btn-outline-primary border-0 text-left my-2 mx-2"><i class="fa fa-user-plus px-2" aria-hidden="true"></i><span>Search Patients</span> 
+							<span class="badge badge-danger badge-pill pull-right notification-index">{{ availablePatients }}</span>
+						</a>
 					</div>
 				</div>
 			</div>
