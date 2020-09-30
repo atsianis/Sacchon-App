@@ -12,7 +12,6 @@ import com.pfizer.sacchon.team3.representation.PatientRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import org.jetbrains.annotations.NotNull;
-import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
@@ -41,9 +40,8 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
     }
 
     @Override
-    public ResponseRepresentation<PatientRepresentation> add(CreatedOrUpdatedPatientRepresentation patientRepresentation) {
+    public ResponseRepresentation<PatientRepresentation> registerPatient(CreatedOrUpdatedPatientRepresentation patientRepresentation) {
         LOGGER.info("Add a new patient.");
-        // Check entity
         try {
             ResourceValidator.notNull(patientRepresentation);
             ResourceValidator.validate(patientRepresentation);
@@ -54,61 +52,112 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
         LOGGER.info("Patient checked");
 
         try {
-            // Convert PatientRepr to Patient
-            Patients patientsIn = new Patients();
-            patientsIn.setFirstName(patientRepresentation.getFirstName());
-            patientsIn.setLastName(patientRepresentation.getLastName());
-            patientsIn.setEmail(patientRepresentation.getEmail());
-            patientsIn.setPassword(patientRepresentation.getPassword());
-            patientsIn.setDob(patientRepresentation.getDob());
-            patientsIn.setGender(patientRepresentation.getGender());
+            Patients patientsIn = getToBePersistedPatient(patientRepresentation);
 
             return getPatientRepresentationResponseRepresentation(patientsIn);
         } catch (Exception ex) {
             LOGGER.log(Level.WARNING, "Error when adding a patient", ex);
+
             return new ResponseRepresentation<>(404, "Patient not found", null);
         }
     }
 
+    /**
+     *
+     * @param patientRepresentation
+     * @return a Patient Entity
+     *
+     * convert the PatientRepresentation input into the Patient entity
+     * that will be attempted to be persisted into the Database
+     */
+    @NotNull
+    private Patients getToBePersistedPatient(CreatedOrUpdatedPatientRepresentation patientRepresentation) {
+        Patients patientsIn = new Patients();
+        patientsIn.setFirstName(patientRepresentation.getFirstName());
+        patientsIn.setLastName(patientRepresentation.getLastName());
+        patientsIn.setEmail(patientRepresentation.getEmail());
+        patientsIn.setPassword(patientRepresentation.getPassword());
+        patientsIn.setDob(patientRepresentation.getDob());
+        patientsIn.setGender(patientRepresentation.getGender());
+        patientsIn.setTimeCreated(new Date());
+
+        return patientsIn;
+    }
+
+    /**
+     *
+     * @param patientsIn
+     * @return a PatientRepresentation
+     *
+     * Attempting to persist the Patient into the Database
+     * In case of success, a PatientRepresentation of the persisted entity is returned,
+     * Otherwise, the method will return null
+     */
     @NotNull
     private ResponseRepresentation<PatientRepresentation> getPatientRepresentationResponseRepresentation(Patients patientsIn) {
         try {
             Optional<Patients> patientOut = patientRepository.save(patientsIn);
-            // this savedPatient has ID now
             Patients savedPatient = patientOut.get();
-            // Create First Consultation which is NULL
-            Consultations consultation = consultationRepresentation.createConsultation();
-            // To make the consultation-patient relationship work, the setted patient must be persisted
-            consultation.setPatient(savedPatient);
-            consultation.setComment(null);
-            consultation.setSeenByPatient(new Date());
-            consultation.setTimeCreated(new Date());
-            // Add consult in db
-            consultationRepository.save(consultation);
+            createNullConsultation(savedPatient);
 
-            Patients patients = null;
+            Patients patients;
             if (patientOut.isPresent())
                 patients = patientOut.get();
             else
                 return new ResponseRepresentation<>(404, "Patient not found", null);
 
-            PatientRepresentation result = new PatientRepresentation();
-            result.setFirstName(patients.getFirstName());
-            result.setLastName(patients.getLastName());
-            result.setEmail(patients.getEmail());
-            result.setPassword(patients.getPassword());
-            result.setDob(patients.getDob());
-            result.setId(patients.getId());
-
-            getResponse().setLocationRef("http://localhost:9000/v1/patient/" + patients.getId());
-            getResponse().setStatus(Status.SUCCESS_CREATED);
+            PatientRepresentation result = getPatientRepresentationOut(patients);
 
             LOGGER.finer("Patient successfully added.");
 
             return new ResponseRepresentation<>(200, "Patient registered successfully", result);
         } catch (Exception e) {
-            e.printStackTrace();
+
             return new ResponseRepresentation<>(422, "Bad Entity", null);
         }
+    }
+
+    /**
+     *
+     * @param savedPatient
+     *
+     * When a new patient enters the system, a no-comment,no-doctor consultation with the date of
+     * his/her creation is persisted in the Database.
+     * This first consultation is used as a landmark for the creation date
+     * of his first actual consultation by a doctor.
+     *
+     * See main/java/com/pfizer/sacchon/team3/resource/consultation/AddConsultationImpl.java
+     * for the implementation of the consultation creation
+     *
+     */
+    private void createNullConsultation(Patients savedPatient) {
+        Consultations consultation = consultationRepresentation.createConsultation();
+        consultation.setPatient(savedPatient);
+        consultation.setComment(null);
+        consultation.setSeenByPatient(new Date());
+        consultation.setTimeCreated(new Date());
+
+        consultationRepository.save(consultation);
+    }
+
+    /**
+     *
+     * @param patients
+     * @return PatientRepresentation
+     *
+     * converts the persisted patient to a PatientRepresentation type object
+     * that will be returned to the client
+     */
+    @NotNull
+    private PatientRepresentation getPatientRepresentationOut(Patients patients) {
+        PatientRepresentation result = new PatientRepresentation();
+        result.setFirstName(patients.getFirstName());
+        result.setLastName(patients.getLastName());
+        result.setEmail(patients.getEmail());
+        result.setPassword(patients.getPassword());
+        result.setDob(patients.getDob());
+        result.setId(patients.getId());
+
+        return result;
     }
 }
