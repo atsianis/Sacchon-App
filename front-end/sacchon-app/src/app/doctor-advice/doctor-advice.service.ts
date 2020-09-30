@@ -59,7 +59,7 @@ export class DoctorAdviceService {
 	}
 
 	undertakePatient(doctor_id, patient_id): Observable<any> {
-		return this.http.put(`http://localhost:9000/v1/doctor/${doctor_id}/select/${patient_id}`, {
+		return this.http.put(`http://localhost:9000/v1/doctor/undertake/patient`, {
 			doctor_id: doctor_id,
 			patient_id: patient_id
 		})
