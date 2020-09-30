@@ -13,6 +13,7 @@ import { ConsultEditComponent } from './consult/consult-edit/consult-edit.compon
 import { AddConsultComponent } from './consult/add-consult/add-consult.component';
 import { DoctorAdviceGuard } from './doctor-advice.guard';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AvailablePatientsComponent } from './available-patients/available-patients.component';
 
 
 
@@ -25,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 		ConsultComponent,
 		ConsultEditComponent,
 		AddConsultComponent,
+		AvailablePatientsComponent
 	],
 	imports: [
 		CommonModule,
@@ -40,6 +42,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 			{ path: 'doctoradvice/consult/:patient_id', component: ConsultComponent, canActivate: [ DoctorAdviceGuard ] },
 			{ path: 'doctoradvice/consult/:patient_id/add', component: AddConsultComponent, canActivate: [ DoctorAdviceGuard ] },
 			{ path: 'doctoradvice/consult/:patient_id/:consultation_id/edit', component: ConsultEditComponent, canActivate: [ DoctorAdviceGuard ] },
+			{ path: 'doctoradvice/availablepatients', component: AvailablePatientsComponent, canActivate: [ DoctorAdviceGuard ] }
 		])
 	],
 	exports: [
