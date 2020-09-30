@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
+import * as moment from 'moment';
+import { MediDataRepoService } from '../medi-data-repo.service';
+import { PatientRecords } from 'src/app/interfaces/patient-records';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'sacchon-app-profile',
@@ -9,53 +12,38 @@ import { Color, Label } from 'ng2-charts';
 })
 export class PatientProfileComponent implements OnInit {
 
-	constructor() { }
+	constructor(private patientService: MediDataRepoService) { }
 
-	// Array of different segments in chart
-	lineChartData: ChartDataSets[] = [
-		{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Carbs (gr)' },
-		{ data: [28, 48, 40, 19, 86, 27, 90], label: 'Glycose (ml)' }
-	];
+	firstName: string = sessionStorage.getItem('firstName');
+	lastName: string = sessionStorage.getItem('lastName');
+	email: string = sessionStorage.getItem('email');
+	dob: string = moment(sessionStorage.getItem('dob')).format('DD/MM/YYYY');
+	gender: string = sessionStorage.getItem('gender');
+	id: string = sessionStorage.getItem('id');
+	patientRecords: PatientRecords[];
 
-	//Labels shown on the x-axis
-	lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-	// Define chart options
-	lineChartOptions: ChartOptions = {
-		responsive: true
-	};
-
-	// Define colors of chart segments
-	lineChartColors: Color[] = [
-
-		{ // dark grey
-			backgroundColor: 'rgba(77,83,96,0.2)',
-			borderColor: 'rgba(77,83,96,1)',
-		},
-		{ // red
-			backgroundColor: 'rgba(255,0,0,0.3)',
-			borderColor: 'red',
-		}
-	];
-
-	// Set true to show legends
-	lineChartLegend = true;
-
-	// Define type of chart
-	lineChartType = 'line';
-
-	lineChartPlugins = [];
-
-	// events
-	chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-		console.log(event, active);
-	}
-
-	chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-		console.log(event, active);
-	}
+	
+	dtElement: DataTableDirective;
+	dtOptions: DataTables.Settings = {};
+	dtTrigger: Subject<any> = new Subject();
 
 	ngOnInit(): void {
+		this.getPatientRecords();
+		this.dtOptions = {
+			order: [0, 'asc'],
+			pagingType: 'full_numbers',
+			pageLength: 5,
+		};
+	}
+
+	getPatientRecords(): void {
+		this.patientService.getPatientRecords(this.id).subscribe(patientRecords => {
+			this.patientRecords = patientRecords.data;
+		})
+	}
+
+	timeCreated(date): string {
+		return moment(date).format('DD/MM/YYYY, h:mm:ss a')
 	}
 
 }
