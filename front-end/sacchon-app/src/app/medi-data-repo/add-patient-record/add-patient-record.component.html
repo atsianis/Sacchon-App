@@ -1,1 +1,13 @@
-<p>add-patient-record works!</p>
+<form [formGroup]="addPatientRecord">
+	<div class="form-row">
+		<div class="col">
+			<label for="glycose">Glycose</label>
+			<input type="text" class="form-control" formControlName="glycose" id="glycose">
+		</div>
+		<div class="col">
+			<label for="carbs">Carbs</label>
+			<input type="text" class="form-control" formControlName="carbs" id="carbs">
+		</div>
+		<button class="btn btn-block btn-primary my-2" (click)="submitRecord()">Submit</button>
+	</div>
+</form>

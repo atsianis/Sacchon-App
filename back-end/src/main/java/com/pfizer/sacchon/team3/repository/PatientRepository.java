@@ -145,7 +145,7 @@ public class PatientRepository {
      * a consultation for these records .
      * This is implemented because of the 30 days request from the project requirements
      */
-    public boolean checkLastConsultation(PatientRecords patientRecord, List<Consultations> consultations) {
+    public boolean checkLastConsultation(List<Consultations> consultations) {
         //sorts the consultation list in reverse order
         //element at index 0 is the most recent
         Collections.reverse(consultations);
@@ -153,7 +153,7 @@ public class PatientRepository {
         Consultations consultation = consultations.get(0);
 
         Date dateCreated = consultation.getTimeCreated();
-        Date dateCurr = patientRecord.getTimeCreated();
+        Date dateCurr = new Date();
 
         Calendar c1 = Calendar.getInstance();
         c1.setTime(dateCreated); // Now use today date.

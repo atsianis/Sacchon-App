@@ -19,10 +19,13 @@
 						<div class="col-6"><strong>Birth Date</strong></div>
 						<div class="col-6">{{ toProperDate(patient.dob) }}</div>
 					</div>
-					<div class="row align-items-center">
+					<div class="row align-items-center" *ngIf="patient.doctor_id !== 0; else undertakePatient">
 						<a [routerLink]="['/doctoradvice/consult/', patient.id, 'add']" class="btn btn-block btn-primary my-2 mx-2">Create Consult</a>
 						<a [routerLink]="['/doctoradvice/consult/', patient.id]" class="btn btn-block btn-primary my-2 mx-2">View all consults</a>
 					</div>
+					<ng-template #undertakePatient>
+						<a class="btn btn-block btn-primary my-2 mx-2" (click)="takePatient(patient.id)">Undertake Patient</a>
+					</ng-template>
 				</div>
 			</div>
 		</div>

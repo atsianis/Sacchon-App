@@ -4,6 +4,7 @@ import com.pfizer.sacchon.team3.model.PatientRecords;
 import com.pfizer.sacchon.team3.model.Patients;
 
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +51,7 @@ public class PatientRecordRepository {
         PatientRecords patientRecordsIn = entityManager.find(PatientRecords.class, p.getId());
         patientRecordsIn.setGlycose(p.getGlycose());
         patientRecordsIn.setCarbs(p.getCarbs());
-        patientRecordsIn.setTimeCreated(p.getTimeCreated());
+        patientRecordsIn.setTimeCreated(new Date());
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(patientRecordsIn);

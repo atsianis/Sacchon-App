@@ -29,8 +29,8 @@ public class UpdateConsultationResource extends ServerResource implements Update
         try {
             consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
             doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
-            doctor_id = Long.parseLong(getAttribute("did"));
-            consultation_id = Long.parseLong(getAttribute("cid"));
+            doctor_id = Long.parseLong(getAttribute("doctor_id"));
+            consultation_id = Long.parseLong(getAttribute("consultation_id"));
         } catch (Exception e) {
             consultation_id = -1;
             doctor_id = -1;

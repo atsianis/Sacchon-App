@@ -32,8 +32,8 @@ public class AddConsultationResourceImpl extends ServerResource implements AddCo
             patientRepository = new PatientRepository(JpaUtil.getEntityManager());
             doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
             consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
-            doctor_id = Long.parseLong(getAttribute("did"));
-            patient_id = Long.parseLong(getAttribute("pid"));
+            doctor_id = Long.parseLong(getAttribute("doctor_id"));
+            patient_id = Long.parseLong(getAttribute("patient_id"));
         } catch (Exception e) {
             patient_id = -1;
             doctor_id = -1;
