@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import * as moment from 'moment';
 
 @Component({
 	selector: 'sacchon-app-profile',
@@ -10,6 +11,11 @@ import { Color, Label } from 'ng2-charts';
 export class PatientProfileComponent implements OnInit {
 
 	constructor() { }
+	firstName: string = sessionStorage.getItem('firstName');
+	lastName: string = sessionStorage.getItem('lastName');
+	email: string = sessionStorage.getItem('email');
+	dob: string = moment(sessionStorage.getItem('dob')).format('DD/MM/YYYY');
+	gender: string = sessionStorage.getItem('gender');
 
 	// Array of different segments in chart
 	lineChartData: ChartDataSets[] = [
@@ -57,5 +63,4 @@ export class PatientProfileComponent implements OnInit {
 
 	ngOnInit(): void {
 	}
-
 }
