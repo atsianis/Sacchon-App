@@ -17,11 +17,14 @@ export class ProfileComponent implements OnInit {
 	lastName: string = sessionStorage.getItem('lastName');
 	email: string = sessionStorage.getItem('email');
 	patients: Patients[];
+	availablePatients: number;
+
 	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();
 
 	ngOnInit(): void {
+		this.getNotifications();
 		this.getPatients();
 		this.dtOptions = {
 			order: [0, 'asc'],
@@ -37,6 +40,12 @@ export class ProfileComponent implements OnInit {
 		}, (err) => {
 			console.log('-----> err', err);
 		});
+	}
+
+	getNotifications(): void {
+		this.doctorService.getAvailablePatients(this.id).subscribe(patients => {
+			this.availablePatients = patients.data.length
+		})
 	}
 
 	lastActive(date: number): string {
