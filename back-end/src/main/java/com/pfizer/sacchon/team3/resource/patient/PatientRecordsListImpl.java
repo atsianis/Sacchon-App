@@ -90,9 +90,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
                     PatientRecords patientRecord;
                     if (patientRecordOut.isPresent()) {
                         patientRecord = patientRecordOut.get();
-                        // change patients last activity field
-                        patient.setLastActive(new Date());
-                        patientRepository.update(patient);
+                        updatePatientActivity(patient);
                     } else
                         return new ResponseRepresentation<>(404, "Record not found", null);
 
@@ -109,6 +107,17 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
         } else {
             return new ResponseRepresentation<>(404, "Not found", null);
         }
+    }
+
+    /**
+     *
+     * @param patient
+     * Updates the Patient's field 'lastActive' in the database
+     */
+    @NotNull
+    private void updatePatientActivity(Patients patient) {
+        patient.setLastActive(new Date());
+        patientRepository.update(patient);
     }
 
     /**
