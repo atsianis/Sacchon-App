@@ -20,7 +20,7 @@ export class ReporterService {
 
 	// Patient Services
 	getCurrentPatientRecords(patient_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/storeData/allData`)
+		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/allpatientrecords`)
 	}
 
 	getPatientById(patient_id): Observable<any> {

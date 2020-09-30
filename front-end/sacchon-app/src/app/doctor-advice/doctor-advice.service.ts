@@ -22,7 +22,7 @@ export class DoctorAdviceService {
 	}
 
 	getCurrentPatientRecords(patient_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/storeData/allData`)
+		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/allpatientrecords`)
 	}
 
 	getPatientById(patient_id): Observable<any> {
@@ -33,7 +33,7 @@ export class DoctorAdviceService {
 		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/mypatients`)
 	}
 
-	getAvailablePatients(doctor_id): Observable<any>{
+	getAvailablePatients(doctor_id): Observable<any> {
 		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/available-patients`)
 	}
 
@@ -48,6 +48,12 @@ export class DoctorAdviceService {
 
 	editConsultation(consultation_id, doctor_id, comment): Observable<any> {
 		return this.http.put(`http://localhost:9000/v1/consultation/${consultation_id}/doctor/${doctor_id}/`, {
+			comment: comment
+		})
+	}
+
+	addConsultation(doctor_id, patient_id, comment): Observable<any> {
+		return this.http.post(`http://localhost:9000/v1/consultation/doctor/${doctor_id}/patient/${patient_id}`, {
 			comment: comment
 		})
 	}
