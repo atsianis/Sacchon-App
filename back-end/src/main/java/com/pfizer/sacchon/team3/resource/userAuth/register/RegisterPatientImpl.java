@@ -54,7 +54,7 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
         try {
             Patients patientsIn = getToBePersistedPatient(patientRepresentation);
 
-            return getPatientRepresentationResponseRepresentation(patientsIn);
+            return patientRegistrationAttempt(patientsIn);
         } catch (Exception ex) {
             LOGGER.log(Level.WARNING, "Error when adding a patient", ex);
 
@@ -94,7 +94,7 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
      * Otherwise, the method will return null
      */
     @NotNull
-    private ResponseRepresentation<PatientRepresentation> getPatientRepresentationResponseRepresentation(Patients patientsIn) {
+    private ResponseRepresentation<PatientRepresentation> patientRegistrationAttempt(Patients patientsIn) {
         try {
             Optional<Patients> patientOut = patientRepository.save(patientsIn);
             Patients savedPatient = patientOut.get();
