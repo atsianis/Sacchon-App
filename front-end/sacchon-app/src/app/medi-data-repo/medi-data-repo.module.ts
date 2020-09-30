@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PatientProfileComponent } from './profile/profile.component';
 import { PatientEditProfileComponent } from './edit-profile/edit-profile.component';
@@ -10,6 +9,8 @@ import { DataTablesModule } from 'angular-datatables';
 import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
 import { MediDataRepoGuard } from './medi-data-repo.guard';
+import { FormGroup } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 
@@ -20,9 +21,10 @@ import { MediDataRepoGuard } from './medi-data-repo.guard';
 		PatientRecordComponent,
 		AddPatientRecordComponent,
 		EditPatientRecordComponent,
+		FormGroup
 	],
 	imports: [
-		CommonModule,
+		BrowserModule,
 		DataTablesModule,
 		ChartsModule,
 		HttpClientModule,
