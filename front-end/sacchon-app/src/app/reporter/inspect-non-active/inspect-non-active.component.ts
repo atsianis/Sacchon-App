@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-import { DoctorAdviceService } from 'src/app/doctor-advice/doctor-advice.service';
 import { Doctors } from 'src/app/interfaces/doctors';
 import { Patients } from 'src/app/interfaces/patients';
+import { ReporterService } from '../reporter.service';
 
 @Component({
 	selector: 'sacchon-app-inspect-non-active',
@@ -19,7 +19,8 @@ export class InspectNonActiveComponent implements OnInit {
 	dtDoctorTrigger: Subject<any> = new Subject();
 	dtPatientOptions: DataTables.Settings = {};
 	dtPatientTrigger: Subject<any> = new Subject();
-	constructor(private doctorService: DoctorAdviceService) { }
+
+	constructor(private reporterService: ReporterService) { }
 
 	ngOnInit(): void {
 		this.doctors = [];
@@ -39,7 +40,7 @@ export class InspectNonActiveComponent implements OnInit {
 	}
 
 	getInactiveDoctors(): void {
-		this.doctorService.getInactiveDoctors().subscribe(doctors => {
+		this.reporterService.getInactiveDoctors().subscribe(doctors => {
 			this.doctors = doctors.data;
 			this.dtDoctorTrigger.next();
 		}, (err) => {
@@ -48,7 +49,7 @@ export class InspectNonActiveComponent implements OnInit {
 	}
 
 	getInactivePatients(): void {
-		this.doctorService.getInactivePatients().subscribe(patients => {
+		this.reporterService.getInactivePatients().subscribe(patients => {
 			this.patients = patients.data;
 			this.dtPatientTrigger.next();
 		}, (err) => {

@@ -33,22 +33,11 @@ export class DoctorAdviceService {
 		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/mypatients`)
 	}
 
-	getDoctorById(doctor_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}`)
+	getAvailablePatients(doctor_id): Observable<any>{
+		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/available-patients`)
 	}
 
-	getCurrentDoctorConsultations(doctor_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/consultations`)
-	}
-
-	getInactiveDoctors(): Observable<any> {
-		return this.http.get<any>('http://localhost:9000/v1/chief/inactivedoctors')
-	}
-
-	getInactivePatients(): Observable<any> {
-		return this.http.get<any>('http://localhost:9000/v1/chief/inactivepatients')
-	}
-
+	// Consultation Services
 	getPatientConsultations(patient_id): Observable<any> {
 		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/consultations`)
 	}
@@ -61,9 +50,5 @@ export class DoctorAdviceService {
 		return this.http.put(`http://localhost:9000/v1/consultation/${consultation_id}/doctor/${doctor_id}/`, {
 			comment: comment
 		})
-	}
-
-	getAvailablePatients(doctor_id): Observable<any>{
-		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/available-patients`)
 	}
 }
