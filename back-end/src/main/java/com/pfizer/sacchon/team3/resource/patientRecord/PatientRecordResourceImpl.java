@@ -25,8 +25,8 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
         LOGGER.info("Initialising patient resource starts");
         try {
             patientRecordRepository = new PatientRecordRepository(JpaUtil.getEntityManager());
-            patient_id = Long.parseLong(getAttribute("pid"));
-            record_id = Long.parseLong(getAttribute("rid"));
+            patient_id = Long.parseLong(getAttribute("patient_id"));
+            record_id = Long.parseLong(getAttribute("record_id"));
         } catch (Exception e) {
             patient_id = -1;
             record_id = -1;
