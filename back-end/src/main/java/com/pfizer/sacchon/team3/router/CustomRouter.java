@@ -2,7 +2,7 @@ package com.pfizer.sacchon.team3.router;
 
 import com.pfizer.sacchon.team3.resource.chief.lists.*;
 import com.pfizer.sacchon.team3.resource.chief.settings.ChiefResourceImpl;
-import com.pfizer.sacchon.team3.resource.consultation.AddCommentResourceImpl;
+import com.pfizer.sacchon.team3.resource.consultation.AddConsultationResourceImpl;
 import com.pfizer.sacchon.team3.resource.consultation.ConsultationResourceImpl;
 import com.pfizer.sacchon.team3.resource.consultation.UpdateConsultationResource;
 import com.pfizer.sacchon.team3.resource.doctor.*;
@@ -76,7 +76,7 @@ public class CustomRouter {
         router.attach("/doctor/{id}/available-patients", AllAvailablePatientListResourceImpl.class);
 
         //Doctor Endpoints -- Consultations
-        router.attach("/consultation/doctor/{did}/patient/{pid}", AddCommentResourceImpl.class);
+        router.attach("/consultation/doctor/{did}/patient/{pid}", AddConsultationResourceImpl.class);
         router.attach("/consultation/{id}", ConsultationResourceImpl.class);
         router.attach("/consultation/{cid}/doctor/{did}", UpdateConsultationResource.class);
 

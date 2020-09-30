@@ -17,8 +17,8 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-public class AddCommentResourceImpl extends ServerResource implements AddCommentResource {
-    public static final Logger LOGGER = Engine.getLogger(AddCommentResourceImpl.class);
+public class AddConsultationResourceImpl extends ServerResource implements AddConsultationResource {
+    public static final Logger LOGGER = Engine.getLogger(AddConsultationResourceImpl.class);
     private long doctor_id;
     private long patient_id;
     private PatientRepository patientRepository;
@@ -41,10 +41,10 @@ public class AddCommentResourceImpl extends ServerResource implements AddComment
         LOGGER.info("Initialising doctor resource ends");
     }
 
-    public ResponseRepresentation<ConsultationRepresentation> addCommentConsultation(CreatedOrUpdatedConsultRepresentation consultReprIn) {
+    public ResponseRepresentation<ConsultationRepresentation> addConsultation(CreatedOrUpdatedConsultRepresentation consultReprIn) {
         LOGGER.finer("Create a consultation.");
         if (consultReprIn.getComment().isEmpty())
-            return new ResponseRepresentation<ConsultationRepresentation>(422, "Bad Entity", null);
+            return new ResponseRepresentation<>(422, "Bad Entity", null);
         // get Doctor
         Optional<Doctors> odoctor = doctorRepository.findById(doctor_id);
         Doctors doctor;
@@ -71,6 +71,10 @@ public class AddCommentResourceImpl extends ServerResource implements AddComment
         //Check if this patient belongs to this doctor
         if (!isMyPatient(doctor,patient))
             return new ResponseRepresentation<>(401, "Unauthorized ! Cant consult this patient", null);
+        //Check if there is an active consultation
+        if ( patientRepository.activeConsultationExists(patient.getConsultations()) ){
+            return new ResponseRepresentation<>(401,"Unauthorized ! An active Consultation already exists",null);
+        }
         try {
             Consultations consultation = new Consultations();
             consultation.setDoctor(doctor);
