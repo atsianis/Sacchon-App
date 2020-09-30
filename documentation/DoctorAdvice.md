@@ -33,7 +33,8 @@ Doctor's Operations
 1. The Doctor can create and store medical advice for one or more patients. The Doctor has the ability to select patients who do not yet have a doctor.
 2. The Doctor has the ability to see all available patients. Available patients are those who have completed one month of recording data and do not yet have a doctor.
 3. He can also see all the patients he has chosen to assess their health.
-4. He can modify his profile whenever he wants as well as the consultations he has saved
+4. He can modify his profile whenever he wants as well as the consultations he has saved.
+5. The doctor become deleted in case that he hasn't insert data for 15 days.
 
 Endpoints
 ============
