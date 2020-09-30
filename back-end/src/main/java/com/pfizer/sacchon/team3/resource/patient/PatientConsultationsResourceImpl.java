@@ -29,7 +29,7 @@ public class PatientConsultationsResourceImpl extends ServerResource implements 
         try {
             consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
             patientRepository = new PatientRepository(JpaUtil.getEntityManager());
-            id = Long.parseLong(getAttribute("id"));
+            id = Long.parseLong(getAttribute("patient_id"));
         } catch (Exception ex) {
             throw new ResourceException(ex);
         }

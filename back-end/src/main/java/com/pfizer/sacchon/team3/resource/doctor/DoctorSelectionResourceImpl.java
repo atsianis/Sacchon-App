@@ -6,6 +6,7 @@ import com.pfizer.sacchon.team3.repository.DoctorRepository;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
+import com.pfizer.sacchon.team3.representation.SelectionRepresentation;
 import org.jetbrains.annotations.NotNull;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
@@ -19,8 +20,6 @@ public class DoctorSelectionResourceImpl extends ServerResource implements Docto
     public static final Logger LOGGER = Engine.getLogger(DoctorSelectionResourceImpl.class);
     private DoctorRepository doctorRepository;
     private PatientRepository patientRepository;
-    private long patient_id;
-    private long doctor_id;
 
     @Override
     protected void doInit() {
@@ -28,8 +27,6 @@ public class DoctorSelectionResourceImpl extends ServerResource implements Docto
         try {
             doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
             patientRepository = new PatientRepository(JpaUtil.getEntityManager());
-            patient_id = Long.parseLong(getAttribute("pid"));
-            doctor_id = Long.parseLong(getAttribute("did"));
         } catch (Exception ex) {
             throw new ResourceException(ex);
         }
@@ -37,13 +34,13 @@ public class DoctorSelectionResourceImpl extends ServerResource implements Docto
     }
 
     @Override
-    public ResponseRepresentation<Boolean> selectPatient() {
+    public ResponseRepresentation<Boolean> selectPatient(SelectionRepresentation selection) {
         LOGGER.finer("Doctor selects a patient starts");
         try {
             Doctors doctor;
             Patients patient;
-            Optional<Doctors> opDoctor = doctorRepository.findById(doctor_id);
-            Optional<Patients> opPatient = patientRepository.findById(patient_id);
+            Optional<Doctors> opDoctor = doctorRepository.findById(selection.getDoctor_id());
+            Optional<Patients> opPatient = patientRepository.findById(selection.getPatient_id());
 
             setExisting(opDoctor.isPresent());
             if (isExisting())

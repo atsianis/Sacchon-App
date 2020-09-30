@@ -1,14 +1,9 @@
 package com.pfizer.sacchon.team3.representation;
 
-import com.pfizer.sacchon.team3.model.Consultations;
 import com.pfizer.sacchon.team3.model.Doctors;
-import com.pfizer.sacchon.team3.model.Patients;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
