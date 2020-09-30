@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-import { DoctorAdviceService } from 'src/app/doctor-advice/doctor-advice.service';
 import * as moment from 'moment';
+import { ReporterService } from '../../reporter.service';
 
 @Component({
 	selector: 'sacchon-app-inspect-doctor-list',
@@ -12,7 +12,8 @@ import * as moment from 'moment';
 })
 export class InspectDoctorListComponent implements OnInit {
 
-	constructor(private route: ActivatedRoute, private doctorService: DoctorAdviceService) { }
+	constructor(private route: ActivatedRoute, private reporterService: ReporterService) { }
+	
 	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();
@@ -31,7 +32,7 @@ export class InspectDoctorListComponent implements OnInit {
 
 	getDoctorById(): void {
 		this.route.params.subscribe(params => {
-			this.doctorService.getDoctorById(params.id).subscribe(doctor => {
+			this.reporterService.getDoctorById(params.id).subscribe(doctor => {
 				this.doctor = doctor.data;
 			}, (err) => {
 				console.log('-----> err', err);
@@ -41,7 +42,7 @@ export class InspectDoctorListComponent implements OnInit {
 
 	getConsultations(): void {
 		this.route.params.subscribe(params => {
-			this.doctorService.getCurrentDoctorConsultations(params.id).subscribe(consultations => {
+			this.reporterService.getCurrentDoctorConsultations(params.id).subscribe(consultations => {
 				this.consultations = consultations.data;
 				this.dtTrigger.next();
 			}, (err) => {

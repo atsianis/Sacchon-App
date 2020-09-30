@@ -22,7 +22,7 @@ export class DoctorAdviceService {
 	}
 
 	getCurrentPatientRecords(patient_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/storeData/allData`)
+		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/allpatientrecords`)
 	}
 
 	getPatientById(patient_id): Observable<any> {
@@ -33,22 +33,11 @@ export class DoctorAdviceService {
 		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/mypatients`)
 	}
 
-	getDoctorById(doctor_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}`)
+	getAvailablePatients(doctor_id): Observable<any> {
+		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/available-patients`)
 	}
 
-	getCurrentDoctorConsultations(doctor_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/consultations`)
-	}
-
-	getInactiveDoctors(): Observable<any> {
-		return this.http.get<any>('http://localhost:9000/v1/chief/inactivedoctors')
-	}
-
-	getInactivePatients(): Observable<any> {
-		return this.http.get<any>('http://localhost:9000/v1/chief/inactivepatients')
-	}
-
+	// Consultation Services
 	getPatientConsultations(patient_id): Observable<any> {
 		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/consultations`)
 	}
@@ -63,7 +52,9 @@ export class DoctorAdviceService {
 		})
 	}
 
-	getAvailablePatients(doctor_id): Observable<any>{
-		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/available-patients`)
+	addConsultation(doctor_id, patient_id, comment): Observable<any> {
+		return this.http.post(`http://localhost:9000/v1/consultation/doctor/${doctor_id}/patient/${patient_id}`, {
+			comment: comment
+		})
 	}
 }
