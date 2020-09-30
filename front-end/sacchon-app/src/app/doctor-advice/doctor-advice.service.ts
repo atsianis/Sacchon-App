@@ -62,4 +62,8 @@ export class DoctorAdviceService {
 			comment: comment
 		})
 	}
+
+	getAvailablePatients(doctor_id): Observable<any>{
+		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/available-patients`)
+	}
 }
