@@ -21,7 +21,7 @@ public class SoftDeletePatientImpl extends ServerResource implements SoftDeleteP
         LOGGER.info("Initialising patient resource starts");
         try {
             patientRepository = new PatientRepository(JpaUtil.getEntityManager());
-            id = Long.parseLong(getAttribute("id"));
+            id = Long.parseLong(getAttribute("patient_id"));
         } catch (Exception e) {
             id = -1;
         }

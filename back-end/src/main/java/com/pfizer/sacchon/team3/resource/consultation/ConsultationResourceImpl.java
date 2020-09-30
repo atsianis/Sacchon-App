@@ -21,7 +21,7 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
         LOGGER.info("Initialising consultation resource starts");
         try {
             consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
-            id = Long.parseLong(getAttribute("id"));
+            id = Long.parseLong(getAttribute("consultation_id"));
         } catch (Exception e) {
             id = -1;
         }
