@@ -45,53 +45,76 @@ public class AddConsultationResourceImpl extends ServerResource implements AddCo
         LOGGER.finer("Create a consultation.");
         if (consultReprIn.getComment().isEmpty())
             return new ResponseRepresentation<>(422, "Bad Entity", null);
-        // get Doctor
-        Optional<Doctors> odoctor = doctorRepository.findById(doctor_id);
+
+        Optional<Doctors> optionalDoctor = doctorRepository.findById(doctor_id);
         Doctors doctor;
-        setExisting(odoctor.isPresent());
+        setExisting(optionalDoctor.isPresent());
         if (!isExisting()) {
             LOGGER.config("Doctor id does not exist:" + doctor_id);
             return new ResponseRepresentation<>(404, "Doctor not found", null);
         } else {
-            doctor = odoctor.get();
+            doctor = optionalDoctor.get();
             LOGGER.finer("Doctor found");
         }
-        // We have the doctor
-        // Now we find the patient
-        Optional<Patients> opatient = patientRepository.findById(patient_id);
+        Optional<Patients> optionalPatient = patientRepository.findById(patient_id);
         Patients patient;
-        setExisting(opatient.isPresent());
+        setExisting(optionalPatient.isPresent());
         if (!isExisting()) {
             LOGGER.config("Patient id does not exist:" + patient_id);
             return new ResponseRepresentation<>(404, "Patient not found", null);
         } else {
-            patient = opatient.get();
+            patient = optionalPatient.get();
             LOGGER.finer("Patient found");
         }
-        //Check if this patient belongs to this doctor
         if (!isMyPatient(doctor,patient))
             return new ResponseRepresentation<>(401, "Unauthorized ! Cant consult this patient", null);
-        //Check if there is an active consultation
-        if ( patientRepository.activeConsultationExists(patient.getConsultations()) ){
+
+        if ( patientRepository.lastConsultationInDays(patient.getConsultations()) < 30 ){
             return new ResponseRepresentation<>(401,"Unauthorized ! An active Consultation already exists",null);
         }
         try {
-            Consultations consultation = new Consultations();
-            consultation.setDoctor(doctor);
-            consultation.setComment(consultReprIn.getComment());
-            consultation.setPatient(patient);
-            consultation.setTimeCreated(new Date());
-            Optional<Consultations> oconsultation = consultationRepository.save(consultation);
-            setExisting(oconsultation.isPresent());
-            if (isExisting())
-                return new ResponseRepresentation<>(200,"Consultation Created",new ConsultationRepresentation(oconsultation.get()));
+            Optional<Consultations> optionalConsultaion = getConsultationPersistAttempt(consultReprIn, doctor, patient);
+            setExisting(optionalConsultaion.isPresent());
+            if (isExisting()){
+                patientRepository.updateCanBeExamined(patient);
+                return new ResponseRepresentation<>(200,"Consultation Created",new ConsultationRepresentation(optionalConsultaion.get()));
+            }
             return new ResponseRepresentation<>(422, "Consultation could not be created", null);
         } catch (Exception ex) {
             return new ResponseRepresentation<>(422, "Consultation could not be created", null);
         }
     }
 
-    private boolean isMyPatient(Doctors d, Patients p) {
-        return p.getDoctor().getId() == d.getId();
+    /**
+     *
+     * @param consultReprIn
+     * @param doctor
+     * @param patient
+     * @return Optional of type Consultation or null
+     *
+     * Convert the input Representation into a Consultation Entity
+     * and attempt to persist in the database
+     */
+    private Optional<Consultations> getConsultationPersistAttempt(CreatedOrUpdatedConsultRepresentation consultReprIn, Doctors doctor, Patients patient) {
+        Consultations consultation = new Consultations();
+        consultation.setDoctor(doctor);
+        consultation.setComment(consultReprIn.getComment());
+        consultation.setPatient(patient);
+        consultation.setTimeCreated(new Date());
+        Optional<Consultations> oconsultation = consultationRepository.save(consultation);
+
+        return oconsultation;
+    }
+
+    /**
+     *
+     * @param doctor
+     * @param patient
+     * @return boolean
+     *
+     * check if the attempted consultation represents a valid patient-doctor relationship
+     */
+    private boolean isMyPatient(Doctors doctor, Patients patient) {
+        return patient.getDoctor().getId() == doctor.getId();
     }
 }

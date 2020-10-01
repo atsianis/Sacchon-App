@@ -1,23 +1,29 @@
-<div class="container-fluid">
-	<div class="row justify-content-center py-3 align-items-stretch">
+<div class="container-fluid h-100">
+	<div class="row justify-content-center py-3 align-items-between h-100">
 		<div class="col-3">
 			<div class="card h-100" name="chief-details">
-				<div class="card-body">
-					<h5 class="card-title text-center">Reporter profile
+				<div class="card-body row justify-content-center">
+					<h5 class="card-title text-center col-12">Reporter profile
 						<br>
 						<br>
 						<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn.onlinewebfonts.com%2Fsvg%2Fimg_299586.png&f=1&nofb=1"
 							alt="" width="100" height="100">
 					</h5>
-					<div class="row align-items-start py-5">
-						<div class="col-6"><strong>Name:</strong></div>
-						<div class="col-6">{{firstName}}</div>
-						<div class="col-6"><strong>Surname:</strong></div>
-						<div class="col-6">{{lastName}}</div>
-						<div class="col-6"><strong>Email:</strong></div>
-						<div class="col-6">{{email}}</div>
+					<div class="card-text align-items-start justify-content-start w-75 py-5">
+						<div>
+							<strong>Name:</strong>
+							<span class="float-right">{{ firstName }}</span>
+						</div>
+						<div>
+							<strong>Surname:</strong>
+							<span class="float-right">{{ lastName }}</span>
+						</div>
+						<div>
+							<strong>Email</strong>
+							<span class="float-right">{{ email }}</span>
+						</div>
 					</div>
-					<div class="row align-items-center">
+					<div class="row align-items-center mt-auto">
 						<a href ="/reporter/edit" class="btn btn-block btn-outline-primary border-0 text-left my-2 mx-2 py-2"><i class="fa fa-cog px-2" aria-hidden="true">
 						</i><span>Edit Profile</span>
 						</a>
@@ -32,39 +38,39 @@
 			</div>
 		</div>
 		<div class="col-9">
-			<div class="row justify-content-center align-items-stretch">
-				<div class="col-6 py-3">
+			<div class="row h-100">
+				<div class="col-6 pb-2">
 					<div class="card h-100">
 						<div class="card-header chief-doctor-doctors-card">
 							Inspect Doctors
 						</div>
-						<div class="card-body">
+						<div class="card-body d-flex flex-column">
 							<h5 class="card-title">Special title treatment</h5>
 							<p class="card-text">
 								In this section you can view the doctors of the platform.
 								You can inspect their consultations and you can check their
 								activity in the platform
 							</p>
-							<a href="reporter/doctors" class="btn btn-primary btn-block">See the list</a>
+							<a href="reporter/doctors" class="btn btn-primary btn-block mt-auto">See the list</a>
 						</div>
 					</div>
 				</div>
-				<div class="col-6 py-3">
+				<div class="col-6 pb-2">
 					<div class="card h-100">
 						<div class="card-header chief-doctor-patients-card">
 							Inspect Patients
 						</div>
-						<div class="card-body">
+						<div class="card-body d-flex flex-column">
 							<h5 class="card-title">Special title treatment</h5>
 							<p class="card-text">Help by watching the list of the patients, find if they
 								need a consultation and monitor if they are active or what their personal monitor
 								data are.
 							</p>
-							<a href="reporter/patients" class="btn btn-primary btn-block">See the list</a>
+							<a href="reporter/patients" class="btn btn-primary btn-block mt-auto">See the list</a>
 						</div>
 					</div>
 				</div>
-				<div class="col-6 py-3">
+				<div class="col-6 pt-2">
 					<div class="card h-100">
 						<div class="card-header chief-doctor-add-doctors-card">
 							Add new doctor to the system
@@ -79,7 +85,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-6 py-3">
+				<div class="col-6 pt-2">
 					<div class="card h-100">
 						<div class="card-header chief-doctor-inspect-inactives-card">
 							Non active users

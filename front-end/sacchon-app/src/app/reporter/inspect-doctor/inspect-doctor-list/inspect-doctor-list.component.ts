@@ -23,7 +23,7 @@ export class InspectDoctorListComponent implements OnInit {
 	ngOnInit(): void {
 		this.dtOptions = {
 			pagingType: 'full_numbers',
-			pageLength: 5,
+			pageLength: 10,
 			order: [0, 'asc'],
 		};
 		this.getDoctorById();

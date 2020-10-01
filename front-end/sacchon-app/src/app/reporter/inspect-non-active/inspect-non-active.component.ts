@@ -29,13 +29,11 @@ export class InspectNonActiveComponent implements OnInit {
 		this.getInactivePatients();
 		this.dtDoctorOptions = {
 			pagingType: 'full_numbers',
-			pageLength: 5,
-			order: [0, 'asc'],
+			pageLength: 10,			order: [0, 'asc'],
 		};
 		this.dtPatientOptions = {
 			pagingType: 'full_numbers',
-			pageLength: 5,
-			order: [0, 'asc'],
+			pageLength: 10,			order: [0, 'asc'],
 		};
 	}
 
