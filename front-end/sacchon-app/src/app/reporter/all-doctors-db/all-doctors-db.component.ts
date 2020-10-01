@@ -28,7 +28,6 @@ export class AllDoctorsDbComponent implements OnInit {
 
 	getDoctorsDB(): void {
 		this.reporterService.getAllDoctorsFromDatabase().subscribe(doctors => {
-			console.log(doctors.data)
 			this.doctors = doctors.data;
 			this.dtTrigger.next();
 		}, (err) => {
