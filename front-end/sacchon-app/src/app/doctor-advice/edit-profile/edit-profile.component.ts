@@ -13,7 +13,7 @@ import { DoctorAdviceService } from '../doctor-advice.service';
 })
 export class EditProfileComponent implements OnInit {
 
-	constructor(private router: Router, private toastr: ToastrService, private http: HttpClient, private doctorService: DoctorAdviceService, private modalService: NgbModal) { }
+	constructor(private router: Router, private toastr: ToastrService, private doctorService: DoctorAdviceService, private modalService: NgbModal) { }
 
 	id = sessionStorage.getItem('id');
 	firstName = sessionStorage.getItem('firstName');
@@ -23,7 +23,6 @@ export class EditProfileComponent implements OnInit {
 	isDeleted = sessionStorage.getItem('isDeleted');
 
 	modal = new FormControl;
-	closeResult = '';
 
 	doctorEdit = new FormGroup({
 		firstName: new FormControl(null, [Validators.required]),
@@ -39,20 +38,32 @@ export class EditProfileComponent implements OnInit {
 	}
 
 	edit(): void {
+		const firstName = this.doctorEdit.get('firstName').value;
+		const lastName = this.doctorEdit.get('lastName').value;
+		const email = this.doctorEdit.get('email').value;
+		const password = this.doctorEdit.get('password').value;
+
 		if (this.doctorEdit.valid && (this.doctorEdit.get('password').value === this.doctorEdit.get('passwordconfirm').value)) {
-			this.http.put(`http://localhost:9000/v1/doctor/${this.id}/settings`, {
-				firstName: this.doctorEdit.get('firstName').value,
-				lastName: this.doctorEdit.get('lastName').value,
-				email: this.doctorEdit.get('email').value,
-				password: this.doctorEdit.get('password').value,
-			}).subscribe(response => {
-				console.log('response');
-				this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
-					timeOut: 2000,
-					positionClass: 'toast-top-center'
-				}).onHidden.toPromise().then(_ => {
-					this.router.navigate(['/doctoradvice/profile/']);
-				});
+			this.doctorService.editDoctorProfile(this.id, firstName, lastName, email, password).subscribe(response => {
+				if (response.status == 200) {
+					console.log('response');
+					this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
+						timeOut: 2000,
+						positionClass: 'toast-top-center'
+					}).onHidden.toPromise().then(_ => {
+						this.router.navigate(['/doctoradvice/profile/']);
+					});
+				}
+				if (response.status == 422 || response.status == 404) {
+					console.log('response');
+					this.toastr.error(response.description, 'Failed', {
+						timeOut: 2000,
+						positionClass: 'toast-top-center'
+					}).onHidden.toPromise().then(_ => {
+						this.router.navigate(['/doctoradvice/profile/']);
+					});
+				}
+
 			})
 		} else {
 			this.doctorEdit.markAllAsTouched();
