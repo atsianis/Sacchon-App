@@ -15,6 +15,7 @@ import { DoctorAdviceGuard } from './doctor-advice.guard';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AvailablePatientsComponent } from './available-patients/available-patients.component';
 import { ConsultablePatientsComponent } from './consultable-patients/consultable-patients.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -46,7 +47,8 @@ import { ConsultablePatientsComponent } from './consultable-patients/consultable
 			{ path: 'doctoradvice/consult/:patient_id/:consultation_id/edit', component: ConsultEditComponent, canActivate: [ DoctorAdviceGuard ] },
 			{ path: 'doctoradvice/availablepatients', component: AvailablePatientsComponent, canActivate: [ DoctorAdviceGuard ] },
 			{ path: 'doctoradvice/consultrablepatients', component: ConsultablePatientsComponent, canActivate: [ DoctorAdviceGuard ] },
-		])
+		]),
+		NgbModule,
 	],
 	exports: [
 		RouterModule

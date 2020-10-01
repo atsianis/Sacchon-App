@@ -44,6 +44,13 @@ export class MediDataRepoService {
 			password: password,
 		})
 	}
+	
+	softDelete(patient_id, doctor_id, isDeleted): Observable<any> {
+		return this.http.put(`/patient/${patient_id}/settings/softDelete`, {
+			doctor_id : doctor_id,
+			isDeleted : isDeleted,
+		})
+	}
 
 	markConsultationAsRead(patient_id, consultation_id): Observable<any> {
 		return this.http.put(`http://localhost:9000/v1/patient/${patient_id}/consultation/${consultation_id}/read`, null)

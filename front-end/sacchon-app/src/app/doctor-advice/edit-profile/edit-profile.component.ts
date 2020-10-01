@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { DoctorAdviceService } from '../doctor-advice.service';
 
 @Component({
 	selector: 'sacchon-app-edit-profile',
@@ -11,13 +13,17 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EditProfileComponent implements OnInit {
 
-	constructor(private router: Router, private toastr: ToastrService, private http: HttpClient) { }
+	constructor(private router: Router, private toastr: ToastrService, private http: HttpClient, private doctorService: DoctorAdviceService, private modalService: NgbModal) { }
 
 	id = sessionStorage.getItem('id');
 	firstName = sessionStorage.getItem('firstName');
 	lastName = sessionStorage.getItem('lastName');
 	email = sessionStorage.getItem('email');
 	password = sessionStorage.getItem('password');
+	isDeleted = sessionStorage.getItem('isDeleted');
+
+	modal = new FormControl;
+	closeResult = '';
 
 	doctorEdit = new FormGroup({
 		firstName: new FormControl(null, [Validators.required]),
@@ -65,5 +71,35 @@ export class EditProfileComponent implements OnInit {
 
 	cancel(): void {
 		this.router.navigate(['/doctoradvice/profile/'])
+	}
+
+	open(content) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+			this.closeResult = `Closed with: ${result}`;
+		}, (reason) => {
+			this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+		});
+	}
+
+	getDismissReason(reason: any): string {
+		if (reason === ModalDismissReasons.ESC) {
+			return 'by pressing ESC';
+		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+			return 'by clicking on a backdrop';
+		} else {
+			return `with: ${reason}`;
+		}
+	}
+	softDelete(): void {
+		this.doctorService.softDelete(this.id, this.isDeleted).subscribe(response => {
+			console.log(response)
+			this.toastr.success('You will be redirected to home page soon.', 'Successfully Deleted Account', {
+				timeOut: 2000,
+				positionClass: 'toast-top-center'
+			}).onHidden.toPromise().then(_ => {
+				this.router.navigate(['']);
+				sessionStorage.clear();
+			});
+		})
 	}
 }
