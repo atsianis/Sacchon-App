@@ -26,8 +26,7 @@ export class AvailablePatientsComponent implements OnInit {
 		this.dtOptions = {
 			order: [0, 'asc'],
 			pagingType: 'full_numbers',
-			pageLength: 5,
-		};
+			pageLength: 10,		};
 	}
 
 	getAvailablePatients(): void {

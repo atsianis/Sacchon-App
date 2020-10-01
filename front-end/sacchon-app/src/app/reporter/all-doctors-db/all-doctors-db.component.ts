@@ -4,14 +4,14 @@ import { Subject } from 'rxjs';
 import { ReporterService } from '../reporter.service';
 
 @Component({
-  selector: 'sacchon-app-all-doctors-db',
-  templateUrl: './all-doctors-db.component.html',
-  styleUrls: ['./all-doctors-db.component.scss']
+	selector: 'sacchon-app-all-doctors-db',
+	templateUrl: './all-doctors-db.component.html',
+	styleUrls: ['./all-doctors-db.component.scss']
 })
 export class AllDoctorsDbComponent implements OnInit {
 
-  doctors: any;
-  dtElement: DataTableDirective;
+	doctors: any;
+	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();
 	constructor(private reporterService: ReporterService) { }
@@ -21,7 +21,7 @@ export class AllDoctorsDbComponent implements OnInit {
 		this.getDoctorsDB();
 		this.dtOptions = {
 			pagingType: 'full_numbers',
-			pageLength: 5,
+			pageLength: 10,
 			order: [0, 'asc'],
 		};
 	}
