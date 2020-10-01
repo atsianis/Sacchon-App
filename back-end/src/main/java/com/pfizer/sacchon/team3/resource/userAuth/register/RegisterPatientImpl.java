@@ -112,7 +112,6 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
 
             return new ResponseRepresentation<>(200, "Patient registered successfully", result);
         } catch (Exception e) {
-
             return new ResponseRepresentation<>(422, "Bad Entity", null);
         }
     }

@@ -23,10 +23,9 @@ public class DoctorRepository {
     private PatientRepository patientRepository;
 
     /**
-     *
      * @param id
      * @return Optional of Doctor
-     *
+     * <p>
      * Find a doctor by his unique ID
      */
     public Optional<Doctors> findById(Long id) {
@@ -36,9 +35,8 @@ public class DoctorRepository {
     }
 
     /**
-     *
      * @return List of Doctors
-     *
+     * <p>
      * A List of all doctors int he database, regardless of their state
      * Available for the chief doctor
      */
@@ -47,9 +45,8 @@ public class DoctorRepository {
     }
 
     /**
-     *
      * @return List of Doctors
-     *
+     * <p>
      * A List of all non-deleted doctors
      */
     public List<Doctors> findAll() {
@@ -59,14 +56,11 @@ public class DoctorRepository {
     }
 
     /**
-     *
      * @param email
      * @param password
      * @return Optional of Doctor
-     * @throws WrongCredentials
-     *
-     * Find Doctor by his/her credentials
-     * Used for log in
+     * @throws WrongCredentials Find Doctor by his/her credentials
+     *                          Used for log in
      */
     public Optional<Doctors> findByEmailAndPass(String email, String password) throws WrongCredentials {
         try {
@@ -82,10 +76,9 @@ public class DoctorRepository {
     }
 
     /**
-     *
      * @param doctor
      * @return Optional of Doctor
-     *
+     * <p>
      * Persist a Doctor into the database
      */
     public Optional<Doctors> save(Doctors doctor) {
@@ -103,10 +96,9 @@ public class DoctorRepository {
     }
 
     /**
-     *
      * @param doctor
      * @return Optional of Doctor
-     *
+     * <p>
      * Update doctor's personal data
      */
     public Optional<Doctors> update(Doctors doctor) {
@@ -137,10 +129,9 @@ public class DoctorRepository {
     }
 
     /**
-     *
      * @param id
      * @return List of Patients
-     *
+     * <p>
      * List of all patients undertaken by a specific doctor
      */
     public List<Patients> myPatients(Long id) {
@@ -150,26 +141,25 @@ public class DoctorRepository {
     }
 
     /**
-     *
      * @param doctor
      * @return Optional of Doctor
-     *
+     * <p>
      * Softly delete a Doctor
      * His record-consultation history and personal data are still
      * kept in the Database and are available for the chief doctor
      */
     public Optional<Doctors> softDelete(Doctors doctor) {
         patientRepository = new PatientRepository(JpaUtil.getEntityManager());
-        Doctors doctorsIn = entityManager.find(Doctors.class, doctor.getId());
-        for (Patients patient : doctorsIn.getPatients()) {
+        Doctors doctorIn = entityManager.find(Doctors.class, doctor.getId());
+        for (Patients patient : doctorIn.getPatients()) {
             patientRepository.removeDoctor(patient);
         }
-        doctorsIn.setDeleted(true);
+        doctorIn.setDeleted(true);
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(doctorsIn);
+            entityManager.persist(doctorIn);
             entityManager.getTransaction().commit();
-            return Optional.of(doctorsIn);
+            return Optional.of(doctorIn);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -178,9 +168,8 @@ public class DoctorRepository {
     }
 
     /**
-     *
      * @return List of Doctors
-     *
+     * <p>
      * List of Doctors who haven't submitted a consultation in the last 15 or more days
      */
     public List<Doctors> findInactiveDoctors() {

@@ -45,13 +45,13 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
             Doctors doctorsIn = getToBePersistedDoctor(createdOrUpdatedDoctorRepresentation);
 
             Optional<Doctors> doctorOut = doctorRepository.save(doctorsIn);
-            Doctors doctors;
+            Doctors doctor;
             if (doctorOut.isPresent())
-                doctors = doctorOut.get();
+                doctor = doctorOut.get();
             else
                 return new ResponseRepresentation<>(404, "Doctor not found", null);
 
-            DoctorRepresentation result = getDoctorRepresentationOut(doctors);
+            DoctorRepresentation result = getDoctorRepresentationOut(doctor);
 
             LOGGER.finer("doctor successfully added.");
 
@@ -64,10 +64,9 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
     }
 
     /**
-     *
      * @param doctors
      * @return DoctorRepresentation
-     *
+     * <p>
      * converts the persisted Doctor to a DoctorRepresentation type object
      * that will be returned to the client
      */
@@ -85,10 +84,9 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
     }
 
     /**
-     *
      * @param createdOrUpdatedDoctorRepresentation
      * @return a Doctor entity
-     *
+     * <p>
      * convert the DoctorRepresentation input into the Doctor entity
      * that will be attempted to be persisted into the Database
      */
