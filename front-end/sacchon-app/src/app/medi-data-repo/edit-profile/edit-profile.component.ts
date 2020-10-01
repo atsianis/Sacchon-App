@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'sacchon-app-edit-profile',
@@ -12,7 +13,7 @@ import * as moment from 'moment';
 })
 export class PatientEditProfileComponent implements OnInit {
 
-	constructor(private router: Router, private toastr: ToastrService, private http: HttpClient) { }
+	constructor(private router: Router, private toastr: ToastrService, private http: HttpClient, private modalService: NgbModal) { }
 
 	id = sessionStorage.getItem('id');
 	firstName = sessionStorage.getItem('firstName');
@@ -20,6 +21,8 @@ export class PatientEditProfileComponent implements OnInit {
 	email = sessionStorage.getItem('email');
 	dob = moment(parseInt(sessionStorage.getItem('dob'))).format("DD/MM/YYYY");
 	password = sessionStorage.getItem('password');
+
+	closeResult = '';
 
 	patientEdit = new FormGroup({
 		firstName: new FormControl(null, [Validators.required]),
@@ -69,5 +72,23 @@ export class PatientEditProfileComponent implements OnInit {
 
 	cancel(): void {
 		this.router.navigate(['/medidatarepo/profile/'])
+	}
+
+	open(content) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+			this.closeResult = `Closed with: ${result}`;
+		}, (reason) => {
+			this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+		});
+	}
+
+	private getDismissReason(reason: any): string {
+		if (reason === ModalDismissReasons.ESC) {
+			return 'by pressing ESC';
+		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+			return 'by clicking on a backdrop';
+		} else {
+			return `with: ${reason}`;
+		}
 	}
 }
