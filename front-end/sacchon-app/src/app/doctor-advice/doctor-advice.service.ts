@@ -37,6 +37,10 @@ export class DoctorAdviceService {
 		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/available-patients`)
 	}
 
+	getConsultablePatients(doctor_id): Observable<any> {
+		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/consultable-patients`)
+	}
+
 	// Consultation Services
 	getPatientConsultations(patient_id): Observable<any> {
 		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/consultations`)

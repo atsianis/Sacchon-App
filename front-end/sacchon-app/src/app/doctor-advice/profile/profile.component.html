@@ -1,29 +1,46 @@
-<div class="container-fluid">
-	<div class="row">
+<div class="container-fluid h-100">
+	<div class="row justify-content-center py-3 align-items-between h-100">
 		<div class="col-3">
-			<div class="card h-100">
-				<div class="card-body">
-					<h5 class="card-title text-center">Doctor profile
+			<div class="card h-100" name="chief-details">
+				<div class="card-body row justify-content-center">
+					<h5 class="card-title text-center col-12">Reporter profile
 						<br>
 						<br>
 						<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn.onlinewebfonts.com%2Fsvg%2Fimg_299586.png&f=1&nofb=1"
 							alt="" width="100" height="100">
 					</h5>
-					<div class="row align-items-start py-5">
-						<!-- WIP: Get data from local storage -->
-						<div class="col-6"><strong>Name:</strong></div>
-						<div class="col-6">{{ firstName }}</div>
-						<div class="col-6"><strong>Surname:</strong></div>
-						<div class="col-6">{{ lastName }}</div>
-						<div class="col-6"><strong>Email:</strong></div>
-						<div class="col-6">{{ email }}</div>
+					<div class="card-text align-items-start justify-content-start w-75 py-5">
+						<div>
+							<strong>Name:</strong>
+							<span class="float-right">{{ firstName }}</span>
+						</div>
+						<div>
+							<strong>Surname:</strong>
+							<span class="float-right">{{ lastName }}</span>
+						</div>
+						<div>
+							<strong>Email</strong>
+							<span class="float-right">{{ email }}</span>
+						</div>
 					</div>
-					<div class="row align-items-start py-5">
-						<a [routerLink]="['/doctoradvice/profile/edit']" class="btn btn-block btn-outline-primary border-0 text-left my-2 mx-2 py-2"><i class="fa fa-cog px-2" aria-hidden="true"></i><span>Edit Profile</span></a>
-						<a [routerLink]="['/doctoradvice/availablepatients']" class="btn btn-block btn-outline-primary border-0 text-left my-2 mx-2 py-2">
+					<div class="row align-items-center w-100 mt-auto">
+						<a [routerLink]="['/doctoradvice/profile/edit']"
+							class="btn btn-block btn-outline-primary border-0 text-left my-2 py-2">
+							<i class="fa fa-cog px-2" aria-hidden="true"></i>
+							<span>Edit Profile</span></a>
+						<a [routerLink]="['/doctoradvice/availablepatients']"
+							class="btn btn-block btn-outline-primary border-0 text-left my-2 py-2">
 							<i class="fa fa-user-plus px-2" aria-hidden="true"></i>
-							<span>Search Patients</span> 
-							<span class="badge badge-danger badge-pill pull-right notification-index">{{ availablePatients }}</span>
+							<span>Search Patients</span>
+							<span
+								class="badge badge-danger badge-pill pull-right notification-index">{{ availablePatients }}</span>
+						</a>
+						<a [routerLink]="['/doctoradvice/consultrablepatients']"
+							class="btn btn-block btn-outline-primary border-0 text-left my-2 py-2">
+							<i class="fa fa-exclamation-triangle px-2" aria-hidden="true"></i>
+							<span>Consult Patients</span>
+							<span
+								class="badge badge-danger badge-pill pull-right notification-index">{{ consultablePatients }}</span>
 						</a>
 					</div>
 				</div>

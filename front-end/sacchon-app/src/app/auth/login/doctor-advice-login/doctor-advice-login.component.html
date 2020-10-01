@@ -1,25 +1,27 @@
-<div class="container">
-	<div class="row align-items-center">
-		<div class="col-6">
-			<div class="card bg-light" style="width: 20rem;">
-				<div class="card-body">
-					<h5 class="card-title text-center py-2">Sign in as Doctor</h5>
-					<form class="py-3" [formGroup]="doctorLoginForm">
-						<div class="form-group">
-							<input formControlName="email" type="email" class="form-control" id="exampleInputEmail1"
-								aria-describedby="emailHelp" placeholder="Enter email">
-							<small *ngIf="doctorLoginForm.get('email').errors?.required && doctorLoginForm.get('email').touched" class="text-danger py-0 my-0">
-								Please provide an email address.
-							</small>
-							<input formControlName="password" type="password" class="form-control"
-								id="exampleInputPassword1" placeholder="Password">
-							<small *ngIf="doctorLoginForm.get('password').errors?.required && doctorLoginForm.get('password').touched" class="text-danger py-0 my-0">
-								Please provide a password.
-							</small>
-						</div>
-						<button class="btn btn-primary btn-block" (click)="submitLogin()">Submit</button>
-					</form>
-				</div>
+<div class="container-fluid h-100">
+	<div class="row align-items-center justify-content-center h-100">
+		<div class="card bg-light" style="width: 20rem;">
+			<div class="card-body">
+				<h5 class="card-title text-center py-2">Sign in as Doctor</h5>
+				<form class="py-3" [formGroup]="doctorLoginForm">
+					<div class="form-group">
+						<input formControlName="email" type="email" class="form-control" id="exampleInputEmail1"
+							aria-describedby="emailHelp" placeholder="Enter email">
+						<small
+							*ngIf="doctorLoginForm.get('email').errors?.required && doctorLoginForm.get('email').touched"
+							class="text-danger py-0 my-0">
+							Please provide an email address.
+						</small>
+						<input formControlName="password" type="password" class="form-control mt-2"
+							id="exampleInputPassword1" placeholder="Password">
+						<small
+							*ngIf="doctorLoginForm.get('password').errors?.required && doctorLoginForm.get('password').touched"
+							class="text-danger py-0 my-0">
+							Please provide a password.
+						</small>
+					</div>
+					<button class="btn btn-primary btn-block" (click)="submitLogin()">Submit</button>
+				</form>
 			</div>
 		</div>
 	</div>
