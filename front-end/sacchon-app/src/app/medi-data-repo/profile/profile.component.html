@@ -22,12 +22,15 @@
 						<div class="col-6">{{ dob }}</div>
 					</div>
 					<div class="row align-items-center">
-						<button [routerLink]="['/medidatarepo/profile/edit']"
-							class="btn btn-block btn-primary my-2 mx-2">Edit Profile</button>
-						<button [routerLink]="['/medidatarepo/record/add']"
-							class="btn btn-block btn-primary my-2 mx-2">Add new record</button>
-						<button [routerLink]="['/medidatarepo/consultations']"
-							class="btn btn-block btn-primary my-2 mx-2">Consultations</button>
+						<button [routerLink]="['/medidatarepo/profile/edit']" class="btn btn-block btn-outline-primary border-0 text-left my-2 mx-2 py-2"><i class="fa fa-cog px-2" aria-hidden="true">
+						</i><span>Edit Profile</span>
+						</button>
+						<button [routerLink]="['/medidatarepo/record/add']" class="btn btn-block btn-outline-primary border-0 text-left my-2 mx-2 py-2"><i class="fa fa-pencil px-2" aria-hidden="true">
+						</i><span>Add New Record</span>
+						</button>
+						<button [routerLink]="['/medidatarepo/consultations']" class="btn btn-block btn-outline-primary border-0 text-left my-2 mx-2 py-2"><i class="fa fa-folder-open px-2" aria-hidden="true">
+						</i><span>My Consultations</span>
+						</button>
 					</div>
 				</div>
 			</div>
