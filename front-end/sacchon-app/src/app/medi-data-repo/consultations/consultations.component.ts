@@ -14,6 +14,7 @@ export class ConsultationsComponent implements OnInit {
 	constructor(private route: ActivatedRoute, private patientService: MediDataRepoService, private toastr: ToastrService) { }
 	id: string;
 	consultations: any;
+	returnDate : any;
 
 	ngOnInit(): void {
 		this.consultations = []
@@ -34,7 +35,11 @@ export class ConsultationsComponent implements OnInit {
 		});
 	}
 
-	formatConsultationDate(date: number): string {
-		return `Consultation for ${moment(date).format('MMMM Do')} to ${moment(date).add(30, 'days').format('MMMM Do')}`
+	consultationFromDate(date: number): string{
+		return  `${moment(date).format('MMMM Do')}`
+	}
+
+	consultationToDate(date: number): string{
+		return  `${moment(date).add(30, 'days').format('MMMM Do')}`
 	}
 }

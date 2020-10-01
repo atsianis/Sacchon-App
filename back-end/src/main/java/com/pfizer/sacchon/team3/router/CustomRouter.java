@@ -6,6 +6,7 @@ import com.pfizer.sacchon.team3.resource.consultation.AddConsultationResourceImp
 import com.pfizer.sacchon.team3.resource.consultation.ConsultationResourceImpl;
 import com.pfizer.sacchon.team3.resource.consultation.UpdateConsultationResource;
 import com.pfizer.sacchon.team3.resource.doctor.*;
+import com.pfizer.sacchon.team3.resource.patient.ConsultationSeenByPatientImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientConsultationsResourceImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientRecordsListImpl;
 import com.pfizer.sacchon.team3.resource.patient.PatientResourceImpl;
@@ -59,6 +60,7 @@ public class CustomRouter {
         router.attach("/patient/{patient_id}/allpatientrecords", PatientRecordsListImpl.class);
         router.attach("/patient/{patient_id}/patientRecord/{record_id}", PatientRecordResourceImpl.class);
         router.attach("/patient/{patient_id}/consultations", PatientConsultationsResourceImpl.class);
+        router.attach("/patient/{patient_id}/consultation/{consultation_id}/read", ConsultationSeenByPatientImpl.class);
         /*
         * This endpoint allow the patient to view a consultation by its ID
         * router.attach("/consultation/{id}", ConsultationResourceImpl.class);

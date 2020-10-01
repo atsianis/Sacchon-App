@@ -3,10 +3,10 @@
 		<div class="col-3">
 			<div class="card h-100" name="chief-details">
 				<div class="card-body row justify-content-center">
-					<h5 class="card-title text-center col-12">Reporter profile
+					<h5 class="card-title text-center col-12">Doctor profile
 						<br>
 						<br>
-						<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn.onlinewebfonts.com%2Fsvg%2Fimg_299586.png&f=1&nofb=1"
+						<img src="../../assets/images/reporter-images.jpg"
 							alt="" width="100" height="100">
 					</h5>
 					<div class="card-text align-items-start justify-content-start w-75 py-5">
@@ -53,13 +53,12 @@
 						class="table table-striped table-bordered" style="width:100%">
 						<thead>
 							<tr>
-								<th>firstName</th>
-								<th>lastName</th>
-								<th>email</th>
-								<th>dob</th>
-								<th>canBeExamined</th>
-								<th>gender</th>
-								<th>lastActive</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Email</th>
+								<th>Birth Date</th>
+								<th>Gender</th>
+								<th>Last Active</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -68,7 +67,6 @@
 								<td>{{ patient.lastName }}</td>
 								<td>{{ patient.email }}</td>
 								<td>{{ birthDate(patient.dob) }}</td>
-								<td>{{ patient.canBeExamined }}</td>
 								<td>{{ patient.gender }}</td>
 								<td>{{ lastActive(patient.lastActive) }}</td>
 							</tr>

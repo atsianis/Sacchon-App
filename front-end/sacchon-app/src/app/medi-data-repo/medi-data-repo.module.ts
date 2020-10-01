@@ -8,9 +8,10 @@ import { DataTablesModule } from 'angular-datatables';
 import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
 import { MediDataRepoGuard } from './medi-data-repo.guard';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ControlContainer, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConsultationsComponent } from './consultations/consultations.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -27,6 +28,7 @@ import { BrowserModule } from '@angular/platform-browser';
 		DataTablesModule,
 		ChartsModule,
 		ReactiveFormsModule,
+		FormsModule,
 		HttpClientModule,
 		RouterModule.forChild([
 			{ path: 'medidatarepo/profile', component: PatientProfileComponent, canActivate: [ MediDataRepoGuard ] },
@@ -35,6 +37,7 @@ import { BrowserModule } from '@angular/platform-browser';
 			{ path: 'medidatarepo/record/:id/edit', component: EditPatientRecordComponent, canActivate: [ MediDataRepoGuard ] },
 			{ path: 'medidatarepo/consultations', component: ConsultationsComponent, canActivate: [ MediDataRepoGuard ]}
 		]),
+		NgbModule,
 	],
 	exports: [
 		RouterModule
