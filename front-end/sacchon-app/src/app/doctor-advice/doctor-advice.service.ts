@@ -51,25 +51,34 @@ export class DoctorAdviceService {
 	}
 
 	editConsultation(consultation_id, doctor_id, comment): Observable<any> {
-		return this.http.put(`http://localhost:9000/v1/consultation/${consultation_id}/doctor/${doctor_id}/`, {
+		return this.http.put<any>(`http://localhost:9000/v1/consultation/${consultation_id}/doctor/${doctor_id}`, {
 			comment: comment
 		})
 	}
 
 	addConsultation(doctor_id, patient_id, comment): Observable<any> {
-		return this.http.post(`http://localhost:9000/v1/consultation/doctor/${doctor_id}/patient/${patient_id}`, {
+		return this.http.post<any>(`http://localhost:9000/v1/consultation/doctor/${doctor_id}/patient/${patient_id}`, {
 			comment: comment
 		})
 	}
 
 	undertakePatient(doctor_id, patient_id): Observable<any> {
-		return this.http.put(`http://localhost:9000/v1/doctor/undertake/patient`, {
+		return this.http.put<any>(`http://localhost:9000/v1/doctor/undertake/patient`, {
 			doctor_id: doctor_id,
 			patient_id: patient_id
 		})
 	}
 
 	softDelete(doctor_id): Observable<any> {
-		return this.http.put(`http://localhost:9000/v1/doctor/${doctor_id}/settings/softDelete`, null)
+		return this.http.put<any>(`http://localhost:9000/v1/doctor/${doctor_id}/settings/softDelete`, null)
+	}
+
+	editDoctorProfile(doctor_id, firstName, lastName, email, password):Observable<any> {
+		return this.http.put<any>(`http://localhost:9000/v1/doctor/${doctor_id}`, {
+			firstName: firstName,
+			lastName: lastName,
+			email: email,
+			password: password
+		})
 	}
 }

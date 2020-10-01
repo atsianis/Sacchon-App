@@ -37,6 +37,16 @@ export class AddPatientRecordComponent implements OnInit {
 					console.log(error);
 				});
 			}
+			if ( response.status == 422 || response.status == 404 ) {
+				this.toastr.error(response.description, 'Failed', {
+					timeOut: 2000,
+					positionClass: 'toast-top-center'
+				}).onHidden.toPromise().then(_ => {
+					this.router.navigate(['/medidatarepo/profile']);
+				}).catch(error => {
+					console.log(error);
+				});
+			}
 		})
 	}
 }
