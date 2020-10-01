@@ -50,7 +50,6 @@ export class PatientEditProfileComponent implements OnInit {
 
 		const dob = new Date(unformattedDob.year, unformattedDob.month, unformattedDob.day);
 
-
 		this.patientService.editProfile(this.id, firstName, lastName, email, dob, password).subscribe(response => {
 			console.log(response)
 			this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
