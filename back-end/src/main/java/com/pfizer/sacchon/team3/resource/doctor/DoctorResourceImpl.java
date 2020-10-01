@@ -9,7 +9,9 @@ import com.pfizer.sacchon.team3.representation.DoctorRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import org.hibernate.Hibernate;
+import org.jetbrains.annotations.NotNull;
 import org.restlet.engine.Engine;
+import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import java.util.Optional;
@@ -17,7 +19,7 @@ import java.util.logging.Logger;
 
 public class DoctorResourceImpl extends ServerResource implements DoctorResource {
     public static final Logger LOGGER = Engine.getLogger(DoctorResourceImpl.class);
-    private long id;
+    private long doctor_id;
     private DoctorRepository doctorRepository;
 
     @Override
@@ -25,9 +27,9 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
         LOGGER.info("Initialising doctor resource starts");
         try {
             doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
-            id = Long.parseLong(getAttribute("doctor_id"));
+            doctor_id = Long.parseLong(getAttribute("doctor_id"));
         } catch (Exception e) {
-            id = -1;
+            doctor_id = -1;
         }
         LOGGER.info("Initialising doctor resource ends");
     }
@@ -40,10 +42,10 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
         doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
         Doctors doctor;
         try {
-            Optional<Doctors> opDoctor = doctorRepository.findById(id);
+            Optional<Doctors> opDoctor = doctorRepository.findById(doctor_id);
             setExisting(opDoctor.isPresent());
             if (!isExisting()) {
-                LOGGER.config("doctor id does not exist:" + id);
+                LOGGER.config("doctor id does not exist:" + doctor_id);
                 return new ResponseRepresentation<>(404, "Doctor not found", null);
             } else {
                 doctor = opDoctor.get();
@@ -63,43 +65,55 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
 
     // UPDATE Doctor
     @Override
-    public ResponseRepresentation<DoctorRepresentation> updateDoctor(CreatedOrUpdatedDoctorRepresentation doctorReprIn) {
+    public ResponseRepresentation<DoctorRepresentation> updateDoctor(CreatedOrUpdatedDoctorRepresentation doctorRepresentationIn) {
         LOGGER.finer("Update a doctor.");
         // Check given entity
         try {
-            ResourceValidator.notNull(doctorReprIn);
-            ResourceValidator.validate(doctorReprIn);
+            ResourceValidator.notNull(doctorRepresentationIn);
         } catch (BadEntityException ex) {
             return new ResponseRepresentation<>(422, "Bad Entity", null);
         }
 
         LOGGER.finer("Doctor checked");
         try {
-            // Convert DoctorRepresentation to Doctor
-            Doctors doctorIn = doctorReprIn.createDoctor();
-            doctorIn.setId(id);
-            Optional<Doctors> doctorOut;
-            Optional<Doctors> oDoctor = doctorRepository.findById(id);
-            setExisting(oDoctor.isPresent());
-            // If doctor exists, we update it.
+            Optional<Doctors> doctorOut = doctorRepository.findById(doctor_id);
+            setExisting(doctorOut.isPresent());
+            Doctors doctorToBePersisted ;
+            // If patient exists, we update it.
             if (isExisting()) {
-                LOGGER.finer("Update doctor.");
-                // Update doctor in DB and retrieve the new one.
-                doctorOut = doctorRepository.update(doctorIn);
-                // Check if retrieved doctor is not null : if it is null it
+                LOGGER.finer("Update patient.");
+                doctorToBePersisted = getDoctorToBePersisted(doctorRepresentationIn, doctorOut);
+                // Update patient in DB and retrieve the new one.
+                doctorOut = doctorRepository.update(doctorToBePersisted);
+                // Check if retrieved patient is not null : if it is null it
                 // means that the id is wrong.
                 if (!doctorOut.isPresent()) {
-                    LOGGER.finer("Doctor does not exist.");
-                    return new ResponseRepresentation<>(404, "Doctor not found", null);
+                    LOGGER.finer("Patient does not exist.");
+                    return new ResponseRepresentation<>(404, "SQL Exception", null);
                 }
             } else {
-                LOGGER.finer("Resource does not exist.");
-                return new ResponseRepresentation<>(404, "Doctor not found", null);
+                LOGGER.finer("Patient does not exist.");
+                return new ResponseRepresentation<>(404, "Patient not found", null);
             }
-            LOGGER.finer("Doctor successfully updated.");
-            return new ResponseRepresentation<>(200, "Doctor successfully updated", new DoctorRepresentation(doctorOut.get()));
+            LOGGER.finer("Patient successfully updated.");
+            return new ResponseRepresentation<>(200, "Patient created", new DoctorRepresentation(doctorOut.get()));
         } catch (Exception ex) {
-            return new ResponseRepresentation<>(404, "Doctor not found", null);
+            throw new ResourceException(ex);
         }
+    }
+
+    @NotNull
+    private Doctors getDoctorToBePersisted(CreatedOrUpdatedDoctorRepresentation doctorRepresentation, Optional<Doctors> patientOut) {
+        Doctors doctor = patientOut.get();
+        if (!(doctorRepresentation.getPassword()==null))
+            doctor.setPassword((doctorRepresentation.getPassword()));
+        if (!(doctorRepresentation.getFirstName()==null))
+            doctor.setFirstName(doctorRepresentation.getFirstName());
+        if (!(doctorRepresentation.getLastName()==null))
+            doctor.setLastName(doctorRepresentation.getLastName());
+        if (!(doctorRepresentation.getEmail()==null))
+            doctor.setEmail(doctorRepresentation.getEmail());
+
+        return doctor;
     }
 }
