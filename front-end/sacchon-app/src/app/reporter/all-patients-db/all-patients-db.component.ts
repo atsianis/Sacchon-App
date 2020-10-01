@@ -5,13 +5,13 @@ import { Subject } from 'rxjs';
 import { ReporterService } from '../reporter.service';
 
 @Component({
-  selector: 'sacchon-app-all-patients-db',
-  templateUrl: './all-patients-db.component.html',
-  styleUrls: ['./all-patients-db.component.scss']
+	selector: 'sacchon-app-all-patients-db',
+	templateUrl: './all-patients-db.component.html',
+	styleUrls: ['./all-patients-db.component.scss']
 })
 export class AllPatientsDbComponent implements OnInit {
 
-  patients: any;
+	patients: any;
 	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();
@@ -20,18 +20,19 @@ export class AllPatientsDbComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.patients = [];
-		
+
 		this.getPatientsDB();
 
 		this.dtOptions = {
 			order: [0, 'asc'],
 			pagingType: 'full_numbers',
-			pageLength: 10,		};
+			pageLength: 10,
+		};
 	}
 
 	getPatientsDB(): void {
 		this.reporterService.getAllPatientsFromDatabase().subscribe(patients => {
-			console.log(patients);	
+			console.log(patients);
 			this.patients = patients.data;
 			this.dtTrigger.next();
 		}, (err) => {
