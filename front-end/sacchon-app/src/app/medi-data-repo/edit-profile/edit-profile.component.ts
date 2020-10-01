@@ -22,9 +22,10 @@ export class PatientEditProfileComponent implements OnInit {
 	email = sessionStorage.getItem('email');
 	dob = moment(parseInt(sessionStorage.getItem('dob'))).format("DD/MM/YYYY");
 	password = sessionStorage.getItem('password');
+	isDeleted = sessionStorage.getItem('isDeleted');
+	doctor_id = sessionStorage.getItem('doctor_id');
 
 	modal = new FormControl;
-
 	closeResult = '';
 
 	patientEdit = new FormGroup({
@@ -89,5 +90,18 @@ export class PatientEditProfileComponent implements OnInit {
 		} else {
 			return `with: ${reason}`;
 		}
+	}
+
+	softDelete(): void {
+		this.patientService.softDelete(this.id, this.doctor_id, this.isDeleted).subscribe(response => {
+			console.log(response)
+			this.toastr.success('You will be redirected to home page soon.', 'Successfully Deleted Account', {
+				timeOut: 2000,
+				positionClass: 'toast-top-center'
+			}).onHidden.toPromise().then(_ => {
+				this.router.navigate(['']);
+				sessionStorage.clear();
+			});
+		})
 	}
 }
