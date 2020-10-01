@@ -23,7 +23,7 @@ export class PatientProfileComponent implements OnInit {
 	patientRecords: PatientRecords[];
 	consultations: number = 0;
 
-	
+
 	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();
@@ -34,12 +34,14 @@ export class PatientProfileComponent implements OnInit {
 		this.dtOptions = {
 			order: [0, 'asc'],
 			pagingType: 'full_numbers',
-			pageLength: 10,		};
+			pageLength: 10,
+		};
 	}
 
 	getPatientRecords(): void {
 		this.patientService.getPatientRecords(this.id).subscribe(patientRecords => {
 			this.patientRecords = patientRecords.data;
+			this.dtTrigger.next()
 		})
 	}
 
