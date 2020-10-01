@@ -54,4 +54,13 @@ export class ReporterService {
 	getInactivePatients(): Observable<any> {
 		return this.http.get<any>('http://localhost:9000/v1/chief/inactivepatients')
 	}
+
+	editProfile(firstName, lastName, email, password): Observable<any> {
+		return this.http.put(`http://localhost:9000/v1/chief/settings/update`, {
+				firstName: firstName,
+				lastName: lastName,
+				email: email,
+				password: password
+			})
+	}
 }
