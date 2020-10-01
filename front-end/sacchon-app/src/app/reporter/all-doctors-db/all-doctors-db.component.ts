@@ -34,4 +34,8 @@ export class AllDoctorsDbComponent implements OnInit {
 			console.log('-----> err', err);
 		});
 	}
+
+	lastActive(date: number): string {
+		return this.reporterService.lastActive(date)
+	}
 }

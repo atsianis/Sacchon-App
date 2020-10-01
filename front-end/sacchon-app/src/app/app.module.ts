@@ -23,6 +23,7 @@ import { PatientSignUpComponent } from './auth/signup/patient-sign-up/patient-si
 import { DoctorSignUpComponent } from './auth/signup/doctor-sign-up/doctor-sign-up.component';
 import { UnauthorizedComponent } from './generic/unauthorized/unauthorized.component';
 import { NotfoundComponent } from './generic/notfound/notfound.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
 	declarations: [
@@ -50,6 +51,7 @@ import { NotfoundComponent } from './generic/notfound/notfound.component';
 		ReactiveFormsModule,
 		BrowserAnimationsModule,
 		ToastrModule.forRoot(),
+		NgbModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent]

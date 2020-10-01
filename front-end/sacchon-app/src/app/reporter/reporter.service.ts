@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import * as moment from 'moment';
 
 @Injectable({
 	providedIn: 'root'
@@ -55,16 +56,23 @@ export class ReporterService {
 		return this.http.get<any>('http://localhost:9000/v1/chief/inactivepatients')
 	}
 
+	lastActive(date: number): string {
+		if (moment().diff(date, "days") > 0)
+			return `${moment().diff(date, "days")} days ago`;
+		else
+			return `${moment().diff(date, "hours")} hours ago`;
+	}
+
 	getConsultablePatients(): Observable<any> {
 		return this.http.get<any>('http://localhost:9000/v1/chief/consultablepatients')
 	}
 
 	editProfile(firstName, lastName, email, password): Observable<any> {
 		return this.http.put(`http://localhost:9000/v1/chief/settings/update`, {
-				firstName: firstName,
-				lastName: lastName,
-				email: email,
-				password: password
-			})
+			firstName: firstName,
+			lastName: lastName,
+			email: email,
+			password: password
+		})
 	}
 }

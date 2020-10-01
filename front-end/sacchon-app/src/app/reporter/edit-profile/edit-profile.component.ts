@@ -19,16 +19,17 @@ export class EditProfileComponent implements OnInit {
 	password = sessionStorage.getItem('password');
 
 	reporterEdit = new FormGroup({
-		firstName: new FormControl(this.firstName, [Validators.required]),
-		lastName: new FormControl(this.lastName, [Validators.required]),
-		email: new FormControl(this.email, [Validators.required, Validators.email]),
+		firstName: new FormControl(null, [Validators.required]),
+		lastName: new FormControl(null, [Validators.required]),
+		email: new FormControl(null, [Validators.required, Validators.email]),
 		password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
 		passwordconfirm: new FormControl(null)
 	});
 
 
 	ngOnInit(): void {
-	}
+		this.initializeForm()
+	 }
 
 	edit(): void {
 		const firstName = this.reporterEdit.get('firstName').value
@@ -49,5 +50,15 @@ export class EditProfileComponent implements OnInit {
 
 	cancel(): void {
 		this.router.navigate(['/reporter'])
+	}
+
+	initializeForm(): void {
+		this.reporterEdit = new FormGroup({
+			firstName: new FormControl(this.firstName, [Validators.required]),
+			lastName: new FormControl(this.lastName, [Validators.required]),
+			email: new FormControl(this.email, [Validators.required, Validators.email]),
+			password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
+			passwordconfirm: new FormControl(null)
+		});
 	}
 }
