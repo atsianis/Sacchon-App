@@ -21,8 +21,7 @@ export class AllDoctorsDbComponent implements OnInit {
 		this.getDoctorsDB();
 		this.dtOptions = {
 			pagingType: 'full_numbers',
-			pageLength: 5,
-			order: [0, 'asc'],
+			pageLength: 10,			order: [0, 'asc'],
 		};
 	}
 
