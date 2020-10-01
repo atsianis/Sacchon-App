@@ -1,40 +1,25 @@
-.slide {
-	margin-right: -85px !important;
-	margin-left: -85px !important;
+.row{
+  color: white;
 }
 
 .covertxt {
-	padding: 30px;
-	border: 1px solidblack;
+	border: 1px solid black;
 	-webkit-background-clip: padding-box;
 	background-clip: padding-box;
 	background-color: black;
 	opacity: 0.6;
-
+  color: white;
 }
 
-.carousel-item {
-	background-size: cover;
-	background-position: 50% 50%;
-	width: 100%;
-	height: 100%;
+.bg { 
+  margin: 0;
+  height: 100%;
+  background-image: url('https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
-
 .btn a {
 	color: beige;
 }
 
-.centered {
-	position: absolute;
-	top: 20%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-.bottom {
-	// position: absolute;
-	// top: 70%;
-	// left: 50%;
-	transform: translate(-50%, -50%);
-	color: white;
-}

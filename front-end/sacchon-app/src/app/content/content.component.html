@@ -1,18 +1,23 @@
-<div class="container text-center d-flex flex-column justify-content-center">
-	<div class="row flex-column justify-content-center ">
-		<h1>
-			Welcome to Sacchon app.
-		</h1>
-		<p>
-			In this application you can add your carbs and glycose levels and our trustworthy doctors
-			will be there to diagnose you and give you a result according to the readings of your records.
-		</p>
-	</div>
-	<div class="row w-50 covertxt justify-content-center align-items-center">
-		<div class="col-12">
-			<h2>So, don't just stand there</h2>
+<div class="bg">
+	<div class="container-fluid text-center covertxt ">
+		<div class="row flex-column justify-content-center ">
+			<h1>
+				Welcome to Sacchon app.
+			</h1>
+			<p>
+				In this application you can add your carbs and glycose levels and our trustworthy doctors
+				will be there to diagnose you and give you a result according to the readings of your records.
+			</p>
 		</div>
-		<a class="btn btn-primary mx-2" [routerLink]="['/signup']">Get Started</a>
-		<a class="btn btn-primary mx-2" [routerLink]="['/login']">Log in</a>
+		<div class="row">
+			<div class="col"></div>
+			<div class="col-5  w-50">
+				<h2>So, don't just stand there</h2>
+				<a class="btn btn-primary mx-2" [routerLink]="['/signup']">Get Started</a>
+				<a class="btn btn-primary mx-2" [routerLink]="['/login']">Log in</a>
+			</div>
+			<div class="col"></div>
+		</div>
 	</div>
 </div>
+
