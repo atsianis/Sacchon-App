@@ -5,9 +5,21 @@ div {
 .card {
 	border: none;
 	border-radius: 20px;
-	background: linear-gradient(98deg, rgba(14,78,104,1) 0%, rgba(17,109,191,1) 4%, rgba(23,135,185,1) 46%, rgba(8,181,231,1) 93%);
-	width: 260px;
-	margin-top: -5px
+	background: linear-gradient(98deg, rgba(14,78,104,1), rgba(17,109,191,1));
+	width: 20rem;
+	height: 23.5rem;
+}
+
+.card-img-block {
+    width: 91%;
+    margin: 0 auto;
+    position: relative;
+    top: -20px;
+}
+
+.card-img-block img {
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.63);
 }
 
 p.mb-1 {
@@ -57,10 +69,7 @@ p.mb-1 {
 }
 
 .btn-block {
-	border: none;
-	border-radius: 8px;
-	background-color: #506CCF;
-	padding: 10px 0 12px
+	padding: 12px 0 12px
 }
 
 .btn-block:focus {
