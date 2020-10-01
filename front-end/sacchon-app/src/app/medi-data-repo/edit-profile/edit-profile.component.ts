@@ -48,7 +48,7 @@ export class PatientEditProfileComponent implements OnInit {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
 				}).onHidden.toPromise().then(_ => {
-					this.router.navigate(['/patient/${this.id}']);
+					this.router.navigate(['/medidatarepo/profile/']);
 				});
 			})
 		} else {
@@ -65,5 +65,9 @@ export class PatientEditProfileComponent implements OnInit {
 			password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
 			passwordconfirm: new FormControl(null)
 		});
+	}
+
+	cancel(): void {
+		this.router.navigate(['/medidatarepo/profile/'])
 	}
 }
