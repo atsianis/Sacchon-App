@@ -62,4 +62,17 @@ export class ReporterService {
 		else
 			return `${moment().diff(date, "hours")} hours ago`;
 	}
+
+	getConsultablePatients(): Observable<any> {
+		return this.http.get<any>('http://localhost:9000/v1/chief/consultablepatients')
+	}
+
+	editProfile(firstName, lastName, email, password): Observable<any> {
+		return this.http.put(`http://localhost:9000/v1/chief/settings/update`, {
+			firstName: firstName,
+			lastName: lastName,
+			email: email,
+			password: password
+		})
+	}
 }

@@ -1,25 +1,25 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ReporterService } from '../reporter.service';
 
 @Component({
-  selector: 'sacchon-app-edit-profile',
-  templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.scss']
+	selector: 'sacchon-app-edit-profile',
+	templateUrl: './edit-profile.component.html',
+	styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit {
 
-  constructor(private router: Router, private toastr: ToastrService, private http: HttpClient) { }
+	constructor(private router: Router, private toastr: ToastrService, private reporterService: ReporterService) { }
 
-  firstName = sessionStorage.getItem('firstName');
-  lastName = sessionStorage.getItem('lastName');
-  email = sessionStorage.getItem('email');
-  password = sessionStorage.getItem('password');
+	firstName = sessionStorage.getItem('firstName');
+	lastName = sessionStorage.getItem('lastName');
+	email = sessionStorage.getItem('email');
+	password = sessionStorage.getItem('password');
 
 	reporterEdit = new FormGroup({
-		firstame: new FormControl(null, [Validators.required]),
+		firstName: new FormControl(null, [Validators.required]),
 		lastName: new FormControl(null, [Validators.required]),
 		email: new FormControl(null, [Validators.required, Validators.email]),
 		password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
@@ -32,23 +32,20 @@ export class EditProfileComponent implements OnInit {
 	 }
 
 	edit(): void {
-		if (this.reporterEdit.valid && (this.reporterEdit.get('password').value === this.reporterEdit.get('passwordconfirm').value)) {
-			this.http.put(`http://localhost:9000/v1/chief/settings/update`, {
-        		firstName: this.reporterEdit.get('firstName').value,
-				lastName: this.reporterEdit.get('lastName').value,
-				email: this.reporterEdit.get('email').value,
-				password: this.reporterEdit.get('password').value,
-			}).subscribe(response => {
-				this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
-					timeOut: 2000,
-					positionClass: 'toast-top-center'
-				}).onHidden.toPromise().then(_ => {
-					location.href = '/reporter';
-				});
-			})
-		} else {
-			this.reporterEdit.markAllAsTouched();
-		}
+		const firstName = this.reporterEdit.get('firstName').value
+		const lastName = this.reporterEdit.get('lastName').value
+		const email = this.reporterEdit.get('email').value
+		const password = this.reporterEdit.get('password').value
+
+		this.reporterService.editProfile(firstName, lastName, email, password).subscribe(response => {
+			console.log(response)
+			// this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
+			// 	timeOut: 2000,
+			// 	positionClass: 'toast-top-center'
+			// }).onHidden.toPromise().then(_ => {
+			// 	this.router.navigate(['/reporter'])
+			// });
+		})
 	}
 
 	cancel(): void {

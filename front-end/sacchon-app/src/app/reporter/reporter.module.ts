@@ -19,6 +19,7 @@ import { AllPatientsDbComponent } from './all-patients-db/all-patients-db.compon
 import { AllDoctorsDbComponent } from './all-doctors-db/all-doctors-db.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReporterGuard } from './reporter.guard';
+import { ConsultablePatientsComponent } from './consultable-patients/consultable-patients.component';
 
 @NgModule({
 	declarations: [
@@ -30,6 +31,7 @@ import { ReporterGuard } from './reporter.guard';
 		EditProfileComponent,
 		AllPatientsDbComponent,
 		AllDoctorsDbComponent,
+		ConsultablePatientsComponent,
 	],
 	imports: [
 		CommonModule,
@@ -47,6 +49,7 @@ import { ReporterGuard } from './reporter.guard';
 			{ path: 'reporter/createdoctor', component: DoctorSignUpComponent , canActivate: [ ReporterGuard ] },
 			{ path: 'reporter/inactives', component: InspectNonActiveComponent, canActivate: [ ReporterGuard ] },
 			{ path: 'reporter/edit', component: EditProfileComponent, canActivate: [ ReporterGuard ] },
+			{ path: 'reporter/consultablepatients', component: ConsultablePatientsComponent, canActivate: [ ReporterGuard ] },
 			{ path: 'reporter/allpatientsDB', component: AllPatientsDbComponent, canActivate: [ ReporterGuard ] },
 			{ path: 'reporter/alldoctorsDB', component: AllDoctorsDbComponent, canActivate: [ ReporterGuard ] }
 		])

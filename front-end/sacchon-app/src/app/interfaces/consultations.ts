@@ -1,8 +1,8 @@
 export interface Consultations {
 	comment: string;
-	doctor: {};
+	doctor_id: number;
 	id: number;
-	patient: {};
+	patient_id: number;
 	seenByPatient: number;
 	timeCreated: number;
 }

@@ -4,7 +4,7 @@ Reporter Documentation
 
 Description
 ============
-The role of the reporter is the platform administrator. It has the ability to see all the data of the platform and also to delete and enter any user.
+The role of the reporter is the platform administrator. He has the ability to see all the data of the platform and also to delete and enter any user.
 
 Requirements
 ============
