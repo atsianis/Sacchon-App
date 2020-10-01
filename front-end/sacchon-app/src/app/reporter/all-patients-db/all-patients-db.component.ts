@@ -42,4 +42,8 @@ export class AllPatientsDbComponent implements OnInit {
 	birthDate(date: number): string {
 		return moment(date).format('DD/MM/YYYY');
 	}
+
+	lastActive(date: number): string {
+		return this.reporterService.lastActive(date)
+	}
 }
