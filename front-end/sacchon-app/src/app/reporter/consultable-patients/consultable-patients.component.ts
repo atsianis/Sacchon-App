@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
-import * as moment from 'moment';
 import { Subject } from 'rxjs';
 import { ReporterService } from '../reporter.service';
-
+import * as moment from 'moment';
 @Component({
-	selector: 'sacchon-app-all-patients-db',
-	templateUrl: './all-patients-db.component.html',
-	styleUrls: ['./all-patients-db.component.scss']
+  selector: 'sacchon-app-consultable-patients',
+  templateUrl: './consultable-patients.component.html',
+  styleUrls: ['./consultable-patients.component.scss']
 })
-export class AllPatientsDbComponent implements OnInit {
+export class ConsultablePatientsComponent implements OnInit {
 
-	patients: any;
+  patients: any;
 	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();
@@ -20,19 +19,18 @@ export class AllPatientsDbComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.patients = [];
-
+		
 		this.getPatientsDB();
 
 		this.dtOptions = {
 			order: [0, 'asc'],
 			pagingType: 'full_numbers',
-			pageLength: 10,
-		};
+            pageLength: 10,
+    	};
 	}
 
 	getPatientsDB(): void {
-		this.reporterService.getAllPatientsFromDatabase().subscribe(patients => {
-			console.log(patients);
+		this.reporterService.getConsultablePatients().subscribe(patients => {
 			this.patients = patients.data;
 			this.dtTrigger.next();
 		}, (err) => {
