@@ -34,10 +34,10 @@ Endpoints
 ============
 ```java
 //chief Endpoints
-router.attach("/chief/allpatientsDB", AllPatientsDBImpl.class);
-router.attach("/chief/alldoctorsDB", AllDoctorsDBImpl.class);
-router.attach("/chief/allpatients", AllPatientsListImpl.class);
-router.attach("/chief/alldoctors", AllDoctorsListImpl.class);
+router.attach("/chief/allpatients", AllPatientsDBImpl.class);
+router.attach("/chief/alldoctors", AllDoctorsDBImpl.class);
+router.attach("/chief/patients", AllPatientsListImpl.class);
+router.attach("/chief/doctors", AllDoctorsListImpl.class);
 router.attach("/chief/inactivedoctors", InactiveDoctorsImpl.class);
 router.attach("/chief/inactivepatients", InactivePatientsImpl.class);
 router.attach("/chief/allconsultations", ConsultationListResourceImpl.class);

@@ -11,11 +11,11 @@ export class ReporterService {
 
 	// All users Services
 	getDoctors(): Observable<any> {
-		return this.http.get<any>('http://localhost:9000/v1/chief/alldoctors');
+		return this.http.get<any>('http://localhost:9000/v1/chief/doctors');
 	}
 
 	getPatients(): Observable<any> {
-		return this.http.get<any>('http://localhost:9000/v1/chief/allpatients');
+		return this.http.get<any>('http://localhost:9000/v1/chief/patients');
 	}
 
 	// Patient Services
@@ -39,11 +39,11 @@ export class ReporterService {
 
 	// Entire Database Services
 	getAllDoctorsFromDatabase(): Observable<any> {
-		return this.http.get<any>('http://localhost:9000/v1/chief/alldoctorsDB')
+		return this.http.get<any>('http://localhost:9000/v1/chief/alldoctors')
 	}
 
 	getAllPatientsFromDatabase(): Observable<any> {
-		return this.http.get<any>('http://localhost:9000/v1/chief/allpatientsDB')
+		return this.http.get<any>('http://localhost:9000/v1/chief/allpatients')
 	}
 
 	// Inactive Services

@@ -26,13 +26,11 @@ export class AvailablePatientsComponent implements OnInit {
 		this.dtOptions = {
 			order: [0, 'asc'],
 			pagingType: 'full_numbers',
-			pageLength: 5,
-		};
+			pageLength: 10,		};
 	}
 
 	getAvailablePatients(): void {
 		this.doctorservice.getAvailablePatients(this.id).subscribe(patients => {
-			console.log(patients);
 			this.patients = patients.data;
 			this.dtTrigger.next();
 		}, (err) => {

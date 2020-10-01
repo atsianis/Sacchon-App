@@ -21,6 +21,7 @@ export class PatientSignUpComponent implements OnInit {
 		gender: new FormControl(null, [Validators.required]),
 	});
 
+	selectGender: string[] = ['male', 'female'];
 
 	ngOnInit(): void { }
 
