@@ -75,8 +75,10 @@ public class AddConsultationResourceImpl extends ServerResource implements AddCo
         try {
             Optional<Consultations> optionalConsultaion = getConsultationPersistAttempt(consultReprIn, doctor, patient);
             setExisting(optionalConsultaion.isPresent());
-            if (isExisting())
+            if (isExisting()){
+                patientRepository.updateCanBeExamined(patient);
                 return new ResponseRepresentation<>(200,"Consultation Created",new ConsultationRepresentation(optionalConsultaion.get()));
+            }
             return new ResponseRepresentation<>(422, "Consultation could not be created", null);
         } catch (Exception ex) {
             return new ResponseRepresentation<>(422, "Consultation could not be created", null);
