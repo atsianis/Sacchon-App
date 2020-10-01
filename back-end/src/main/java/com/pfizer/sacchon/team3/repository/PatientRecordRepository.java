@@ -1,7 +1,6 @@
 package com.pfizer.sacchon.team3.repository;
 
 import com.pfizer.sacchon.team3.model.PatientRecords;
-import com.pfizer.sacchon.team3.model.Patients;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
@@ -16,30 +15,55 @@ public class PatientRecordRepository {
         this.entityManager = entityManager;
     }
 
+    /**
+     *
+     * @param id
+     * @return Optional of PatientRecord
+     *
+     * Find a record by its unique ID
+     */
     public Optional<PatientRecords> findById(Long id) {
         PatientRecords p = entityManager.find(PatientRecords.class, id);
 
         return p != null ? Optional.of(p) : Optional.empty();
     }
 
-    // find all the records made by patients
+    /**
+     *
+     * @return List of PatientRecords
+     *
+     * A list of all records in the Database
+     */
     public List<PatientRecords> findAllPatientRecords() {
         return entityManager.createQuery("from PatientRecords").getResultList();
     }
 
-    // find all the records of a specific patient
+    /**
+     *
+     * @param id
+     * @return List of PatientRecord
+     *
+     * A list of all records that have been uploaded by a specific patient
+     */
     public List<PatientRecords> findPatientRecordsByPatient(long id) {
         return entityManager.createQuery("from PatientRecords WHERE patient_id = :id")
                 .setParameter("id", id)
                 .getResultList();
     }
 
-    public Optional<PatientRecords> save(PatientRecords p) {
+    /**
+     *
+     * @param patientRecord
+     * @return Optional of PatientRecord
+     *
+     * Persist a record into the Database
+     */
+    public Optional<PatientRecords> save(PatientRecords patientRecord) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(p);
+            entityManager.persist(patientRecord);
             entityManager.getTransaction().commit();
-            return Optional.of(p);
+            return Optional.of(patientRecord);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,10 +71,18 @@ public class PatientRecordRepository {
         return Optional.empty();
     }
 
-    public Optional<PatientRecords> update(PatientRecords p) {
-        PatientRecords patientRecordsIn = entityManager.find(PatientRecords.class, p.getId());
-        patientRecordsIn.setGlycose(p.getGlycose());
-        patientRecordsIn.setCarbs(p.getCarbs());
+    /**
+     *
+     * @param patientRecord
+     * @return Optional of PatientRecord
+     *
+     * Update the measurements of a specific record.
+     * Available for every patient, in case he/she uploaded wrong data
+     */
+    public Optional<PatientRecords> update(PatientRecords patientRecord) {
+        PatientRecords patientRecordsIn = entityManager.find(PatientRecords.class, patientRecord.getId());
+        patientRecordsIn.setGlycose(patientRecord.getGlycose());
+        patientRecordsIn.setCarbs(patientRecord.getCarbs());
         patientRecordsIn.setTimeCreated(new Date());
         try {
             entityManager.getTransaction().begin();
@@ -64,6 +96,13 @@ public class PatientRecordRepository {
         return Optional.empty();
     }
 
+    /**
+     *
+     * @param id
+     * @return boolean
+     *
+     * Delete a record from the Database
+     */
     public boolean remove(Long id) {
         Optional<PatientRecords> OptPatientRecord = findById(id);
         if (OptPatientRecord.isPresent()) {

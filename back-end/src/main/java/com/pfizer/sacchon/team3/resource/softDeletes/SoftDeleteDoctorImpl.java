@@ -46,14 +46,13 @@ public class SoftDeleteDoctorImpl extends ServerResource implements SoftDeleteDo
             } else {
                 LOGGER.finer("Doctor does not exist.");
 
-                return new ResponseRepresentation<>(404, "Doctor not found 1", null);
+                return new ResponseRepresentation<>(404, "Doctor not found", null);
             }
             LOGGER.finer("Doctor successfully updated.");
 
             return new ResponseRepresentation<>(200, "Doctor has been softly deleted", new DoctorRepresentation(doctorsOut.get()));
         } catch (Exception ex) {
-            ex.printStackTrace();
-            return new ResponseRepresentation<>(404, "Doctor not found 2", null);
+            return new ResponseRepresentation<>(404, "Doctor not found", null);
         }
     }
 }
