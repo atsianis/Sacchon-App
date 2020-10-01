@@ -34,4 +34,15 @@ export class MediDataRepoService {
 	getConsultations(patient_id): Observable<any> {
 		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/consultations`)
 	}
+
+	editProfile(patient_id, firstName, lastName, email, dob, password): Observable<any> {
+		console.log(patient_id, firstName, lastName, email, dob, password)
+		return this.http.put(`http://localhost:9000/v1/patient/${patient_id}/settings`, {
+			firstName: firstName,
+			lastName: lastName,
+			email: email,
+			dob: dob,
+			password: password,
+		})
+	}
 }
