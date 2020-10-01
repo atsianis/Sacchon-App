@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
 	email: string = sessionStorage.getItem('email');
 	patients: Patients[];
 	availablePatients: number;
+	consultablePatients: number;
 
 	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
@@ -44,6 +45,9 @@ export class ProfileComponent implements OnInit {
 	getNotifications(): void {
 		this.doctorService.getAvailablePatients(this.id).subscribe(patients => {
 			this.availablePatients = patients.data.length
+		})
+		this.doctorService.getConsultablePatients(this.id).subscribe(patients => {
+			this.consultablePatients = patients.data.length
 		})
 	}
 
