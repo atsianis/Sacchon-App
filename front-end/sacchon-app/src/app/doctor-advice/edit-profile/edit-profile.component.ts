@@ -40,6 +40,7 @@ export class EditProfileComponent implements OnInit {
 				email: this.doctorEdit.get('email').value,
 				password: this.doctorEdit.get('password').value,
 			}).subscribe(response => {
+				console.log('response');
 				this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
