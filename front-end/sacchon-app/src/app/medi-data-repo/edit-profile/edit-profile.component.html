@@ -8,68 +8,22 @@
 						<form class="py-3" [formGroup]="patientEdit">
 							<div class="form-group">
 								<input required formControlName="email" type="text" value="{{email}}"
-									class="mt-3 form-control" id="mail"
-									[ngClass]="(patientEdit.get('email').errors?.required && patientEdit.get('email').touched)? 'border-danger'  : ''">
-								<small
-									*ngIf="patientEdit.get('email').errors?.required && patientEdit.get('email').touched"
-									class="text-danger py-0 my-0">
-									An email address is required
-								</small>
-								<small
-									*ngIf="patientEdit.get('email').errors?.email && patientEdit.get('email').touched"
-									class="text-danger py-0 my-0">
-									Must be a valid email address
-								</small>
+									class="mt-3 form-control" id="mail">
 								<input required formControlName="firstName" type="text" value="{{firstName}}"
 									class="mt-3 form-control"
-									[ngClass]="(patientEdit.get('firstName').errors?.required && patientEdit.get('firstName').touched)? 'border-danger'  : ''"
 									id="firstName">
-								<small
-									*ngIf="patientEdit.get('firstName').errors?.required && patientEdit.get('firstName').touched"
-									class="text-danger py-0 my-0">
-									First name is required
-								</small>
 								<input required formControlName="lastName" type="text" value="{{lastName}}"
 									class="mt-3 form-control"
-									[ngClass]="(patientEdit.get('lastName').errors?.required && patientEdit.get('lastName').touched)? 'border-danger'  : ''"
 									id="lastName">
-								<small
-									*ngIf="patientEdit.get('lastName').errors?.required && patientEdit.get('lastName').touched"
-									class="text-danger py-0 my-0">
-									Last name is required
-								</small>
 								<input required formControlName="dob" type="text" value="{{dob}}"
 									class="mt-3 form-control"
-									[ngClass]="(patientEdit.get('lastName').errors?.required && patientEdit.get('lastName').touched)? 'border-danger'  : ''"
-									id="lastName">
-								<small
-									*ngIf="patientEdit.get('dob').errors?.required && patientEdit.get('dob').touched"
-									class="text-danger py-0 my-0">
-									Date of Birth is required
-								</small>
-								<input placeholder="Password" required formControlName="password" type="password"
+									id="dob">
+								<input placeholder="Update Password" required formControlName="password" type="password"
 									class="mt-3 form-control"
-									[ngClass]="(patientEdit.get('password').errors?.required && patientEdit.get('password').touched)? 'border-danger'  : ''"
 									id="password">
-								<small
-									*ngIf="patientEdit.get('password').errors?.required && patientEdit.get('password').touched"
-									class="text-danger py-0 my-0">
-									A password is required
-								</small>
-								<small
-									*ngIf="patientEdit.get('password').errors?.minlength && patientEdit.get('password').touched"
-									class="text-danger py-0 my-0">
-									Password must be at least 8 characters long
-								</small>
 								<input placeholder="Confirm Password" required formControlName="passwordconfirm"
 									type="password" class="mt-3 form-control"
-									[ngClass]="(patientEdit.get('passwordconfirm').errors?.required && patientEdit.get('passwordconfirm').touched)? 'border-danger'  : ''"
 									id="passwordconfirm">
-								<small
-									*ngIf="patientEdit.get('passwordconfirm').errors?.required && patientEdit.get('passwordconfirm').touched"
-									class="text-danger py-0 my-0">
-									Passwords do not match
-								</small>
 							</div>
 							<button class="btn btn-success btn-block py-2" (click)="edit()">Save Changes</button>
 							<button class="btn btn-danger btn-block py-2" (click)="edit()">Delete Account</button>
