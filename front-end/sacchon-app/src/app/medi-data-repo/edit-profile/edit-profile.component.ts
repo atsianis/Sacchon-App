@@ -48,7 +48,7 @@ export class PatientEditProfileComponent implements OnInit {
 		const unformattedDob = this.patientEdit.get('dob').value
 		const password = this.patientEdit.get('password').value
 
-		const dob = new Date(unformattedDob.year, unformattedDob.month, unformattedDob.day);
+		const dob = new Date(unformattedDob.year, unformattedDob.month-1, unformattedDob.day);
 
 		this.patientService.editProfile(this.id, firstName, lastName, email, dob, password).subscribe(response => {
 			console.log(response)
