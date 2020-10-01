@@ -17,27 +17,31 @@ export class PatientProfileComponent implements OnInit {
 	firstName: string = sessionStorage.getItem('firstName');
 	lastName: string = sessionStorage.getItem('lastName');
 	email: string = sessionStorage.getItem('email');
-	dob: string = moment(sessionStorage.getItem('dob')).format('DD/MM/YYYY');
+	dob: string = moment(parseInt(sessionStorage.getItem('dob'))).format('DD/MM/YYYY');
 	gender: string = sessionStorage.getItem('gender');
 	id: string = sessionStorage.getItem('id');
 	patientRecords: PatientRecords[];
+	consultations: number = 0;
 
-	
+
 	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();
 
 	ngOnInit(): void {
 		this.getPatientRecords();
+		this.getAllPatientConsultations();
 		this.dtOptions = {
 			order: [0, 'asc'],
 			pagingType: 'full_numbers',
-			pageLength: 10,		};
+			pageLength: 10,
+		};
 	}
 
 	getPatientRecords(): void {
 		this.patientService.getPatientRecords(this.id).subscribe(patientRecords => {
 			this.patientRecords = patientRecords.data;
+			this.dtTrigger.next()
 		})
 	}
 
@@ -45,4 +49,12 @@ export class PatientProfileComponent implements OnInit {
 		return moment(date).format('DD/MM/YYYY, h:mm:ss a')
 	}
 
+	getAllPatientConsultations(): void {
+		this.patientService.getConsultations(this.id).subscribe(consultations => {
+			consultations.data.forEach(consultation => {
+				if (consultation.seenByPatient == null)
+					this.consultations += 1
+			});
+		})
+	}
 }

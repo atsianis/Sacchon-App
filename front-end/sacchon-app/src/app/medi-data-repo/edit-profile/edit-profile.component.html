@@ -1,5 +1,5 @@
-<div class="d-flex flex-column justify-content-between align-items-center">
-	<div class="container">
+<div class="container-fluid h-100">
+	<div class="row align-items-center justify-content-center h-100">
 		<div class="row align-items-center">
 			<div class="col-6">
 				<div class="card bg-light" style="width: 20rem;">
@@ -26,12 +26,31 @@
 									id="passwordconfirm">
 							</div>
 							<button class="btn btn-success btn-block py-2" (click)="edit()">Save Changes</button>
-							<button class="btn btn-danger btn-block py-2" (click)="edit()">Delete Account</button>
+							<button class="btn btn-danger btn-block py-2" (click)="open(content)">Delete Account</button>
 							<button class="btn btn-secondary btn-block py-2" (click)="cancel()">Cancel</button>
 						</form>
 					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 </div>
+
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+	  <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+	  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
+	<div class="modal-body">
+	  <form>
+		<div class="form-group">
+		  <label for="dateOfBirth">Date of birth</label>
+		</div>
+	  </form>
+	</div>
+	<div class="modal-footer">
+	  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+	</div>
+  </ng-template>

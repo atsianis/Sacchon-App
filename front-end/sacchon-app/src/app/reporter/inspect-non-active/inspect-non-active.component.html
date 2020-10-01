@@ -6,11 +6,10 @@
 			<thead>
 				<tr>
 					<th>id</th>
-					<th>firstname</th>
-					<th>lastname</th>
-					<th>email</th>
-					<th>isDeleted</th>
-					<th>lastActive</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+					<th>Last Active</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -19,8 +18,7 @@
 					<td>{{ doctor.firstName }}</td>
 					<td>{{ doctor.lastName }}</td>
 					<td>{{ doctor.email }}</td>
-					<td>{{ doctor.deleted }}</td>
-					<td>{{ doctor.lastActive }}</td>
+					<td>{{ lastActive(doctor.lastActive) }}</td>
 				</tr>
 		</table>
 	</div>
@@ -31,11 +29,10 @@
 			<thead>
 				<tr>
 					<th>id</th>
-					<th>firstname</th>
-					<th>lastname</th>
-					<th>email</th>
-					<th>isDeleted</th>
-					<th>lastActive</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+					<th>Last Active</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -44,8 +41,7 @@
 					<td>{{ patient.firstName }}</td>
 					<td>{{ patient.lastName }}</td>
 					<td>{{ patient.email }}</td>
-					<td>{{ patient.deleted }}</td>
-					<td>{{ patient.lastActive }}</td>
+					<td>{{ lastActive(patient.lastActive) }}</td>
 				</tr>
 		</table>
 	</div>

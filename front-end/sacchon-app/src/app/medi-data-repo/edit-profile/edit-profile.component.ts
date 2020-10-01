@@ -4,6 +4,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { MediDataRepoService } from '../medi-data-repo.service';
 
 @Component({
 	selector: 'sacchon-app-edit-profile',
@@ -12,7 +14,7 @@ import * as moment from 'moment';
 })
 export class PatientEditProfileComponent implements OnInit {
 
-	constructor(private router: Router, private toastr: ToastrService, private http: HttpClient) { }
+	constructor(private router: Router, private toastr: ToastrService, private http: HttpClient, private patientService: MediDataRepoService, private modalService: NgbModal) { }
 
 	id = sessionStorage.getItem('id');
 	firstName = sessionStorage.getItem('firstName');
@@ -20,6 +22,10 @@ export class PatientEditProfileComponent implements OnInit {
 	email = sessionStorage.getItem('email');
 	dob = moment(parseInt(sessionStorage.getItem('dob'))).format("DD/MM/YYYY");
 	password = sessionStorage.getItem('password');
+
+	modal = new FormControl;
+
+	closeResult = '';
 
 	patientEdit = new FormGroup({
 		firstName: new FormControl(null, [Validators.required]),
@@ -36,24 +42,20 @@ export class PatientEditProfileComponent implements OnInit {
 	}
 
 	edit(): void {
-		if (this.patientEdit.valid && (this.patientEdit.get('password').value === this.patientEdit.get('passwordconfirm').value)) {
-			this.http.put(`http://localhost:9000/v1/patient/${this.id}/settings`, {
-				firstName: this.patientEdit.get('firstName').value,
-				lastName: this.patientEdit.get('lastName').value,
-				email: this.patientEdit.get('email').value,
-				dob: this.patientEdit.get('dob').value,
-				password: this.patientEdit.get('password').value,
-			}).subscribe(response => {
-				this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
-					timeOut: 2000,
-					positionClass: 'toast-top-center'
-				}).onHidden.toPromise().then(_ => {
-					this.router.navigate(['/medidatarepo/profile/']);
-				});
-			})
-		} else {
-			this.patientEdit.markAllAsTouched();
-		}
+		const firstName = this.patientEdit.get('firstName').value
+		const lastName = this.patientEdit.get('lastName').value
+		const email = this.patientEdit.get('email').value
+		const dob = this.patientEdit.get('dob').value
+		const password = this.patientEdit.get('password').value
+		this.patientService.editProfile(this.id, firstName, lastName, email, dob, password).subscribe(response => {
+			console.log(response)
+			this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
+				timeOut: 2000,
+				positionClass: 'toast-top-center'
+			}).onHidden.toPromise().then(_ => {
+				this.router.navigate(['/medidatarepo/profile/']);
+			});
+		})
 	}
 
 	initializeForm(): void {
@@ -69,5 +71,23 @@ export class PatientEditProfileComponent implements OnInit {
 
 	cancel(): void {
 		this.router.navigate(['/medidatarepo/profile/'])
+	}
+
+	open(content) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+			this.closeResult = `Closed with: ${result}`;
+		}, (reason) => {
+			this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+		});
+	}
+
+	getDismissReason(reason: any): string {
+		if (reason === ModalDismissReasons.ESC) {
+			return 'by pressing ESC';
+		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+			return 'by clicking on a backdrop';
+		} else {
+			return `with: ${reason}`;
+		}
 	}
 }
