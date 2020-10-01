@@ -30,12 +30,15 @@ export class HeaderComponent implements OnInit {
 	redirectToHome(): Promise<boolean> {
 		if (!this.auth.isLoggedIn)
 			return this.router.navigate([''])
+
 		if (this.auth.isLoggedIn && sessionStorage.getItem('userType') === 'reporter')
 			return this.router.navigate(['reporter'])
+
 		if (this.auth.isLoggedIn && sessionStorage.getItem('userType') === 'doctor')
 			return this.router.navigate(['doctoradvice/profile'])
+
 		if (this.auth.isLoggedIn && sessionStorage.getItem('userType') === 'patient')
 			return this.router.navigate(['medidatarepo/profile'])
-	}
 
+	}
 }
