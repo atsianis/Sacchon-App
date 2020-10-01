@@ -18,9 +18,9 @@ export class EditProfileComponent implements OnInit {
   password = sessionStorage.getItem('password');
 
 	reporterEdit = new FormGroup({
-		firstame: new FormControl(null, [Validators.required]),
-		lastName: new FormControl(null, [Validators.required]),
-		email: new FormControl(null, [Validators.required, Validators.email]),
+		firstame: new FormControl(this.firstName, [Validators.required]),
+		lastName: new FormControl(this.lastName, [Validators.required]),
+		email: new FormControl(this.email, [Validators.required, Validators.email]),
 		password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
 		passwordconfirm: new FormControl(null)
 	});
