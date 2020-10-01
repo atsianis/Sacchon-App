@@ -1,0 +1,38 @@
+.slide {
+    margin-right: -85px !important;
+    margin-left: -85px !important;
+  
+}
+
+.covertxt {
+  padding: 10px;
+  border: 1px solidblack ;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: black;
+  opacity: 0.6;
+  
+}
+
+.carousel-item{
+    background-size: cover;
+    background-position: 50% 50%;
+  width: 100%;
+  height: 100%;
+}
+
+.centered {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+
+  .bottom {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }

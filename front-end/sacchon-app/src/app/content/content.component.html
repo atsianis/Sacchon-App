@@ -1,11 +1,5 @@
-<div class="container text-center">
-	<h1>
-		Welcome to Sacchon app.
-	</h1>
-	<p>
-		In this application you can add your carbs and glycose levels and our trustworthy doctors
-		will be there to diagnose you and give you a result according to the readings of your records.
-	</p>
+<div class="container-fluid text-center">
+
 	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 		<ol class="carousel-indicators">
 			<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -14,7 +8,7 @@
 		</ol>
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img class="d-block w-100" src="https://i.ytimg.com/vi/84zXfR0LjOQ/maxresdefault.jpg" alt="First slide">
+				<img class="d-block w-100" src="https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="First slide">
 			</div>
 			<div class="carousel-item">
 				<img class="d-block w-100" src="https://i.ytimg.com/vi/u7KN_ZKh0CU/maxresdefault.jpg"
@@ -33,11 +27,24 @@
 			<span class="sr-only">Next</span>
 		</a>
 	</div>
-	<div class="py-3">
-		<h2>So, don't just stand there</h2>
-		<p>
-			<a [routerLink]="['/signup']">Get Started</a> or if you are already a member just
-			<a [routerLink]="['/login']">Log in</a>
-		</p>
-	</div>
+	
+		<div class="centered ">
+			<h1>
+				Welcome to Sacchon app.
+			</h1>
+			<p>
+				In this application you can add your carbs and glycose levels and our trustworthy doctors
+				will be there to diagnose you and give you a result according to the readings of your records.
+			</p>
+		</div>
+		
+		<div class="py-3 bottom covertxt">
+			<h2>So, don't just stand there</h2>
+			<p>
+				<a [routerLink]="['/signup']">Get Started</a> or if you are already a member just
+				<a [routerLink]="['/login']">Log in</a>
+			</p>
+		</div>
+	
+	
 </div>
