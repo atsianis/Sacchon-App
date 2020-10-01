@@ -102,18 +102,11 @@ public class DoctorRepository {
      * Update doctor's personal data
      */
     public Optional<Doctors> update(Doctors doctor) {
-
         Doctors doctorIn = entityManager.find(Doctors.class, doctor.getId());
-        if (doctor.getFirstName() != null)
-            doctorIn.setFirstName(doctor.getFirstName());
-        if (doctor.getLastName() != null)
-            doctorIn.setLastName(doctor.getLastName());
-        if (doctor.getEmail() != null)
-            doctorIn.setEmail(doctor.getEmail());
-        if (doctor.getLastActive() != null)
-            doctorIn.setLastActive(doctor.getLastActive());
-        if (doctor.getPassword() != null)
-            doctorIn.setPassword(doctor.getPassword());
+        doctorIn.setFirstName(doctor.getFirstName());
+        doctorIn.setLastName(doctor.getLastName());
+        doctorIn.setEmail(doctor.getEmail());
+        doctorIn.setPassword(doctor.getPassword());
 
         try {
             entityManager.getTransaction().begin();

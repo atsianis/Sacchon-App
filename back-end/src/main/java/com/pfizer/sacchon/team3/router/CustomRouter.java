@@ -50,7 +50,7 @@ public class CustomRouter {
         router.attach("/chief/inactivedoctors", InactiveDoctorsImpl.class);
         router.attach("/chief/inactivepatients", InactivePatientsImpl.class);
         router.attach("/chief/allconsultations", ConsultationListResourceImpl.class);
-        router.attach("/chief/settings/update", ChiefResourceImpl.class);
+        router.attach("/chief/{chief_id}/settings/update", ChiefResourceImpl.class);
         router.attach("/chief/consultablepatients", AllConsultablePatientListResourceImpl.class);
 
         //patient Endpoints

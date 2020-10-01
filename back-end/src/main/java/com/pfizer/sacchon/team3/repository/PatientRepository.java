@@ -135,16 +135,11 @@ public class PatientRepository {
      */
     public Optional<Patients> update(Patients patient) {
         Patients patientIn = entityManager.find(Patients.class, patient.getId());
-        if (!(patient.getFirstName() == null))
-            patientIn.setFirstName(patient.getFirstName());
-        if (!(patient.getLastName() == null))
-            patientIn.setLastName(patient.getLastName());
-        if (!(patient.getPassword() == null))
-            patientIn.setPassword(patient.getPassword());
-        if (!(patient.getEmail() == null))
-            patientIn.setEmail(patient.getEmail());
-        if (!(patient.getDob() == null))
-            patientIn.setDob(patient.getDob());
+        patientIn.setFirstName(patient.getFirstName());
+        patientIn.setLastName(patient.getLastName());
+        patientIn.setPassword(patient.getPassword());
+        patientIn.setEmail(patient.getEmail());
+        patientIn.setDob(patient.getDob());
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(patientIn);

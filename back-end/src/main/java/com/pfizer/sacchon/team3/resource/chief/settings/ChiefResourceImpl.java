@@ -7,6 +7,7 @@ import com.pfizer.sacchon.team3.repository.util.JpaUtil;
 import com.pfizer.sacchon.team3.representation.ChiefRepresentation;
 import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
+import org.jetbrains.annotations.NotNull;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
 
 public class ChiefResourceImpl extends ServerResource implements ChiefResource {
     public static final Logger LOGGER = Engine.getLogger(ChiefResourceImpl.class);
-    private long id;
+    private long chief_id;
     private ChiefRepository chiefRepository;
 
     @Override
@@ -23,9 +24,9 @@ public class ChiefResourceImpl extends ServerResource implements ChiefResource {
         LOGGER.info("Initialising chief resource starts");
         try {
             chiefRepository = new ChiefRepository(JpaUtil.getEntityManager());
-            id = Long.parseLong(getAttribute("id"));
+            chief_id = Long.parseLong(getAttribute("chief_id"));
         } catch (Exception e) {
-            id = -1;
+            chief_id = -1;
         }
         LOGGER.info("Initialising chief resource ends");
     }
@@ -36,7 +37,6 @@ public class ChiefResourceImpl extends ServerResource implements ChiefResource {
         // Check given entity
         try {
             ResourceValidator.notNull(chiefRepresentation);
-            ResourceValidator.validate(chiefRepresentation);
         } catch (BadEntityException ex) {
             return new ResponseRepresentation<>(422, "BadEntity", null);
         }
@@ -44,28 +44,44 @@ public class ChiefResourceImpl extends ServerResource implements ChiefResource {
         LOGGER.finer("Chief checked");
 
         try {
-            // Convert ChiefRepr to Chief
-            Chiefs chiefIn = chiefRepresentation.createChief();
-            chiefIn.setId(id);
-            Optional<Chiefs> chiefOut = chiefRepository.findById(id);
+            Optional<Chiefs> chiefOut = chiefRepository.findById(chief_id);
             setExisting(chiefOut.isPresent());
-
+            Chiefs chiefToBePersisted;
+            // If patient exists, we update it.
             if (isExisting()) {
-                LOGGER.finer("Update chief.");
-                chiefOut = chiefRepository.update(chiefIn);
+                LOGGER.finer("Update patient.");
+                chiefToBePersisted = getChiefToBePersisted(chiefRepresentation, chiefOut);
+                // Update patient in DB and retrieve the new one.
+                chiefOut = chiefRepository.update(chiefToBePersisted);
+                // Check if retrieved patient is not null : if it is null it
+                // means that the id is wrong.
                 if (!chiefOut.isPresent()) {
-                    LOGGER.finer("chief does not exist.");
-                    return new ResponseRepresentation<>(404, "Chief not found", null);
+                    LOGGER.finer("Patient does not exist.");
+                    return new ResponseRepresentation<>(404, "SQL Exception", null);
                 }
             } else {
-                LOGGER.finer("chief does not exist.");
+                LOGGER.finer("Patient does not exist.");
                 return new ResponseRepresentation<>(404, "Chief not found", null);
             }
-            LOGGER.finer("Chief successfully updated.");
-
-            return new ResponseRepresentation<>(200, "Chief retrieved", new ChiefRepresentation(chiefOut.get()));
+            LOGGER.finer("Patient successfully updated.");
+            return new ResponseRepresentation<>(200, "Chief created", new ChiefRepresentation(chiefOut.get()));
         } catch (Exception ex) {
-            return new ResponseRepresentation<>(422, "Resource exception", null);
+            return new ResponseRepresentation<>(404, "Chief not found 2", null);
         }
     }
+
+        @NotNull
+        private Chiefs getChiefToBePersisted(ChiefRepresentation chiefRepresentation, Optional<Chiefs> chiefOut) {
+            Chiefs chief = chiefOut.get();
+            if (!(chiefRepresentation.getPassword()==null))
+                chief.setPassword((chiefRepresentation.getPassword()));
+            if (!(chiefRepresentation.getFirstName()==null))
+                chief.setFirstName(chiefRepresentation.getFirstName());
+            if (!(chiefRepresentation.getLastName()==null))
+                chief.setLastName(chiefRepresentation.getLastName());
+            if (!(chiefRepresentation.getEmail()==null))
+                chief.setEmail(chiefRepresentation.getEmail());
+
+            return chief;
+        }
 }
