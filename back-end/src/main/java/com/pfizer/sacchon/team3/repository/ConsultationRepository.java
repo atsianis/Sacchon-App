@@ -3,6 +3,7 @@ package com.pfizer.sacchon.team3.repository;
 import com.pfizer.sacchon.team3.model.Consultations;
 
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +46,7 @@ public class ConsultationRepository {
      */
     public List<Consultations> findPatientsConsultations(long id) {
         return entityManager
-                .createQuery("from Consultations WHERE patient_id = :patient_id ", Consultations.class)
+                .createQuery("from Consultations WHERE patient_id = :patient_id and comment != null", Consultations.class)
                 .setParameter("patient_id", id)
                 .getResultList();
     }
@@ -94,13 +95,28 @@ public class ConsultationRepository {
      * Available for every doctor who wants to change an already saved consultation
      */
     public Optional<Consultations> setComment(Consultations consultation) {
-        Consultations consultationsIn = entityManager.find(Consultations.class, consultation.getId());
-        consultationsIn.setComment(consultation.getComment());
+        Consultations consultationIn = entityManager.find(Consultations.class, consultation.getId());
+        consultationIn.setComment(consultation.getComment());
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(consultationsIn);
+            entityManager.persist(consultationIn);
             entityManager.getTransaction().commit();
-            return Optional.of(consultationsIn);
+            return Optional.of(consultationIn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return Optional.empty();
+    }
+
+    public Optional setSeen(long consultation_id) {
+        Consultations consultationIn = entityManager.find(Consultations.class, consultation_id);
+        consultationIn.setSeenByPatient(new Date());
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(consultationIn);
+            entityManager.getTransaction().commit();
+            return Optional.of(consultationIn);
         } catch (Exception e) {
             e.printStackTrace();
         }

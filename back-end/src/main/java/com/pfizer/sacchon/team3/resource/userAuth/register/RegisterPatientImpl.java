@@ -133,7 +133,7 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
         Consultations consultation = consultationRepresentation.createConsultation();
         consultation.setPatient(savedPatient);
         consultation.setComment(null);
-        consultation.setSeenByPatient(new Date());
+        consultation.setSeenByPatient(null);
         consultation.setTimeCreated(new Date());
 
         consultationRepository.save(consultation);
