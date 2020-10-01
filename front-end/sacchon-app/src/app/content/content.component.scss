@@ -1,25 +1,10 @@
+.container-fluid {
+  background:url('https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
 .row{
-  color: white;
+  background: rgba(0, 0, 0, 0.5);
 }
-
-.covertxt {
-	border: 1px solid black;
-	-webkit-background-clip: padding-box;
-	background-clip: padding-box;
-	background-color: black;
-	opacity: 0.6;
-  color: white;
-}
-
-.bg { 
-  margin: 0;
-  height: 100%;
-  background-image: url('https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.btn a {
-	color: beige;
-}
-
