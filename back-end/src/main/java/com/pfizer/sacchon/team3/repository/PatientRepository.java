@@ -64,6 +64,16 @@ public class PatientRepository {
     }
 
     /**
+     * A List of Patients undertaken by a specific doctor
+     * that have been recording for 30 days and await for a consultation.
+     */
+    public List<Patients> findConsultablePatientsByDoctor(long doctor_id) {
+        return entityManager.createQuery("from Patients WHERE canBeExamined = 1 and doctor_id = :doctor_id ")
+                .setParameter("doctor_id",doctor_id)
+                .getResultList();
+    }
+
+    /**
      * A List of Patients that have registered to the system
      * and await for a doctor to select them .
      */

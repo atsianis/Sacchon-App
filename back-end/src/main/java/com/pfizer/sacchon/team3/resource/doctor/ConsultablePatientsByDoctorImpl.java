@@ -1,6 +1,5 @@
 package com.pfizer.sacchon.team3.resource.doctor;
 
-import com.pfizer.sacchon.team3.exception.NotFoundException;
 import com.pfizer.sacchon.team3.model.Patients;
 import com.pfizer.sacchon.team3.repository.PatientRepository;
 import com.pfizer.sacchon.team3.repository.util.JpaUtil;
@@ -14,29 +13,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class AllConsultablePatientListResourceImpl extends ServerResource implements AllConsultablePatientsList {
-    public static final Logger LOGGER = Engine.getLogger(AllConsultablePatientListResourceImpl.class);
+public class ConsultablePatientsByDoctorImpl extends ServerResource implements ConsultablePatientsByDoctor {
+    public static final Logger LOGGER = Engine.getLogger(ConsultablePatientsByDoctorImpl.class);
     private PatientRepository patientRepository;
+    long doctor_id;
 
     @Override
     protected void doInit() {
-        LOGGER.info("Initialising patient resource starts");
+        LOGGER.info("Initialising consultable patient resource starts");
         try {
             patientRepository = new PatientRepository(JpaUtil.getEntityManager());
+            doctor_id = Long.parseLong(getAttribute("doctor_id"));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        LOGGER.info("Initialising patient resource ends");
+        LOGGER.info("Initialising consultable patient resource ends");
     }
 
     @Override
-    public ResponseRepresentation<List<PatientRepresentation>> getAllConsultablePatients() throws NotFoundException {
+    public ResponseRepresentation<List<PatientRepresentation>> getConsultablePatientsByDoctor() {
         LOGGER.finer("Select consultable patients.");
         try {
-            List<Patients> patients = patientRepository.findAllConsultablePatients();
+            List<Patients> patients = patientRepository.findConsultablePatientsByDoctor(doctor_id);
             List<PatientRepresentation> result = new ArrayList<>();
             for (Patients patient : patients) {
-                Hibernate.initialize(patient.getPatientRecords());
                 result.add(new PatientRepresentation(patient));
             }
 
