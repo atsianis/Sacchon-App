@@ -13,15 +13,28 @@ public class ChiefRepository {
         this.entityManager = entityManager;
     }
 
+    /**
+     *
+     * @param id
+     * @return Optional of Chief
+     *
+     * Find chief doctor by his/her unique ID
+     */
     public Optional<Chiefs> findById(Long id) {
         Chiefs chief = entityManager.find(Chiefs.class, id);
 
         return chief != null ? Optional.of(chief) : Optional.empty();
     }
 
-    /*
-     * find a chif by his mail and pass
-     * used for login
+    /**
+     *
+     * @param email
+     * @param password
+     * @return Optional of Chief
+     * @throws WrongCredentials
+     *
+     * Find chief doctor by email and password.
+     * Used for log in
      */
     public Optional<Chiefs> findByEmailAndPass(String email, String password) throws WrongCredentials {
         try {
@@ -36,8 +49,12 @@ public class ChiefRepository {
         }
     }
 
-    /*
-     * update the fields of the chief
+    /**
+     *
+     * @param chief
+     * @return Optional of Chief
+     *
+     * Update chief doctor's personal data
      */
     public Optional<Chiefs> update(Chiefs chief) {
         Chiefs chiefs = entityManager.find(Chiefs.class, chief.getId());

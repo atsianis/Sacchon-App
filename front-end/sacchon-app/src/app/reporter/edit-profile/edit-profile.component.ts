@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -10,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EditProfileComponent implements OnInit {
 
-  constructor(private toastr: ToastrService, private http: HttpClient) { }
+  constructor(private router: Router, private toastr: ToastrService, private http: HttpClient) { }
 
   firstName = sessionStorage.getItem('firstName');
   lastName = sessionStorage.getItem('lastName');
@@ -18,9 +19,9 @@ export class EditProfileComponent implements OnInit {
   password = sessionStorage.getItem('password');
 
 	reporterEdit = new FormGroup({
-		firstame: new FormControl(null, [Validators.required]),
-		lastName: new FormControl(null, [Validators.required]),
-		email: new FormControl(null, [Validators.required, Validators.email]),
+		firstame: new FormControl(this.firstName, [Validators.required]),
+		lastName: new FormControl(this.lastName, [Validators.required]),
+		email: new FormControl(this.email, [Validators.required, Validators.email]),
 		password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
 		passwordconfirm: new FormControl(null)
 	});
@@ -47,5 +48,9 @@ export class EditProfileComponent implements OnInit {
 		} else {
 			this.reporterEdit.markAllAsTouched();
 		}
+	}
+
+	cancel(): void {
+		this.router.navigate(['/reporter'])
 	}
 }

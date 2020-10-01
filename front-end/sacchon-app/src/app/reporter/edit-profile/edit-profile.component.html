@@ -5,64 +5,25 @@
 				<div class="card bg-light" style="width: 20rem;">
 					<div class="card-body">
 						<h5 class="card-title text-center">Update your Profile</h5>
-						<form class="py-3" [formGroup]="reporterEdit">
+						<form class="py-3" [formGroup]="patientEdit">
 							<div class="form-group">
-								<input placeholder={{email}} required formControlName="email" type="text"
-									class="mt-3 form-control" id="mail"
-									[ngClass]="(reporterEdit.get('email').errors?.required && reporterEdit.get('email').touched)? 'border-danger'  : ''">
-								<small
-									*ngIf="reporterEdit.get('email').errors?.required && reporterEdit.get('email').touched"
-									class="text-danger py-0 my-0">
-									An email address is required
-								</small>
-								<small
-									*ngIf="reporterEdit.get('email').errors?.email && reporterEdit.get('email').touched"
-									class="text-danger py-0 my-0">
-									Must be a valid email address
-								</small>
-								<input placeholder={{firstName}} required formControlName="firstName" type="text"
+								<input required formControlName="email" type="text" value="{{email}}"
+									class="mt-3 form-control" id="mail">
+								<input required formControlName="firstName" type="text" value="{{firstName}}"
 									class="mt-3 form-control"
-									[ngClass]="(reporterEdit.get('firstName').errors?.required && reporterEdit.get('firstName').touched)? 'border-danger'  : ''"
 									id="firstName">
-								<small
-									*ngIf="reporterEdit.get('firstName').errors?.required && reporterEdit.get('firstName').touched"
-									class="text-danger py-0 my-0">
-									First name is required
-								</small>
-								<input placeholder= {{lastName}} required formControlName="lastName" type="text"
+								<input required formControlName="lastName" type="text" value="{{lastName}}"
 									class="mt-3 form-control"
-									[ngClass]="(reporterEdit.get('lastName').errors?.required && reporterEdit.get('lastName').touched)? 'border-danger'  : ''"
 									id="lastName">
-								<small
-									*ngIf="reporterEdit.get('lastName').errors?.required && reporterEdit.get('lastName').touched"
-									class="text-danger py-0 my-0">
-									Last name is required
-								</small>
-								<input placeholder="Password" required formControlName="password" type="password"
+								<input placeholder="Update Password" required formControlName="password" type="password"
 									class="mt-3 form-control"
-									[ngClass]="(reporterEdit.get('password').errors?.required && reporterEdit.get('password').touched)? 'border-danger'  : ''"
 									id="password">
-								<small
-									*ngIf="reporterEdit.get('password').errors?.required && reporterEdit.get('password').touched"
-									class="text-danger py-0 my-0">
-									A password is required
-								</small>
-								<small
-									*ngIf="reporterEdit.get('password').errors?.minlength && reporterEdit.get('password').touched"
-									class="text-danger py-0 my-0">
-									Password must be at least 8 characters long
-								</small>
 								<input placeholder="Confirm Password" required formControlName="passwordconfirm"
 									type="password" class="mt-3 form-control"
-									[ngClass]="(reporterEdit.get('passwordconfirm').errors?.required && reporterEdit.get('passwordconfirm').touched)? 'border-danger'  : ''"
 									id="passwordconfirm">
-								<small
-									*ngIf="reporterEdit.get('passwordconfirm').errors?.required && reporterEdit.get('passwordconfirm').touched"
-									class="text-danger py-0 my-0">
-									Passwords do not match
-								</small>
 							</div>
-							<button class="btn btn-primary btn-block py-2" (click)="edit()">Submit</button>
+							<button class="btn btn-success btn-block py-2" (click)="edit()">Save Changes</button>
+							<button class="btn btn-secondary btn-block py-2" (click)="cancel()">Cancel</button>
 						</form>
 					</div>
 				</div>

@@ -1,19 +1,55 @@
 <div class="container">
 	<div class="row justify-content-center">
-		<div class="col-12">
-			<h1 class="text-center">This is a wip page that will implement proper options for logging in and
-				descriptions.</h1>
-			<h5 class="text-center">For now the available options are just to navigate through the various subsystems.
-			</h5>
+		<div class="medi-data-repo-login">
+			<div class="card">
+				<div class="card-img-block">
+					<img src="../../assets/images/patient.jpg" class="card-img-top" width="110" height="160">
+				</div>
+				<div class="card-body text-white row">
+					<div class="col-12">
+						<h4 class="card-title">MediDataRepo</h4>
+						<h6>(Patient App)</h6>
+					</div>
+					<div class="d-flex align-items-end col-12">
+						<a class="btn btn-block btn-primary text-light mb-1" [routerLink]="['/login/medidatarepo']">Log
+							In</a>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="col-4 py-3 my-3">
-			<a class="btn btn-primary" [routerLink]="['/login/medidatarepo']">MediDataRepo(patient app)</a>
+		<div class="reporter-login">
+			<div class="card">
+				<div class="card-img-block">
+					<img src="../../assets/images/chief-droc.jpg" class="card-img-top" width="110" height="160">
+				</div>
+				<div class="card-body text-white row">
+					<div class="col-12">
+						<h4 class="card-title">Reporter</h4>
+						<h6>(Head Doctor App)</h6>
+					</div>
+					<div class="d-flex align-items-end col-12">
+						<a class="btn btn-block btn-primary text-light mb-1" [routerLink]="['/login/reporter']">Log
+							In</a>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="col-4 py-3 my-3">
-			<a class="btn btn-primary" [routerLink]="['/login/doctoradvice']">DoctorAdvice(doctor app)</a>
-		</div>
-		<div class="col-4 py-3 my-3">
-			<a class="btn btn-primary" [routerLink]="['/login/reporter']">Reporter(Head doctor app)</a>
+		<div class="doctor-advice-login">
+			<div class="card">
+				<div class="card-img-block">
+					<img src="../../assets/images/doctor2.jpg" class="card-img-top" width="110" height="160">
+				</div>
+				<div class="card-body text-white row">
+					<div class="col-12">
+						<h4 class="card-title">DoctorAdvice</h4>
+						<h6>(Doctor App)</h6>
+					</div>
+					<div class="d-flex align-items-end col-12">
+						<a class="btn btn-block btn-primary text-light mb-1" [routerLink]="['/login/doctoradvice']">
+							Log In</a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

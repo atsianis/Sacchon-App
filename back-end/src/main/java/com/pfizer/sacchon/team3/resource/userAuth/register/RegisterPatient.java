@@ -7,5 +7,5 @@ import org.restlet.resource.Post;
 
 public interface RegisterPatient {
     @Post("json")
-    public ResponseRepresentation<PatientRepresentation> add(CreatedOrUpdatedPatientRepresentation patientRepresentation);
+    public ResponseRepresentation<PatientRepresentation> registerPatient(CreatedOrUpdatedPatientRepresentation patientRepresentation);
 }
