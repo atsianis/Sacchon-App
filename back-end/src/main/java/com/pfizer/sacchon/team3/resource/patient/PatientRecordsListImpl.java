@@ -12,9 +12,9 @@ import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import org.jetbrains.annotations.NotNull;
 import org.restlet.engine.Engine;
-import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -79,9 +79,10 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
             try {
                 PatientRecords patientRecordsIn = getPatientRecordsIn(patientRecordRepresentation, patient);
 
+                long lastConsultationInDays = patientRepository.lastConsultationInDays(patient.getConsultations());
                 boolean lastConsultationLessThanAMonthAgo=true;
                 if (patient.getConsultations().size()!=0)
-                    lastConsultationLessThanAMonthAgo = patientRepository.checkLastConsultation(patient.getConsultations());
+                    lastConsultationLessThanAMonthAgo = ( lastConsultationInDays <= 30 );
                 boolean recordTimeMoreRecentThanPatientsCreationTime = patientRepository.checkPatientsCreationTime(patientRecordsIn, patient.getTimeCreated());
 
                 if (lastConsultationLessThanAMonthAgo && recordTimeMoreRecentThanPatientsCreationTime) {
@@ -96,6 +97,14 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
 
                     PatientRecordRepresentation result = getPatientRecordRepresentationOut(patientRecord);
                     LOGGER.finer("Record successfully added.");
+
+                    if ( lastConsultationInDays == 30 ){
+                        try{
+                            patientRepository.updateCanBeExamined(patient);
+                        }catch(SQLException ex){
+                            return new ResponseRepresentation<>(200, "Record created but could not update patient state", result);
+                        }
+                    }
 
                     return new ResponseRepresentation<>(200, "Record created", result);
                 } else {
