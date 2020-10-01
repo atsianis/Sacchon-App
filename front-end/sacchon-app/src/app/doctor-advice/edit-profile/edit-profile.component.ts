@@ -74,25 +74,11 @@ export class EditProfileComponent implements OnInit {
 	}
 
 	open(content) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-			this.closeResult = `Closed with: ${result}`;
-		}, (reason) => {
-			this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-		});
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
 	}
 
-	getDismissReason(reason: any): string {
-		if (reason === ModalDismissReasons.ESC) {
-			return 'by pressing ESC';
-		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-			return 'by clicking on a backdrop';
-		} else {
-			return `with: ${reason}`;
-		}
-	}
 	softDelete(): void {
-		this.doctorService.softDelete(this.id, this.isDeleted).subscribe(response => {
-			console.log(response)
+		this.doctorService.softDelete(this.id).subscribe(response => {
 			this.toastr.success('You will be redirected to home page soon.', 'Successfully Deleted Account', {
 				timeOut: 2000,
 				positionClass: 'toast-top-center'
