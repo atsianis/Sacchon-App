@@ -38,11 +38,23 @@ export class AuthService {
 	}
 
 	signUpDoctor(firstName, lastName, email, password): Observable<any> {
-		return this.http.post(`http://localhost:9000/v1/create/doctor`, {
+		return this.http.post(`http://localhost:9000/v1/chief/register/doctor`, {
 				firstName: firstName,
 				lastName: lastName,
 				email: email,
 				password: password,
+		})
+	}
+
+	signUpPatient(firstName, lastName, dob, gender, email, password): Observable<any> {
+		console.log(firstName, lastName, dob, gender, email, password)
+		return this.http.post(`http://localhost:9000/v1/register/patient`, {
+				firstName: firstName,
+				lastName: lastName,
+				email: email,
+				password: password,
+				dob: dob,
+				gender: gender
 		})
 	}
 }
