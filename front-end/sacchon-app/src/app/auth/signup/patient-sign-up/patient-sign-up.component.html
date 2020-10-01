@@ -9,8 +9,7 @@
 							<div class="form-group">
 								<input placeholder="Email" required formControlName="email" type="text"
 									class="mt-3 form-control" id="mail"
-									[ngClass]="(patientSignUp.get('email').errors?.required && patientSignUp.get('email').touched)? 'border-danger'  : ''"
-									>
+									[ngClass]="(patientSignUp.get('email').errors?.required && patientSignUp.get('email').touched)? 'border-danger'  : ''">
 								<small
 									*ngIf="patientSignUp.get('email').errors?.required && patientSignUp.get('email').touched"
 									class="text-danger py-0 my-0">
@@ -38,6 +37,17 @@
 									*ngIf="patientSignUp.get('lastName').errors?.required && patientSignUp.get('lastName').touched"
 									class="text-danger py-0 my-0">
 									Last name is required
+								</small>
+								<select class="mt-3 form-control" formControlName="gender" name="gender">
+									<option [ngValue]="null" selected disabled aria-selected="true">Select A Gender
+									</option>
+									<option *ngFor="let gender of selectGender;" [ngValue]="gender">{{ gender }}
+									</option>
+								</select>
+								<small
+									*ngIf="patientSignUp.get('gender').errors?.required && patientSignUp.get('gender').touched"
+									class="text-danger py-0 my-0">
+									Please select a gender
 								</small>
 								<input placeholder="Password" required formControlName="password" type="password"
 									class="mt-3 form-control"
