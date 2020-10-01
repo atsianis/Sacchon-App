@@ -45,8 +45,12 @@ export class PatientEditProfileComponent implements OnInit {
 		const firstName = this.patientEdit.get('firstName').value
 		const lastName = this.patientEdit.get('lastName').value
 		const email = this.patientEdit.get('email').value
-		const dob = this.patientEdit.get('dob').value
+		const unformattedDob = this.patientEdit.get('dob').value
 		const password = this.patientEdit.get('password').value
+
+		const dob = new Date(unformattedDob.year, unformattedDob.month, unformattedDob.day);
+
+
 		this.patientService.editProfile(this.id, firstName, lastName, email, dob, password).subscribe(response => {
 			console.log(response)
 			this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
@@ -76,7 +80,6 @@ export class PatientEditProfileComponent implements OnInit {
 	open(content) {
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
 	}
-
 
 	softDelete(): void {
 		this.patientService.softDelete(this.id).subscribe(response => {
