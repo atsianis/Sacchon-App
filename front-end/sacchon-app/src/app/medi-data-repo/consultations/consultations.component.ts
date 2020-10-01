@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import { MediDataRepoService } from '../medi-data-repo.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { MediDataRepoService } from '../medi-data-repo.service';
 })
 export class ConsultationsComponent implements OnInit {
 
-	constructor(private route: ActivatedRoute, private patientService: MediDataRepoService) { }
+	constructor(private route: ActivatedRoute, private patientService: MediDataRepoService, private toastr: ToastrService) { }
 	id: string;
 	consultations: any;
 
@@ -21,8 +22,13 @@ export class ConsultationsComponent implements OnInit {
 
 	getConsultations(): void {
 		this.patientService.getConsultations(sessionStorage.getItem('id')).subscribe(response => {
-			console.log(response)
-			this.consultations = response.data;
+			if (response.status == 200)
+				this.consultations = response.data;
+			if (response.status == 404)
+				this.toastr.error(response.description, 'Error', {
+					timeOut: 2000,
+					positionClass: 'toast-top-center'
+				})
 		}, (err) => {
 			console.log('-----> err', err);
 		});
