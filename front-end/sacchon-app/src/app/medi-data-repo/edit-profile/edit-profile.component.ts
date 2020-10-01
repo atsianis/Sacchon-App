@@ -22,10 +22,10 @@ export class PatientEditProfileComponent implements OnInit {
 	email = sessionStorage.getItem('email');
 	dob = moment(parseInt(sessionStorage.getItem('dob'))).format("DD/MM/YYYY");
 	password = sessionStorage.getItem('password');
+	isDeleted = sessionStorage.getItem('isDeleted');
+	doctor_id = sessionStorage.getItem('doctor_id');
 
 	modal = new FormControl;
-
-	closeResult = '';
 
 	patientEdit = new FormGroup({
 		firstName: new FormControl(null, [Validators.required]),
@@ -45,8 +45,11 @@ export class PatientEditProfileComponent implements OnInit {
 		const firstName = this.patientEdit.get('firstName').value
 		const lastName = this.patientEdit.get('lastName').value
 		const email = this.patientEdit.get('email').value
-		const dob = this.patientEdit.get('dob').value
+		const unformattedDob = this.patientEdit.get('dob').value
 		const password = this.patientEdit.get('password').value
+
+		const dob = new Date(unformattedDob.year, unformattedDob.month-1, unformattedDob.day);
+
 		this.patientService.editProfile(this.id, firstName, lastName, email, dob, password).subscribe(response => {
 			console.log(response)
 			this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
@@ -74,20 +77,19 @@ export class PatientEditProfileComponent implements OnInit {
 	}
 
 	open(content) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-			this.closeResult = `Closed with: ${result}`;
-		}, (reason) => {
-			this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-		});
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
 	}
 
-	getDismissReason(reason: any): string {
-		if (reason === ModalDismissReasons.ESC) {
-			return 'by pressing ESC';
-		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-			return 'by clicking on a backdrop';
-		} else {
-			return `with: ${reason}`;
-		}
+	softDelete(): void {
+		this.patientService.softDelete(this.id).subscribe(response => {
+			console.log(response)
+			this.toastr.success('You will be redirected to home page soon.', 'Successfully Deleted Account', {
+				timeOut: 2000,
+				positionClass: 'toast-top-center'
+			}).onHidden.toPromise().then(_ => {
+				this.router.navigate(['']);
+				sessionStorage.clear();
+			});
+		})
 	}
 }

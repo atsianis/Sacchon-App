@@ -7,50 +7,48 @@
 						<h5 class="card-title text-center">Update your Profile</h5>
 						<form class="py-3" [formGroup]="patientEdit">
 							<div class="form-group">
-								<input required formControlName="email" type="text" value="{{email}}"
+								<input required formControlName="email" type="text" value="{{ email }}"
 									class="mt-3 form-control" id="mail">
-								<input required formControlName="firstName" type="text" value="{{firstName}}"
-									class="mt-3 form-control"
-									id="firstName">
-								<input required formControlName="lastName" type="text" value="{{lastName}}"
-									class="mt-3 form-control"
-									id="lastName">
-								<input required formControlName="dob" type="text" value="{{dob}}"
-									class="mt-3 form-control"
-									id="dob">
+								<input required formControlName="firstName" type="text" value="{{ firstName }}"
+									class="mt-3 form-control" id="firstName">
+								<input required formControlName="lastName" type="text" value="{{ lastName }}"
+									class="mt-3 form-control" id="lastName">
+								<input placeholder="Date of Birth" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()"
+									[minDate]="{year: 1950, month: 1, day: 1}"
+									[maxDate]="{year: 2016, month: 12, day: 31}" required formControlName="dob"
+									type="text" class="mt-3 form-control" id="dob">
 								<input placeholder="Update Password" required formControlName="password" type="password"
-									class="mt-3 form-control"
-									id="password">
+									class="mt-3 form-control" id="password">
 								<input placeholder="Confirm Password" required formControlName="passwordconfirm"
-									type="password" class="mt-3 form-control"
-									id="passwordconfirm">
+									type="password" class="mt-3 form-control" id="passwordconfirm">
 							</div>
 							<button class="btn btn-success btn-block py-2" (click)="edit()">Save Changes</button>
-							<button class="btn btn-danger btn-block py-2" (click)="open(content)">Delete Account</button>
+							<button class="btn btn-danger btn-block py-2" (click)="open(content)">Delete
+								Account</button>
 							<button class="btn btn-secondary btn-block py-2" (click)="cancel()">Cancel</button>
 						</form>
 					</div>
 				</div>
+			</div>
 		</div>
 	</div>
-</div>
 
 
-<ng-template #content let-modal>
-	<div class="modal-header">
-	  <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-	  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-		<span aria-hidden="true">&times;</span>
-	  </button>
-	</div>
-	<div class="modal-body">
-	  <form>
-		<div class="form-group">
-		  <label for="dateOfBirth">Date of birth</label>
+	<ng-template #content let-modal>
+		<div class="modal-header">
+			<h4 class="modal-title" id="modal-basic-title">Profile Deletion</h4>
+			<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+				<span aria-hidden="true">&times;</span>
+			</button>
 		</div>
-	  </form>
-	</div>
-	<div class="modal-footer">
-	  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-	</div>
-  </ng-template>
+		<div class="modal-body">
+			<form>
+				<div class="form-group">
+					<label for="dateOfBirth">Are you sure you want to Delete your Account?</label>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-danger btn-block py-2" (click)="softDelete()">Delete</button>
+		</div>
+	</ng-template>
