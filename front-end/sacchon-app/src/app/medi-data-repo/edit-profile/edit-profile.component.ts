@@ -23,6 +23,8 @@ export class PatientEditProfileComponent implements OnInit {
 	dob = moment(parseInt(sessionStorage.getItem('dob'))).format("DD/MM/YYYY");
 	password = sessionStorage.getItem('password');
 
+	modal = new FormControl;
+
 	closeResult = '';
 
 	patientEdit = new FormGroup({
