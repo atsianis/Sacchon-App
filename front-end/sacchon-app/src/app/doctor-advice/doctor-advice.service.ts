@@ -38,7 +38,7 @@ export class DoctorAdviceService {
 	}
 
 	getConsultablePatients(doctor_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/consultable-patients`)
+		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/consultablepatients`)
 	}
 
 	// Consultation Services
