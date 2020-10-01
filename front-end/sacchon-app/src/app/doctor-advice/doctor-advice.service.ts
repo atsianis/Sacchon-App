@@ -68,4 +68,8 @@ export class DoctorAdviceService {
 			patient_id: patient_id
 		})
 	}
+
+	softDelete(doctor_id): Observable<any> {
+		return this.http.put(`http://localhost:9000/v1/doctor/${doctor_id}/settings/softDelete`, null)
+	}
 }

@@ -12,9 +12,10 @@ import { ConsultComponent } from './consult/consult.component';
 import { ConsultEditComponent } from './consult/consult-edit/consult-edit.component';
 import { AddConsultComponent } from './consult/add-consult/add-consult.component';
 import { DoctorAdviceGuard } from './doctor-advice.guard';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AvailablePatientsComponent } from './available-patients/available-patients.component';
 import { ConsultablePatientsComponent } from './consultable-patients/consultable-patients.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -36,6 +37,7 @@ import { ConsultablePatientsComponent } from './consultable-patients/consultable
 		ChartsModule,
 		HttpClientModule,
 		ReactiveFormsModule,
+		FormsModule,
 		RouterModule.forChild([
 			{ path: 'doctoradvice/profile', component: ProfileComponent, canActivate: [ DoctorAdviceGuard ] },
 			{ path: 'doctoradvice/profile/edit', component: EditProfileComponent, canActivate: [ DoctorAdviceGuard ] },
@@ -46,7 +48,8 @@ import { ConsultablePatientsComponent } from './consultable-patients/consultable
 			{ path: 'doctoradvice/consult/:patient_id/:consultation_id/edit', component: ConsultEditComponent, canActivate: [ DoctorAdviceGuard ] },
 			{ path: 'doctoradvice/availablepatients', component: AvailablePatientsComponent, canActivate: [ DoctorAdviceGuard ] },
 			{ path: 'doctoradvice/consultrablepatients', component: ConsultablePatientsComponent, canActivate: [ DoctorAdviceGuard ] },
-		])
+		]),
+		NgbModule,
 	],
 	exports: [
 		RouterModule
