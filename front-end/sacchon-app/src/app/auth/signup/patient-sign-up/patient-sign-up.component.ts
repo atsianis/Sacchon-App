@@ -39,17 +39,6 @@ export class PatientSignUpComponent implements OnInit {
 			const dob = new Date(unformattedDob.year, unformattedDob.month - 1, unformattedDob.day);
 
 			this.authService.signUpPatient(firstName, lastName, dob, gender, email, password).subscribe(response => {
-				sessionStorage.clear();
-				sessionStorage.setItem('email', response.data.email);
-				sessionStorage.setItem('password', response.data.password);
-				sessionStorage.setItem('firstName', response.data.firstName);
-				sessionStorage.setItem('lastName', response.data.lastName);
-				sessionStorage.setItem('id', response.data.id);
-				sessionStorage.setItem('dob', response.data.dob);
-				sessionStorage.setItem('canBeExamined', response.data.canBeExamined);
-				sessionStorage.setItem('lastActive', response.data.lastActive);
-				sessionStorage.setItem('gender', response.data.gender);
-				sessionStorage.setItem('userType', 'patient');
 				this.toastr.success('You will be redirected to login page soon.', 'Successfully registered', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
