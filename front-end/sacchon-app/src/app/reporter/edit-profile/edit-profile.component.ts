@@ -37,7 +37,6 @@ export class EditProfileComponent implements OnInit {
 		const password = this.reporterEdit.get('password').value;
 
 		this.reporterService.editProfile(firstName, lastName, email, password).subscribe(response => {
-			console.log(response);
 			if (response.status == 200) {
 				this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
 					timeOut: 2000,
