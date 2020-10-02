@@ -20,7 +20,7 @@ public class AllAvailablePatientListResourceImpl extends ServerResource implemen
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 

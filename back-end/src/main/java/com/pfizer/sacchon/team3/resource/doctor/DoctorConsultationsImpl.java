@@ -26,7 +26,7 @@ public class DoctorConsultationsImpl extends ServerResource implements DoctorCon
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 

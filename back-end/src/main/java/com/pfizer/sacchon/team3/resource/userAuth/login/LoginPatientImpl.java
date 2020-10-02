@@ -19,7 +19,7 @@ public class LoginPatientImpl extends ServerResource implements LoginPatient {
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 

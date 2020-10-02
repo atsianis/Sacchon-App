@@ -29,7 +29,7 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 
@@ -70,10 +70,9 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
     }
 
     /**
-     *
      * @param patientRepresentation
      * @return a Patient Entity
-     *
+     * <p>
      * convert the PatientRepresentation input into the Patient entity
      * that will be attempted to be persisted into the Database
      */
@@ -93,10 +92,9 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
     }
 
     /**
-     *
      * @param patientsIn
      * @return a PatientRepresentation
-     *
+     * <p>
      * Attempting to persist the Patient into the Database
      * In case of success, a PatientRepresentation of the persisted entity is returned,
      * Otherwise, the method will return null
@@ -125,17 +123,13 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
     }
 
     /**
-     *
-     * @param savedPatient
-     *
-     * When a new patient enters the system, a no-comment,no-doctor consultation with the date of
-     * his/her creation is persisted in the Database.
-     * This first consultation is used as a landmark for the creation date
-     * of his first actual consultation by a doctor.
-     *
-     * See main/java/com/pfizer/sacchon/team3/resource/consultation/AddConsultationImpl.java
-     * for the implementation of the consultation creation
-     *
+     * @param savedPatient When a new patient enters the system, a no-comment,no-doctor consultation with the date of
+     *                     his/her creation is persisted in the Database.
+     *                     This first consultation is used as a landmark for the creation date
+     *                     of his first actual consultation by a doctor.
+     *                     <p>
+     *                     See main/java/com/pfizer/sacchon/team3/resource/consultation/AddConsultationImpl.java
+     *                     for the implementation of the consultation creation
      */
     private void createNullConsultation(Patients savedPatient) {
         Consultations consultation = consultationRepresentation.createConsultation();
@@ -148,10 +142,9 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
     }
 
     /**
-     *
      * @param patients
      * @return PatientRepresentation
-     *
+     * <p>
      * converts the persisted patient to a PatientRepresentation type object
      * that will be returned to the client
      */

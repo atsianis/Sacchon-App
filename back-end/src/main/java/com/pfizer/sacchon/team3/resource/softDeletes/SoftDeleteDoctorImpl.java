@@ -19,7 +19,7 @@ public class SoftDeleteDoctorImpl extends ServerResource implements SoftDeleteDo
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 

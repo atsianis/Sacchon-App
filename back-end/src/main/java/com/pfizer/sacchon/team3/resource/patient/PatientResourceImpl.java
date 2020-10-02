@@ -24,7 +24,7 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 
@@ -72,16 +72,16 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
         LOGGER.finer("Update a patient.");
         // Check given entity
         try {
-                ResourceValidator.notNull(patientRepresentation);
-            } catch (BadEntityException ex) {
-                return new ResponseRepresentation<>(422, "Bad Entity", null);
-            }
+            ResourceValidator.notNull(patientRepresentation);
+        } catch (BadEntityException ex) {
+            return new ResponseRepresentation<>(422, "Bad Entity", null);
+        }
 
         LOGGER.finer("Patient checked");
         try {
             Optional<Patients> patientOut = patientRepository.findById(patient_id);
             setExisting(patientOut.isPresent());
-            Patients patientToBePersisted ;
+            Patients patientToBePersisted;
             // If patient exists, we update it.
             if (isExisting()) {
                 LOGGER.finer("Update patient.");
@@ -108,15 +108,15 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
     @NotNull
     private Patients getPatientToBePersisted(PatientRepresentation patientRepresentation, Optional<Patients> patientOut) {
         Patients patient = patientOut.get();
-        if (!(patientRepresentation.getDob()==null))
+        if (!(patientRepresentation.getDob() == null))
             patient.setDob(patientRepresentation.getDob());
-        if (!(patientRepresentation.getPassword()==null))
+        if (!(patientRepresentation.getPassword() == null))
             patient.setPassword((patientRepresentation.getPassword()));
-        if (!(patientRepresentation.getFirstName()==null))
+        if (!(patientRepresentation.getFirstName() == null))
             patient.setFirstName(patientRepresentation.getFirstName());
-        if (!(patientRepresentation.getLastName()==null))
+        if (!(patientRepresentation.getLastName() == null))
             patient.setLastName(patientRepresentation.getLastName());
-        if (!(patientRepresentation.getEmail()==null))
+        if (!(patientRepresentation.getEmail() == null))
             patient.setEmail(patientRepresentation.getEmail());
 
         return patient;

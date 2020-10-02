@@ -20,7 +20,7 @@ public class InactiveDoctorsImpl extends ServerResource implements InactiveDocto
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 
