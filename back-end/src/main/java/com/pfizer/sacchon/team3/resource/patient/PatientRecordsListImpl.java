@@ -115,10 +115,11 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
 
                     return new ResponseRepresentation<>(200, "Record created", result);
                 } else {
-                    return new ResponseRepresentation<>(422, "Bad Record Date", null);
+                    return new ResponseRepresentation<>(422, "Cannot insert Record right now." +
+                            "Maybe you have a consultation pending !", null);
                 }
             } catch (Exception ex) {
-                return new ResponseRepresentation<>(422, "Bad Record Date", null);
+                return new ResponseRepresentation<>(422, "Could not upload data", null);
             }
         } else {
             return new ResponseRepresentation<>(404, "Not found", null);

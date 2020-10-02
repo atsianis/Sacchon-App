@@ -32,7 +32,6 @@ export class AllPatientsDbComponent implements OnInit {
 
 	getPatientsDB(): void {
 		this.reporterService.getAllPatientsFromDatabase().subscribe(patients => {
-			console.log(patients);
 			this.patients = patients.data;
 			this.dtTrigger.next();
 		}, (err) => {
