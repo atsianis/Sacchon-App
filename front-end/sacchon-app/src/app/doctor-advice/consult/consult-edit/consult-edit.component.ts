@@ -45,14 +45,25 @@ export class ConsultEditComponent implements OnInit {
 		const comment = this.editConsultForm.get('comment').value;
 
 		this.doctorService.editConsultation(this.consultation_id, this.doctor_id, comment).subscribe(response => {
-			this.toastr.success('Consultation edited successfully', 'Success', {
-				timeOut: 2000,
-				positionClass: 'toast-top-center'
-			}).onHidden.toPromise().then(_ => {
-				this.router.navigate(['/doctoradvice/profile']);
-			}).catch(error => {
-				console.log(error);
-			});
+			if (response.status == 200) {
+				this.toastr.success('Consultation edited successfully', 'Success', {
+					timeOut: 2000,
+					positionClass: 'toast-top-center'
+				}).onHidden.toPromise().then(_ => {
+					this.router.navigate(['/doctoradvice/profile']);
+				}).catch(error => {
+					console.log(error);
+				});
+			} else {
+				this.toastr.error(response.description, 'Fail', {
+					timeOut: 2000,
+					positionClass: 'toast-top-center'
+				}).onHidden.toPromise().then(_ => {
+					this.router.navigate(['/doctoradvice/profile']);
+				}).catch(error => {
+					console.log(error);
+				});
+			}
 		});
 	}
 

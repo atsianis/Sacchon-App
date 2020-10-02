@@ -42,8 +42,7 @@
 								required formControlName="dob" type="text" class="mt-3 form-control"
 								[ngClass]="(patientSignUp.get('dob').errors?.required && patientSignUp.get('dob').touched)? 'border-danger'  : ''"
 								id="dob">
-							<small
-								*ngIf="patientSignUp.get('dob').errors?.required && patientSignUp.get('dob').touched"
+							<small *ngIf="patientSignUp.get('dob').errors?.required && patientSignUp.get('dob').touched"
 								class="text-danger py-0 my-0">
 								Date of Birth is required
 							</small>
@@ -73,12 +72,11 @@
 								Password must be at least 8 characters long
 							</small>
 							<input placeholder="Confirm Password" required formControlName="passwordconfirm"
-								type="password" class="mt-3 form-control"
-								[ngClass]="(patientSignUp.get('passwordconfirm').errors?.required && patientSignUp.get('passwordconfirm').touched)? 'border-danger'  : ''"
-								id="passwordconfirm">
-							<small
-								*ngIf="patientSignUp.get('passwordconfirm').errors?.required && patientSignUp.get('passwordconfirm').touched"
-								class="text-danger py-0 my-0">
+								type="password" class="mt-3 form-control" [ngClass]="
+								patientSignUp.get('passwordconfirm').value !== patientSignUp.get('password').value &&
+								patientSignUp.get('passwordconfirm').touched ? 'border-danger' : ''" id=" passwordconfirm">
+							<small *ngIf="patientSignUp.get('passwordconfirm').value !== patientSignUp.get('password').value
+								&& patientSignUp.get('passwordconfirm').touched" class="text-danger py-0 my-0">
 								Passwords do not match
 							</small>
 						</div>
