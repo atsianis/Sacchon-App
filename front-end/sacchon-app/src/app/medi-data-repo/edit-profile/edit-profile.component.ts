@@ -55,7 +55,6 @@ export class PatientEditProfileComponent implements OnInit {
 		const dob = new Date(unformattedDob.year, unformattedDob.month - 1, unformattedDob.day);
 
 		this.patientService.editProfile(this.id, firstName, lastName, email, dob, password).subscribe(response => {
-			console.log(response);
 			this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
 				timeOut: 2000,
 				positionClass: 'toast-top-center'
@@ -86,7 +85,6 @@ export class PatientEditProfileComponent implements OnInit {
 
 	softDelete(): void {
 		this.patientService.softDelete(this.id).subscribe(response => {
-			console.log(response);
 			this.toastr.success('You will be redirected to home page soon.', 'Successfully Deleted Account', {
 				timeOut: 2000,
 				positionClass: 'toast-top-center'
