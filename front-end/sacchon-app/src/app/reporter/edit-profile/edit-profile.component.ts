@@ -43,14 +43,14 @@ export class EditProfileComponent implements OnInit {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
 				}).onHidden.toPromise().then(_ => {
-					this.router.navigate(['/reporter'])
+					this.router.navigate(['/reporter']);
 				});
 			} else {
 				this.toastr.success(response.description, 'Fail', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
 				}).onHidden.toPromise().then(_ => {
-					this.router.navigate(['/reporter'])
+					this.router.navigate(['/reporter']);
 				});
 			}
 		});
