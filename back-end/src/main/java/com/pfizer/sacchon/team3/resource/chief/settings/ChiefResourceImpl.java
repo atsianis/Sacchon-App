@@ -63,17 +63,17 @@ public class ChiefResourceImpl extends ServerResource implements ChiefResource {
                 // Check if retrieved patient is not null : if it is null it
                 // means that the id is wrong.
                 if (!chiefOut.isPresent()) {
-                    LOGGER.finer("Patient does not exist.");
+                    LOGGER.finer("Chief does not exist.");
                     return new ResponseRepresentation<>(404, "SQL Exception", null);
                 }
             } else {
                 LOGGER.finer("Patient does not exist.");
-                return new ResponseRepresentation<>(404, "Chief not found", null);
+                return new ResponseRepresentation<>(404, "Something went wrong", null);
             }
             LOGGER.finer("Patient successfully updated.");
             return new ResponseRepresentation<>(200, "Chief created", new ChiefRepresentation(chiefOut.get()));
         } catch (Exception ex) {
-            return new ResponseRepresentation<>(404, "Chief not found 2", null);
+            return new ResponseRepresentation<>(404, "Something went wrong", null);
         }
     }
 
