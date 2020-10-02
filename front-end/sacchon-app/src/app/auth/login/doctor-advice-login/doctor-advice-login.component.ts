@@ -22,12 +22,12 @@ export class DoctorAdviceLoginComponent implements OnInit {
 	}
 
 	submitLogin(): void {
-		const email = this.doctorLoginForm.get('email').value
-		const password = this.doctorLoginForm.get('password').value
+		const email = this.doctorLoginForm.get('email').value;
+		const password = this.doctorLoginForm.get('password').value;
 
 		this.authService.doctorLogin(email, password).subscribe(response => {
-			this.handleLogin(response)
-		})
+			this.handleLogin(response);
+		});
 	}
 
 	handleLogin(response): void {
@@ -44,12 +44,12 @@ export class DoctorAdviceLoginComponent implements OnInit {
 				sessionStorage.setItem('lastActive', response.data.lastActive);
 				sessionStorage.setItem('userType', 'doctor');
 				this.router.navigate(['doctoradvice/profile']);
-			})
+			});
 		} else {
 			this.toastr.error('Invalid credentials', 'Login Unsuccessful', {
 				timeOut: 2000,
 				positionClass: 'toast-top-center'
-			})
+			});
 		}
 	}
 }

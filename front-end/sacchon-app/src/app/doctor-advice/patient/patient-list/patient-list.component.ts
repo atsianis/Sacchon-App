@@ -21,9 +21,9 @@ export class PatientListComponent implements OnInit {
 	constructor(private route: ActivatedRoute, private doctorService: DoctorAdviceService, private toastr: ToastrService, private router: Router) { }
 	patient: Patients;
 	// Array of different segments in chart
-	lineChartData: ChartDataSets[] = []
+	lineChartData: ChartDataSets[] = [];
 
-	//Labels shown on the x-axis
+	// Labels shown on the x-axis
 	lineChartLabels: Label[] = [];
 
 	// Define chart options
@@ -65,7 +65,7 @@ export class PatientListComponent implements OnInit {
 		this.route.params.subscribe(params => {
 			this.doctorService.getPatientById(params.id).subscribe(patient => {
 				this.patient = patient.data;
-				this.getCurrentPatientRecords(patient.data)
+				this.getCurrentPatientRecords(patient.data);
 			}, (err) => {
 				console.log('-----> err', err);
 			});
@@ -75,11 +75,11 @@ export class PatientListComponent implements OnInit {
 	getCurrentPatientRecords(patient: Patients): void {
 		this.doctorService.getCurrentPatientRecords(patient.id).subscribe(patientRecords => {
 			patientRecords.data.forEach(patientRecord => {
-				this.patientCarbs.push(patientRecord.carbs)
-				this.patientGlycose.push(patientRecord.glycose)
-				this.patientRecordTimestamp.push(moment(patientRecord.timeCreated).format('DD/MM/YYYY, h:mm:ss a'))
+				this.patientCarbs.push(patientRecord.carbs);
+				this.patientGlycose.push(patientRecord.glycose);
+				this.patientRecordTimestamp.push(moment(patientRecord.timeCreated).format('DD/MM/YYYY, h:mm:ss a'));
 			});
-		})
+		});
 	}
 
 	ngOnInit(): void {
@@ -105,8 +105,8 @@ export class PatientListComponent implements OnInit {
 					positionClass: 'toast-top-center'
 				}).onHidden.toPromise().then(_ => {
 					this.router.navigate(['/doctoradvice/profile']);
-				})
+				});
 			}
-		})
+		});
 	}
 }

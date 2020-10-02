@@ -23,12 +23,12 @@ export class ReporterLoginComponent implements OnInit {
 	}
 
 	submitLogin(): any {
-		const email = this.reporterLoginForm.get('email').value
-		const password = this.reporterLoginForm.get('password').value
+		const email = this.reporterLoginForm.get('email').value;
+		const password = this.reporterLoginForm.get('password').value;
 
 		this.authService.reporterLogin(email, password).subscribe(response => {
-			this.handleLogin(response)
-		})
+			this.handleLogin(response);
+		});
 	}
 
 	handleLogin(response): void {
@@ -44,12 +44,12 @@ export class ReporterLoginComponent implements OnInit {
 				sessionStorage.setItem('id', response.data.id);
 				sessionStorage.setItem('userType', 'reporter');
 				this.router.navigate(['reporter']);
-			})
+			});
 		} else {
 			this.toastr.error('Invalid credentials', 'Login Unsuccessful', {
 				timeOut: 2000,
 				positionClass: 'toast-top-center'
-			})
+			});
 		}
 	}
 }

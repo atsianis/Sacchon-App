@@ -34,7 +34,7 @@ export class EditProfileComponent implements OnInit {
 
 
 	ngOnInit(): void {
-		this.initializeForm()
+		this.initializeForm();
 	}
 
 	edit(): void {
@@ -64,7 +64,7 @@ export class EditProfileComponent implements OnInit {
 					});
 				}
 
-			})
+			});
 		} else {
 			this.doctorEdit.markAllAsTouched();
 		}
@@ -81,11 +81,11 @@ export class EditProfileComponent implements OnInit {
 	}
 
 	cancel(): void {
-		this.router.navigate(['/doctoradvice/profile/'])
+		this.router.navigate(['/doctoradvice/profile/']);
 	}
 
 	open(content) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
 	}
 
 	softDelete(): void {
@@ -97,6 +97,6 @@ export class EditProfileComponent implements OnInit {
 				this.router.navigate(['']);
 				sessionStorage.clear();
 			});
-		})
+		});
 	}
 }

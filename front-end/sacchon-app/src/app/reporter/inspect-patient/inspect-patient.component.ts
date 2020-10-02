@@ -37,10 +37,12 @@ export class InspectPatientComponent implements OnInit {
 	}
 
 	lastActive(date: number): string {
-		if (moment().diff(date, "days") > 0)
-			return `${moment().diff(date, "days")} days ago`;
-		else
-			return `${moment().diff(date, "hours")} hours ago`;
+		if (moment().diff(date, 'days') > 0) {
+			return `${moment().diff(date, 'days')} days ago`;
+		}
+		else {
+			return `${moment().diff(date, 'hours')} hours ago`;
+		}
 	}
 
 	birthDate(date: number): string {

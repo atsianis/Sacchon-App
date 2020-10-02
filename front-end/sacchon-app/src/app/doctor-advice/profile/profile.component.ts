@@ -44,18 +44,18 @@ export class ProfileComponent implements OnInit {
 
 	getNotifications(): void {
 		this.doctorService.getAvailablePatients(this.id).subscribe(patients => {
-			this.availablePatients = patients.data.length
-		})
+			this.availablePatients = patients.data.length;
+		});
 		this.doctorService.getConsultablePatients(this.id).subscribe(patients => {
-			this.consultablePatients = patients.data.length
-		})
+			this.consultablePatients = patients.data.length;
+		});
 	}
 
 	lastActive(date: number): string {
-		return this.doctorService.lastActive(date)
+		return this.doctorService.lastActive(date);
 	}
 
 	birthDate(date: number): string {
-		return this.doctorService.birthDate(date)
+		return this.doctorService.birthDate(date);
 	}
 }

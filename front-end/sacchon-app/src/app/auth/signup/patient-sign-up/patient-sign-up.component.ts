@@ -35,11 +35,11 @@ export class PatientSignUpComponent implements OnInit {
 			const password = this.patientSignUp.get('password').value;
 			const unformattedDob = this.patientSignUp.get('dob').value;
 			const gender = this.patientSignUp.get('gender').value;
-			
-			const dob = new Date(unformattedDob.year, unformattedDob.month-1, unformattedDob.day);
+
+			const dob = new Date(unformattedDob.year, unformattedDob.month - 1, unformattedDob.day);
 
 			this.authService.signUpPatient(firstName, lastName, dob, gender, email, password).subscribe(response => {
-				sessionStorage.clear()
+				sessionStorage.clear();
 				sessionStorage.setItem('email', response.data.email);
 				sessionStorage.setItem('password', response.data.password);
 				sessionStorage.setItem('firstName', response.data.firstName);
@@ -54,11 +54,11 @@ export class PatientSignUpComponent implements OnInit {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
 				}).onHidden.toPromise().then(_ => {
-					this.router.navigate(['/login/medidatarepo'])
+					this.router.navigate(['/login/medidatarepo']);
 				});
 			}, (error) => {
-				console.log(error)
-			})
+				console.log(error);
+			});
 		} else {
 			this.patientSignUp.markAllAsTouched();
 		}

@@ -22,8 +22,8 @@ export class ConsultComponent implements OnInit {
 
 	getConsultations(): void {
 		this.route.params.subscribe(params => {
-			this.id = params.patient_id
-		})
+			this.id = params.patient_id;
+		});
 		this.doctorService.getPatientConsultations(this.id).subscribe(response => {
 			this.consultations = response.data;
 		}, (err) => {
@@ -32,6 +32,6 @@ export class ConsultComponent implements OnInit {
 	}
 
 	formatConsultationDate(date: number): string {
-		return `Consultation for ${moment(date).format('MMMM Do')} to ${moment(date).add(30, 'days').format('MMMM Do')}`
+		return `Consultation for ${moment(date).format('MMMM Do')} to ${moment(date).add(30, 'days').format('MMMM Do')}`;
 	}
 }

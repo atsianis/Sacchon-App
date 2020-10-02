@@ -11,8 +11,9 @@ export class DoctorAdviceGuard implements CanActivate {
 	canActivate(
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-		if (this.auth.isLoggedIn() && sessionStorage.getItem('userType') == 'doctor')
+		if (this.auth.isLoggedIn() && sessionStorage.getItem('userType') == 'doctor') {
 			return true;
+		}
 
 		this.router.navigate(['/unauthorized']);
 		return false;

@@ -13,14 +13,14 @@ import { UnauthorizedComponent } from './generic/unauthorized/unauthorized.compo
 
 const routes: Routes = [
 	// Main routes
-	{ path: '', component: ContentComponent, canActivate:[ AuthGuard ] },
-	{ path: 'login', component: LoginComponent, canActivate:[ AuthGuard ] },
-	{ path: 'login/medidatarepo', component: MediDataRepoLoginComponent, canActivate:[ AuthGuard ] },
-	{ path: 'login/doctoradvice', component: DoctorAdviceLoginComponent, canActivate:[ AuthGuard ] },
-	{ path: 'login/reporter', component: ReporterLoginComponent, canActivate:[ AuthGuard ] },
-	{ path: 'signup', component: PatientSignUpComponent, canActivate:[ AuthGuard ] },
+	{ path: '', component: ContentComponent, canActivate: [ AuthGuard ] },
+	{ path: 'login', component: LoginComponent, canActivate: [ AuthGuard ] },
+	{ path: 'login/medidatarepo', component: MediDataRepoLoginComponent, canActivate: [ AuthGuard ] },
+	{ path: 'login/doctoradvice', component: DoctorAdviceLoginComponent, canActivate: [ AuthGuard ] },
+	{ path: 'login/reporter', component: ReporterLoginComponent, canActivate: [ AuthGuard ] },
+	{ path: 'signup', component: PatientSignUpComponent, canActivate: [ AuthGuard ] },
 	{ path: 'unauthorized', component: UnauthorizedComponent },
-]
+];
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],

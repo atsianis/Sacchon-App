@@ -19,14 +19,14 @@ export class ConsultablePatientsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.patients = [];
-		
+
 		this.getPatientsDB();
 
 		this.dtOptions = {
 			order: [0, 'asc'],
 			pagingType: 'full_numbers',
-            pageLength: 10,
-    	};
+			pageLength: 10,
+		};
 	}
 
 	getPatientsDB(): void {

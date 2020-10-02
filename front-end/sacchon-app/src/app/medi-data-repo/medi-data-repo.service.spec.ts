@@ -6,11 +6,11 @@ describe('MediDataRepoService', () => {
   let service: MediDataRepoService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(MediDataRepoService);
+	TestBed.configureTestingModule({});
+	service = TestBed.inject(MediDataRepoService);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+	expect(service).toBeTruthy();
   });
 });

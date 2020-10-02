@@ -28,28 +28,28 @@ export class EditProfileComponent implements OnInit {
 
 
 	ngOnInit(): void {
-		this.initializeForm()
+		this.initializeForm();
 	 }
 
 	edit(): void {
-		const firstName = this.reporterEdit.get('firstName').value
-		const lastName = this.reporterEdit.get('lastName').value
-		const email = this.reporterEdit.get('email').value
-		const password = this.reporterEdit.get('password').value
+		const firstName = this.reporterEdit.get('firstName').value;
+		const lastName = this.reporterEdit.get('lastName').value;
+		const email = this.reporterEdit.get('email').value;
+		const password = this.reporterEdit.get('password').value;
 
 		this.reporterService.editProfile(firstName, lastName, email, password).subscribe(response => {
-			console.log(response)
+			console.log(response);
 			// this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
 			// 	timeOut: 2000,
 			// 	positionClass: 'toast-top-center'
 			// }).onHidden.toPromise().then(_ => {
 			// 	this.router.navigate(['/reporter'])
 			// });
-		})
+		});
 	}
 
 	cancel(): void {
-		this.router.navigate(['/reporter'])
+		this.router.navigate(['/reporter']);
 	}
 
 	initializeForm(): void {

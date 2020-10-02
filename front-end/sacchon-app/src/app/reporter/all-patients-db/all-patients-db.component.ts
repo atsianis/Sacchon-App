@@ -45,6 +45,6 @@ export class AllPatientsDbComponent implements OnInit {
 	}
 
 	lastActive(date: number): string {
-		return this.reporterService.lastActive(date)
+		return this.reporterService.lastActive(date);
 	}
 }

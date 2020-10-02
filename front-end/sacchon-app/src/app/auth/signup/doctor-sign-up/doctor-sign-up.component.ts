@@ -24,10 +24,10 @@ export class DoctorSignUpComponent implements OnInit {
 	ngOnInit(): void { }
 
 	signUp(): void {
-		const firstName = this.doctorSignUp.get('firstName').value
-		const lastName = this.doctorSignUp.get('lastName').value
-		const email = this.doctorSignUp.get('email').value
-		const password = this.doctorSignUp.get('password').value
+		const firstName = this.doctorSignUp.get('firstName').value;
+		const lastName = this.doctorSignUp.get('lastName').value;
+		const email = this.doctorSignUp.get('email').value;
+		const password = this.doctorSignUp.get('password').value;
 
 		if (this.doctorSignUp.valid && (password === this.doctorSignUp.get('passwordconfirm').value)) {
 			this.authService.signUpDoctor(firstName, lastName, email, password).subscribe(response => {
@@ -37,7 +37,7 @@ export class DoctorSignUpComponent implements OnInit {
 				}).onHidden.toPromise().then(_ => {
 					location.href = '/doctoradvice/profile';
 				});
-			})
+			});
 		} else {
 			this.doctorSignUp.markAllAsTouched();
 		}

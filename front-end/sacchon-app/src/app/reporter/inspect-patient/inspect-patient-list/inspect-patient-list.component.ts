@@ -22,7 +22,7 @@ export class InspectPatientListComponent implements OnInit {
 	// Array of different segments in chart
 	lineChartData: ChartDataSets[] = [];
 
-	//Labels shown on the x-axis
+	// Labels shown on the x-axis
 	lineChartLabels: Label[] = [];
 
 	// Define chart options
@@ -64,7 +64,7 @@ export class InspectPatientListComponent implements OnInit {
 		this.route.params.subscribe(params => {
 			this.reporterService.getPatientById(params.id).subscribe(patient => {
 				this.patient = patient.data;
-				this.getCurrentPatientRecords(patient.data)
+				this.getCurrentPatientRecords(patient.data);
 			}, (err) => {
 				console.log('-----> err', err);
 			});
@@ -74,10 +74,10 @@ export class InspectPatientListComponent implements OnInit {
 	getCurrentPatientRecords(patient: Patients): void {
 		this.reporterService.getCurrentPatientRecords(patient.id).subscribe(patientRecords => {
 		patientRecords.data.forEach(patientRecord => {
-				this.patientCarbs.push(patientRecord.carbs)
-				this.patientGlycose.push(patientRecord.glycose)
+				this.patientCarbs.push(patientRecord.carbs);
+				this.patientGlycose.push(patientRecord.glycose);
 			});
-		})
+		});
 	}
 
 	ngOnInit(): void {

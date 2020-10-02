@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { DoctorAdviceService } from '../doctor-advice.service';
-import * as moment from 'moment'
+import * as moment from 'moment';
 
 @Component({
 	selector: 'sacchon-app-consultable-patients',

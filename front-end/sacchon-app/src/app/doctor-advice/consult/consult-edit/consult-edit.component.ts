@@ -20,19 +20,19 @@ export class ConsultEditComponent implements OnInit {
 	patient_id: string;
 	editConsultForm = new FormGroup({
 		comment: new FormControl
-	})
+	});
 
 	ngOnInit(): void {
-		this.findConsutltationById()
+		this.findConsutltationById();
 	}
 
 	findConsutltationById(): void {
 		this.route.params.subscribe(params => {
-			this.consultation_id = params.consultation_id
-		})
+			this.consultation_id = params.consultation_id;
+		});
 		this.doctorService.getConsultationById(this.consultation_id).subscribe(response => {
-			this.consultation = response.data
-		})
+			this.consultation = response.data;
+		});
 	}
 
 	submitConsultation(): any {
@@ -46,10 +46,10 @@ export class ConsultEditComponent implements OnInit {
 			}).catch(error => {
 				console.log(error);
 			});
-		})
+		});
 	}
 
 	formatConsultationDate(date: number): string {
-		return `Consultation for ${moment(date).format('MMMM Do')} to ${moment(date).add(30, 'days').format('MMMM Do')}`
+		return `Consultation for ${moment(date).format('MMMM Do')} to ${moment(date).add(30, 'days').format('MMMM Do')}`;
 	}
 }

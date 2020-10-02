@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ReporterComponent implements OnInit {
 
-	
+
 	constructor(private http: HttpClient, private router: Router) { }
 
 	firstName: string = sessionStorage.getItem('firstName');
@@ -18,7 +18,7 @@ export class ReporterComponent implements OnInit {
   	password: string = sessionStorage.getItem('password');
 
 	ngOnInit(): void {
-		
+
 	}
 
 }
