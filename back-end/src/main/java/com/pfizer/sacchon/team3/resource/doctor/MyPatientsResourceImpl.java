@@ -22,7 +22,7 @@ public class MyPatientsResourceImpl extends ServerResource implements Mypatients
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 
@@ -39,16 +39,16 @@ public class MyPatientsResourceImpl extends ServerResource implements Mypatients
     }
 
     @Override
-    public ResponseRepresentation<List<PatientRepresentation>> myPatients(){
+    public ResponseRepresentation<List<PatientRepresentation>> myPatients() {
         LOGGER.finer("Select my patients.");
         try {
             List<Patients> patients = doctorRepository.myPatients(doctor_id);
             List<PatientRepresentation> result = new ArrayList<>();
             patients.forEach(patient -> result.add(new PatientRepresentation(patient)));
 
-            return new ResponseRepresentation<>(200,"Patients retrieved",result);
+            return new ResponseRepresentation<>(200, "Patients retrieved", result);
         } catch (Exception e) {
-            return new ResponseRepresentation<>(404,"Not found",null);
+            return new ResponseRepresentation<>(404, "Not found", null);
         }
     }
 }

@@ -24,7 +24,7 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 

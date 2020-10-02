@@ -37,20 +37,19 @@ export class EditProfileComponent implements OnInit {
 		const password = this.reporterEdit.get('password').value;
 
 		this.reporterService.editProfile(firstName, lastName, email, password).subscribe(response => {
-			console.log(response);
 			if (response.status == 200) {
 				this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
 				}).onHidden.toPromise().then(_ => {
-					this.router.navigate(['/reporter'])
+					this.router.navigate(['/reporter']);
 				});
 			} else {
 				this.toastr.success(response.description, 'Fail', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
 				}).onHidden.toPromise().then(_ => {
-					this.router.navigate(['/reporter'])
+					this.router.navigate(['/reporter']);
 				});
 			}
 		});

@@ -20,7 +20,7 @@ public class AllDoctorsDBImpl extends ServerResource implements AllDoctorsDB {
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 

@@ -24,7 +24,7 @@ public class DoctorSelectionResourceImpl extends ServerResource implements Docto
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 

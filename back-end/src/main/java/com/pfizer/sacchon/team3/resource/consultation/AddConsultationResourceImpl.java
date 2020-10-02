@@ -28,7 +28,7 @@ public class AddConsultationResourceImpl extends ServerResource implements AddCo
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 
@@ -73,18 +73,18 @@ public class AddConsultationResourceImpl extends ServerResource implements AddCo
             patient = optionalPatient.get();
             LOGGER.finer("Patient found");
         }
-        if (!isMyPatient(doctor,patient))
+        if (!isMyPatient(doctor, patient))
             return new ResponseRepresentation<>(401, "Unauthorized ! Cant consult this patient", null);
 
-        if ( patientRepository.lastConsultationInDays(patient.getConsultations()) < 30 ){
-            return new ResponseRepresentation<>(401,"Unauthorized ! An active Consultation already exists",null);
+        if (patientRepository.lastConsultationInDays(patient.getConsultations()) < 30) {
+            return new ResponseRepresentation<>(401, "Unauthorized ! An active Consultation already exists", null);
         }
         try {
             Optional<Consultations> optionalConsultaion = getConsultationPersistAttempt(consultReprIn, doctor, patient);
             setExisting(optionalConsultaion.isPresent());
-            if (isExisting()){
+            if (isExisting()) {
                 patientRepository.updateCanBeExamined(patient);
-                return new ResponseRepresentation<>(200,"Consultation Created",new ConsultationRepresentation(optionalConsultaion.get()));
+                return new ResponseRepresentation<>(200, "Consultation Created", new ConsultationRepresentation(optionalConsultaion.get()));
             }
             return new ResponseRepresentation<>(422, "Consultation could not be created", null);
         } catch (Exception ex) {
@@ -93,12 +93,11 @@ public class AddConsultationResourceImpl extends ServerResource implements AddCo
     }
 
     /**
-     *
      * @param consultReprIn
      * @param doctor
      * @param patient
      * @return Optional of type Consultation or null
-     *
+     * <p>
      * Convert the input Representation into a Consultation Entity
      * and attempt to persist in the database
      */
@@ -114,11 +113,10 @@ public class AddConsultationResourceImpl extends ServerResource implements AddCo
     }
 
     /**
-     *
      * @param doctor
      * @param patient
      * @return boolean
-     *
+     * <p>
      * check if the attempted consultation represents a valid patient-doctor relationship
      */
     private boolean isMyPatient(Doctors doctor, Patients patient) {

@@ -14,6 +14,7 @@ public class ResourceValidator {
         if (entity == null)
             throw new BadEntityException("No input entity");
     }
+
     /**
      * Checks that the given doctor is valid.
      *
@@ -24,6 +25,7 @@ public class ResourceValidator {
         if (chiefRepresentation.getFirstName() == null || chiefRepresentation.getLastName() == null)
             throw new BadEntityException("chief name cannot be null");
     }
+
     /**
      * Checks that the given doctor is valid.
      *

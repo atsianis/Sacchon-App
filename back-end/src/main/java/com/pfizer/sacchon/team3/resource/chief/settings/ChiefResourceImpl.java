@@ -22,7 +22,7 @@ public class ChiefResourceImpl extends ServerResource implements ChiefResource {
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 
@@ -77,18 +77,18 @@ public class ChiefResourceImpl extends ServerResource implements ChiefResource {
         }
     }
 
-        @NotNull
-        private Chiefs getChiefToBePersisted(ChiefRepresentation chiefRepresentation, Optional<Chiefs> chiefOut) {
-            Chiefs chief = chiefOut.get();
-            if (!(chiefRepresentation.getPassword()==null))
-                chief.setPassword((chiefRepresentation.getPassword()));
-            if (!(chiefRepresentation.getFirstName()==null))
-                chief.setFirstName(chiefRepresentation.getFirstName());
-            if (!(chiefRepresentation.getLastName()==null))
-                chief.setLastName(chiefRepresentation.getLastName());
-            if (!(chiefRepresentation.getEmail()==null))
-                chief.setEmail(chiefRepresentation.getEmail());
+    @NotNull
+    private Chiefs getChiefToBePersisted(ChiefRepresentation chiefRepresentation, Optional<Chiefs> chiefOut) {
+        Chiefs chief = chiefOut.get();
+        if (!(chiefRepresentation.getPassword() == null))
+            chief.setPassword((chiefRepresentation.getPassword()));
+        if (!(chiefRepresentation.getFirstName() == null))
+            chief.setFirstName(chiefRepresentation.getFirstName());
+        if (!(chiefRepresentation.getLastName() == null))
+            chief.setLastName(chiefRepresentation.getLastName());
+        if (!(chiefRepresentation.getEmail() == null))
+            chief.setEmail(chiefRepresentation.getEmail());
 
-            return chief;
-        }
+        return chief;
+    }
 }
