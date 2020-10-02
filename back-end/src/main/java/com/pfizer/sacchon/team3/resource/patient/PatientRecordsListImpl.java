@@ -30,7 +30,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 
@@ -87,9 +87,9 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
                 PatientRecords patientRecordsIn = getPatientRecordsIn(patientRecordRepresentation, patient);
 
                 long lastConsultationInDays = patientRepository.lastConsultationInDays(patient.getConsultations());
-                boolean lastConsultationLessThanAMonthAgo=true;
-                if (patient.getConsultations().size()!=0)
-                    lastConsultationLessThanAMonthAgo = ( lastConsultationInDays <= 30 );
+                boolean lastConsultationLessThanAMonthAgo = true;
+                if (patient.getConsultations().size() != 0)
+                    lastConsultationLessThanAMonthAgo = (lastConsultationInDays <= 30);
                 boolean recordTimeMoreRecentThanPatientsCreationTime = patientRepository.checkPatientsCreationTime(patientRecordsIn, patient.getTimeCreated());
 
                 if (lastConsultationLessThanAMonthAgo && recordTimeMoreRecentThanPatientsCreationTime) {
@@ -105,10 +105,10 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
                     PatientRecordRepresentation result = getPatientRecordRepresentationOut(patientRecord);
                     LOGGER.finer("Record successfully added.");
 
-                    if ( lastConsultationInDays == 30 ){
-                        try{
+                    if (lastConsultationInDays == 30) {
+                        try {
                             patientRepository.updateCanBeExamined(patient);
-                        }catch(SQLException ex){
+                        } catch (SQLException ex) {
                             return new ResponseRepresentation<>(200, "Record created but could not update patient state", result);
                         }
                     }
@@ -127,9 +127,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     }
 
     /**
-     *
-     * @param patient
-     * Updates the Patient's field 'lastActive' in the database
+     * @param patient Updates the Patient's field 'lastActive' in the database
      */
     @NotNull
     private void updatePatientActivity(Patients patient) {
@@ -138,10 +136,9 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     }
 
     /**
-     *
      * @param patient
      * @return PatientRepresentation
-     *
+     * <p>
      * Convert the Patient into a PatientRepresentation in order to validate his fields
      */
     @NotNull
@@ -153,10 +150,9 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     }
 
     /**
-     *
      * @param patientRecord
      * @return PatientRecordRepresentation object
-     *
+     * <p>
      * Convert the persisted PatientRecord to the PatientRecordRepresentation
      * that will be returned to the user
      */
@@ -171,11 +167,10 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     }
 
     /**
-     *
      * @param patientRecordRepresentation
      * @param patient
      * @return PatientRecord
-     *
+     * <p>
      * Converts the input of the user into a PatientRecord object
      * that is ready to be persisted
      */

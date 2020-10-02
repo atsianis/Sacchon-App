@@ -16,10 +16,9 @@ public class PatientRecordRepository {
     }
 
     /**
-     *
      * @param id
      * @return Optional of PatientRecord
-     *
+     * <p>
      * Find a record by its unique ID
      */
     public Optional<PatientRecords> findById(Long id) {
@@ -29,9 +28,8 @@ public class PatientRecordRepository {
     }
 
     /**
-     *
      * @return List of PatientRecords
-     *
+     * <p>
      * A list of all records in the Database
      */
     public List<PatientRecords> findAllPatientRecords() {
@@ -39,10 +37,9 @@ public class PatientRecordRepository {
     }
 
     /**
-     *
      * @param id
      * @return List of PatientRecord
-     *
+     * <p>
      * A list of all records that have been uploaded by a specific patient
      */
     public List<PatientRecords> findPatientRecordsByPatient(long id) {
@@ -52,10 +49,9 @@ public class PatientRecordRepository {
     }
 
     /**
-     *
      * @param patientRecord
      * @return Optional of PatientRecord
-     *
+     * <p>
      * Persist a record into the Database
      */
     public Optional<PatientRecords> save(PatientRecords patientRecord) {
@@ -72,10 +68,9 @@ public class PatientRecordRepository {
     }
 
     /**
-     *
      * @param patientRecord
      * @return Optional of PatientRecord
-     *
+     * <p>
      * Update the measurements of a specific record.
      * Available for every patient, in case he/she uploaded wrong data
      */
@@ -97,10 +92,9 @@ public class PatientRecordRepository {
     }
 
     /**
-     *
      * @param id
      * @return boolean
-     *
+     * <p>
      * Delete a record from the Database
      */
     public boolean remove(Long id) {

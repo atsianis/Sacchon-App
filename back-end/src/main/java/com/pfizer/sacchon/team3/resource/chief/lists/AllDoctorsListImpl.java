@@ -20,7 +20,7 @@ public class AllDoctorsListImpl extends ServerResource implements AllDoctorsList
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 

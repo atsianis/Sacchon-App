@@ -18,10 +18,9 @@ public class PatientRepository {
     }
 
     /**
-     *
      * @param id
      * @return Optional of Patient
-     *
+     * <p>
      * Find a Patient by his unique ID
      */
     public Optional<Patients> findById(Long id) {
@@ -31,9 +30,8 @@ public class PatientRepository {
     }
 
     /**
-     *
      * @return List of Patients
-     *
+     * <p>
      * A List of all the patients in the Database,
      * regardless of their state
      * Available to the chief doctor only
@@ -43,9 +41,8 @@ public class PatientRepository {
     }
 
     /**
-     *
      * @return List of Patients
-     *
+     * <p>
      * A List of all non-deleted Patients
      */
     public List<Patients> findAllPatients() {
@@ -69,7 +66,7 @@ public class PatientRepository {
      */
     public List<Patients> findConsultablePatientsByDoctor(long doctor_id) {
         return entityManager.createQuery("from Patients WHERE canBeExamined = 1 and doctor_id = :doctor_id ")
-                .setParameter("doctor_id",doctor_id)
+                .setParameter("doctor_id", doctor_id)
                 .getResultList();
     }
 
@@ -83,14 +80,11 @@ public class PatientRepository {
     }
 
     /**
-     *
      * @param email
      * @param password
      * @return Optional of Patient
-     * @throws WrongCredentials
-     *
-     * Find a patient by his email and password.
-     * Used for login
+     * @throws WrongCredentials Find a patient by his email and password.
+     *                          Used for login
      */
     public Optional<Patients> findByEmailAndPass(String email, String password) throws WrongCredentials {
         try {
@@ -107,10 +101,9 @@ public class PatientRepository {
     }
 
     /**
-     *
      * @param patient
      * @return Optional of Patient
-     *
+     * <p>
      * Persist a Patient into the database
      */
     public Optional<Patients> save(Patients patient) {
@@ -127,11 +120,8 @@ public class PatientRepository {
     }
 
     /**
-     *
      * @param patient
-     * @return
-     *
-     * Update patient's personal data
+     * @return Update patient's personal data
      */
     public Optional<Patients> update(Patients patient) {
         Patients patientIn = entityManager.find(Patients.class, patient.getId());
@@ -153,10 +143,9 @@ public class PatientRepository {
     }
 
     /**
-     *
      * @param patient
      * @return boolean
-     *
+     * <p>
      * In case of doctor soft delete, removes the relationship
      * and makes the patient available for other doctor
      */
@@ -179,10 +168,9 @@ public class PatientRepository {
     }
 
     /**
-     *
      * @param patient
      * @return Optional of Patient
-     *
+     * <p>
      * Make the patient unreachable from the application ui
      * His record-consultation history and personal data are still
      * kept in the Database
@@ -204,11 +192,10 @@ public class PatientRepository {
     }
 
     /**
-     *
      * @param patientRecord
      * @param patientsCreationDate
      * @return boolean
-     *
+     * <p>
      * Make sure that under no circumstances a record with a date older
      * than the patient's register date is persisted in the Database
      */
@@ -217,9 +204,8 @@ public class PatientRepository {
     }
 
     /**
-     *
      * @return List of Patients
-     *
+     * <p>
      * Find the patients that have not logged into the system for 15 or more days
      */
     public List<Patients> findInactivePatients() {
@@ -237,10 +223,9 @@ public class PatientRepository {
     }
 
     /**
-     *
      * @param consultations
      * @return long
-     *
+     * <p>
      * returns the days passed from the last consultation a patient had
      */
     public long lastConsultationInDays(List<Consultations> consultations) {
@@ -251,14 +236,11 @@ public class PatientRepository {
     }
 
     /**
-     *
      * @param patient
-     * @throws SQLException
-     *
-     * Updates the canBeExamined field of a Patient.
-     * Called at 2 occurrences:
-     * * A patient inserts a record on the 30th day after his last consultation ( canBeExamined set from 0 to 1 )
-     * * A doctor uploads a consultation for the patient ( canBeExamined set from 1 to 0 )
+     * @throws SQLException Updates the canBeExamined field of a Patient.
+     *                      Called at 2 occurrences:
+     *                      * A patient inserts a record on the 30th day after his last consultation ( canBeExamined set from 0 to 1 )
+     *                      * A doctor uploads a consultation for the patient ( canBeExamined set from 1 to 0 )
      */
     public void updateCanBeExamined(Patients patient) throws SQLException {
         Patients patientIn = entityManager.find(Patients.class, patient.getId());

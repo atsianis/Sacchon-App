@@ -19,7 +19,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 

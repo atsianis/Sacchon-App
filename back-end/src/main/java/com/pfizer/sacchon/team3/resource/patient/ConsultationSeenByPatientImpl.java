@@ -24,7 +24,7 @@ public class ConsultationSeenByPatientImpl extends ServerResource implements Con
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 
@@ -59,7 +59,7 @@ public class ConsultationSeenByPatientImpl extends ServerResource implements Con
         setExisting(optionalPatient.isPresent());
         if (!isExisting()) {
             LOGGER.config("Patient id does not exist:" + patient_id);
-            
+
             return new ResponseRepresentation<>(404, "Patient not found", null);
         } else {
             LOGGER.finer("Patient found");

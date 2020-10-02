@@ -25,7 +25,7 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
     private EntityManager em = JpaUtil.getEntityManager();
 
     @Override
-    protected void doRelease(){
+    protected void doRelease() {
         em.close();
     }
 
@@ -85,7 +85,7 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
         try {
             Optional<Doctors> doctorOut = doctorRepository.findById(doctor_id);
             setExisting(doctorOut.isPresent());
-            Doctors doctorToBePersisted ;
+            Doctors doctorToBePersisted;
             // If patient exists, we update it.
             if (isExisting()) {
                 LOGGER.finer("Update patient.");
@@ -112,13 +112,13 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
     @NotNull
     private Doctors getDoctorToBePersisted(CreatedOrUpdatedDoctorRepresentation doctorRepresentation, Optional<Doctors> patientOut) {
         Doctors doctor = patientOut.get();
-        if (!(doctorRepresentation.getPassword()==null))
+        if (!(doctorRepresentation.getPassword() == null))
             doctor.setPassword((doctorRepresentation.getPassword()));
-        if (!(doctorRepresentation.getFirstName()==null))
+        if (!(doctorRepresentation.getFirstName() == null))
             doctor.setFirstName(doctorRepresentation.getFirstName());
-        if (!(doctorRepresentation.getLastName()==null))
+        if (!(doctorRepresentation.getLastName() == null))
             doctor.setLastName(doctorRepresentation.getLastName());
-        if (!(doctorRepresentation.getEmail()==null))
+        if (!(doctorRepresentation.getEmail() == null))
             doctor.setEmail(doctorRepresentation.getEmail());
 
         return doctor;
