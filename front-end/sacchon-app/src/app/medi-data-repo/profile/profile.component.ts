@@ -52,7 +52,7 @@ export class PatientProfileComponent implements OnInit {
 	getAllPatientConsultations(): void {
 		this.patientService.getConsultations(this.id).subscribe(consultations => {
 			consultations.data.forEach(consultation => {
-				if (consultation.seenByPatient == null) {
+				if (consultation.seenByPatient === null) {
 					this.consultations += 1;
 				}
 			});

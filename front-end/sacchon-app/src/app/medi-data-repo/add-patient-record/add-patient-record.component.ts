@@ -27,7 +27,7 @@ export class AddPatientRecordComponent implements OnInit {
 		const patient_id = sessionStorage.getItem('id');
 
 		this.patientService.submitPatientRecord(patient_id, glycose, carbs).subscribe(response => {
-			if (response.status == 200) {
+			if (response.status === 200) {
 				this.toastr.success('Record successfully inserted.', 'Success', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
@@ -37,7 +37,7 @@ export class AddPatientRecordComponent implements OnInit {
 					console.log(error);
 				});
 			}
-			if ( response.status == 422 || response.status == 404 ) {
+			if ( response.status === 422 || response.status === 404 ) {
 				this.toastr.error(response.description, 'Failed', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'

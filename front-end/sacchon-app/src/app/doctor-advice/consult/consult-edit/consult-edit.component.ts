@@ -12,12 +12,18 @@ import { DoctorAdviceService } from '../../doctor-advice.service';
 })
 export class ConsultEditComponent implements OnInit {
 
-	constructor(private doctorService: DoctorAdviceService, private route: ActivatedRoute, private toastr: ToastrService, private router: Router) { }
+	constructor(
+		private doctorService: DoctorAdviceService,
+		private route: ActivatedRoute,
+		private toastr: ToastrService,
+		private router: Router
+	) { }
 
-	consultation_id: string;
+	consultation_id: number;
 	consultation: any;
-	doctor_id: string;
-	patient_id: string;
+	doctor_id: string = sessionStorage.getItem('id');
+	patient_id: number;
+
 	editConsultForm = new FormGroup({
 		comment: new FormControl
 	});
@@ -36,8 +42,9 @@ export class ConsultEditComponent implements OnInit {
 	}
 
 	submitConsultation(): any {
-		this.doctor_id = sessionStorage.getItem('id');
-		this.doctorService.editConsultation(this.consultation_id, this.doctor_id, this.editConsultForm.get('comment').value).subscribe(response => {
+		const comment = this.editConsultForm.get('comment').value;
+
+		this.doctorService.editConsultation(this.consultation_id, this.doctor_id, comment).subscribe(response => {
 			this.toastr.success('Consultation edited successfully', 'Success', {
 				timeOut: 2000,
 				positionClass: 'toast-top-center'

@@ -13,7 +13,12 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EditPatientRecordComponent implements OnInit {
 
-	constructor(private patientService: MediDataRepoService, private route: ActivatedRoute, private toastr: ToastrService, private router: Router) { }
+	constructor(
+		private patientService: MediDataRepoService,
+		private route: ActivatedRoute,
+		private toastr: ToastrService,
+		private router: Router
+	) { }
 
 	patientRecord: PatientRecords;
 	patient_id: string = sessionStorage.getItem('id');
@@ -36,7 +41,7 @@ export class EditPatientRecordComponent implements OnInit {
 			this.patientRecord = response.data;
 
 			// initialize form
-			this.editPatientRecord = new FormGroup ({
+			this.editPatientRecord = new FormGroup({
 				glycose: new FormControl(response.data.glycose, Validators.required),
 				carbs: new FormControl(response.data.carbs, Validators.required)
 			});
@@ -45,9 +50,11 @@ export class EditPatientRecordComponent implements OnInit {
 	}
 
 	editRecord(): void {
-		this.patientService.editPatientRecord(this.patient_id, this.record_id, this.editPatientRecord.get('glycose').value, this.editPatientRecord.get('carbs').value).subscribe(response => {
-			console.log(response);
-			if (response.status == 200) {
+		const glycose = this.editPatientRecord.get('glycose').value;
+		const carbs = this.editPatientRecord.get('carbs').value;
+
+		this.patientService.editPatientRecord(this.patient_id, this.record_id, glycose, carbs).subscribe(response => {
+			if (response.status === 200) {
 				this.toastr.success('Record successfully edited.', 'Success', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
@@ -60,7 +67,7 @@ export class EditPatientRecordComponent implements OnInit {
 		});
 	}
 
-	formatPatientRecordDate(date: number) {
+	formatPatientRecordDate(date: number): string {
 		return moment(date).format('DD/MM/YYYY, h:mm:ss a');
 	}
 

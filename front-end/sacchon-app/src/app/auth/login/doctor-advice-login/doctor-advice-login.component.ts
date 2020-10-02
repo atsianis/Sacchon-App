@@ -31,7 +31,7 @@ export class DoctorAdviceLoginComponent implements OnInit {
 	}
 
 	handleLogin(response): void {
-		if (response.status == 200) {
+		if (response.status === 200) {
 			this.toastr.success(`Welcome ${response.data.firstName}!`, 'Login successful', {
 				timeOut: 2000,
 				positionClass: 'toast-top-center'
