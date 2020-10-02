@@ -1,0 +1,28 @@
+<div class="container-fluid h-100">
+	<div class="row align-items-center justify-content-center h-100">
+		<div class="card bg-light" style="width: 20rem;">
+			<div class="card-body">
+				<h5 class="card-title text-center py-2">Sign in as Reporter</h5>
+				<form class="py-3" [formGroup]="reporterLoginForm">
+					<div class="form-group">
+						<input formControlName="email" type="email" class="form-control" id="exampleInputEmail1"
+							aria-describedby="emailHelp" placeholder="Enter email">
+						<small
+							*ngIf="reporterLoginForm.get('email').errors?.required && reporterLoginForm.get('email').touched"
+							class="text-danger py-0 my-0">
+							Please provide an email address.
+						</small>
+						<input formControlName="password" type="password" class="form-control mt-2"
+							id="exampleInputPassword1" placeholder="Password">
+						<small
+							*ngIf="reporterLoginForm.get('password').errors?.required && reporterLoginForm.get('password').touched"
+							class="text-danger py-0 my-0">
+							Please provide a password.
+						</small>
+					</div>
+					<button class="btn btn-primary btn-block" (click)="submitLogin()">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

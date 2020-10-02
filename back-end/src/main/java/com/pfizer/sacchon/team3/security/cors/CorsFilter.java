@@ -17,32 +17,25 @@ public class CorsFilter {
 
     private Application application;
 
-    public CorsFilter(Application application){
+    public CorsFilter(Application application) {
         this.application = application;
     }
 
-
     public Filter createCorsFilter(Restlet next) {
-        Filter filter = new Filter(application.getContext(), next) {
-
+        return new Filter(application.getContext(), next) {
             @Override
             protected int beforeHandle(Request request, Response response) {
-                // Initialize response headers
 
-                Series<Header> responseHeaders = (Series<Header>) response
-                        .getAttributes().get(HeaderConstants.ATTRIBUTE_HEADERS);
-                if (responseHeaders == null) {
-                    responseHeaders = new Series<Header>(Header.class);
-                }
+                // Initialize response headers
+                Series<Header> responseHeaders = (Series<Header>) response.getAttributes().get(HeaderConstants.ATTRIBUTE_HEADERS);
+                if (responseHeaders == null)
+                    responseHeaders = new Series<>(Header.class);
 
                 // Request headers
-
-                Series<Header> requestHeaders = (Series<Header>) request
-                        .getAttributes().get(HeaderConstants.ATTRIBUTE_HEADERS);
+                Series<Header> requestHeaders = (Series<Header>) request.getAttributes().get(HeaderConstants.ATTRIBUTE_HEADERS);
                 String requestOrigin = requestHeaders.getFirstValue("Origin",
                         false, "*");
-                String rh = requestHeaders.getFirstValue(
-                        "Access-Control-Request-Headers", false, "*");
+                requestHeaders.getFirstValue("Access-Control-Request-Headers", false, "*");
 
                 response.setAccessControlAllowCredentials(true);
                 response.setAccessControlAllowOrigin(requestOrigin);
@@ -57,20 +50,15 @@ public class CorsFilter {
                 response.setAccessControlAllowMethods(methodHashSet);
 
                 // Set response headers
-
-                response.getAttributes().put(HeaderConstants.ATTRIBUTE_HEADERS,
-                        responseHeaders);
+                response.getAttributes().put(HeaderConstants.ATTRIBUTE_HEADERS, responseHeaders);
 
                 // Handle HTTP methods
-
                 if (Method.OPTIONS.equals(request.getMethod())) {
                     return Filter.STOP;
                 }
+
                 return super.beforeHandle(request, response);
             }
         };
-        return filter;
     }
-
-
 }

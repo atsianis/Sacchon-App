@@ -1,0 +1,70 @@
+<div class="container-fluid h-100">
+	<div class="row justify-content-center py-3 align-items-between h-100">
+		<div class="col-3">
+			<div class="card h-100" name="chief-details">
+				<div class="card-body row justify-content-center">
+					<h5 class="card-title text-center col-12">Patient profile
+						<br>
+						<br>
+						<img src="../../assets/images/reporter-images.jpg" alt="" width="100" height="100">
+					</h5>
+					<div class="card-text align-items-start justify-content-start w-75 py-5">
+						<div>
+							<strong>First Name:</strong>
+							<span class="pull-right">
+								{{ patient.firstName }}
+							</span>
+						</div>
+						<div>
+							<strong>Last Name:</strong>
+							<span class="pull-right">
+								{{ patient.lastName }}
+							</span>
+						</div>
+						<div>
+							<strong>Email:</strong>
+							<span class="pull-right">
+								{{ patient.email }}
+							</span>
+						</div>
+						<div>
+							<strong>Birth Date</strong>
+							<span class="pull-right">
+								{{ toProperDate(patient.dob) }}
+							</span>
+						</div>
+					</div>
+					<div class="row align-items-end w-75 mt-auto" *ngIf="patient.doctor_id !== 0; else undertakePatient">
+						<a [routerLink]="['/doctoradvice/consult/', patient.id, 'add']"
+							class="btn btn-block btn-outline-primary border-0 text-left my-2 py-2">
+							<i class="fa fa-user-plus px-2" aria-hidden="true"></i>
+							<span>Create Consult</span>
+						</a>
+						<a [routerLink]="['/doctoradvice/consult/', patient.id]"
+							class="btn btn-block btn-outline-primary border-0 text-left my-2 py-2">
+							<i class="fa fa-user-plus px-2" aria-hidden="true"></i>
+							<span>View all consults</span>
+						</a>
+					</div>
+					<ng-template #undertakePatient class="row align-items-end">
+						<a class="btn btn-block btn-outline-primary border-0 w-75 mt-auto text-left my-2 py-2"
+							(click)="takePatient(patient.id)">
+							<i class="fa fa-user-plus px-2" aria-hidden="true"></i>
+							<span>Undertake Patient</span>
+						</a>
+					</ng-template>
+				</div>
+			</div>
+		</div>
+		<div class="col-9">
+			<div class="card">
+				<div class="card-body">
+					<canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+						[colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+						[plugins]="lineChartPlugins">
+					</canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

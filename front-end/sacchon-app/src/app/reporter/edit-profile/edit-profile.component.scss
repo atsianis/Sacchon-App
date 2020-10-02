@@ -1,0 +1,28 @@
+.card {
+	border: none;
+	border-radius: 10px;
+	width: 350px;
+}
+
+.form-group {
+	position: relative;
+	margin-bottom: 2rem
+}
+
+.form-control {
+	border: none;
+	border-radius: 0;
+	outline: 0;
+	border-bottom: 1.5px solid #E6EBEE
+}
+
+.form-control:focus {
+	box-shadow: none;
+	border-radius: 0;
+	border-bottom: 2px solid #8A97A8
+}
+
+.btn-block {
+	border: none;
+	border-radius: 8px;
+}

@@ -1,0 +1,13 @@
+<div class="container-fluid h-100">
+	<div class="row align-items-center justify-content-center h-100">
+		<form [formGroup]="createConsultForm" style="width: 350px;">
+			<div class="form-group">
+				<label for="exampleFormControlTextarea1">Add consultation for the past month</label>
+				<textarea formControlName="comment" class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+			</div>
+			<div>
+				<button class="btn btn-block btn-primary" (click)="submitConsultation()">Submit</button>
+			</div>
+		</form>
+	</div>
+</div>
