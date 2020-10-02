@@ -47,4 +47,8 @@ export class DoctorSignUpComponent implements OnInit {
 			this.doctorSignUp.markAllAsTouched();
 		}
 	}
+
+	cancelEdit(): void {
+		this.router.navigate(['/reporter']);
+	}
 }
