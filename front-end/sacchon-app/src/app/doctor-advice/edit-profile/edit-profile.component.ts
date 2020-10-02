@@ -51,7 +51,6 @@ export class EditProfileComponent implements OnInit {
 		if (this.doctorEdit.valid && (this.doctorEdit.get('password').value == this.doctorEdit.get('passwordconfirm').value)) {
 			this.doctorService.editDoctorProfile(this.id, firstName, lastName, email, password).subscribe(response => {
 				if (response.status == 200) {
-					console.log('response');
 					this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
 						timeOut: 2000,
 						positionClass: 'toast-top-center'
@@ -60,7 +59,6 @@ export class EditProfileComponent implements OnInit {
 					});
 				}
 				if (response.status == 422 || response.status == 404) {
-					console.log('response');
 					this.toastr.error(response.description, 'Failed', {
 						timeOut: 2000,
 						positionClass: 'toast-top-center'
