@@ -43,10 +43,6 @@ Endpoints
 router.attach("/doctor/{id}", DoctorResourceImpl.class);
 router.attach("/doctor/{id}/mypatients", MyPatientsResourceImpl.class);
 router.attach("/doctor/{id}/consultations",DoctorConsultationsImpl.class);
-/*
-this is the endpoint to view all the patients records per patient ID
-router.attach("/patient/{id}/storeData/allData", PatientRecordsListImpl.class);
-*/
 router.attach("/doctor/{did}/select/{pid}", DoctorSelectionResourceImpl.class);
 router.attach("/doctor/{id}/consultablepatients", AllConsultablePatientListResourceImpl.class);
 router.attach("/doctor/{id}/available-patients", AllAvailablePatientListResourceImpl.class);
