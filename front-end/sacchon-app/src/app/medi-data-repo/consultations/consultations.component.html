@@ -15,7 +15,7 @@
 					<td class="align-middle">{{ consultationFromDate(consultation.timeCreated) }}</td>
 					<td class="align-middle">{{ consultationToDate(consultation.timeCreated) }}</td>
 					<td class="align-middle">{{ consultation.comment }}</td>
-					<td class="align-middle" *ngIf="consultation.seenByPatient === null; else seenByPatient">
+					<td class="align-middle" *ngIf="consultation.seenByPatient == null; else seenByPatient">
 						<button (click)="markAsRead(consultation.id)" class="btn btn-success">Mark as read</button>
 					</td>
 					<ng-template #seenByPatient>

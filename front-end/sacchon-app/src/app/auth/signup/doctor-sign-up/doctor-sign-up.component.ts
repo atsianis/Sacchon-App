@@ -29,7 +29,7 @@ export class DoctorSignUpComponent implements OnInit {
 		const email = this.doctorSignUp.get('email').value;
 		const password = this.doctorSignUp.get('password').value;
 
-		if (this.doctorSignUp.valid && (password === this.doctorSignUp.get('passwordconfirm').value)) {
+		if (this.doctorSignUp.valid && (password == this.doctorSignUp.get('passwordconfirm').value)) {
 			this.authService.signUpDoctor(firstName, lastName, email, password).subscribe(response => {
 				this.toastr.success('You will be redirected to home page soon.', 'Successfully registered', {
 					timeOut: 2000,

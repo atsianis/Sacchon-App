@@ -11,7 +11,7 @@ export class ReporterGuard implements CanActivate {
 	canActivate(
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-		if (this.auth.isLoggedIn() && sessionStorage.getItem('userType') === 'reporter') {
+		if (this.auth.isLoggedIn() && sessionStorage.getItem('userType') == 'reporter') {
 			return true;
 		}
 

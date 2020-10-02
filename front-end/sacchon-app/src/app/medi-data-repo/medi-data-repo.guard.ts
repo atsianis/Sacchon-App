@@ -11,7 +11,7 @@ export class MediDataRepoGuard implements CanActivate {
 	canActivate(
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-		if (this.auth.isLoggedIn() && sessionStorage.getItem('userType') === 'patient') {
+		if (this.auth.isLoggedIn() && sessionStorage.getItem('userType') == 'patient') {
 			return true;
 		}
 

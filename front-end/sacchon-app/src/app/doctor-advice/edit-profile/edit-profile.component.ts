@@ -48,9 +48,9 @@ export class EditProfileComponent implements OnInit {
 		const email = this.doctorEdit.get('email').value;
 		const password = this.doctorEdit.get('password').value;
 
-		if (this.doctorEdit.valid && (this.doctorEdit.get('password').value === this.doctorEdit.get('passwordconfirm').value)) {
+		if (this.doctorEdit.valid && (this.doctorEdit.get('password').value == this.doctorEdit.get('passwordconfirm').value)) {
 			this.doctorService.editDoctorProfile(this.id, firstName, lastName, email, password).subscribe(response => {
-				if (response.status === 200) {
+				if (response.status == 200) {
 					console.log('response');
 					this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
 						timeOut: 2000,
@@ -59,7 +59,7 @@ export class EditProfileComponent implements OnInit {
 						this.router.navigate(['/doctoradvice/profile/']);
 					});
 				}
-				if (response.status === 422 || response.status === 404) {
+				if (response.status == 422 || response.status == 404) {
 					console.log('response');
 					this.toastr.error(response.description, 'Failed', {
 						timeOut: 2000,

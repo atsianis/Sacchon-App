@@ -31,7 +31,7 @@ export class AddConsultComponent implements OnInit {
 
 		this.route.params.subscribe(params => {
 			this.doctorService.addConsultation(doctor_id, params.patient_id, comment).subscribe(response => {
-				if (response.status === 200) {
+				if (response.status == 200) {
 					this.toastr.success('Consultation created successfully', 'Success', {
 						timeOut: 2000,
 						positionClass: 'toast-top-center'
@@ -41,7 +41,7 @@ export class AddConsultComponent implements OnInit {
 						console.log(error);
 					});
 				}
-				if (response.status === 401 || response.status === 422) {
+				if (response.status == 401 || response.status == 422) {
 					this.toastr.error(response.description, 'Fail', {
 						timeOut: 2000,
 						positionClass: 'toast-top-center'

@@ -35,10 +35,10 @@ export class ConsultationsComponent implements OnInit {
 
 	getConsultations(): void {
 		this.patientService.getConsultations(sessionStorage.getItem('id')).subscribe(response => {
-			if (response.status === 200) {
+			if (response.status == 200) {
 				this.consultations = response.data;
 			}
-			if (response.status === 404) {
+			if (response.status == 404) {
 				this.toastr.error(response.description, 'Error', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'

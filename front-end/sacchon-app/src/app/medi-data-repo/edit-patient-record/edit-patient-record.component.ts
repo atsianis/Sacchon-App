@@ -54,7 +54,7 @@ export class EditPatientRecordComponent implements OnInit {
 		const carbs = this.editPatientRecord.get('carbs').value;
 
 		this.patientService.editPatientRecord(this.patient_id, this.record_id, glycose, carbs).subscribe(response => {
-			if (response.status === 200) {
+			if (response.status == 200) {
 				this.toastr.success('Record successfully edited.', 'Success', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'

@@ -28,7 +28,7 @@ export class PatientSignUpComponent implements OnInit {
 	ngOnInit(): void { }
 
 	signUp(): void {
-		if (this.patientSignUp.valid && (this.patientSignUp.get('password').value === this.patientSignUp.get('passwordconfirm').value)) {
+		if (this.patientSignUp.valid && (this.patientSignUp.get('password').value == this.patientSignUp.get('passwordconfirm').value)) {
 			const firstName = this.patientSignUp.get('firstName').value;
 			const lastName = this.patientSignUp.get('lastName').value;
 			const email = this.patientSignUp.get('email').value;

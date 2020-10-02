@@ -97,7 +97,7 @@ export class PatientListComponent implements OnInit {
 		const doctor_id = sessionStorage.getItem('id');
 
 		this.doctorService.undertakePatient(doctor_id, patient_id).subscribe(response => {
-			if (response.status === 200) {
+			if (response.status == 200) {
 				this.toastr.success(`Patient was registered to you successfully!`, 'Operation successful', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
