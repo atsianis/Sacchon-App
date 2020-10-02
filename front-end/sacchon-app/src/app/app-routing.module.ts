@@ -9,7 +9,6 @@ import { ReporterLoginComponent } from './auth/login/reporter-login/reporter-log
 import { ContentComponent } from './content/content.component';
 import { PatientSignUpComponent } from './auth/signup/patient-sign-up/patient-sign-up.component';
 import { AuthGuard } from './auth/auth.guard';
-import { NotfoundComponent } from './generic/notfound/notfound.component';
 import { UnauthorizedComponent } from './generic/unauthorized/unauthorized.component';
 
 const routes: Routes = [
@@ -20,7 +19,6 @@ const routes: Routes = [
 	{ path: 'login/doctoradvice', component: DoctorAdviceLoginComponent, canActivate:[ AuthGuard ] },
 	{ path: 'login/reporter', component: ReporterLoginComponent, canActivate:[ AuthGuard ] },
 	{ path: 'signup', component: PatientSignUpComponent, canActivate:[ AuthGuard ] },
-	{ path: '404', component: NotfoundComponent },
 	{ path: 'unauthorized', component: UnauthorizedComponent },
 ]
 
