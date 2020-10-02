@@ -77,7 +77,7 @@ public class AddConsultationResourceImpl extends ServerResource implements AddCo
             return new ResponseRepresentation<>(401, "Unauthorized ! Cant consult this patient", null);
 
         if (patientRepository.lastConsultationInDays(patient.getConsultations()) < 30) {
-            return new ResponseRepresentation<>(401, "Unauthorized ! An active Consultation already exists", null);
+            return new ResponseRepresentation<>(401, "Unauthorized ! An active Consultation already exists or the patient is new in the system", null);
         }
         try {
             Optional<Consultations> optionalConsultaion = getConsultationPersistAttempt(consultReprIn, doctor, patient);
