@@ -7,11 +7,11 @@ Endpoints for login
 --------------------------
 
 ```
-**POST**    /login/chief
-**POST**    /login/doctor
-**POST**    /login/patient
+POST    /login/chief
+POST    /login/doctor
+POST    /login/patient
 ```
-Description: Type the command after the dollar sign and hit enter:
+**Description**: Login for all users
 
 Register Endpoints
 --------------------------
@@ -20,68 +20,154 @@ Register Endpoints
 POST    /register/patient
 POST    /chief/register/doctor
 ```
-Description: Type the command after the dollar sign and hit enter:
+**Description**: Register for Patients and Doctors
 
 Chief Endpoints
 --------------------------
 
 ```
-POST    /chief/allpatients
-POST    /chief/alldoctorstor
-POST    /chief/patients
-POST    /chief/doctors
-POST    /chief/inactivedoctors
-POST    /chief/inactivepatients
-POST    /chief/allconsultations
-POST    /chief/{chief_id}/settings/update
-POST    /chief/consultablepatients
+GET    /chief/allpatients
 ```
-Description: Type the command after the dollar sign and hit enter:
+**Description**: Chief can display all patients
+
+```
+GET    /chief/alldoctorstor
+```
+**Description**: Chief can display all doctors
+
+```
+GET    /chief/patients
+```
+**Description**: Chief can display all patients
+
+```
+GET    /chief/doctors
+```
+**Description**: Chief can display all doctors
+
+```
+GET    /chief/inactivedoctors
+```
+**Description**: Chief can display all inactive doctors
+
+```
+GET    /chief/inactivepatients
+```
+**Description**: Chief can display all inactive patients
+
+```
+GET    /chief/allconsultations
+```
+**Description**: Chief can display all consultations
+
+```
+PUT    /chief/{chief_id}/settings/update
+```
+**Description**: Chief can modify his account
+
+```
+GET    /chief/consultablepatients
+```
+**Description**: Chief can display all consultable patients
 
 Patient Endpoints
 --------------------------
 
 ```
-POST    /patient/{patient_id}
-POST    /patient/{patient_id}/settings
-POST    /patient/{patient_id}/addpatientrecord
-POST    /patient/{patient_id}/allpatientrecords
-POST    /patient/{patient_id}/patientRecord/{record_id}
-POST    /patient/{patient_id}/consultations
-POST    /patient/{patient_id}/consultation/{consultation_id}/read
+GET     /patient/{patient_id}
 ```
-Description: Type the command after the dollar sign and hit enter:
+**Description**: Display the specific Patient
+
+```
+PUT     /patient/{patient_id}/settings
+```
+**Description**: Display the specific patient settings
+
+```
+POST    /patient/{patient_id}/addpatientrecord
+```
+**Description**: Add a patient record 
+
+```
+POST    /patient/{patient_id}/allpatientrecords
+```
+**Description**: Display all patient's records
+
+```
+GET     /patient/{patient_id}/patientRecord/{record_id}
+```
+**Description**: Display specific patient's record
+
+```
+GET     /patient/{patient_id}/consultations
+```
+**Description**: Display all patient's consultations 
+
+```
+PUT     /patient/{patient_id}/consultation/{consultation_id}/read
+```
+**Description**: Patient read consultation
+
 
 Doctor Endpoints
 --------------------------
 
 ```
-POST    /doctor/{doctor_id}
-POST    /doctor/{doctor_id}/mypatients
-POST    /doctor/{doctor_id}/consultations
-POST    /doctor/undertake/patient
-POST    /doctor/{doctor_id}/consultablepatients
-POST    /doctor/{doctor_id}/available-patients
+GET    /doctor/{doctor_id}
 ```
-Description: Type the command after the dollar sign and hit enter:
+**Description**: Display specific doctor
+
+```
+GET    /doctor/{doctor_id}/mypatients
+```
+**Description**: Display all doctor's patients
+
+```
+GET    /doctor/{doctor_id}/consultations
+```
+**Description**: Display all doctor's consultastions
+
+```
+PUT    /doctor/undertake/patient
+```
+**Description**: Doctor undertake a available patient
+
+```
+GET    /doctor/{doctor_id}/consultablepatients
+```
+**Description**: Display all doctor's consultable patients
+
+```
+GET    /doctor/{doctor_id}/available-patients
+```
+**Description**: Display available patients
+
 
 Consultations Endpoints
 --------------------------
 
 ```
 POST    /consultation/doctor/{doctor_id}/patient/{patient_id}
-POST    /consultation/{consultation_id}
-POST    /consultation/{consultation_id}/doctor/{doctor_id}
 ```
-Description: Type the command after the dollar sign and hit enter:
+**Description**: Add patient's consultation
+
+```
+GET     /consultation/{consultation_id}
+```
+**Description**: Display specific consultation
+
+```
+PUT     /consultation/{consultation_id}/doctor/{doctor_id}
+```
+**Description**: Modify patient's consultation
 
 Soft Delete Endpoints
 --------------------------
 
 ```
-POST    /patient/{patient_id}/settings/softDelete
-POST    /doctor/{doctor_id}/settings/softDelete
+PUT    /patient/{patient_id}/settings/softDelete
+PUT    /doctor/{doctor_id}/settings/softDelete
 ```
-Description: Type the command after the dollar sign and hit enter:
+**Description**: Soft Delete users
 
 
