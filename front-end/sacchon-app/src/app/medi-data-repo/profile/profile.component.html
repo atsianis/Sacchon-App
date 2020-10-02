@@ -1,0 +1,71 @@
+<div class="container-fluid h-100">
+	<div class="row justify-content-center py-3 align-items-between h-100">
+		<div class="col-3">
+			<div class="card h-100">
+				<div class="card-body">
+					<h5 class="card-title text-center">Patient profile
+						<br>
+						<br>
+						<img src="../../assets/images/reporter-images.jpg"
+							alt="" width="100" height="100">
+					</h5>
+					<div class="row align-items-start py-5">
+						<div class="col-6"><strong>Name:</strong></div>
+						<div class="col-6">{{ firstName }}</div>
+						<div class="col-6"><strong>Surname:</strong></div>
+						<div class="col-6">{{ lastName }}</div>
+						<div class="col-6"><strong>Email:</strong></div>
+						<div class="col-6">{{ email }}</div>
+						<div class="col-6"><strong>Gender</strong></div>
+						<div class="col-6">{{ gender }}</div>
+						<div class="col-6"><strong>Date of birth</strong></div>
+						<div class="col-6">{{ dob }}</div>
+					</div>
+					<div class="row align-items-center">
+						<button [routerLink]="['/medidatarepo/profile/edit']"
+							class="btn btn-block btn-outline-primary border-0 text-left my-2 mx-2 py-2"><i
+								class="fa fa-cog px-2" aria-hidden="true">
+							</i><span>Edit Profile</span>
+						</button>
+						<button [routerLink]="['/medidatarepo/record/add']"
+							class="btn btn-block btn-outline-primary border-0 text-left my-2 mx-2 py-2"><i
+								class="fa fa-pencil px-2" aria-hidden="true">
+							</i><span>Add New Record</span>
+						</button>
+						<button [routerLink]="['/medidatarepo/consultations']"
+							class="btn btn-block btn-outline-primary border-0 text-left my-2 mx-2 py-2"><i
+								class="fa fa-folder-open px-2" aria-hidden="true">
+							</i><span>My Consultations</span>
+							<span *ngIf="consultations != 0"
+								class="badge badge-danger badge-pill pull-right notification-index">{{ consultations }}</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-9">
+			<div class="card">
+				<div class="card-body">
+					<table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+						class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr>
+								<th>Glucose</th>
+								<th>Carbs</th>
+								<th>Time Created</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let record of patientRecords"
+								[routerLink]="['/medidatarepo/record/', record.id, 'edit']">
+								<td>{{ record.glycose }} mg/dL</td>
+								<td>{{ record.carbs }} gr</td>
+								<td>{{ timeCreated(record.timeCreated) }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

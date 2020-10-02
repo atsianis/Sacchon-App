@@ -1,0 +1,78 @@
+<div class="container-fluid h-100">
+	<div class="row justify-content-center py-3 align-items-between h-100">
+		<div class="col-3">
+			<div class="card h-100" name="chief-details">
+				<div class="card-body row justify-content-center">
+					<h5 class="card-title text-center col-12">Doctor profile
+						<br>
+						<br>
+						<img src="../../assets/images/reporter-images.jpg" alt="" width="100" height="100">
+					</h5>
+					<div class="card-text align-items-start justify-content-start w-75 py-5">
+						<div>
+							<strong>Name:</strong>
+							<span class="float-right">{{ firstName }}</span>
+						</div>
+						<div>
+							<strong>Surname:</strong>
+							<span class="float-right">{{ lastName }}</span>
+						</div>
+						<div>
+							<strong>Email</strong>
+							<span class="float-right">{{ email }}</span>
+						</div>
+					</div>
+					<div class="row align-items-center w-75 mt-auto">
+						<a [routerLink]="['/doctoradvice/profile/edit']"
+							class="btn btn-block btn-outline-primary border-0 text-left my-2 py-2">
+							<i class="fa fa-cog px-2" aria-hidden="true"></i>
+							<span>Edit Profile</span></a>
+						<a [routerLink]="['/doctoradvice/availablepatients']"
+							class="btn btn-block btn-outline-primary border-0 text-left my-2 py-2">
+							<i class="fa fa-user-plus px-2" aria-hidden="true"></i>
+							<span>Search Patients</span>
+							<span *ngIf="availablePatients > 0"
+								class="badge badge-danger badge-pill pull-right notification-index">{{ availablePatients }}</span>
+						</a>
+						<a [routerLink]="['/doctoradvice/consultrablepatients']"
+							class="btn btn-block btn-outline-primary border-0 text-left my-2 py-2">
+							<i class="fa fa-exclamation-triangle px-2" aria-hidden="true"></i>
+							<span>Consult Patients</span>
+							<span *ngIf="consultablePatients > 0"
+								class="badge badge-danger badge-pill pull-right notification-index">{{ consultablePatients }}</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-9">
+			<div class="card">
+				<div class="card-body">
+					<table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+						class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Email</th>
+								<th>Birth Date</th>
+								<th>Gender</th>
+								<th>Last Active</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let patient of patients" [routerLink]="['/doctoradvice/patient/', patient.id]">
+								<td>{{ patient.firstName }}</td>
+								<td>{{ patient.lastName }}</td>
+								<td>{{ patient.email }}</td>
+								<td>{{ birthDate(patient.dob) }}</td>
+								<td>{{ patient.gender }}</td>
+								<td>{{ lastActive(patient.lastActive) }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

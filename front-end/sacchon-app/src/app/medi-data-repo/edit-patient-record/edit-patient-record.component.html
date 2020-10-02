@@ -1,0 +1,17 @@
+<div class="container h-100">
+	<div class="row h-100 align-items-center justify-content-center">
+		<form [formGroup]="editPatientRecord">
+			<div class="form-row">
+				<div class="col">
+					<label for="glycose">Glycose</label>
+					<input type="text" class="form-control" formControlName="glycose" id="glycose">
+				</div>
+				<div class="col">
+					<label for="carbs">Carbs</label>
+					<input type="text" class="form-control" formControlName="carbs" id="carbs">
+				</div>
+				<button class="btn btn-block btn-primary my-2" (click)="editRecord()">Edit</button>
+			</div>
+		</form>
+	</div>
+</div>

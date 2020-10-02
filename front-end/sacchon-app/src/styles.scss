@@ -1,2 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/scss/bootstrap.scss";
+@import "imports.scss";
+html, body {
+	height: 100vh;
+}
+
+sacchon-app-inspect-doctor {
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+sacchon-app-inspect-patient {
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+sacchon-app-patient {
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+sacchon-app-inspect-non-active {
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+sacchon-app-inspect-doctor-list {
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+sacchon-app-all-patients-db {
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+sacchon-app-all-doctors-db {
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+sacchon-app-available-patients {
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.notification-index {
+	line-height: 1.5;
+}

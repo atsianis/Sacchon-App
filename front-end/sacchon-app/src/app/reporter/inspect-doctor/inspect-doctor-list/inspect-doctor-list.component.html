@@ -1,0 +1,50 @@
+<div class="container-fluid">
+	<div class="d-flex row w-100 m-0 justify-content-center align-items-start">
+		<div class="col-3">
+			<div class="card h-100">
+				<div class="card-body">
+					<h5 class="card-title text-center">Doctor profile
+						<br>
+						<br>
+						<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn.onlinewebfonts.com%2Fsvg%2Fimg_299586.png&f=1&nofb=1"
+							alt="" width="100" height="100">
+					</h5>
+					<div class="row align-items-start py-5">
+						<div class="col-6"><strong>First Name:</strong></div>
+						<div class="col-6">{{ doctor.firstName }}</div>
+						<div class="col-6"><strong>Last Name:</strong></div>
+						<div class="col-6">{{ doctor.lastName }}</div>
+						<div class="col-6"><strong>Email:</strong></div>
+						<div class="col-6">{{ doctor.email }}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-9">
+			<div class="card">
+				<div class="card-body">
+					<table datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions"
+						class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>User ID</th>
+								<th>Consultation</th>
+								<th>Time</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let consultation of consultations">
+								<td>{{ consultation.id }}</td>
+								<!-- WIP: get patient full name -->
+								<td>{{ consultation.patient_id }}</td>
+								<td>{{ consultation.comment }}</td>
+								<td>{{ birthDate(consultation.timeCreated) }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

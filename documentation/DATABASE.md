@@ -1,17 +1,16 @@
 | Patients             | Variable type    |
 | :-------------:      |  :-------------: |
 | id                   | Int, primary key |
-| name                 | String           |
+| firstName            | String           |
 | email                | String           |
-| surname              | String           |
+| lastName             | String           |
 | password             | String           |
 | dob                  | Date             |
 | gender               | Enum             |
 | doctor_id            | Int              |
-| can_be_examined      | Boolean          |
-| consultation         | JSON             |
-| last_active          | Date             |
-| is_deleted           | Boolean          |
+| canBeEexamined       | Boolean          |
+| lastActive           | Date             |
+| isDeleted            | Boolean          |
 
 
 --------
@@ -19,23 +18,21 @@
 | Doctors         | Variable type    |
 | :-------------: |  :-------------: |
 | id              | Int, primary key |
-| is_deleted      | Boolean          |
-| name            | String           |
+| isDeleted       | Boolean          |
+| firstName       | String           |
 | email           | String           |
-| surname         | String           |
+| lastName        | String           |
 | password        | String           |
-| patientList     | JSON             |
-| consults        | JSON             |
-| last_active     | Date             |
+| lastActive      | Date             |
 
 --------
 
 | Chiefs          | Variable type    |
 | :-------------: |  :-------------: |
 | id              | Int, primary key |
-| name            | String           |
+| firstName       | String           |
 | email           | String           |
-| surname         | String           |
+| lastName        | String           |
 | password        | String           |
 
 --------
@@ -43,9 +40,9 @@
 | Patient_records | Variable type    |
 | :-------------: |  :-------------: |
 | id              | Int, primary key |
-| sacchon         | Float            |
-| calories        | Float            |
-| created_at      | Date             |
+| glycose         | Float            |
+| carbs           | Float            |
+| timeCreated     | Date             |
 | patient_id      | Int              |
 
 ----
@@ -55,7 +52,6 @@
 | id              | Int, primary key |
 | patient_id      | Int              |
 | doctor_id       | Int              |
-| created_at      | Date             |
-| patient_records | List of Ids      |
+| timeCreated     | Date             |
 | comment         | String           |
-| seen_by_patient | Date             |
+| seenByPatient   | Date             |

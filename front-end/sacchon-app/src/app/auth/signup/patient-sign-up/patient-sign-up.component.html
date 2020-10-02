@@ -1,0 +1,89 @@
+<div class="container-fluid h-100">
+	<div class="row align-items-center justify-content-center h-100">
+		<div class="row align-items-center justify-content-center h-100">
+			<div class="card bg-light" style="width: 20rem;">
+				<div class="card-body">
+					<h5 class="card-title text-center">Sign up as Patient</h5>
+					<form class="py-3" [formGroup]="patientSignUp">
+						<div class="form-group">
+							<input placeholder="Email" required formControlName="email" type="text"
+								class="mt-3 form-control" id="mail"
+								[ngClass]="(patientSignUp.get('email').errors?.required && patientSignUp.get('email').touched)? 'border-danger'  : ''">
+							<small
+								*ngIf="patientSignUp.get('email').errors?.required && patientSignUp.get('email').touched"
+								class="text-danger py-0 my-0">
+								An email address is required
+							</small>
+							<small
+								*ngIf="patientSignUp.get('email').errors?.email && patientSignUp.get('email').touched"
+								class="text-danger py-0 my-0">
+								Must be a valid email address
+							</small>
+							<input placeholder="First name" required formControlName="firstName" type="text"
+								class="mt-3 form-control"
+								[ngClass]="(patientSignUp.get('firstName').errors?.required && patientSignUp.get('firstName').touched)? 'border-danger'  : ''"
+								id="firstName">
+							<small
+								*ngIf="patientSignUp.get('firstName').errors?.required && patientSignUp.get('firstName').touched"
+								class="text-danger py-0 my-0">
+								First name is required
+							</small>
+							<input placeholder="Last name" required formControlName="lastName" type="text"
+								class="mt-3 form-control"
+								[ngClass]="(patientSignUp.get('lastName').errors?.required && patientSignUp.get('lastName').touched)? 'border-danger'  : ''"
+								id="lastName">
+							<small
+								*ngIf="patientSignUp.get('lastName').errors?.required && patientSignUp.get('lastName').touched"
+								class="text-danger py-0 my-0">
+								Last name is required
+							</small>
+							<input placeholder="Date of Birth" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()"
+								[minDate]="{year: 1950, month: 1, day: 1}" [maxDate]="{year: 2016, month: 12, day: 31}"
+								required formControlName="dob" type="text" class="mt-3 form-control"
+								[ngClass]="(patientSignUp.get('dob').errors?.required && patientSignUp.get('dob').touched)? 'border-danger'  : ''"
+								id="dob">
+							<small *ngIf="patientSignUp.get('dob').errors?.required && patientSignUp.get('dob').touched"
+								class="text-danger py-0 my-0">
+								Date of Birth is required
+							</small>
+							<select class="mt-3 form-control" formControlName="gender" name="gender">
+								<option [ngValue]="null" selected disabled aria-selected="true">Select A Gender
+								</option>
+								<option *ngFor="let gender of selectGender;" [ngValue]="gender">{{ gender }}
+								</option>
+							</select>
+							<small
+								*ngIf="patientSignUp.get('gender').errors?.required && patientSignUp.get('gender').touched"
+								class="text-danger py-0 my-0">
+								Please select a gender
+							</small>
+							<input placeholder="Password" required formControlName="password" type="password"
+								class="mt-3 form-control"
+								[ngClass]="(patientSignUp.get('password').errors?.required && patientSignUp.get('password').touched)? 'border-danger'  : ''"
+								id="password">
+							<small
+								*ngIf="patientSignUp.get('password').errors?.required && patientSignUp.get('password').touched"
+								class="text-danger py-0 my-0">
+								A password is required
+							</small>
+							<small
+								*ngIf="patientSignUp.get('password').errors?.minlength && patientSignUp.get('password').touched"
+								class="text-danger py-0 my-0">
+								Password must be at least 8 characters long
+							</small>
+							<input placeholder="Confirm Password" required formControlName="passwordconfirm"
+								type="password" class="mt-3 form-control" [ngClass]="
+								patientSignUp.get('passwordconfirm').value !== patientSignUp.get('password').value &&
+								patientSignUp.get('passwordconfirm').touched ? 'border-danger' : ''" id=" passwordconfirm">
+							<small *ngIf="patientSignUp.get('passwordconfirm').value !== patientSignUp.get('password').value
+								&& patientSignUp.get('passwordconfirm').touched" class="text-danger py-0 my-0">
+								Passwords do not match
+							</small>
+						</div>
+						<button class="btn btn-primary btn-block py-2" (click)="signUp()">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
