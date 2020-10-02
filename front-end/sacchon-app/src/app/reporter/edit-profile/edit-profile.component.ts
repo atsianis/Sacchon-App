@@ -26,7 +26,6 @@ export class EditProfileComponent implements OnInit {
 		passwordconfirm: new FormControl(null)
 	});
 
-
 	ngOnInit(): void {
 		this.initializeForm();
 	 }
@@ -39,12 +38,21 @@ export class EditProfileComponent implements OnInit {
 
 		this.reporterService.editProfile(firstName, lastName, email, password).subscribe(response => {
 			console.log(response);
-			// this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
-			// 	timeOut: 2000,
-			// 	positionClass: 'toast-top-center'
-			// }).onHidden.toPromise().then(_ => {
-			// 	this.router.navigate(['/reporter'])
-			// });
+			if (response.status == 200) {
+				this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
+					timeOut: 2000,
+					positionClass: 'toast-top-center'
+				}).onHidden.toPromise().then(_ => {
+					this.router.navigate(['/reporter'])
+				});
+			} else {
+				this.toastr.success(response.description, 'Fail', {
+					timeOut: 2000,
+					positionClass: 'toast-top-center'
+				}).onHidden.toPromise().then(_ => {
+					this.router.navigate(['/reporter'])
+				});
+			}
 		});
 	}
 
