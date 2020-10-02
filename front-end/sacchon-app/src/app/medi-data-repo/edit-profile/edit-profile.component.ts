@@ -1,10 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MediDataRepoService } from '../medi-data-repo.service';
 
 @Component({
@@ -14,7 +13,12 @@ import { MediDataRepoService } from '../medi-data-repo.service';
 })
 export class PatientEditProfileComponent implements OnInit {
 
-	constructor(private router: Router, private toastr: ToastrService, private http: HttpClient, private patientService: MediDataRepoService, private modalService: NgbModal) { }
+	constructor(
+		private router: Router,
+		private toastr: ToastrService,
+		private patientService: MediDataRepoService,
+		private modalService: NgbModal
+	) { }
 
 	id = sessionStorage.getItem('id');
 	firstName = sessionStorage.getItem('firstName');
@@ -25,7 +29,7 @@ export class PatientEditProfileComponent implements OnInit {
 	isDeleted = sessionStorage.getItem('isDeleted');
 	doctor_id = sessionStorage.getItem('doctor_id');
 
-	modal = new FormControl;
+	modal = new FormControl ();
 
 	patientEdit = new FormGroup({
 		firstName: new FormControl(null, [Validators.required]),
@@ -41,7 +45,7 @@ export class PatientEditProfileComponent implements OnInit {
 		this.initializeForm();
 	}
 
-	edit(): void {
+	editProfile(): void {
 		const firstName = this.patientEdit.get('firstName').value;
 		const lastName = this.patientEdit.get('lastName').value;
 		const email = this.patientEdit.get('email').value;
@@ -72,12 +76,12 @@ export class PatientEditProfileComponent implements OnInit {
 		});
 	}
 
-	cancel(): void {
+	cancelEdit(): void {
 		this.router.navigate(['/medidatarepo/profile/']);
 	}
 
-	open(content) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+	openDeleteModal(content): void {
+		this.modalService.open(content, { ariaLabelledBy: 'delete-account-modal' });
 	}
 
 	softDelete(): void {

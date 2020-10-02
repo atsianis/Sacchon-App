@@ -31,7 +31,7 @@ export class EditProfileComponent implements OnInit {
 		this.initializeForm();
 	 }
 
-	edit(): void {
+	editProfile(): void {
 		const firstName = this.reporterEdit.get('firstName').value;
 		const lastName = this.reporterEdit.get('lastName').value;
 		const email = this.reporterEdit.get('email').value;
@@ -48,7 +48,7 @@ export class EditProfileComponent implements OnInit {
 		});
 	}
 
-	cancel(): void {
+	cancelEdit(): void {
 		this.router.navigate(['/reporter']);
 	}
 
