@@ -32,7 +32,6 @@ export class AllPatientsDbComponent implements OnInit {
 
 	getPatientsDB(): void {
 		this.reporterService.getAllPatientsFromDatabase().subscribe(patients => {
-			console.log(patients);
 			this.patients = patients.data;
 			this.dtTrigger.next();
 		}, (err) => {
@@ -45,6 +44,6 @@ export class AllPatientsDbComponent implements OnInit {
 	}
 
 	lastActive(date: number): string {
-		return this.reporterService.lastActive(date)
+		return this.reporterService.lastActive(date);
 	}
 }

@@ -6,11 +6,11 @@ describe('MediDataRepoGuard', () => {
   let guard: MediDataRepoGuard;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    guard = TestBed.inject(MediDataRepoGuard);
+	TestBed.configureTestingModule({});
+	guard = TestBed.inject(MediDataRepoGuard);
   });
 
   it('should be created', () => {
-    expect(guard).toBeTruthy();
+	expect(guard).toBeTruthy();
   });
 });

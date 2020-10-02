@@ -15,10 +15,9 @@ public class ConsultationRepository {
     }
 
     /**
-     *
      * @param id
      * @return Optional of Consultation
-     *
+     * <p>
      * Find a consultation by its unique ID
      */
     public Optional<Consultations> findById(Long id) {
@@ -28,9 +27,8 @@ public class ConsultationRepository {
     }
 
     /**
-     *
      * @return List of Consultations
-     *
+     * <p>
      * A List of all Consultations persisted in the Database
      */
     public List<Consultations> findAll() {
@@ -38,10 +36,9 @@ public class ConsultationRepository {
     }
 
     /**
-     *
      * @param id
      * @return List of Consultations
-     *
+     * <p>
      * Find the consultations of a specific patient
      */
     public List<Consultations> findPatientsConsultations(long id) {
@@ -52,10 +49,9 @@ public class ConsultationRepository {
     }
 
     /**
-     *
      * @param id
      * @return List of Consultations
-     *
+     * <p>
      * Find the consultations of a specific doctor
      */
     public List<Consultations> findDoctorConsultations(long id) {
@@ -66,10 +62,9 @@ public class ConsultationRepository {
     }
 
     /**
-     *
      * @param consultation
      * @return Optional of Consultation
-     *
+     * <p>
      * Persist a Consultation into the Database
      */
     public Optional<Consultations> save(Consultations consultation) {
@@ -87,10 +82,9 @@ public class ConsultationRepository {
     }
 
     /**
-     *
      * @param consultation
      * @return Optional of Consultation
-     *
+     * <p>
      * Update the comment of an existing consultation
      * Available for every doctor who wants to change an already saved consultation
      */

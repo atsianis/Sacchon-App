@@ -11,18 +11,23 @@ import { DoctorAdviceService } from '../../doctor-advice.service';
 })
 export class AddConsultComponent implements OnInit {
 
-	constructor(private doctorService: DoctorAdviceService, private route: ActivatedRoute, private toastr: ToastrService, private router: Router) { }
+	constructor(
+		private doctorService: DoctorAdviceService,
+		private route: ActivatedRoute,
+		private toastr: ToastrService,
+		private router: Router
+	) { }
 
 	createConsultForm = new FormGroup({
 		comment: new FormControl(null, [Validators.required])
-	})
+	});
 
 	ngOnInit(): void {
 	}
 
 	submitConsultation(): any {
 		const doctor_id = sessionStorage.getItem('id');
-		const comment = this.createConsultForm.get('comment').value
+		const comment = this.createConsultForm.get('comment').value;
 
 		this.route.params.subscribe(params => {
 			this.doctorService.addConsultation(doctor_id, params.patient_id, comment).subscribe(response => {
@@ -46,8 +51,7 @@ export class AddConsultComponent implements OnInit {
 						console.log(error);
 					});
 				}
-				
-			})
-		})		
+			});
+		});
 	}
 }

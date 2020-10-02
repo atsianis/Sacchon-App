@@ -8,6 +8,7 @@ import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -16,12 +17,18 @@ public class InactiveDoctorsImpl extends ServerResource implements InactiveDocto
 
     public static final Logger LOGGER = Engine.getLogger(InactiveDoctorsImpl.class);
     private DoctorRepository doctorRepository;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease() {
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising inactives doctors starts");
         try {
-            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
+            doctorRepository = new DoctorRepository(em);
         } catch (Exception e) {
             e.printStackTrace();
         }

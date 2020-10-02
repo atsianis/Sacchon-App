@@ -14,6 +14,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -21,12 +22,18 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
     public static final Logger LOGGER = Engine.getLogger(DoctorResourceImpl.class);
     private long doctor_id;
     private DoctorRepository doctorRepository;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease() {
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising doctor resource starts");
         try {
-            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
+            doctorRepository = new DoctorRepository(em);
             doctor_id = Long.parseLong(getAttribute("doctor_id"));
         } catch (Exception e) {
             doctor_id = -1;
@@ -78,7 +85,7 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
         try {
             Optional<Doctors> doctorOut = doctorRepository.findById(doctor_id);
             setExisting(doctorOut.isPresent());
-            Doctors doctorToBePersisted ;
+            Doctors doctorToBePersisted;
             // If patient exists, we update it.
             if (isExisting()) {
                 LOGGER.finer("Update patient.");
@@ -93,10 +100,10 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
                 }
             } else {
                 LOGGER.finer("Patient does not exist.");
-                return new ResponseRepresentation<>(404, "Patient not found", null);
+                return new ResponseRepresentation<>(404, "Something went wrong", null);
             }
             LOGGER.finer("Patient successfully updated.");
-            return new ResponseRepresentation<>(200, "Patient created", new DoctorRepresentation(doctorOut.get()));
+            return new ResponseRepresentation<>(200, "Doctor created", new DoctorRepresentation(doctorOut.get()));
         } catch (Exception ex) {
             throw new ResourceException(ex);
         }
@@ -105,13 +112,13 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
     @NotNull
     private Doctors getDoctorToBePersisted(CreatedOrUpdatedDoctorRepresentation doctorRepresentation, Optional<Doctors> patientOut) {
         Doctors doctor = patientOut.get();
-        if (!(doctorRepresentation.getPassword()==null))
+        if (!(doctorRepresentation.getPassword() == null))
             doctor.setPassword((doctorRepresentation.getPassword()));
-        if (!(doctorRepresentation.getFirstName()==null))
+        if (!(doctorRepresentation.getFirstName() == null))
             doctor.setFirstName(doctorRepresentation.getFirstName());
-        if (!(doctorRepresentation.getLastName()==null))
+        if (!(doctorRepresentation.getLastName() == null))
             doctor.setLastName(doctorRepresentation.getLastName());
-        if (!(doctorRepresentation.getEmail()==null))
+        if (!(doctorRepresentation.getEmail() == null))
             doctor.setEmail(doctorRepresentation.getEmail());
 
         return doctor;

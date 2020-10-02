@@ -11,10 +11,12 @@ export class DoctorAdviceService {
 	constructor(private http: HttpClient) { }
 
 	lastActive(date: number): string {
-		if (moment().diff(date, "days") > 0)
-			return `${moment().diff(date, "days")} days ago`;
-		else
-			return `${moment().diff(date, "hours")} hours ago`;
+		if (moment().diff(date, 'days') > 0) {
+			return `${moment().diff(date, 'days')} days ago`;
+		}
+		else {
+			return `${moment().diff(date, 'hours')} hours ago`;
+		}
 	}
 
 	birthDate(date: number): string {
@@ -22,63 +24,63 @@ export class DoctorAdviceService {
 	}
 
 	getCurrentPatientRecords(patient_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/allpatientrecords`)
+		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/allpatientrecords`);
 	}
 
 	getPatientById(patient_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}`)
+		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}`);
 	}
 
 	getAllDoctorsPatients(doctor_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/mypatients`)
+		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/mypatients`);
 	}
 
 	getAvailablePatients(doctor_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/available-patients`)
+		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/available-patients`);
 	}
 
 	getConsultablePatients(doctor_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/consultablepatients`)
+		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/consultablepatients`);
 	}
 
 	// Consultation Services
 	getPatientConsultations(patient_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/consultations`)
+		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/consultations`);
 	}
 
 	getConsultationById(consultation_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/consultation/${consultation_id}`)
+		return this.http.get<any>(`http://localhost:9000/v1/consultation/${consultation_id}`);
 	}
 
 	editConsultation(consultation_id, doctor_id, comment): Observable<any> {
 		return this.http.put<any>(`http://localhost:9000/v1/consultation/${consultation_id}/doctor/${doctor_id}`, {
-			comment: comment
-		})
+			comment
+		});
 	}
 
 	addConsultation(doctor_id, patient_id, comment): Observable<any> {
 		return this.http.post<any>(`http://localhost:9000/v1/consultation/doctor/${doctor_id}/patient/${patient_id}`, {
-			comment: comment
-		})
+			comment
+		});
 	}
 
 	undertakePatient(doctor_id, patient_id): Observable<any> {
 		return this.http.put<any>(`http://localhost:9000/v1/doctor/undertake/patient`, {
-			doctor_id: doctor_id,
-			patient_id: patient_id
-		})
+			doctor_id,
+			patient_id
+		});
 	}
 
 	softDelete(doctor_id): Observable<any> {
-		return this.http.put<any>(`http://localhost:9000/v1/doctor/${doctor_id}/settings/softDelete`, null)
+		return this.http.put<any>(`http://localhost:9000/v1/doctor/${doctor_id}/settings/softDelete`, null);
 	}
 
-	editDoctorProfile(doctor_id, firstName, lastName, email, password):Observable<any> {
+	editDoctorProfile(doctor_id, firstName, lastName, email, password): Observable<any> {
 		return this.http.put<any>(`http://localhost:9000/v1/doctor/${doctor_id}`, {
-			firstName: firstName,
-			lastName: lastName,
-			email: email,
-			password: password
-		})
+			firstName,
+			lastName,
+			email,
+			password
+		});
 	}
 }

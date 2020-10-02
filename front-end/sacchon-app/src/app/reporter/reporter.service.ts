@@ -21,58 +21,60 @@ export class ReporterService {
 
 	// Patient Services
 	getCurrentPatientRecords(patient_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/allpatientrecords`)
+		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/allpatientrecords`);
 	}
 
 	getPatientById(patient_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}`)
+		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}`);
 	}
 
 	// Doctor Services
 	getDoctorById(doctor_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}`)
+		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}`);
 	}
 
 	getCurrentDoctorConsultations(doctor_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/consultations`)
+		return this.http.get<any>(`http://localhost:9000/v1/doctor/${doctor_id}/consultations`);
 	}
 
 
 	// Entire Database Services
 	getAllDoctorsFromDatabase(): Observable<any> {
-		return this.http.get<any>('http://localhost:9000/v1/chief/alldoctors')
+		return this.http.get<any>('http://localhost:9000/v1/chief/alldoctors');
 	}
 
 	getAllPatientsFromDatabase(): Observable<any> {
-		return this.http.get<any>('http://localhost:9000/v1/chief/allpatients')
+		return this.http.get<any>('http://localhost:9000/v1/chief/allpatients');
 	}
 
 	// Inactive Services
 	getInactiveDoctors(): Observable<any> {
-		return this.http.get<any>('http://localhost:9000/v1/chief/inactivedoctors')
+		return this.http.get<any>('http://localhost:9000/v1/chief/inactivedoctors');
 	}
 
 	getInactivePatients(): Observable<any> {
-		return this.http.get<any>('http://localhost:9000/v1/chief/inactivepatients')
+		return this.http.get<any>('http://localhost:9000/v1/chief/inactivepatients');
 	}
 
 	lastActive(date: number): string {
-		if (moment().diff(date, "days") > 0)
-			return `${moment().diff(date, "days")} days ago`;
-		else
-			return `${moment().diff(date, "hours")} hours ago`;
+		if (moment().diff(date, 'days') > 0) {
+			return `${moment().diff(date, 'days')} days ago`;
+		}
+		else {
+			return `${moment().diff(date, 'hours')} hours ago`;
+		}
 	}
 
 	getConsultablePatients(): Observable<any> {
-		return this.http.get<any>('http://localhost:9000/v1/chief/consultablepatients')
+		return this.http.get<any>('http://localhost:9000/v1/chief/consultablepatients');
 	}
 
 	editProfile(firstName, lastName, email, password): Observable<any> {
 		return this.http.put(`http://localhost:9000/v1/chief/settings/update`, {
-			firstName: firstName,
-			lastName: lastName,
-			email: email,
-			password: password
-		})
+			firstName,
+			lastName,
+			email,
+			password
+		});
 	}
 }

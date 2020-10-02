@@ -38,8 +38,8 @@ import { ConsultablePatientsComponent } from './consultable-patients/consultable
 		DataTablesModule,
 		ChartsModule,
 		HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
+		FormsModule,
+		ReactiveFormsModule,
 		RouterModule.forChild([
 			{ path: 'reporter', component: ReporterComponent , canActivate: [ ReporterGuard ] },
 			{ path: 'reporter/doctors', component: InspectDoctorComponent , canActivate: [ ReporterGuard ] },

@@ -6,11 +6,11 @@ describe('DoctorAdviceGuard', () => {
   let guard: DoctorAdviceGuard;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    guard = TestBed.inject(DoctorAdviceGuard);
+	TestBed.configureTestingModule({});
+	guard = TestBed.inject(DoctorAdviceGuard);
   });
 
   it('should be created', () => {
-    expect(guard).toBeTruthy();
+	expect(guard).toBeTruthy();
   });
 });

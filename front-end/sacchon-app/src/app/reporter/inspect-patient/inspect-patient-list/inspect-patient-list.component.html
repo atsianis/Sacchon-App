@@ -1,5 +1,5 @@
-<div class="container-fluid">
-	<div class="row">
+<div class="container-fluid h-100">
+	<div class="row justify-content-center py-3 align-items-between h-100">
 		<div class="col-3">
 			<div class="card h-100">
 				<div class="card-body">
@@ -27,8 +27,7 @@
 				<div class="card-body">
 					<canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
 						[colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
-						[plugins]="lineChartPlugins" (chartHover)="chartHovered($event)"
-						(chartClick)="chartClicked($event)">
+						[plugins]="lineChartPlugins">
 					</canvas>
 				</div>
 			</div>

@@ -21,14 +21,14 @@ export class MediDataRepoLoginComponent implements OnInit {
 
 	ngOnInit(): void {
 	}
-	
+
 	submitLogin(): any {
-		const email =  this.patientLoginForm.get('email').value
-		const password =  this.patientLoginForm.get('password').value
+		const email =  this.patientLoginForm.get('email').value;
+		const password =  this.patientLoginForm.get('password').value;
 
 		this.authService.patientLogin(email, password).subscribe(response => {
-			this.handleLogin(response)
-		})
+			this.handleLogin(response);
+		});
 	}
 
 	handleLogin(response): void {
@@ -48,12 +48,12 @@ export class MediDataRepoLoginComponent implements OnInit {
 				sessionStorage.setItem('gender', response.data.gender);
 				sessionStorage.setItem('userType', 'patient');
 				this.router.navigate(['medidatarepo/profile']);
-			})
+			});
 		} else {
 			this.toastr.error('Invalid credentials', 'Login Unsuccessful', {
 				timeOut: 2000,
 				positionClass: 'toast-top-center'
-			})
+			});
 		}
 	}
 }

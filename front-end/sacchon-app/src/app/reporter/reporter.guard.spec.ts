@@ -6,11 +6,11 @@ describe('ReporterGuard', () => {
   let guard: ReporterGuard;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    guard = TestBed.inject(ReporterGuard);
+	TestBed.configureTestingModule({});
+	guard = TestBed.inject(ReporterGuard);
   });
 
   it('should be created', () => {
-    expect(guard).toBeTruthy();
+	expect(guard).toBeTruthy();
   });
 });

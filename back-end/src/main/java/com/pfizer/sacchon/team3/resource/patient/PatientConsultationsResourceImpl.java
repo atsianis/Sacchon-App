@@ -11,6 +11,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,15 +22,21 @@ public class PatientConsultationsResourceImpl extends ServerResource implements 
     public static final Logger LOGGER = Engine.getLogger(PatientConsultationsResourceImpl.class);
     private ConsultationRepository consultationRepository;
     private PatientRepository patientRepository;
-    private long id;
+    private long patient_id;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease() {
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Patients Consultations Resource starts");
         try {
-            consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
-            patientRepository = new PatientRepository(JpaUtil.getEntityManager());
-            id = Long.parseLong(getAttribute("patient_id"));
+            consultationRepository = new ConsultationRepository(em);
+            patientRepository = new PatientRepository(em);
+            patient_id = Long.parseLong(getAttribute("patient_id"));
         } catch (Exception ex) {
             throw new ResourceException(ex);
         }
@@ -40,13 +47,13 @@ public class PatientConsultationsResourceImpl extends ServerResource implements 
     public ResponseRepresentation<List<ConsultationRepresentation>> getPatientsConsultations() {
         LOGGER.info("Retrieve patient's consultations");
         try {
-            Optional<Patients> opPatient = patientRepository.findById(id);
+            Optional<Patients> opPatient = patientRepository.findById(patient_id);
             setExisting(opPatient.isPresent());
             if (!isExisting()) {
-                LOGGER.config("patient id does not exist:" + id);
+                LOGGER.config("patient id does not exist:" + patient_id);
                 return new ResponseRepresentation<>(404, "Consults not found", null);
             } else {
-                List<Consultations> patientsConsultations = consultationRepository.findPatientsConsultations(id);
+                List<Consultations> patientsConsultations = consultationRepository.findPatientsConsultations(patient_id);
                 List<ConsultationRepresentation> result = new ArrayList<>();
                 for (Consultations c : patientsConsultations)
                     result.add(new ConsultationRepresentation(c));

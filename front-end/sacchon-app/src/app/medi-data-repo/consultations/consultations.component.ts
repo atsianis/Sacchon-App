@@ -16,7 +16,7 @@ export class ConsultationsComponent implements OnInit {
 	constructor(private route: ActivatedRoute, private patientService: MediDataRepoService, private toastr: ToastrService) { }
 	id: string;
 	consultations: any;
-	returnDate : any;
+	returnDate: any;
 
 	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
@@ -24,7 +24,7 @@ export class ConsultationsComponent implements OnInit {
 
 
 	ngOnInit(): void {
-		this.consultations = []
+		this.consultations = [];
 		this.getConsultations();
 		this.dtOptions = {
 			order: [0, 'asc'],
@@ -35,20 +35,22 @@ export class ConsultationsComponent implements OnInit {
 
 	getConsultations(): void {
 		this.patientService.getConsultations(sessionStorage.getItem('id')).subscribe(response => {
-			if (response.status == 200)
+			if (response.status == 200) {
 				this.consultations = response.data;
-			if (response.status == 404)
+			}
+			if (response.status == 404) {
 				this.toastr.error(response.description, 'Error', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'
-				})
+				});
+			}
 		}, (err) => {
 			console.log('-----> err', err);
 		});
 	}
 
 	timeSeen(date): string {
-		return moment(parseInt(date)).format('MMMM Do YYYY, h:mm:ss a')
+		return moment(parseInt(date)).format('MMMM Do YYYY, h:mm:ss a');
 	}
 
 	markAsRead(consultation_id): void {
@@ -58,16 +60,16 @@ export class ConsultationsComponent implements OnInit {
 				positionClass: 'toast-top-center'
 			}).onHidden.toPromise().then(_ => {
 				location.reload();
-			})
-		})
+			});
+		});
 	}
 
 	consultationFromDate(date: number): string{
-		return  `${moment(date).format('MMMM Do')}`
+		return  `${moment(date).format('MMMM Do')}`;
 	}
 
 	consultationToDate(date: number): string{
-		return  `${moment(date).add(30, 'days').format('MMMM Do')}`
+		return  `${moment(date).add(30, 'days').format('MMMM Do')}`;
 	}
-	
+
 }

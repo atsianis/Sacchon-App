@@ -11,9 +11,9 @@ export class MediDataRepoService {
 
 	submitPatientRecord(patient_id, glycose, carbs): Observable<any> {
 		return this.http.post(`http://localhost:9000/v1/patient/${patient_id}/addpatientrecord`, {
-			glycose: glycose,
-			carbs: carbs
-		})
+			glycose,
+			carbs
+		});
 	}
 
 	getPatientRecords(patient_id): Observable<any> {
@@ -26,30 +26,30 @@ export class MediDataRepoService {
 
 	editPatientRecord(patient_id, record_id, glycose, carbs): Observable<any> {
 		return this.http.put<any>(`http://localhost:9000/v1/patient/${patient_id}/patientRecord/${record_id}`, {
-			glycose: glycose,
-			carbs: carbs
-		})
+			glycose,
+			carbs
+		});
 	}
 
 	getConsultations(patient_id): Observable<any> {
-		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/consultations`)
+		return this.http.get<any>(`http://localhost:9000/v1/patient/${patient_id}/consultations`);
 	}
 
 	editProfile(patient_id, firstName, lastName, email, dob, password): Observable<any> {
 		return this.http.put<any>(`http://localhost:9000/v1/patient/${patient_id}/settings`, {
-			firstName: firstName,
-			lastName: lastName,
-			email: email,
-			dob: dob,
-			password: password,
-		})
+			firstName,
+			lastName,
+			email,
+			dob,
+			password,
+		});
 	}
-	
+
 	softDelete(patient_id): Observable<any> {
-		return this.http.put(`http://localhost:9000/v1/patient/${patient_id}/settings/softDelete`, null)
+		return this.http.put(`http://localhost:9000/v1/patient/${patient_id}/settings/softDelete`, null);
 	}
 
 	markConsultationAsRead(patient_id, consultation_id): Observable<any> {
-		return this.http.put(`http://localhost:9000/v1/patient/${patient_id}/consultation/${consultation_id}/read`, null)
+		return this.http.put(`http://localhost:9000/v1/patient/${patient_id}/consultation/${consultation_id}/read`, null);
 	}
 }

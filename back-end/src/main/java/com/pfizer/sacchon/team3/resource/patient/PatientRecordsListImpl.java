@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,15 +26,21 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     public static final Logger LOGGER = Engine.getLogger(PatientRecordsListImpl.class);
     private PatientRecordRepository patientRecordRepository;
     private PatientRepository patientRepository;
-    long id;
+    long patient_id;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease() {
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising patient record resource L starts");
         try {
-            patientRecordRepository = new PatientRecordRepository(JpaUtil.getEntityManager());
-            patientRepository = new PatientRepository(JpaUtil.getEntityManager());
-            id = Long.parseLong(getAttribute("patient_id"));
+            patientRecordRepository = new PatientRecordRepository(em);
+            patientRepository = new PatientRepository(em);
+            patient_id = Long.parseLong(getAttribute("patient_id"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,7 +51,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     public ResponseRepresentation<List<PatientRecordRepresentation>> getAllPatientRecords() {
         LOGGER.finer("Select all records.");
         try {
-            List<PatientRecords> patientRecords = patientRecordRepository.findPatientRecordsByPatient(id);
+            List<PatientRecords> patientRecords = patientRecordRepository.findPatientRecordsByPatient(patient_id);
             List<PatientRecordRepresentation> result = new ArrayList<>();
 
             for (PatientRecords p : patientRecords)
@@ -62,11 +69,11 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
         if (patientRecordRepresentation.getCarbs() == 0 || patientRecordRepresentation.getGlycose() == 0)
             return new ResponseRepresentation<>(422, "Bad Entity", null);
         // get patient
-        Optional<Patients> opatient = patientRepository.findById(id);
-        if (opatient.isPresent()) {
+        Optional<Patients> optionalPatient = patientRepository.findById(patient_id);
+        if (optionalPatient.isPresent()) {
             // Check entity
             // Convert to PatientRepresentation and validate
-            Patients patient = opatient.get();
+            Patients patient = optionalPatient.get();
             try {
                 ResourceValidator.notNull(patientRecordRepresentation);
                 ResourceValidator.validate(setPatientRepresentation(patient));
@@ -80,9 +87,9 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
                 PatientRecords patientRecordsIn = getPatientRecordsIn(patientRecordRepresentation, patient);
 
                 long lastConsultationInDays = patientRepository.lastConsultationInDays(patient.getConsultations());
-                boolean lastConsultationLessThanAMonthAgo=true;
-                if (patient.getConsultations().size()!=0)
-                    lastConsultationLessThanAMonthAgo = ( lastConsultationInDays <= 30 );
+                boolean lastConsultationLessThanAMonthAgo = true;
+                if (patient.getConsultations().size() != 0)
+                    lastConsultationLessThanAMonthAgo = (lastConsultationInDays <= 30);
                 boolean recordTimeMoreRecentThanPatientsCreationTime = patientRepository.checkPatientsCreationTime(patientRecordsIn, patient.getTimeCreated());
 
                 if (lastConsultationLessThanAMonthAgo && recordTimeMoreRecentThanPatientsCreationTime) {
@@ -98,20 +105,21 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
                     PatientRecordRepresentation result = getPatientRecordRepresentationOut(patientRecord);
                     LOGGER.finer("Record successfully added.");
 
-                    if ( lastConsultationInDays == 30 ){
-                        try{
+                    if (lastConsultationInDays == 30) {
+                        try {
                             patientRepository.updateCanBeExamined(patient);
-                        }catch(SQLException ex){
+                        } catch (SQLException ex) {
                             return new ResponseRepresentation<>(200, "Record created but could not update patient state", result);
                         }
                     }
 
                     return new ResponseRepresentation<>(200, "Record created", result);
                 } else {
-                    return new ResponseRepresentation<>(422, "Bad Record Date", null);
+                    return new ResponseRepresentation<>(422, "Cannot insert Record right now." +
+                            "Maybe you have a consultation pending !", null);
                 }
             } catch (Exception ex) {
-                return new ResponseRepresentation<>(422, "Bad Record Date", null);
+                return new ResponseRepresentation<>(422, "Could not upload data", null);
             }
         } else {
             return new ResponseRepresentation<>(404, "Not found", null);
@@ -119,9 +127,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     }
 
     /**
-     *
-     * @param patient
-     * Updates the Patient's field 'lastActive' in the database
+     * @param patient Updates the Patient's field 'lastActive' in the database
      */
     @NotNull
     private void updatePatientActivity(Patients patient) {
@@ -130,10 +136,9 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     }
 
     /**
-     *
      * @param patient
      * @return PatientRepresentation
-     *
+     * <p>
      * Convert the Patient into a PatientRepresentation in order to validate his fields
      */
     @NotNull
@@ -145,10 +150,9 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     }
 
     /**
-     *
      * @param patientRecord
      * @return PatientRecordRepresentation object
-     *
+     * <p>
      * Convert the persisted PatientRecord to the PatientRecordRepresentation
      * that will be returned to the user
      */
@@ -163,11 +167,10 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     }
 
     /**
-     *
      * @param patientRecordRepresentation
      * @param patient
      * @return PatientRecord
-     *
+     * <p>
      * Converts the input of the user into a PatientRecord object
      * that is ready to be persisted
      */

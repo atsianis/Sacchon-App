@@ -13,7 +13,7 @@ import { ReporterService } from '../../reporter.service';
 export class InspectDoctorListComponent implements OnInit {
 
 	constructor(private route: ActivatedRoute, private reporterService: ReporterService) { }
-	
+
 	dtElement: DataTableDirective;
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();

@@ -8,22 +8,29 @@ import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 public class SoftDeleteDoctorImpl extends ServerResource implements SoftDeleteDoctor {
     public static final Logger LOGGER = Engine.getLogger(SoftDeleteDoctorImpl.class);
-    private long id;
+    private long doctor_id;
     private DoctorRepository doctorRepository;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease() {
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising patient resource starts");
         try {
-            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
-            id = Long.parseLong(getAttribute("doctor_id"));
+            doctorRepository = new DoctorRepository(em);
+            doctor_id = Long.parseLong(getAttribute("doctor_id"));
         } catch (Exception e) {
-            id = -1;
+            doctor_id = -1;
         }
         LOGGER.info("Initialising patient resource ends");
     }
@@ -32,7 +39,7 @@ public class SoftDeleteDoctorImpl extends ServerResource implements SoftDeleteDo
     public ResponseRepresentation<DoctorRepresentation> softDelete() {
         LOGGER.finer("Soft Delete a doctor.");
         try {
-            Optional<Doctors> doctorsOut = doctorRepository.findById(id);
+            Optional<Doctors> doctorsOut = doctorRepository.findById(doctor_id);
             setExisting(doctorsOut.isPresent());
 
             if (isExisting()) {

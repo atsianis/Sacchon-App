@@ -26,30 +26,37 @@ export class EditProfileComponent implements OnInit {
 		passwordconfirm: new FormControl(null)
 	});
 
-
 	ngOnInit(): void {
-		this.initializeForm()
+		this.initializeForm();
 	 }
 
-	edit(): void {
-		const firstName = this.reporterEdit.get('firstName').value
-		const lastName = this.reporterEdit.get('lastName').value
-		const email = this.reporterEdit.get('email').value
-		const password = this.reporterEdit.get('password').value
+	editProfile(): void {
+		const firstName = this.reporterEdit.get('firstName').value;
+		const lastName = this.reporterEdit.get('lastName').value;
+		const email = this.reporterEdit.get('email').value;
+		const password = this.reporterEdit.get('password').value;
 
 		this.reporterService.editProfile(firstName, lastName, email, password).subscribe(response => {
-			console.log(response)
-			// this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
-			// 	timeOut: 2000,
-			// 	positionClass: 'toast-top-center'
-			// }).onHidden.toPromise().then(_ => {
-			// 	this.router.navigate(['/reporter'])
-			// });
-		})
+			if (response.status == 200) {
+				this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
+					timeOut: 2000,
+					positionClass: 'toast-top-center'
+				}).onHidden.toPromise().then(_ => {
+					this.router.navigate(['/reporter']);
+				});
+			} else {
+				this.toastr.success(response.description, 'Fail', {
+					timeOut: 2000,
+					positionClass: 'toast-top-center'
+				}).onHidden.toPromise().then(_ => {
+					this.router.navigate(['/reporter']);
+				});
+			}
+		});
 	}
 
-	cancel(): void {
-		this.router.navigate(['/reporter'])
+	cancelEdit(): void {
+		this.router.navigate(['/reporter']);
 	}
 
 	initializeForm(): void {

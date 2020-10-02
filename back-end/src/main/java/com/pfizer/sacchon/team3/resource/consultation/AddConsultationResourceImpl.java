@@ -13,6 +13,7 @@ import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedConsultRepresenta
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -24,14 +25,20 @@ public class AddConsultationResourceImpl extends ServerResource implements AddCo
     private PatientRepository patientRepository;
     private DoctorRepository doctorRepository;
     private ConsultationRepository consultationRepository;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease() {
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising doctor resource starts");
         try {
-            patientRepository = new PatientRepository(JpaUtil.getEntityManager());
-            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
-            consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
+            patientRepository = new PatientRepository(em);
+            doctorRepository = new DoctorRepository(em);
+            consultationRepository = new ConsultationRepository(em);
             doctor_id = Long.parseLong(getAttribute("doctor_id"));
             patient_id = Long.parseLong(getAttribute("patient_id"));
         } catch (Exception e) {
@@ -66,18 +73,18 @@ public class AddConsultationResourceImpl extends ServerResource implements AddCo
             patient = optionalPatient.get();
             LOGGER.finer("Patient found");
         }
-        if (!isMyPatient(doctor,patient))
+        if (!isMyPatient(doctor, patient))
             return new ResponseRepresentation<>(401, "Unauthorized ! Cant consult this patient", null);
 
-        if ( patientRepository.lastConsultationInDays(patient.getConsultations()) < 30 ){
-            return new ResponseRepresentation<>(401,"Unauthorized ! An active Consultation already exists",null);
+        if (patientRepository.lastConsultationInDays(patient.getConsultations()) < 30) {
+            return new ResponseRepresentation<>(401, "Unauthorized ! An active Consultation already exists or the patient is new in the system", null);
         }
         try {
             Optional<Consultations> optionalConsultaion = getConsultationPersistAttempt(consultReprIn, doctor, patient);
             setExisting(optionalConsultaion.isPresent());
-            if (isExisting()){
+            if (isExisting()) {
                 patientRepository.updateCanBeExamined(patient);
-                return new ResponseRepresentation<>(200,"Consultation Created",new ConsultationRepresentation(optionalConsultaion.get()));
+                return new ResponseRepresentation<>(200, "Consultation Created", new ConsultationRepresentation(optionalConsultaion.get()));
             }
             return new ResponseRepresentation<>(422, "Consultation could not be created", null);
         } catch (Exception ex) {
@@ -86,12 +93,11 @@ public class AddConsultationResourceImpl extends ServerResource implements AddCo
     }
 
     /**
-     *
      * @param consultReprIn
      * @param doctor
      * @param patient
      * @return Optional of type Consultation or null
-     *
+     * <p>
      * Convert the input Representation into a Consultation Entity
      * and attempt to persist in the database
      */
@@ -107,11 +113,10 @@ public class AddConsultationResourceImpl extends ServerResource implements AddCo
     }
 
     /**
-     *
      * @param doctor
      * @param patient
      * @return boolean
-     *
+     * <p>
      * check if the attempted consultation represents a valid patient-doctor relationship
      */
     private boolean isMyPatient(Doctors doctor, Patients patient) {

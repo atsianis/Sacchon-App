@@ -10,51 +10,51 @@ export class AuthService {
 	constructor(private http: HttpClient) { }
 
 	isLoggedIn(): boolean {
-		if (sessionStorage.getItem('userType'))
-			return true
+		if (sessionStorage.getItem('userType')) {
+			return true;
+		}
 
-		return false
+		return false;
 	}
 
 	doctorLogin(email, password): Observable<any> {
 		return this.http.post<any>('http://localhost:9000/v1/login/doctor', {
-			email: email,
-			password: password
-		})
+			email,
+			password
+		});
 	}
-	
+
 	patientLogin(email, password): Observable<any> {
 		return this.http.post<any>('http://localhost:9000/v1/login/patient', {
-			email: email,
-			password: password
-		})
+			email,
+			password
+		});
 	}
 
 	reporterLogin(email, password): Observable<any> {
 		return this.http.post<any>('http://localhost:9000/v1/login/chief', {
-			email: email,
-			password: password
-		})
+			email,
+			password
+		});
 	}
 
 	signUpDoctor(firstName, lastName, email, password): Observable<any> {
 		return this.http.post(`http://localhost:9000/v1/chief/register/doctor`, {
-				firstName: firstName,
-				lastName: lastName,
-				email: email,
-				password: password,
-		})
+				firstName,
+				lastName,
+				email,
+				password,
+		});
 	}
 
 	signUpPatient(firstName, lastName, dob, gender, email, password): Observable<any> {
-		console.log(firstName, lastName, dob, gender, email, password)
 		return this.http.post(`http://localhost:9000/v1/register/patient`, {
-				firstName: firstName,
-				lastName: lastName,
-				email: email,
-				password: password,
-				dob: dob,
-				gender: gender
-		})
+				firstName,
+				lastName,
+				email,
+				password,
+				dob,
+				gender
+		});
 	}
 }

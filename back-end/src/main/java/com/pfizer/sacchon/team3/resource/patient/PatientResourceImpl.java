@@ -13,6 +13,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -20,12 +21,18 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
     public static final Logger LOGGER = Engine.getLogger(PatientResourceImpl.class);
     private long patient_id;
     private PatientRepository patientRepository;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease() {
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising patient resource starts");
         try {
-            patientRepository = new PatientRepository(JpaUtil.getEntityManager());
+            patientRepository = new PatientRepository(em);
             patient_id = Long.parseLong(getAttribute("patient_id"));
         } catch (Exception e) {
             patient_id = -1;
@@ -65,16 +72,16 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
         LOGGER.finer("Update a patient.");
         // Check given entity
         try {
-                ResourceValidator.notNull(patientRepresentation);
-            } catch (BadEntityException ex) {
-                return new ResponseRepresentation<>(422, "Bad Entity", null);
-            }
+            ResourceValidator.notNull(patientRepresentation);
+        } catch (BadEntityException ex) {
+            return new ResponseRepresentation<>(422, "Bad Entity", null);
+        }
 
         LOGGER.finer("Patient checked");
         try {
             Optional<Patients> patientOut = patientRepository.findById(patient_id);
             setExisting(patientOut.isPresent());
-            Patients patientToBePersisted ;
+            Patients patientToBePersisted;
             // If patient exists, we update it.
             if (isExisting()) {
                 LOGGER.finer("Update patient.");
@@ -89,7 +96,7 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
                 }
             } else {
                 LOGGER.finer("Patient does not exist.");
-                return new ResponseRepresentation<>(404, "Patient not found", null);
+                return new ResponseRepresentation<>(404, "Something went wrong", null);
             }
             LOGGER.finer("Patient successfully updated.");
             return new ResponseRepresentation<>(200, "Patient created", new PatientRepresentation(patientOut.get()));
@@ -101,15 +108,15 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
     @NotNull
     private Patients getPatientToBePersisted(PatientRepresentation patientRepresentation, Optional<Patients> patientOut) {
         Patients patient = patientOut.get();
-        if (!(patientRepresentation.getDob()==null))
+        if (!(patientRepresentation.getDob() == null))
             patient.setDob(patientRepresentation.getDob());
-        if (!(patientRepresentation.getPassword()==null))
+        if (!(patientRepresentation.getPassword() == null))
             patient.setPassword((patientRepresentation.getPassword()));
-        if (!(patientRepresentation.getFirstName()==null))
+        if (!(patientRepresentation.getFirstName() == null))
             patient.setFirstName(patientRepresentation.getFirstName());
-        if (!(patientRepresentation.getLastName()==null))
+        if (!(patientRepresentation.getLastName() == null))
             patient.setLastName(patientRepresentation.getLastName());
-        if (!(patientRepresentation.getEmail()==null))
+        if (!(patientRepresentation.getEmail() == null))
             patient.setEmail(patientRepresentation.getEmail());
 
         return patient;

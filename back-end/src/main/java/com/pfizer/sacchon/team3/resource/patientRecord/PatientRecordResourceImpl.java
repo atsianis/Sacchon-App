@@ -10,6 +10,7 @@ import com.pfizer.sacchon.team3.resource.util.ResourceValidator;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,12 +20,18 @@ public class PatientRecordResourceImpl extends ServerResource implements Patient
     private long patient_id;
     private long record_id;
     private PatientRecordRepository patientRecordRepository;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease() {
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising patient resource starts");
         try {
-            patientRecordRepository = new PatientRecordRepository(JpaUtil.getEntityManager());
+            patientRecordRepository = new PatientRecordRepository(em);
             patient_id = Long.parseLong(getAttribute("patient_id"));
             record_id = Long.parseLong(getAttribute("record_id"));
         } catch (Exception e) {

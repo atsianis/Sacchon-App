@@ -21,7 +21,7 @@ export class PatientProfileComponent implements OnInit {
 	gender: string = sessionStorage.getItem('gender');
 	id: string = sessionStorage.getItem('id');
 	patientRecords: PatientRecords[];
-	consultations: number = 0;
+	consultations = 0;
 
 
 	dtElement: DataTableDirective;
@@ -41,20 +41,21 @@ export class PatientProfileComponent implements OnInit {
 	getPatientRecords(): void {
 		this.patientService.getPatientRecords(this.id).subscribe(patientRecords => {
 			this.patientRecords = patientRecords.data;
-			this.dtTrigger.next()
-		})
+			this.dtTrigger.next();
+		});
 	}
 
 	timeCreated(date): string {
-		return moment(date).format('DD/MM/YYYY, h:mm:ss a')
+		return moment(date).format('DD/MM/YYYY, h:mm:ss a');
 	}
 
 	getAllPatientConsultations(): void {
 		this.patientService.getConsultations(this.id).subscribe(consultations => {
 			consultations.data.forEach(consultation => {
-				if (consultation.seenByPatient == null)
-					this.consultations += 1
+				if (consultation.seenByPatient == null) {
+					this.consultations += 1;
+				}
 			});
-		})
+		});
 	}
 }

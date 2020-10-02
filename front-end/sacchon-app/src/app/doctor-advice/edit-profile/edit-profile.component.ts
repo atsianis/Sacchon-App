@@ -13,16 +13,21 @@ import { DoctorAdviceService } from '../doctor-advice.service';
 })
 export class EditProfileComponent implements OnInit {
 
-	constructor(private router: Router, private toastr: ToastrService, private doctorService: DoctorAdviceService, private modalService: NgbModal) { }
+	constructor(
+		private router: Router,
+		private toastr: ToastrService,
+		private doctorService: DoctorAdviceService,
+		private modalService: NgbModal
+	) { }
 
-	id = sessionStorage.getItem('id');
+	id = sessionStorage.getItem('uid');
 	firstName = sessionStorage.getItem('firstName');
 	lastName = sessionStorage.getItem('lastName');
 	email = sessionStorage.getItem('email');
 	password = sessionStorage.getItem('password');
 	isDeleted = sessionStorage.getItem('isDeleted');
 
-	modal = new FormControl;
+	modal = new FormControl();
 
 	doctorEdit = new FormGroup({
 		firstName: new FormControl(null, [Validators.required]),
@@ -34,19 +39,18 @@ export class EditProfileComponent implements OnInit {
 
 
 	ngOnInit(): void {
-		this.initializeForm()
+		this.initializeForm();
 	}
 
-	edit(): void {
+	editProfile(): void {
 		const firstName = this.doctorEdit.get('firstName').value;
 		const lastName = this.doctorEdit.get('lastName').value;
 		const email = this.doctorEdit.get('email').value;
 		const password = this.doctorEdit.get('password').value;
 
-		if (this.doctorEdit.valid && (this.doctorEdit.get('password').value === this.doctorEdit.get('passwordconfirm').value)) {
+		if (this.doctorEdit.valid && (this.doctorEdit.get('password').value == this.doctorEdit.get('passwordconfirm').value)) {
 			this.doctorService.editDoctorProfile(this.id, firstName, lastName, email, password).subscribe(response => {
 				if (response.status == 200) {
-					console.log('response');
 					this.toastr.success('You will be redirected to your dashboard soon.', 'Successfully edited info', {
 						timeOut: 2000,
 						positionClass: 'toast-top-center'
@@ -55,7 +59,6 @@ export class EditProfileComponent implements OnInit {
 					});
 				}
 				if (response.status == 422 || response.status == 404) {
-					console.log('response');
 					this.toastr.error(response.description, 'Failed', {
 						timeOut: 2000,
 						positionClass: 'toast-top-center'
@@ -64,7 +67,7 @@ export class EditProfileComponent implements OnInit {
 					});
 				}
 
-			})
+			});
 		} else {
 			this.doctorEdit.markAllAsTouched();
 		}
@@ -80,12 +83,12 @@ export class EditProfileComponent implements OnInit {
 		});
 	}
 
-	cancel(): void {
-		this.router.navigate(['/doctoradvice/profile/'])
+	cancelEdit(): void {
+		this.router.navigate(['/doctoradvice/profile/']);
 	}
 
-	open(content) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
+	openDeleteModal(content): void {
+		this.modalService.open(content, { ariaLabelledBy: 'delete-account-modal' });
 	}
 
 	softDelete(): void {
@@ -97,6 +100,6 @@ export class EditProfileComponent implements OnInit {
 				this.router.navigate(['']);
 				sessionStorage.clear();
 			});
-		})
+		});
 	}
 }

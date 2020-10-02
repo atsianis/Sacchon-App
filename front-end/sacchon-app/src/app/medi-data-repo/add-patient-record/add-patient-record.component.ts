@@ -16,7 +16,7 @@ export class AddPatientRecordComponent implements OnInit {
 	addPatientRecord = new FormGroup({
 		glycose: new FormControl(null, Validators.required),
 		carbs: new FormControl(null, Validators.required)
-	})
+	});
 
 	ngOnInit(): void {
 	}
@@ -47,6 +47,6 @@ export class AddPatientRecordComponent implements OnInit {
 					console.log(error);
 				});
 			}
-		})
+		});
 	}
 }
