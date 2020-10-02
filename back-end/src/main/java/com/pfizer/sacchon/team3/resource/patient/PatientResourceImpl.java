@@ -96,7 +96,7 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
                 }
             } else {
                 LOGGER.finer("Patient does not exist.");
-                return new ResponseRepresentation<>(404, "Patient not found", null);
+                return new ResponseRepresentation<>(404, "Something went wrong", null);
             }
             LOGGER.finer("Patient successfully updated.");
             return new ResponseRepresentation<>(200, "Patient created", new PatientRepresentation(patientOut.get()));

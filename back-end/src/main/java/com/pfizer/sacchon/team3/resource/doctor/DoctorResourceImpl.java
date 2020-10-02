@@ -100,10 +100,10 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
                 }
             } else {
                 LOGGER.finer("Patient does not exist.");
-                return new ResponseRepresentation<>(404, "Patient not found", null);
+                return new ResponseRepresentation<>(404, "Something went wrong", null);
             }
             LOGGER.finer("Patient successfully updated.");
-            return new ResponseRepresentation<>(200, "Patient created", new DoctorRepresentation(doctorOut.get()));
+            return new ResponseRepresentation<>(200, "Doctor created", new DoctorRepresentation(doctorOut.get()));
         } catch (Exception ex) {
             throw new ResourceException(ex);
         }
