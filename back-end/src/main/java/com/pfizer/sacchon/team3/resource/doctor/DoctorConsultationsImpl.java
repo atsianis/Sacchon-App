@@ -11,6 +11,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,13 +23,19 @@ public class DoctorConsultationsImpl extends ServerResource implements DoctorCon
     private ConsultationRepository consultationRepository;
     private DoctorRepository doctorRepository;
     private long id;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.finer("Doctor's Consultations Resource starts");
         try {
-            consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
-            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
+            consultationRepository = new ConsultationRepository(em);
+            doctorRepository = new DoctorRepository(em);
             id = Long.parseLong(getAttribute("doctor_id"));
         } catch (Exception ex) {
             throw new ResourceException(ex);

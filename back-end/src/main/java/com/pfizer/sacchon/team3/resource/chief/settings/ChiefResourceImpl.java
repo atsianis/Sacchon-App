@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -18,12 +19,18 @@ public class ChiefResourceImpl extends ServerResource implements ChiefResource {
     public static final Logger LOGGER = Engine.getLogger(ChiefResourceImpl.class);
     private long chief_id;
     private ChiefRepository chiefRepository;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising chief resource starts");
         try {
-            chiefRepository = new ChiefRepository(JpaUtil.getEntityManager());
+            chiefRepository = new ChiefRepository(em);
             chief_id = Long.parseLong(getAttribute("chief_id"));
         } catch (Exception e) {
             chief_id = -1;

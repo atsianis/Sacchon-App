@@ -9,18 +9,25 @@ import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 public class LoginChiefImpl extends ServerResource implements LoginChief {
     public static final Logger LOGGER = Engine.getLogger(LoginChiefImpl.class);
     private ChiefRepository chiefRepository;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising chief resource starts");
         try {
-            chiefRepository = new ChiefRepository(JpaUtil.getEntityManager());
+            chiefRepository = new ChiefRepository(em);
         } catch (Exception e) {
             e.printStackTrace();
         }

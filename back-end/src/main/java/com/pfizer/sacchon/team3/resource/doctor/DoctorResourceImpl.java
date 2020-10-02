@@ -14,6 +14,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -21,12 +22,18 @@ public class DoctorResourceImpl extends ServerResource implements DoctorResource
     public static final Logger LOGGER = Engine.getLogger(DoctorResourceImpl.class);
     private long doctor_id;
     private DoctorRepository doctorRepository;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising doctor resource starts");
         try {
-            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
+            doctorRepository = new DoctorRepository(em);
             doctor_id = Long.parseLong(getAttribute("doctor_id"));
         } catch (Exception e) {
             doctor_id = -1;

@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -25,13 +26,19 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
     private PatientRepository patientRepository;
     private ConsultationRepository consultationRepository;
     private ConsultationRepresentation consultationRepresentation;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising patient resource starts");
         try {
-            patientRepository = new PatientRepository(JpaUtil.getEntityManager());
-            consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
+            patientRepository = new PatientRepository(em);
+            consultationRepository = new ConsultationRepository(em);
             consultationRepresentation = new ConsultationRepresentation();
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,6 +85,7 @@ public class RegisterPatientImpl extends ServerResource implements RegisterPatie
         patientsIn.setEmail(patientRepresentation.getEmail());
         patientsIn.setPassword(patientRepresentation.getPassword());
         patientsIn.setDob(patientRepresentation.getDob());
+        patientsIn.setLastActive(new Date());
         patientsIn.setGender(patientRepresentation.getGender());
         patientsIn.setTimeCreated(new Date());
 

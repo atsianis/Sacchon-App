@@ -10,6 +10,7 @@ import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -20,13 +21,19 @@ public class ConsultationSeenByPatientImpl extends ServerResource implements Con
     private PatientRepository patientRepository;
     private long patient_id;
     private long consultation_id;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising Seen Consultation resource starts");
         try {
-            consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
-            patientRepository = new PatientRepository(JpaUtil.getEntityManager());
+            consultationRepository = new ConsultationRepository(em);
+            patientRepository = new PatientRepository(em);
             patient_id = Long.parseLong(getAttribute("patient_id"));
             consultation_id = Long.parseLong((getAttribute("consultation_id")));
         } catch (Exception e) {

@@ -12,6 +12,7 @@ import com.pfizer.sacchon.team3.resource.doctor.DoctorResourceImpl;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -22,13 +23,19 @@ public class UpdateConsultationResource extends ServerResource implements Update
     private long consultation_id;
     private ConsultationRepository consultationRepository ;
     private DoctorRepository doctorRepository ;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising doctor resource starts");
         try {
-            consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
-            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
+            consultationRepository = new ConsultationRepository(em);
+            doctorRepository = new DoctorRepository(em);
             doctor_id = Long.parseLong(getAttribute("doctor_id"));
             consultation_id = Long.parseLong(getAttribute("consultation_id"));
         } catch (Exception e) {

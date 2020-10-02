@@ -8,6 +8,7 @@ import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -15,12 +16,18 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
     public static final Logger LOGGER = Engine.getLogger(ConsultationResourceImpl.class);
     private long id;
     private ConsultationRepository consultationRepository;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising consultation resource starts");
         try {
-            consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
+            consultationRepository = new ConsultationRepository(em);
             id = Long.parseLong(getAttribute("consultation_id"));
         } catch (Exception e) {
             id = -1;

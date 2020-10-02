@@ -8,6 +8,7 @@ import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -15,12 +16,18 @@ import java.util.logging.Logger;
 public class AllPatientsListImpl extends ServerResource implements AllPatientsList {
     public static final Logger LOGGER = Engine.getLogger(AllPatientsListImpl.class);
     private PatientRepository patientRepository;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising patient resource starts");
         try {
-            patientRepository = new PatientRepository(JpaUtil.getEntityManager());
+            patientRepository = new PatientRepository(em);
         } catch (Exception e) {
             e.printStackTrace();
         }

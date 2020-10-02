@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,15 +26,21 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     public static final Logger LOGGER = Engine.getLogger(PatientRecordsListImpl.class);
     private PatientRecordRepository patientRecordRepository;
     private PatientRepository patientRepository;
-    long id;
+    long patient_id;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising patient record resource L starts");
         try {
-            patientRecordRepository = new PatientRecordRepository(JpaUtil.getEntityManager());
-            patientRepository = new PatientRepository(JpaUtil.getEntityManager());
-            id = Long.parseLong(getAttribute("patient_id"));
+            patientRecordRepository = new PatientRecordRepository(em);
+            patientRepository = new PatientRepository(em);
+            patient_id = Long.parseLong(getAttribute("patient_id"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,7 +51,7 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
     public ResponseRepresentation<List<PatientRecordRepresentation>> getAllPatientRecords() {
         LOGGER.finer("Select all records.");
         try {
-            List<PatientRecords> patientRecords = patientRecordRepository.findPatientRecordsByPatient(id);
+            List<PatientRecords> patientRecords = patientRecordRepository.findPatientRecordsByPatient(patient_id);
             List<PatientRecordRepresentation> result = new ArrayList<>();
 
             for (PatientRecords p : patientRecords)
@@ -62,11 +69,11 @@ public class PatientRecordsListImpl extends ServerResource implements PatientRec
         if (patientRecordRepresentation.getCarbs() == 0 || patientRecordRepresentation.getGlycose() == 0)
             return new ResponseRepresentation<>(422, "Bad Entity", null);
         // get patient
-        Optional<Patients> opatient = patientRepository.findById(id);
-        if (opatient.isPresent()) {
+        Optional<Patients> optionalPatient = patientRepository.findById(patient_id);
+        if (optionalPatient.isPresent()) {
             // Check entity
             // Convert to PatientRepresentation and validate
-            Patients patient = opatient.get();
+            Patients patient = optionalPatient.get();
             try {
                 ResourceValidator.notNull(patientRecordRepresentation);
                 ResourceValidator.validate(setPatientRepresentation(patient));

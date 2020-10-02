@@ -9,18 +9,25 @@ import com.pfizer.sacchon.team3.representation.ResponseRepresentation;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 public class LoginDoctorImpl extends ServerResource implements LoginDoctor {
     public static final Logger LOGGER = Engine.getLogger(LoginDoctorImpl.class);
     private DoctorRepository doctorRepository;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising doc resource starts");
         try {
-            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
+            doctorRepository = new DoctorRepository(em);
         } catch (Exception e) {
             e.printStackTrace();
         }

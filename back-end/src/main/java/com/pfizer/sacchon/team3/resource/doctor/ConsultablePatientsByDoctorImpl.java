@@ -9,6 +9,7 @@ import org.hibernate.Hibernate;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -17,12 +18,18 @@ public class ConsultablePatientsByDoctorImpl extends ServerResource implements C
     public static final Logger LOGGER = Engine.getLogger(ConsultablePatientsByDoctorImpl.class);
     private PatientRepository patientRepository;
     long doctor_id;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising consultable patient resource starts");
         try {
-            patientRepository = new PatientRepository(JpaUtil.getEntityManager());
+            patientRepository = new PatientRepository(em);
             doctor_id = Long.parseLong(getAttribute("doctor_id"));
         } catch (Exception e) {
             e.printStackTrace();

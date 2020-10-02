@@ -12,6 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,12 +21,18 @@ import java.util.logging.Logger;
 public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor {
     public static final Logger LOGGER = Engine.getLogger(RegisterDoctorImpl.class);
     private DoctorRepository doctorRepository;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising doctor resource starts");
         try {
-            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
+            doctorRepository = new DoctorRepository(em);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,6 +105,7 @@ public class RegisterDoctorImpl extends ServerResource implements RegisterDoctor
         doctorsIn.setLastName(createdOrUpdatedDoctorRepresentation.getLastName());
         doctorsIn.setEmail(createdOrUpdatedDoctorRepresentation.getEmail());
         doctorsIn.setPassword(createdOrUpdatedDoctorRepresentation.getPassword());
+        doctorsIn.setLastActive(new Date());
         doctorsIn.setDeleted(false);
 
         return doctorsIn;

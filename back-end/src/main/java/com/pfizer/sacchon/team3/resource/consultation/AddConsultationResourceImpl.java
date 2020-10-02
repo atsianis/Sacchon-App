@@ -13,6 +13,7 @@ import com.pfizer.sacchon.team3.representation.CreatedOrUpdatedConsultRepresenta
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -24,14 +25,20 @@ public class AddConsultationResourceImpl extends ServerResource implements AddCo
     private PatientRepository patientRepository;
     private DoctorRepository doctorRepository;
     private ConsultationRepository consultationRepository;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising doctor resource starts");
         try {
-            patientRepository = new PatientRepository(JpaUtil.getEntityManager());
-            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
-            consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
+            patientRepository = new PatientRepository(em);
+            doctorRepository = new DoctorRepository(em);
+            consultationRepository = new ConsultationRepository(em);
             doctor_id = Long.parseLong(getAttribute("doctor_id"));
             patient_id = Long.parseLong(getAttribute("patient_id"));
         } catch (Exception e) {

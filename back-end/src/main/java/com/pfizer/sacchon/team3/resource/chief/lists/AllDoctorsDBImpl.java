@@ -9,6 +9,7 @@ import org.hibernate.Hibernate;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -16,12 +17,18 @@ import java.util.logging.Logger;
 public class AllDoctorsDBImpl extends ServerResource implements AllDoctorsDB {
     public static final Logger LOGGER = Engine.getLogger(AllDoctorsDBImpl.class);
     private DoctorRepository doctorRepository;
+    private EntityManager em = JpaUtil.getEntityManager();
+
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising doctor resource starts");
         try {
-            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
+            doctorRepository = new DoctorRepository(em);
         } catch (Exception e) {
             e.printStackTrace();
         }
