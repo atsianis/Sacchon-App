@@ -18,8 +18,13 @@ export class PatientListComponent implements OnInit {
 	patientCarbs: any = [];
 	patientRecordTimestamp: any = [];
 
-	constructor(private route: ActivatedRoute, private doctorService: DoctorAdviceService, private toastr: ToastrService, private router: Router) { }
-	patient: Patients;
+	constructor(
+		private route: ActivatedRoute,
+		private doctorService: DoctorAdviceService,
+		private toastr: ToastrService,
+		private router: Router
+	) { }
+
 	// Array of different segments in chart
 	lineChartData: ChartDataSets[] = [];
 
@@ -52,14 +57,7 @@ export class PatientListComponent implements OnInit {
 
 	lineChartPlugins = [];
 
-	// events
-	chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-		console.log(event, active);
-	}
-
-	chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-		console.log(event, active);
-	}
+	patient: Patients;
 
 	getPatientById(): void {
 		this.route.params.subscribe(params => {
@@ -99,7 +97,7 @@ export class PatientListComponent implements OnInit {
 		const doctor_id = sessionStorage.getItem('id');
 
 		this.doctorService.undertakePatient(doctor_id, patient_id).subscribe(response => {
-			if (response.status == 200) {
+			if (response.status === 200) {
 				this.toastr.success(`Patient was registered to you successfully!`, 'Operation successful', {
 					timeOut: 2000,
 					positionClass: 'toast-top-center'

@@ -51,15 +51,6 @@ export class InspectPatientListComponent implements OnInit {
 
 	lineChartPlugins = [];
 
-	// events
-	chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-		console.log(event, active);
-	}
-
-	chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-		console.log(event, active);
-	}
-
 	getPatientById(): void {
 		this.route.params.subscribe(params => {
 			this.reporterService.getPatientById(params.id).subscribe(patient => {
